@@ -36,9 +36,9 @@
         "editor.selectionBackground": "#5b22df47",
         "editor.selectionForeground": "#ffe4b298",
         "editorGroup.dropBackground": "#4665806e",
-        "foreground": "#ffd2a8",
+        "foreground": "#ffe9d6",
         "editorWhitespace.foreground": "#4b443a",
         "editor.foreground": "#ffe3ca",
-        "activityBar.activeBackground": "#bd5f20"
-    },
+        "activityBar.activeBackground": "#bd5f20",
+    }
 }
