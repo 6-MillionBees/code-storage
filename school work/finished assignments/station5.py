@@ -11,6 +11,7 @@ if 'Spiderman' in superheros:
 else:
     print('Spiderman is not in this list.\n')
 
+
 # Task 2
 
 quiz_score = int(input('Enter your quiz score: '))
@@ -19,6 +20,7 @@ if quiz_score >= 85:
     print('You got a B or above.\n')
 else:
     print('You need to study more.\n')
+
 
 # Task 3
 
@@ -29,6 +31,7 @@ if quote.startswith('M'):
 else:
     print('This quote sucks and you should feel bad about it.\n')
 
+
 # Task 4
 
 filename = 'sillyface.png'
@@ -37,6 +40,7 @@ if filename.endswith('.png'):
     print('This file is a png.\n')
 else:
     print('Error: file format not compatible\n')
+
 
 # Task 5
 

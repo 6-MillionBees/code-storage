@@ -36,12 +36,12 @@ import time
 find = input('put in a bunch of numbers: ')
 num = input('What number do you want to find?: ')
 
-lfind = find.find(num)
+findfind = find.find(num)
 
-find_plus = int(lfind) + 2
-find_minus = int(lfind) - 1 
-find_plus_big = int(lfind) + 4
-find_minus_big = int(lfind) - 3
+find_plus = int(findfind) + 2
+find_minus = int(findfind) - 1 
+find_plus_big = int(findfind) + 4
+find_minus_big = int(findfind) - 3
 
 print(find[find_minus_big : find_plus_big])
 time.sleep(1)
@@ -50,7 +50,9 @@ time.sleep(2)
 print('locating...')
 time.sleep(2)
 print(find[find_minus : find_plus])
+time.sleep(1)
 print('almost...')
 time.sleep(3)
 print('GOT IT!')
-print(find[lfind])
+time.sleep(1)
+print(find[findfind])

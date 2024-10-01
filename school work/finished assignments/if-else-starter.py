@@ -7,6 +7,7 @@
 
 task1_complete = True
 
+
 # Task 2
 
 alien_color = 'green'
@@ -15,6 +16,7 @@ if alien_color == 'green':
     print('You earned 5 points!\n')
 else:
     print('You earned 10 points!\n')
+
 
 # Task 3
 
@@ -25,6 +27,7 @@ if username_len <= 5:
     print('Welcome!\n')
 elif username_len > 5:
     print('Username too short.\n')
+
 
 # Task 4
 
@@ -37,6 +40,7 @@ elif 'y' in alphlower:
     print('Depends on who you ask.\n')
 else:
     print('That letter is a consonant\n')
+
 
 # Task 5
 
