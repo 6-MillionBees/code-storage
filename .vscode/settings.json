@@ -6,6 +6,39 @@
         "-p",
         "*test.py"
     ],
+    "editor.semanticHighlighting.enabled": true,
     "python.testing.pytestEnabled": false,
-    "python.testing.unittestEnabled": true
+    "python.testing.unittestEnabled": true,
+    
+    "editor.tokenColorCustomizations": {
+        "comments": "#8a8a8a",
+        "numbers": "#b762a9",
+        "strings": "#5d9b5d",
+        "functions": "#e9ba72",
+        "keywords": "#ce8264",
+        "types": "#bd5c3e"
+    },
+    
+    "editor.semanticTokenColorCustomizations": {
+        "[Monokai Dimmed]": {
+            "enabled": true,
+            "rules": {
+                "method": "#ee9f5e",
+                "module": "#ff5757",
+                "variable": "#a0c2d1",
+                "builtinConstant": "#b124a5",
+                "number": "#b762a9",
+                "string": "#5d9b79"
+            }
+        }
+    },
+    "workbench.colorCustomizations": {
+        "editor.selectionBackground": "#5b22df47",
+        "editor.selectionForeground": "#ffe4b298",
+        "editorGroup.dropBackground": "#4665806e",
+        "foreground": "#ffd2a8",
+        "editorWhitespace.foreground": "#4b443a",
+        "editor.foreground": "#ffe3ca",
+        "activityBar.activeBackground": "#bd5f20"
+    },
 }

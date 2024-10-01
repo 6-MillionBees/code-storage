@@ -1,0 +1,53 @@
+{
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test.py"
+    ],
+    "editor.semanticHighlighting.enabled": true,
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    
+    "workbench.colorCustomizations": {
+        "[Gruvbox Dark (Hard)]": {
+            "editor.selectionBackground": "#9e9dcc47",
+            "editor.selectionForeground": "#ffffff",
+            "editorGroup.dropBackground": "#4665806e",
+            "foreground": "#e6e6e6",
+            "editorWhitespace.foreground": "#4b443a"
+            }
+
+    },
+    "editor.tokenColorCustomizations": {
+        "[Gruvbox Dark (Hard)]": {
+            "comments": "#8a8a8a",
+            "numbers": "#b762a9",
+            "variables": "#dfecfe",
+            "strings": "#5d9b5d",
+            "functions": "#e9ba72",
+            "keywords": "#ce8264",
+            "types": "#bd5c3e"
+            }
+        },
+    "editor.semanticTokenColorCustomizations": {
+        "[Gruvbox Dark (Hard)]": {
+            "enabled": true,
+            "rules": {
+                "method": "#e9ba72",
+                "module": "#ff5757",
+                "variable": "#8bafc3",
+                "builtinConstant": "#b124a5"
+            }
+        }
+    },
+    "tokenColors": [
+        {
+            "scope": "constant.character, constant.other",
+            "settings": {
+                "foreground": "#80ffb9"
+            }
+        }
+    ]
+}
