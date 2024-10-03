@@ -32,7 +32,7 @@ elif username_len > 5:
 # Task 4
 
 alph = input('Please enter a letter from the alphabet: ')
-alphlower = alph.lower
+alphlower = alph.lower()
 
 if 'a' or 'e' or 'i' or 'o' or 'u' in alphlower:
     print('That letter is a vowel\n')
