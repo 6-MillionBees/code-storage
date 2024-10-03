@@ -4,7 +4,7 @@ import time
 
 n = 0
 
-while n <= 10:
+while n <= 10000000:
     t = time.localtime()
     current_time = time.strftime('%H:%M:%S', t)
     print(f'Current time = {current_time}')

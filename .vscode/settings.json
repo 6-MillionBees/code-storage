@@ -14,80 +14,77 @@
     "workbench.colorCustomizations": {
         "[the orange box]": {
             
-            "activityBar.activeBackground": "#DA6F05",
+            "activityBar.activeBackground": "#e8571e",
+            "activityBar.activeFocusBorder": "#e8571e",
             "activityBar.activeBorder": "#ffffff",
-            "activityBar.foreground": "#ffffff",
-            "activityBar.inactiveForeground": "#DA6F05",
-            "activityBar.background": "#1b1713",
-            "activityBarBadge.background": "#DA6F05",
             "activityBar.border": "#754221",
+            "activityBar.background": "#1b1713",
+            "activityBar.foreground": "#ffffff",
+            "activityBar.inactiveForeground": "#e8571e",
+            "activityBarBadge.background": "#e8571e",
 
             "badge.background": "#DA6F05",
             "badge.foreground": "#121212",
 
+            "commandCenter.activeForeground": "#cccccc",
+            "commandCenter.activeBackground": "#ff59005d",
+            "commandCenter.background": "#181511",
+            "commandCenter.foreground": "#e57b2f",
+
             "editor.background": "#181511",
-            "editor.selectionBackground": "#598bff47",
-            "editor.selectionForeground": "#ffffff",
+            "editor.selectionBackground": "#00ccff17",
+            "editor.selectionForeground": "#000000",
             "editor.lineHighlightBackground": "#ff82341d",
             "editor.lineHighlightBorder": "#ba320000",
             "editorCursor.foreground": "#ff9436",
             "editorGroup.dropBackground": "#4665806e",
+            "editorGroupHeader.tabsBackground": "#0d0c09",
+            "editorHoverWidget.background": "#0d0c09",
+            "editorHoverWidget.border": "#754221",
             "editorLineNumber.activeForeground": "#d1632c",
             "editorLineNumber.foreground": "#725f57",
             "editorWhitespace.foreground": "#4d4131",
-            "editorGroupHeader.tabsBackground": "#0d0c09",
 
-            "foreground": "#e57b2f",
             "focusBorder":"#ff6a00c8",
+            "foreground": "#e57b2f",
 
             "list.hoverBackground": "#c9580641",
             "list.focusBackground": "#ff6f165b",
             "list.activeSelectionBackground": "#ff6f165b",
 
+            "panel.background": "#0d0c09",
+            "panel.border": "#754221",
+            "panelInput.border": "#754221",
+            "panelSection.border": "#754221",
+            "panelSectionHeader.border": "#754221",
+
+
+            "quickInput.background": "#0d0c09",
+
             "scrollbarSlider.background": "#754221",
             "scrollbarSlider.activeBackground": "#DA6F05",
             "scrollbarSlider.hoverBackground": "#b1651a",
-            "sideBar.foreground": "#e37e3a",
             "sideBar.background": "#181511",
             "sideBar.border": "#754221",
-            "sideBarSectionHeader.border": "#754221",
+            "sideBar.foreground": "#e37e3a",
             "sideBarSectionHeader.background": "#392015",
-            "statusBar.background": "#DA6F05",
+            "sideBarSectionHeader.border": "#754221",
+            "statusBar.background": "#e8571e",
 
             "tab.activeBackground": "#181511",
+            "tab.activeForeground": "#e57b2f",
+            "tab.border": "#754221",
+            "tab.hoverForeground": "#f17923",
+            "tab.hoverBorder": "#e8571e",
             "tab.hoverBackground": "#ff770047",
             "tab.inactiveBackground": "#392015",
             "tab.inactiveForeground": "#e57b2f",
-            "tab.activeForeground": "#e57b2f",
-            "tab.hoverForeground": "#f17923",
-            "tab.border": "#754221",
+            "terminal.border": "#754221",
+            "terminalCommandDecoration.defaultBackground": "#ff0000",
+            "textLink.foreground": "#ff6600",
+            "textLink.activeForeground": "#ffe5c3",
             "titleBar.activeBackground": "#0d0c09",
             "titleBar.border": "#754221",
-            "commandCenter.activeBackground": "#ff59005d",
-            "terminalCommandDecoration.defaultBackground": "#ff0000",
-            "commandCenter.background": "#181511",
-            "commandCenter.foreground": "#e57b2f",
-            "commandCenter.activeForeground": "#cccccc",
-            "quickInput.background": "#0d0c09",
-            "textLink.foreground": "#ff6600",
-            "textLink.activeForeground": "#ffe5c3"
-            
-
-
-        },
-
-        "[Gruvbox Dark (Hard)]": {
-            "editor.background":"#70155e",
-            "foreground": "#ff77f4",
-            "activityBar.activeBackground": "#ff77f4",
-            "actionBar.toggledBackground": "#ff77f4",
-            "errorForeground": "#ff2a00",
-            "badge.foreground": "#2b2828",
-            "activityBarTop.foreground": "#e7e7e7",
-            "editorLineNumber.activeForeground": "#ff7fd6",
-            "editorLineNumber.dimmedForeground": "#ff00ee",
-            "editorLineNumber.foreground": "#b726bc",
-            "editor.foreground": "#ffffff"
         }
     },
 
@@ -110,13 +107,7 @@
             "types": {
                 "foreground": "#f2601c",
                 "fontStyle": ""
-            },
-        },
-        "[Gruvbox Dark (Hard)]": {
-            "strings": "#9185ff",
-            "variables": "#ffb6f6",
-            "comments": "#ffbdfb81",
-            "types": "#FF0000"
+            }
         }
     },
 
