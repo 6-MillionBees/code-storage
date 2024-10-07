@@ -133,7 +133,4 @@
             }
         }
     },
-    "python.analysis.extraPaths": [
-        true
-    ]
 }
