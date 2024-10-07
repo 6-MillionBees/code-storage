@@ -10,6 +10,7 @@
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": true,
     "editor.wordWrap": "on",
+    "python.autoComplete.extraPaths": [true],
 
     "workbench.colorCustomizations": {
         "[the orange box]": {
@@ -44,6 +45,8 @@
             "editorLineNumber.activeForeground": "#d1632c",
             "editorLineNumber.foreground": "#725f57",
             "editorWhitespace.foreground": "#4d4131",
+            "editor.wordHighlightBackground": "#ff880046",
+            "editor.hoverHighlightBackground": "#e8571e36",
 
             "focusBorder":"#ff6a00c8",
             "foreground": "#e57b2f",
@@ -52,7 +55,7 @@
             "list.focusBackground": "#ff6f165b",
             "list.activeSelectionBackground": "#ff6f165b",
 
-            "panel.background": "#0d0c09",
+            "panel.background": "#110f0c",
             "panel.border": "#754221",
             "panelInput.border": "#754221",
             "panelSection.border": "#754221",
@@ -84,7 +87,7 @@
             "textLink.foreground": "#ff6600",
             "textLink.activeForeground": "#ffe5c3",
             "titleBar.activeBackground": "#0d0c09",
-            "titleBar.border": "#754221",
+            "titleBar.border": "#754221"
         }
     },
 
@@ -115,7 +118,7 @@
         "[the orange box]": {
             "enabled": true,
             "rules": {
-                "method": "#ec8240",
+                "method": "#ff8c45",
                 "module": {
                     "foreground": "#ff4848",
                     "fontStyle": "underline",
@@ -125,8 +128,12 @@
                     "fontStyle": "italic"
                 },
                 "builtinConstant": "#ce2dc0",
-                "class": "#ffe14b"
+                "class": "#ffe14b",
+                "property": "#f2831c"
             }
         }
-    }
+    },
+    "python.analysis.extraPaths": [
+        true
+    ]
 }
