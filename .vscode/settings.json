@@ -89,8 +89,25 @@
             "titleBar.activeBackground": "#0d0c09",
             "titleBar.border": "#754221"
         },
+
+
         "[Dark Pink Pro]": {
-            "": "",
+
+            "activityBar.activeBackground": "#ff006f",
+            "activityBar.foreground": "#000000",
+            "activityBarBadge.foreground": "#181818",
+            "activityBarBadge.background": "#bf338e",
+            "activityBar.background": "#121212",
+            "activityBar.border": "#ff006f",
+            "sideBar.background": "#232323",
+            "activityBar.activeFocusBorder": "#ff0000",
+            "sideBar.border": "#ff006f",
+            "sideBarSectionHeader.border": "#ff006f",
+            "menu.border": "#ff006f",
+            "editorHoverWidget.border": "#ff006f",
+            "foreground": "#ffffff",
+            "editor.foreground": "#ff79db"
+            
         }
     },
 
@@ -116,7 +133,24 @@
             }
         },
         "[Dark Pink Pro]": {
-            
+            "comments": "#614f43",
+            "numbers": "#e249c8",
+            "strings": {
+                "foreground": "#93e145",
+                "fontStyle": "italic"
+            },
+            "functions": {
+                "foreground": "#f87133",
+                "fontStyle": ""
+            },
+            "keywords": {
+                "foreground": "#ff5e1e",
+                "fontStyle": "italic bold"
+            },
+            "types": {
+                "foreground": "#ff621a",
+                "fontStyle": ""
+            }
         }
     },
 
@@ -124,28 +158,36 @@
         "[the orange box]": {
             "enabled": true,
             "rules": {
-                "method": "#ff8c45",
+                "method": "#d45c38",
                 "module": {
-                    "foreground": "#ff4848",
-                    "fontStyle": "underline",
+                    "foreground": "#ff3679",
+                    "fontStyle": "underline"
                 },
                 "variable": {
-                    "foreground": "#63c4b9",
+                    "foreground": "#55b7ac",
                     "fontStyle": "italic"
                 },
-                "builtinConstant": "#ce2dc0",
+                "builtinConstant": "#d242c6",
                 "class": "#ffe14b",
-                "property": "#f2831c"
+                "property": "#da7a20"
             }
         },
         "[Dark Pink Pro]": {
             "enabled": true,
             "rules": {
-
+                "method": "#d45c38",
+                "module": {
+                    "foreground": "#ff3679",
+                    "fontStyle": "underline"
+                },
+                "variable": {
+                    "foreground": "#55b7ac",
+                    "fontStyle": "italic"
+                },
+                "builtinConstant": "#d242c6",
+                "class": "#ffe14b",
+                "property": "#da7a20"
             }
         }
-    },
-    "python.analysis.extraPaths": [
-        true
-    ],
+    }
 }

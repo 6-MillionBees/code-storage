@@ -1,4 +1,4 @@
-# Arden Boettcher
+# Eliot Clarke Arden Boettcher
 # 10/8/24
 # Basic Calculator
 
@@ -9,14 +9,17 @@ Welcome to The Amazing Digital Calculator
 Please enter your operation:
     1. Addition (+)
     2. Subtraction (-)
-    3. Multiplication (*)
     4. Division (/)
 enter a number (1-4): 
 ''')
 
 num1 = int(input('\nplease enter your first number: '))
 num2 = int(input('please enter your second number: '))
+boolian = num1 == 0 or num2 == 0
 print('')
+
+if boolian and operation == '4':
+    quit()
 
 if operation == '1':
     print(f'{num1} plus {num2} equals {num1+num2}')
