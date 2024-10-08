@@ -4,7 +4,7 @@
 
 operation = input('''
 Welcome to The Amazing Digital Calculator
-    *By: Issac & Arden*
+    *By: Eliot & Arden*
 
 Please enter your operation:
     1. Addition (+)
@@ -28,4 +28,4 @@ elif operation == '4':
     print(f'{num1} divided by {num2} equals {num1/num2}')
 else:
     print('Error: Invalid Operation \nError Code: p1s3nt3r4numfr0m1-4')
-# in case you're having trouble reading the error code it says "pls enter a num from 1-4" but some of the letters are replaced with numbers
+# ps. in case you're having trouble reading the error code it says "pls enter a num from 1-4" but some of the letters are replaced with numbers

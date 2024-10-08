@@ -88,6 +88,9 @@
             "textLink.activeForeground": "#ffe5c3",
             "titleBar.activeBackground": "#0d0c09",
             "titleBar.border": "#754221"
+        },
+        "[Dark Pink Pro]": {
+            "": "",
         }
     },
 
@@ -111,6 +114,9 @@
                 "foreground": "#f2601c",
                 "fontStyle": ""
             }
+        },
+        "[Dark Pink Pro]": {
+            
         }
     },
 
@@ -130,6 +136,12 @@
                 "builtinConstant": "#ce2dc0",
                 "class": "#ffe14b",
                 "property": "#f2831c"
+            }
+        },
+        "[Dark Pink Pro]": {
+            "enabled": true,
+            "rules": {
+
             }
         }
     },
