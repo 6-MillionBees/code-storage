@@ -1,6 +1,6 @@
 # Arden Boettcher
 # 10/5/24
-# Time Practice
+# Simple Stopwatch
 
 import keyboard
 import time
