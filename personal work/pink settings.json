@@ -140,7 +140,7 @@
                 "fontStyle": "italic"
             },
             "functions": {
-                "foreground": "#ff8248",
+                "foreground": "#f87133",
                 "fontStyle": ""
             },
             "keywords": {
@@ -160,7 +160,7 @@
             "rules": {
                 "method": "#d45c38",
                 "module": {
-                    "foreground": "#e72525",
+                    "foreground": "#ff3679",
                     "fontStyle": "underline"
                 },
                 "variable": {
@@ -189,8 +189,5 @@
                 "property": "#da7a20"
             }
         }
-    },
-    "python.analysis.extraPaths": [
-        true
-    ]
+    }
 }
