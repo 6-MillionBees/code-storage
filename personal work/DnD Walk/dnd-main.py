@@ -247,6 +247,9 @@ distance = input(col.Fore.GREEN + '\nhow long do you want to hike?\n' + col.Fore
 distance_traveled = 0
 days = 0
 karma = 0
+luck_bonus = 0
+luck = round(karma/2 + 10 + luck_bonus)
+luck_mod = int((luck - 10) / 2)
 
 while distance > distance_traveled:
     if d20() <= 10:
@@ -275,15 +278,15 @@ one of them notices you and begins to talk;
     3. You'll never know *you wink at them ;D*
     4. *Walk away slowly*''')
             if say == 1:
-                if karma <= -10:
+                if karma <= -5:
                     print('They didn\'t like your admition of guilt and begin to quickly prepare for battle.', end= '')
-                elif karma >= 10:
+                elif karma >= 5:
                     print('They didn\'t like your attempt at humour and begin to quickly prepare for battle.', end= '')
                 else:
                     print('They didn\'t appear to like that and begin to quickly prepare for battle.', end= '')
                 print('But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light')
                 save = d20() + dex_mod
                 if save < 8:
-                    print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose contiousness.')
+                    print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
                     time.sleep(1)
-                    print('You slowly start to gain contiousness and realise you are tied up, with your belongings hung from the branches of a very tall tree.')
+                    print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.')
