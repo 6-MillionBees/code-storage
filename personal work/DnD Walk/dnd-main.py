@@ -66,7 +66,7 @@ chance = {
     61: False, 62: False, 63: False, 64: False, 65: False, 66: False, 67: False, 68: False, 69: False, 70: False, 
     71: False, 72: False, 73: False, 74: False, 75: False, 76: False, 77: False, 78: False, 79: False, 80: False, 
     81: False, 82: False, 83: False, 84: False, 85: False, 86: False, 87: False, 88: False, 89: False, 90: False, 
-    91: False, 92: False, 93: False, 94: False, 95: False, 96: False, 97: False, 98: False, 99: False, 100: False
+    91: False, 92: False, 93: False, 94: False, 95: False
 }
 
 encounter = {
@@ -79,26 +79,38 @@ encounter = {
     61: False, 62: False, 63: False, 64: False, 65: False, 66: False, 67: False, 68: False, 69: False, 70: False, 
     71: False, 72: False, 73: False, 74: False, 75: False, 76: False, 77: False, 78: False, 79: False, 80: False, 
     81: False, 82: False, 83: False, 84: False, 85: False, 86: False, 87: False, 88: False, 89: False, 90: False, 
-    91: False, 92: False, 93: False, 94: False, 95: False, 96: False, 97: False, 98: False, 99: False, 100: False
+    91: False, 92: False, 93: False, 94: False, 95: False
 }
 
 # Other functions
+def rolling(rolling_for = '', time = 3):
+    x =0
+    while x <= time:
+        xperiod = x * '.'
+        if rolling_for == '':
+            print(f'\rRolling{xperiod}',end='')
+        else:
+            print(f'\rRolling for {rolling_for}{xperiod}',end='')
+        x += 1
+        time.sleep(1)
+
 def cont():
     input('\nPress enter to continue.\n')
-def roll_to_hit(roll, difficulty, mod):
+
+def roll_to_hit(roll, dc, mod):
+    rolling()
     if roll == 20:
-        print('NATURAL 20!')
-        return True
+        print('\nNATURAL 20!')
+        return 'crit'
     elif roll == 1:
-        print('Critical Fail.')
+        print('\nCritical Fail.')
         return False
-    elif (roll + mod - difficulty) < 0:
-        print('Roll failed')
+    elif roll + mod < dc:
+        print('\nfailed.')
         return False
-    else:
+    elif roll + mod >= dc:
+        print('\nSuccess!')
         return True
-
-
 
 
 strength = 0
@@ -289,6 +301,7 @@ hit_dice = {
 }
 
 health = starting_hit_dice[character_class] + hit_dice[character_class] + end_mod * level
+current_health = health
 
 weapon_damage = {
     'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
@@ -300,7 +313,7 @@ weapon_damage = {
 }
 
 weapon_mod = {
-    'club mod': str_mod, 'dagger': dex_mod, 'great club': str_mod, 'javelin': str_mod, 'light hammer': str_mod,
+    'club': str_mod, 'dagger': dex_mod, 'great club': str_mod, 'javelin': str_mod, 'light hammer': str_mod,
     'mace': str_mod, 'quarterstaff': str_mod, 'sickle': str_mod, 'spear': str_mod, 'battle axe': str_mod,
     'flail': str_mod, 'glaive': str_mod, 'greataxe': str_mod, 'greatsword': str_mod, 'halberd': str_mod,
     'handaxe': str_mod, 'lance': str_mod, 'longsword': str_mod, 'maul': str_mod, 'morningstar': str_mod,
@@ -308,22 +321,30 @@ weapon_mod = {
     'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod
 }
 
-def attack(modifier, weapon, ac):
-    roll = d20() + modifier 
-    if ac > roll:
-        print('Your attack did not hit')
-        return 0
-    if ac <= roll:
-        print('')
+def attack(tohit, weapon, ac):
+    if tohit == 'crit':
+        print(col.Fore.RED + '\nCritical' + col.Fore.RESET +' Hit!')
+        return weapon_damage[weapon] + weapon_mod[weapon] * 2
+    elif tohit == True:
+        print('\nYour attack hit.')
         return weapon_damage[weapon] + weapon_mod[weapon]
+    elif tohit == False:
+        print('\nYou missed.')
+        return 0
+    else:
+        print('\nYou missed.')
+        return 0
 
 distance = input(col.Fore.GREEN + '\nhow long do you want to hike?\n' + col.Fore.RESET)
 distance_traveled = 0
 days = 0
 karma = 0
 luck_bonus = 0
-luck = round(karma/2 + 10 + luck_bonus)
-luck_mod = int((luck - 10) / 2)
+luck_multiplier = 1
+def luck_calc():
+    luck = karma/2 + 10 + luck_bonus
+    luck_mod = int((luck - 10) / 2)
+    return round(luck, 2), luck_mod
 
 while distance > distance_traveled:
     if d20() <= 10:
@@ -338,14 +359,18 @@ while distance > distance_traveled:
     if is_chance == True and is_encounter == True:
         roll_enocounter = d100()
         roll_chance = d100()
+
     elif is_encounter == True:
         roll_encounter = d100()
+
     elif is_chance == True:
         roll_chance = d100()
+
         if roll_chance == 1 and chance[1] == False:
             print('''As you travel a bit off the beaten path you run into a party of adventurers, they look experienced.
 One of them notices you and begins to talk;
 "Oh hey! A person! You're not a bandit are you?"''')
+
             say = input('''What do you say?
     1. Yes I am, now give me all your money *fight*
     2. No I'm just a traveler
@@ -358,10 +383,14 @@ One of them notices you and begins to talk;
                     print('They didn\'t like your attempt at humour and begin to quickly prepare for battle.', end= '')
                 else:
                     print('They didn\'t appear to like that and begin to quickly prepare for battle.', end= '')
-                print(' But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light')
-                save = d20() + dex_mod
-                if save < 8:
-                    print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
-                    time.sleep(1)
-                    print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
-                    print('You lost Half of your health')
+
+                if level < 10:
+                    print(' But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light')
+                    save = d20() + dex_mod
+                    if save < 8:
+                        print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
+                        time.sleep(1)
+                        print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
+                        print(f'You lost 3 items {random_item1}, {random_item2}, and {random_item3}')
+                elif level >= 10:
+                    # Fight function here (with named creatures)
