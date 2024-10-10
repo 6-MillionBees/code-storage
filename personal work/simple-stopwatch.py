@@ -34,7 +34,7 @@ while True:
         time_s += 1
         time_local_1 = time_local
 
-        time.sleep(0.1) # This is here to save processing power, without it the loop would just be going crazy with your computers resources.
+        time.sleep(0.075) # This is here to save processing power, without it the loop would just be going crazy with your computers resources.
 
 print(f'end time {time_thing}')
 print(f'Total time: {time_m} minutes and {left_time_s} seconds.')
