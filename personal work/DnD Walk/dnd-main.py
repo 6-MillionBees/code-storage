@@ -85,7 +85,7 @@ encounter = {
 # Other functions
 def cont():
     input('\nPress enter to continue.\n')
-def roll(roll, difficulty, mod):
+def roll_to_hit(roll, difficulty, mod):
     if roll == 20:
         print('NATURAL 20!')
         return True
@@ -117,6 +117,68 @@ true = True
 all_stats = False
 
 name = input(col.Fore.GREEN +'\nWhat is your name?\n' + col.Fore.RESET)
+
+
+while true:
+    class_choice = int(input('''Please choose your character class:
+    1. Sorcerer
+    2. Wizard
+    3. Rogue
+    4. Artificer
+    5. Bard
+    6. Cleric
+    7. Monk
+    8. Warlock
+    9. Fighter
+    10. Paladin
+    11. Barbarian\n'''))
+    if class_choice == 1:
+        character_class = 'sorcerer'
+        break
+
+    elif class_choice == 2:
+        character_class = 'wizard'
+        break
+
+    elif class_choice == 3:
+        character_class = 'rogue'
+        break
+
+    elif class_choice == 4:
+        character_class = 'artificer'
+        break
+
+    elif class_choice == 5:
+        character_class = 'bard'
+        break
+
+    elif class_choice == 6:
+        character_class = 'cleric'
+        break
+
+    elif class_choice == 7:
+        character_class = 'monk'
+        break
+
+    elif class_choice == 8:
+        character_class = 'warlock'
+        break
+
+    elif class_choice == 9:
+        character_class = 'fighter'
+        break
+
+    elif class_choice == 10:
+        character_class = 'paladin'
+        break
+
+    elif class_choice == 11:
+        character_class = 'barbarian'
+        break
+    else:
+        print(col.Fore.RED + 'Please enter a number from 1-11.\n' + col.Fore.RESET)
+print(f'You are a {character_class.title()}')
+
 
 print('Please assign your stats')
 cont()
@@ -214,7 +276,19 @@ end_mod = int((dexterity - 10) / 2)
 int_mod = int((dexterity - 10) / 2)
 wis_mod = int((dexterity - 10) / 2)
 cha_mod = int((dexterity - 10) / 2)
-proficientcy = 2
+level = 1
+
+starting_hit_dice = {
+    'sorcerer': 6, 'wizard': 6, 'rogue': 8, 'artificer': 8, 'bard': 8,
+    'cleric': 8, 'monk': 8, 'warlock': 8, 'fighter': 10, 'paladin': 10, 'barbarian': 12
+}
+
+hit_dice = {
+    'sorcerer': d6(level - 1), 'wizard': d6(level - 1), 'rogue': d8(level - 1), 'artificer': d8(level - 1), 'bard': d8(level - 1),
+    'cleric': d8(level - 1), 'monk': d8(level - 1), 'warlock': d8(level - 1), 'fighter': d10(level - 1), 'paladin': d10, 'barbarian': d12(level - 1)
+}
+
+health = starting_hit_dice[character_class] + hit_dice[character_class] + end_mod * level
 
 weapon_damage = {
     'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
@@ -270,8 +344,8 @@ while distance > distance_traveled:
         roll_chance = d100()
         if roll_chance == 1 and chance[1] == False:
             print('''As you travel a bit off the beaten path you run into a party of adventurers, they look experienced.
-one of them notices you and begins to talk;
-"Oh hey! A person! You're not a bandit are you?''', end='')
+One of them notices you and begins to talk;
+"Oh hey! A person! You're not a bandit are you?"''')
             say = input('''What do you say?
     1. Yes I am, now give me all your money *fight*
     2. No I'm just a traveler
@@ -284,9 +358,10 @@ one of them notices you and begins to talk;
                     print('They didn\'t like your attempt at humour and begin to quickly prepare for battle.', end= '')
                 else:
                     print('They didn\'t appear to like that and begin to quickly prepare for battle.', end= '')
-                print('But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light')
+                print(' But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light')
                 save = d20() + dex_mod
                 if save < 8:
                     print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
                     time.sleep(1)
-                    print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.')
+                    print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
+                    print('You lost Half of your health')
