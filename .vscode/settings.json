@@ -52,10 +52,8 @@
             "editor.lineHighlightBorder": "#ba320000",
             "editor.findMatchBackground": "#ff5e00",
             "editor.findMatchBorder": "#ff5e00",
-            "editor.findMatchForeground": "#ffffff",
             "editor.findMatchHighlightBackground": "#ff823479",
             "editor.findMatchHighlightBorder": "#ff5e0000",
-            "editor.findMatchHighlightForeground": "#fffffffe",
             "editor.foreground": "#e57b2f",
             "editor.hoverHighlightBackground": "#b1651a45",
             "editor.wordHighlightBackground": "#ff880046",
@@ -241,7 +239,8 @@
                     "fontStyle": "italic"
                 },
                 "class": "#ffe14b",
-                "parameter": "#04cc79"
+                "parameter": "#04cc79",
+                "property": "#e7e568"
             }
         },
         "[Dark Pink Pro]": {
