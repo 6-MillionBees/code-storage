@@ -79,6 +79,7 @@ def roll_to_hit(roll, dc, mod):
 difficulty = 1
 str_mod = 0
 dex_mod = 0
+initiative_bonus = 0
 
 weapon_damage = {
     'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
@@ -99,7 +100,7 @@ weapon_mod = {
 }
 
 goblin = {
-    'health': d6(2) * difficulty, 'weapon1': 'dagger', 'weapon2': 'shortsword', 'weapon3': 'sickle', 'xp': 50,
+    'health': d6(2) * difficulty, 'weapon1': 'dagger', 'weapon2': 'shortsword', 'weapon3': 'sickle', 'weapon4': 'whip', 'xp': 50,
     'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1
 }
 
@@ -131,19 +132,38 @@ def attack(tohit, weapon):
 
 def fight(no_of_enemy1, enemy_type1, no_of_enemy2 = 0, enemy_type2 = '', no_of_enemy3 = 0, enemy_type3 = ''):
     rolling('initiative')
-    initiative = {'player_in': d20() + dex_mod, }
-    print(f'you rolled a {initiative['player_in']}')
+    player_initiative = d20() + dex_mod + initiative_bonus
+    initiative = {player_initiative: 0}
+    print(f'\nYou rolled a {player_initiative}')
 
     for x in range(1, no_of_enemy1 + 1):
-        initiative['{0}'.format(x)] = d20() + enemy_type1['dex mod']
+        initiative[d20() + enemy_type1['dex mod']] = int('{0}'.format(x))
     if no_of_enemy2 > 0:
         for x in range(1, no_of_enemy2 + 1):
-            initiative['{0}'.format(x)] = d20() + enemy_type2['dex mod']
+            initiative[d20() + enemy_type2['dex mod']] = int('{0}'.format(x))
     if no_of_enemy3 > 0:
         for x in range(1, no_of_enemy3 + 1):
-            initiative['{0}'.format(x)] = d20() + enemy_type3['dex mod']
-    
-    initiative = list(initiative).sort
+            initiative[d20() + enemy_type3['dex mod']] = int('{0}'.format(x))
+    print(initiative)
+    list_initiative = list(initiative.keys())
+    list_initiative.sort(reverse= True)
+    initiative = {item: initiative[item] for item in list_initiative}
+    print(initiative)
+    list_initiative = list(initiative.values())
+    print(list_initiative)
+
+    for enemy in no_of_enemy1:
+        weapon = d4()
+        enemy_weapon = enemy_type1['weapon{0}'.format(weapon)]
 
     while no_of_enemy1 > 0:
-        
+        for turn in list_initiative:
+            if turn == 0:
+                print('doing this later')
+            elif turn > 0: 
+                while turn > 0:
+
+
+
+
+fight(3, goblin)

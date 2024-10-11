@@ -6,7 +6,7 @@ import time
 
 input('\nStart? ')
 
-def progress(current, total, bar_length = 150):
+def progress(current, total, bar_length = 50):
     fraction = current / total
     arrow = int(fraction * bar_length - 1) * '█' + '▒'
     idk = int(fraction * bar_length) * '█'

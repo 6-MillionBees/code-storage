@@ -5,7 +5,6 @@
 
 
 def getting_silly(name):
-    print(f'{str(name.title())} is hitting the shiggiest wiggy')
+    print(f'{name.title()} is hitting the shiggiest wiggy')
 
 getting_silly('greg')
-
