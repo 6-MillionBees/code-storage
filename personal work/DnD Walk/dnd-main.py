@@ -55,6 +55,7 @@ def d4(number = 1):
     while num < number:
         num += 1
         roll += random.randint(1, 4)
+    return roll
 
 chance = {
     1: False, 2: False, 3: False, 4: False, 5: False, 6: False, 7: False, 8: False, 9: False, 10: False, 
@@ -375,7 +376,7 @@ One of them notices you and begins to talk;
     1. Yes I am, now give me all your money *fight*
     2. No I'm just a traveler
     3. You'll never know *you wink at them ;D*
-    4. *Walk away slowly*''')
+    4. *Walk away slowly*\n''')
             if say == 1:
                 if karma <= -5:
                     print('They didn\'t like your admition of guilt and begin to quickly prepare for battle.', end= '')
@@ -385,7 +386,7 @@ One of them notices you and begins to talk;
                     print('They didn\'t appear to like that and begin to quickly prepare for battle.', end= '')
 
                 if level < 10:
-                    print(' But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light')
+                    print(' But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light.')
                     save = d20() + dex_mod
                     if save < 8:
                         print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
@@ -393,4 +394,9 @@ One of them notices you and begins to talk;
                         print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
                         print(f'You lost 3 items {random_item1}, {random_item2}, and {random_item3}')
                 elif level >= 10:
-                    # Fight function here (with named creatures)
+                    print('work in progress')# Fight function here (with named creatures)
+            elif say == 2:
+
+        elif roll_chance == 1 and chance[1] == True:
+            roll_chance = 90 + d10()
+        elif roll_chance == 1 and chance[2] == False:

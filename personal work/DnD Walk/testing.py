@@ -53,6 +53,8 @@ def d4(number = 1):
     while num < number:
         num += 1
         roll += random.randint(1, 4)
+    return roll
+
 
 def cont():
     input('\nPress enter to continue.\n')
@@ -80,6 +82,8 @@ difficulty = 1
 str_mod = 0
 dex_mod = 0
 initiative_bonus = 0
+player_ac = 10 + dex_mod
+
 
 weapon_damage = {
     'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
@@ -100,8 +104,15 @@ weapon_mod = {
 }
 
 goblin = {
-    'health': d6(2) * difficulty, 'weapon1': 'dagger', 'weapon2': 'shortsword', 'weapon3': 'sickle', 'weapon4': 'whip', 'xp': 50,
+    'name': 'Goblin',
+    'health': d6(2) * difficulty, 'weapon': 'dagger', 'ac': 10, 'xp': 50, 'agression': 5,
     'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1
+}
+
+greg = {
+    'name': 'Greg',
+    'health': d4(10) * difficulty, 'weapon': 'maul', 'ac': 15, 'xp': 200, 'agression': 3,
+    'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 1
 }
 
 def rolling(rolling_for = ''):
@@ -116,34 +127,39 @@ def rolling(rolling_for = ''):
         time.sleep(1)
 
 def attack(tohit, weapon):
-    rolling('damage')
     if tohit == 'crit':
         print('\nCritical Hit!')
         return weapon_damage[weapon] + weapon_mod[weapon] * 2
     elif tohit == True:
-        print('\nYour attack hit.')
+        print('\nAttack hit.')
         return weapon_damage[weapon] + weapon_mod[weapon]
     elif tohit == False:
-        print('\nYou missed.')
+        print('\nAttack missed.')
         return 0
     else:
-        print('\nYou missed.')
+        print('\nAttack missed.')
         return 0
 
-def fight(no_of_enemy1, enemy_type1, no_of_enemy2 = 0, enemy_type2 = '', no_of_enemy3 = 0, enemy_type3 = ''):
+playerhealth = 30
+
+def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
+    global playerhealth
     rolling('initiative')
     player_initiative = d20() + dex_mod + initiative_bonus
     initiative = {player_initiative: 0}
     print(f'\nYou rolled a {player_initiative}')
 
-    for x in range(1, no_of_enemy1 + 1):
-        initiative[d20() + enemy_type1['dex mod']] = int('{0}'.format(x))
-    if no_of_enemy2 > 0:
-        for x in range(1, no_of_enemy2 + 1):
-            initiative[d20() + enemy_type2['dex mod']] = int('{0}'.format(x))
-    if no_of_enemy3 > 0:
-        for x in range(1, no_of_enemy3 + 1):
-            initiative[d20() + enemy_type3['dex mod']] = int('{0}'.format(x))
+    initiative[d20() + enemy1['dex mod']] = enemy1['name']+'1'
+    enemy1_health = enemy1['health']
+    if enemy2 != '':
+        initiative[d20() + enemy2['dex mod']] = enemy2['name']+'2'
+        enemy2_health = enemy2['health']
+    if enemy3 != '':
+        initiative[d20() + enemy3['dex mod']] = enemy3['name']+'3'
+        enemy3_health = enemy3['health']
+    if enemy4 != '':
+        initiative[d20() + enemy4['dex mod']] = enemy4['name']+'4'
+        enemy4_health = enemy4['health']
     print(initiative)
     list_initiative = list(initiative.keys())
     list_initiative.sort(reverse= True)
@@ -151,19 +167,77 @@ def fight(no_of_enemy1, enemy_type1, no_of_enemy2 = 0, enemy_type2 = '', no_of_e
     print(initiative)
     list_initiative = list(initiative.values())
     print(list_initiative)
+    if enemy2 == '':
+        no_of_enemy = 1
+    elif enemy3 == '':
+        no_of_enemy = 2
+    elif enemy4 == '':
+        no_of_enemy = 3
+    else:
+        no_of_enemy = 4
 
-    for enemy in no_of_enemy1:
-        weapon = d4()
-        enemy_weapon = enemy_type1['weapon{0}'.format(weapon)]
-
-    while no_of_enemy1 > 0:
+    while no_of_enemy > 0 and playerhealth > 0:
         for turn in list_initiative:
             if turn == 0:
                 print('doing this later')
-            elif turn > 0: 
-                while turn > 0:
+                cont()
+            elif turn != 0:
+                if str(turn).endswith('1'):
+                    print('It\'s ' + enemy1['name'].title() + '\'s turn\n')
+                    roll = d10() + enemy1['agression']
+                    if roll > 10:
+                        damage = attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy1['weapon']]), enemy1['weapon'])
+                        print(f'You took {damage} damage.')
+                    elif roll <=10:
+                        enemy1_blocking = True
+                        damage = 0
+                        print(f'\n{enemy1['name']} is blocking.')
+                    playerhealth -= damage
+                    cont()
+
+                elif str(turn).endswith('2'):
+                    print('It\'s ' + enemy2['name'].title() + '\'s turn\n')
+                    roll = d10() + enemy2['agression']
+                    if roll > 10:
+                        damage = attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy2['weapon']]), enemy2['weapon'])
+                        print(f'You took {damage} damage.')
+                    elif roll <=10:
+                        enemy2_blocking = True
+                        damage = 0
+                        print(f'\n{enemy2['name']} is blocking.')
+                    playerhealth -= damage
+                    cont()
+
+                elif str(turn).endswith('3'):
+                    print('It\'s ' + enemy3['name'].title() + '\'s turn\n')
+                    roll = d10() + enemy3['agression']
+                    if roll > 10:
+                        damage = attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy3['weapon']]), enemy3['weapon'])
+                        print(f'\nYou took {damage} damage.')
+                    elif roll <=10:
+                        enemy3_blocking = True
+                        damage = 0
+                        print(f'\n{enemy3['name']} is blocking.')
+                    playerhealth -= damage
+                    cont()
+
+                elif str(turn).endswith('4'):
+                    print('It\'s ' + enemy4['name'].title() + '\'s turn\n')
+                    roll = d10() + enemy4['agression']
+                    if roll > 10:
+                        damage = attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy4['weapon']]), enemy4['weapon'])
+                        print(f'\nYou took {damage} damage.')
+                    elif roll <=10:
+                        enemy4_blocking = True
+                        damage = 0
+                        print(f'\n{enemy4['name']} is blocking.')
+                    playerhealth -= damage
+                    cont()
+    
+    if playerhealth <= 0:
+        print('')
 
 
 
 
-fight(3, goblin)
+fight(greg, goblin)
