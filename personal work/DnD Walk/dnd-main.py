@@ -137,14 +137,13 @@ while true:
     1. Sorcerer
     2. Wizard
     3. Rogue
-    4. Artificer
-    5. Bard
-    6. Cleric
-    7. Monk
-    8. Warlock
-    9. Fighter
-    10. Paladin
-    11. Barbarian\n'''))
+    4. Bard
+    5. Cleric
+    6. Monk
+    7. Warlock
+    8. Fighter
+    9. Paladin
+    10. Barbarian\n'''))
     if class_choice == 1:
         character_class = 'sorcerer'
         break
@@ -158,34 +157,30 @@ while true:
         break
 
     elif class_choice == 4:
-        character_class = 'artificer'
-        break
-
-    elif class_choice == 5:
         character_class = 'bard'
         break
 
-    elif class_choice == 6:
+    elif class_choice == 5:
         character_class = 'cleric'
         break
 
-    elif class_choice == 7:
+    elif class_choice == 6:
         character_class = 'monk'
         break
 
-    elif class_choice == 8:
+    elif class_choice == 7:
         character_class = 'warlock'
         break
 
-    elif class_choice == 9:
+    elif class_choice == 8:
         character_class = 'fighter'
         break
 
-    elif class_choice == 10:
+    elif class_choice == 9:
         character_class = 'paladin'
         break
 
-    elif class_choice == 11:
+    elif class_choice == 10:
         character_class = 'barbarian'
         break
     else:
@@ -292,17 +287,24 @@ cha_mod = int((dexterity - 10) / 2)
 level = 1
 
 starting_hit_dice = {
-    'sorcerer': 6, 'wizard': 6, 'rogue': 8, 'artificer': 8, 'bard': 8,
-    'cleric': 8, 'monk': 8, 'warlock': 8, 'fighter': 10, 'paladin': 10, 'barbarian': 12
+    'sorcerer': 6, 'wizard': 6, 'rogue': 8, 'bard': 8,
+    'cleric': 8, 'monk': 8, 'warlock': 8, 'fighter': 10,
+    'paladin': 10, 'barbarian': 12
 }
 
 hit_dice = {
-    'sorcerer': d6(level - 1), 'wizard': d6(level - 1), 'rogue': d8(level - 1), 'artificer': d8(level - 1), 'bard': d8(level - 1),
-    'cleric': d8(level - 1), 'monk': d8(level - 1), 'warlock': d8(level - 1), 'fighter': d10(level - 1), 'paladin': d10, 'barbarian': d12(level - 1)
+    'sorcerer': d6(level - 1), 'wizard': d6(level - 1), 'rogue': d8(level - 1), 'bard': d8(level - 1),
+    'cleric': d8(level - 1), 'monk': d8(level - 1), 'warlock': d8(level - 1), 'fighter': d10(level - 1),
+    'paladin': d10, 'barbarian': d12(level - 1)
 }
 
-health = starting_hit_dice[character_class] + hit_dice[character_class] + end_mod * level
-current_health = health
+class_caster = {
+    'sorcerer': 'caster',  'wizard': 'caster', 'rogue': 'noncaster', 'bard': 'caster', 'cleric': 'caster', 'monk': 'monk',
+    'warlock': 'caster', 'fighter': 'noncaster', 'paladin': 'caster', 'barbarian': 'barbarian'
+}
+
+playerhealth = starting_hit_dice[character_class] + hit_dice[character_class] + end_mod * level
+current_player_health = playerhealth
 
 weapon_damage = {
     'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),

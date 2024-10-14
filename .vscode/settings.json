@@ -201,7 +201,7 @@
             "numbers": "#e249c8",
             "strings": {
                 "foreground": "#93e145",
-                "fontStyle": "italic"
+                "fontStyle": ""
             },
             "functions": {
                 "foreground": "#ff8248",
@@ -224,6 +224,8 @@
             "enabled": true,
             "rules": {
                 "method": "#ec8240",
+                "method.builtin": "#ec8240",
+                "method.declaration": "#ec8240",
                 "module": {
                     "foreground": "#ff4848",
                     "fontStyle": "underline",
@@ -235,8 +237,8 @@
                 "builtinConstant": "#ce2dc0",
                 "function.builtin": "#f88833",
                 "function.declaration": {
-                    "foreground": "#f89f33",
-                    "fontStyle": "italic"
+                    "foreground": "#ff963a",
+                    "fontStyle": "italic bold"
                 },
                 "class": "#ffe14b",
                 "parameter": "#04cc79",

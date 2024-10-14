@@ -78,11 +78,14 @@ def roll_to_hit(roll, dc, mod):
         print('\nSuccess!')
         return True
 
+level = 1
 difficulty = 1
 str_mod = 0
 dex_mod = 0
 initiative_bonus = 0
 player_ac = 10 + dex_mod
+player_health = 30
+current_player_health = player_health
 
 
 weapon_damage = {
@@ -101,6 +104,10 @@ weapon_mod = {
     'handaxe': str_mod, 'lance': str_mod, 'longsword': str_mod, 'maul': str_mod, 'morningstar': str_mod,
     'pike': str_mod, 'rapier': dex_mod, 'scimitar': dex_mod, 'shortsword': dex_mod, 'trident': str_mod,
     'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod
+}
+
+player_equipment = {
+    'weapon': 'greataxe'
 }
 
 goblin = {
@@ -140,10 +147,74 @@ def attack(tohit, weapon):
         print('\nAttack missed.')
         return 0
 
-playerhealth = 30
+def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
+    print('Your turn.\n')
+    player_turn = int(input('''
+    1. Attack
+    2. Block\n'''))
 
-def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
-    global playerhealth
+    if player_turn == 1:
+        while True:
+            if no_of_enemy == 1:
+                choice = 1
+            
+            elif no_of_enemy == 2:
+                print(f'''Choose who to attack:
+    1. {enemy1['name']}
+    2. {enemy2['name']}''')
+                choice = int(input(''))
+
+            elif no_of_enemy == 3:
+                print(f'''Choose who to attack:
+    1. {enemy1['name']}
+    2. {enemy2['name']}
+    3. {enemy3['name']}''')
+                choice = int(input(''))
+
+            elif no_of_enemy == 4:
+                print(f'''Choose who to attack:
+    1. {enemy1['name']}
+    2. {enemy2['name']}
+    3. {enemy3['name']}
+    4. {enemy4['name']}''')
+                choice = int(input(''))
+            
+            if choice == 1:
+                print('You attack ' + enemy1['name'] + '\n')
+                cont()
+                return False, attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon']), enemy1['name']
+                break
+
+            elif choice == 2:
+                print('You attack ' + enemy2['name'] + '\n')
+                cont()
+                return False, attack(roll_to_hit(d20(), enemy2['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon']), enemy2['name']
+                break
+
+            elif choice == 3:
+                print('You attack ' + enemy3['name'] + '\n')
+                cont()
+                return False, attack(roll_to_hit(d20(), enemy3['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon']), enemy3['name']
+                break
+
+            elif choice == 4:
+                print('You attack ' + enemy4['name'] + '\n')
+                cont()
+                return False, attack(roll_to_hit(d20(), enemy4['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon']), enemy4['name']
+                break
+
+            else:
+                print('Please enter a valid number.')
+
+    elif player_turn == 2:
+        print('You are blocking.')
+        return True, 0, enemy1['name']
+
+
+
+def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
+    global player_health
+    global current_player_health
     rolling('initiative')
     player_initiative = d20() + dex_mod + initiative_bonus
     initiative = {player_initiative: 0}
@@ -160,6 +231,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     if enemy4 != '':
         initiative[d20() + enemy4['dex mod']] = enemy4['name']+'4'
         enemy4_health = enemy4['health']
+    
     print(initiative)
     list_initiative = list(initiative.keys())
     list_initiative.sort(reverse= True)
@@ -167,22 +239,63 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     print(initiative)
     list_initiative = list(initiative.values())
     print(list_initiative)
-    if enemy2 == '':
-        no_of_enemy = 1
-    elif enemy3 == '':
-        no_of_enemy = 2
-    elif enemy4 == '':
-        no_of_enemy = 3
-    else:
-        no_of_enemy = 4
 
-    while no_of_enemy > 0 and playerhealth > 0:
+
+
+    while no_of_enemy > 0 and player_health > 0:
+        blocking = 1
         for turn in list_initiative:
             if turn == 0:
-                print('doing this later')
+
+                print(f'''Player Stats
+    Level.............{level}
+    Current Health....{current_player_health}
+    Weapon............''' + player_equipment['weapon'])
+
+                player = player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4)
+                print(player)
+
+                if player[0] == True:
+                    blocking = 2
+                elif player[0] == False:
+                    blocking = 1
+                    if player[2] == enemy1['name']:
+                        print(enemy1_health)
+                        enemy1_health -= player[1]
+                        print(enemy1_health)
+                    elif player[2] == enemy2['name']:
+                        print(enemy2_health)
+                        enemy2_health -= player[1]
+                        print(enemy2_health)
+                    elif player[2] == enemy3['name']:
+                        print(enemy3_health)
+                        enemy3_health -= player[1]
+                        print(enemy3_health)
+                    elif player[2] == enemy4['name']:
+                        print(enemy4_health)
+                        enemy4_health -= player[1]
+                        print(enemy4_health)
+
+                if enemy1_health <= 0 and enemy1_is_alive == True:
+                    print(f'You killed ' + enemy1['name'])
+                    enemy1_is_alive = False
+                    no_of_enemy -= 1
+                elif enemy2_health <= 0 and enemy2_is_alive == True:
+                    print(f'You killed ' + enemy2['name'])
+                    enemy2_is_alive = False
+                    no_of_enemy -= 1
+                elif enemy3_health <= 0 and enemy3_is_alive == True:
+                    print(f'You killed ' + enemy3['name'])
+                    enemy3_is_alive = False
+                    no_of_enemy -= 1
+                elif enemy4_health <= 0 and enemy4_is_alive == True:
+                    print(f'You killed ' + enemy4['name'])
+                    enemy4_is_alive = False
+                    no_of_enemy -= 1
                 cont()
+
             elif turn != 0:
-                if str(turn).endswith('1'):
+                if str(turn).endswith('1') and enemy1_health > 0:
                     print('It\'s ' + enemy1['name'].title() + '\'s turn\n')
                     roll = d10() + enemy1['agression']
                     if roll > 10:
@@ -191,11 +304,11 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     elif roll <=10:
                         enemy1_blocking = True
                         damage = 0
-                        print(f'\n{enemy1['name']} is blocking.')
-                    playerhealth -= damage
+                        print(enemy1['name'] + ' is blocking.')
+                    current_player_health -= damage
                     cont()
 
-                elif str(turn).endswith('2'):
+                elif str(turn).endswith('2') and enemy2_health > 0:
                     print('It\'s ' + enemy2['name'].title() + '\'s turn\n')
                     roll = d10() + enemy2['agression']
                     if roll > 10:
@@ -204,11 +317,11 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     elif roll <=10:
                         enemy2_blocking = True
                         damage = 0
-                        print(f'\n{enemy2['name']} is blocking.')
-                    playerhealth -= damage
+                        print(enemy2['name'] + ' is blocking.')
+                    current_player_health -= damage/blocking
                     cont()
 
-                elif str(turn).endswith('3'):
+                elif str(turn).endswith('3') and enemy3_health > 0:
                     print('It\'s ' + enemy3['name'].title() + '\'s turn\n')
                     roll = d10() + enemy3['agression']
                     if roll > 10:
@@ -217,11 +330,11 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     elif roll <=10:
                         enemy3_blocking = True
                         damage = 0
-                        print(f'\n{enemy3['name']} is blocking.')
-                    playerhealth -= damage
+                        print(enemy3['name'] + ' is blocking.')
+                    current_player_health -= damage
                     cont()
 
-                elif str(turn).endswith('4'):
+                elif str(turn).endswith('4') and enemy3_health > 0:
                     print('It\'s ' + enemy4['name'].title() + '\'s turn\n')
                     roll = d10() + enemy4['agression']
                     if roll > 10:
@@ -230,14 +343,14 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     elif roll <=10:
                         enemy4_blocking = True
                         damage = 0
-                        print(f'\n{enemy4['name']} is blocking.')
-                    playerhealth -= damage
+                        print(enemy4['name'] + ' is blocking.')
+                    current_player_health -= damage
                     cont()
-    
-    if playerhealth <= 0:
-        print('')
+    if current_player_health <= 0:
+        print('You died.')
+        return 0
+    elif no_of_enemy == 0:
+        print('You won!')
+        return 1
 
-
-
-
-fight(greg, goblin)
+fight(2, greg, goblin)
