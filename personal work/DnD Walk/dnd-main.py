@@ -14,6 +14,7 @@ def d100(number = 1):
         num += 1
         roll += random.randint(1, 100)
     return roll
+
 def d20(number = 1):
     num = 0
     roll = 0
@@ -21,6 +22,7 @@ def d20(number = 1):
         num += 1
         roll += random.randint(1, 20)
     return roll
+
 def d12(number = 1):
     num = 0
     roll = 0
@@ -28,6 +30,7 @@ def d12(number = 1):
         num += 1
         roll += random.randint(1, 12)
     return roll
+
 def d10(number = 1):
     num = 0
     roll = 0
@@ -35,6 +38,7 @@ def d10(number = 1):
         num += 1
         roll += random.randint(1, 10)
     return roll
+
 def d8(number = 1):
     num = 0
     roll = 0
@@ -42,6 +46,7 @@ def d8(number = 1):
         num += 1
         roll += random.randint(1, 8)
     return roll
+
 def d6(number = 1):
     num = 0
     roll = 0
@@ -49,6 +54,7 @@ def d6(number = 1):
         num += 1
         roll += random.randint(1, 6)
     return roll
+
 def d4(number = 1):
     num = 0
     roll = 0
@@ -93,6 +99,14 @@ def rolling(rolling_for = ''):
     while x <= 3:
         xperiod = x * '.'
         print(f'\rRolling {rolling_for}{xperiod}',end='')
+        x += 1
+        time.sleep(1)
+
+def rolling_initiative():
+    x =0
+    while x <= 3:
+        xperiod = x * '.'
+        print(f'\r{Fore.RED}Rolling for Initiative{xperiod}{Fore.RESET}',end='')
         x += 1
         time.sleep(1)
 
@@ -295,7 +309,9 @@ player_ac = 10 + dex_mod
 initiative_bonus = 0
 days = 0
 level = 1
-difficulty = 1 + days / 10
+difficulty = 1 + days / 25
+
+# Various Dictionaries
 
 starting_hit_dice = {
     'sorcerer': 6, 'wizard': 6, 'rogue': 8, 'bard': 8,
@@ -323,7 +339,9 @@ weapon_damage = {
     'flail': d8(), 'glaive': d10(), 'greataxe': d12(), 'greatsword': d6(2), 'halberd': d10(),
     'handaxe': d6(), 'lance': d8(), 'longsword': d8(), 'maul': d6(2), 'morningstar': d8(),
     'pike': d10(), 'rapier': d8(), 'scimitar': d6(), 'shortsword': d6(), 'trident': d8(),
-    'war pick': d8(), 'warhammer': d8(), 'whip': d4()
+    'war pick': d8(), 'warhammer': d8(), 'whip': d4(),
+    # unique weapons
+    'dangolf staff': d6(4), 'sif\'s dagger': d4(3)
 }
 
 weapon_mod = {
@@ -332,7 +350,9 @@ weapon_mod = {
     'flail': str_mod, 'glaive': str_mod, 'greataxe': str_mod, 'greatsword': str_mod, 'halberd': str_mod,
     'handaxe': str_mod, 'lance': str_mod, 'longsword': str_mod, 'maul': str_mod, 'morningstar': str_mod,
     'pike': str_mod, 'rapier': dex_mod, 'scimitar': dex_mod, 'shortsword': dex_mod, 'trident': str_mod,
-    'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod
+    'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod,
+    # unique weapons
+    'dangolf staff': wis_mod, 'sif\'s dagger': dex_mod, 
 }
 
 npc_weapon_mod = {
@@ -341,32 +361,54 @@ npc_weapon_mod = {
     'flail': 'str_mod', 'glaive': 'str_mod', 'greataxe': 'str_mod', 'greatsword': 'str_mod', 'halberd': 'str_mod',
     'handaxe': 'str_mod', 'lance': 'str_mod', 'longsword': 'str_mod', 'maul': 'str_mod', 'morningstar': 'str_mod',
     'pike': 'str_mod', 'rapier': 'dex_mod', 'scimitar': 'dex_mod', 'shortsword': 'dex_mod', 'trident': 'str_mod',
-    'war pick': 'str_mod', 'warhammer': 'str_mod', 'whip': 'dex_mod'
+    'war pick': 'str_mod', 'warhammer': 'str_mod', 'whip': 'dex_mod',
+    # unique weapons
+    'dangolf staff': 'wis mod', 'sif\'s dagger': 'dex mod', 
 }
 
 player_equipment = {
-    'weapon': 'greataxe'
+    
 }
 
 # Enemies
 
 # Basic
 goblin = {
-    'name': 'Goblin',
-    'health': d6(2) * difficulty, 'weapon': 'dagger', 'ac': 10, 'xp': 50, 'agression': 5,
+    'name': 'Goblin', 'title': '',
+    'health': int(d6(2) * difficulty), 'weapon': 'dagger', 'ac': 10, 'xp': 50, 'agression': 5,
     'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1
 }
 
 kobold = {
-    'name': 'Kobold',
-
+    'name': 'Kobold', 'title': '',
+    'health': int((d6(2) - 2) * difficulty), 'weapon': 'dagger', 'ac': 12, 'xp': 25, 'agression': 4,
+    'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1
 }
+
+
 
 # Miniboss
 gronk = {
-    'name': 'Gronk, The Killer',
-    'health': d6(10) * difficulty, 'weapon': 'maul', 'ac': 15, 'xp': 200, 'agression': 3,
+    'name': 'Gronk', 'title': ', The Killer',
+    'health': int(d6(10) * difficulty), 'weapon': 'maul', 'ac': 13, 'xp': 200, 'agression': 3,
     'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 1
+}
+
+siffrin_traveler = {
+    'name': 'Siffrin', 'title': ', The Traveler',
+    'health': 100 * difficulty, 'weapon': 'dagger', 'ac': 15, 'xp': 500, 'agression': 6,
+    'str mod': 0, 'dex mod': 6, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2
+}
+
+siffrin_lost = {
+    'name': 'Siffrin', 'title': ', The Lost',
+    'health': 999, 'weapon': 'sif\'s dagger' 
+}
+
+dangolf = {
+    'name': 'Dangolf', 'title': ', The Gold',
+    'health': 150 * difficulty, 'weapon': 'dangolf staff', 'ac': 10, 'xp': 1000, 'agression': 2,
+    'str mod': 0, 'dex mod': 0, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2
 }
 
 # Fighting Functions
@@ -412,27 +454,26 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             
             elif no_of_enemy == 2:
                 print(f'''\nChoose who to attack:
-    1. {enemy1['name']}
-    2. {enemy2['name']}''')
+    1. {enemy1["name"]}{enemy1["title"]}
+    2. {enemy2["name"]}{enemy2["title"]}''')
                 choice = int(input(''))
 
             elif no_of_enemy == 3:
                 print(f'''\nChoose who to attack:
-    1. {enemy1['name']}
-    2. {enemy2['name']}
-    3. {enemy3['name']}''')
+    1. {enemy1["name"]}{enemy1["title"]}
+    2. {enemy2["name"]}{enemy2["title"]}
+    3. {enemy3["name"]}{enemy3["title"]}''')
                 choice = int(input(''))
 
             elif no_of_enemy == 4:
                 print(f'''\nChoose who to attack:
-    1. {enemy1['name']}
-    2. {enemy2['name']}
-    3. {enemy3['name']}
-    4. {enemy4['name']}''')
+    1. {enemy1["name"]}{enemy1["title"]}
+    2. {enemy2["name"]}{enemy2["title"]}
+    3. {enemy3["name"]}{enemy3["title"]}
+    4. {enemy4["name"]}{enemy4["title"]}''')
                 choice = int(input(''))
-            
             print()
-            
+
             if choice == 1:
                 damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
                 print(f'You attack {enemy1["name"]} for {damage}')
@@ -472,7 +513,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     global player_health
     global current_player_health
 
-    rolling('initiative')
+    rolling_initiative()
     player_initiative = d20() + dex_mod + initiative_bonus
     initiative = {
         player_initiative: 0
@@ -515,7 +556,9 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     cont()
 
     while no_of_enemy > 0 and player_health > 0:
+
         blocking = 1
+
         for turn in list_initiative:
             if turn == 0:
                 print('Your turn.\n')
@@ -562,7 +605,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
             elif turn != 0:
                 if str(turn).endswith('1') and enemy1_health > 0:
-                    print('It\'s ' + enemy1['name'].title() + '\'s turn')
+                    print('It\'s ' + enemy1['name'] + '\'s turn')
                     roll = d10() + enemy1['agression']
                     if roll > 8:
                         print(enemy1['name'] + ' is attacking.\n')
@@ -576,7 +619,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     cont()
 
                 elif str(turn).endswith('2') and enemy2_health > 0:
-                    print('\nIt\'s ' + enemy2['name'].title() + '\'s turn')
+                    print('\nIt\'s ' + enemy2['name'] + '\'s turn')
                     roll = d10() + enemy2['agression']
                     if roll > 8:
                         print(enemy2['name'] + ' is attacking.\n')
@@ -590,7 +633,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     cont()
 
                 elif str(turn).endswith('3') and enemy3_health > 0:
-                    print('\nIt\'s ' + enemy3['name'].title() + '\'s turn')
+                    print('\nIt\'s ' + enemy3['name'] + '\'s turn')
                     roll = d10() + enemy3['agression']
                     if roll > 8:
                         print(enemy3['name'] + ' is attacking.\n')
@@ -604,7 +647,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     cont()
 
                 elif str(turn).endswith('4') and enemy3_health > 0:
-                    print('\nIt\'s ' + enemy4['name'].title() + '\'s turn')
+                    print('\nIt\'s ' + enemy4['name'] + '\'s turn')
                     roll = d10() + enemy4['agression']
                     if roll > 8:
                         print(enemy4['name'] + 'is attacking.\n')
@@ -616,7 +659,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                         print(enemy4['name'] + ' is blocking.')
                     current_player_health -= round(damage * blocking)
                     cont()
-                    
+
     if current_player_health <= 0:
         print('You Lost.')
         return 0
@@ -635,7 +678,7 @@ def luck_calc():
     luck_mod = int((luck - 10) / 2)
     return round(luck, 2), luck_mod
 
-fight(2, goblin, gronk)
+fight(2, goblin, kobold)
 
 # while distance > distance_traveled:
 #     if d20() <= 10:
@@ -676,7 +719,7 @@ fight(2, goblin, gronk)
 #                     print('They didn\'t appear to like that and begin to quickly prepare for battle.', end= '')
 
 #                 if level < 10:
-#                     print(' But before you can grasp the depth of your mistake the robed one with the funny hat hits you with a spell that blinds you with a flash of light.')
+#                     print(' But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
 #                     save = d20() + dex_mod
 #                     if save < 8:
 #                         print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')

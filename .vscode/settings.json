@@ -154,25 +154,24 @@
 
             "widget.border": "#754221",
             },
-            "[Dark Pink Pro]": {
+        "[Dark Pink Pro]": {
 
-                "activityBar.activeBackground": "#ff006f",
-                "activityBar.foreground": "#000000",
-                "activityBarBadge.foreground": "#181818",
-                "activityBarBadge.background": "#bf338e",
-                "activityBar.background": "#121212",
-                "activityBar.border": "#ff006f",
-                "sideBar.background": "#232323",
-                "activityBar.activeFocusBorder": "#ff0000",
-                "sideBar.border": "#ff006f",
-                "sideBarSectionHeader.border": "#ff006f",
-                "menu.border": "#ff006f",
-                "editorHoverWidget.border": "#ff006f",
-                "foreground": "#ffffff",
-                "editor.foreground": "#ff79db"
-            }
+            "activityBar.activeBackground": "#ff006f",
+            "activityBar.foreground": "#000000",
+            "activityBarBadge.foreground": "#181818",
+            "activityBarBadge.background": "#bf338e",
+            "activityBar.background": "#121212",
+            "activityBar.border": "#ff006f",
+            "sideBar.background": "#232323",
+            "activityBar.activeFocusBorder": "#ff0000",
+            "sideBar.border": "#ff006f",
+            "sideBarSectionHeader.border": "#ff006f",
+            "menu.border": "#ff006f",
+            "editorHoverWidget.border": "#ff006f",
+            "foreground": "#ffffff",
+            "editor.foreground": "#ff79db"
+        }
         },
-
 
     "editor.tokenColorCustomizations": {
         "[the orange box]": {

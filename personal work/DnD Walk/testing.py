@@ -1,10 +1,13 @@
-# Arden boettcher
-# 10/10/24
-# dnd walk testing
+# # Arden boettcher
+# # 10/10/24
+# # dnd walk testing
 
-import time
 import random
+# from colorama import Fore
+import math
+import time
 
+# Dice
 def d100(number = 1):
     num = 0
     roll = 0
@@ -12,6 +15,7 @@ def d100(number = 1):
         num += 1
         roll += random.randint(1, 100)
     return roll
+
 def d20(number = 1):
     num = 0
     roll = 0
@@ -19,6 +23,7 @@ def d20(number = 1):
         num += 1
         roll += random.randint(1, 20)
     return roll
+
 def d12(number = 1):
     num = 0
     roll = 0
@@ -26,6 +31,7 @@ def d12(number = 1):
         num += 1
         roll += random.randint(1, 12)
     return roll
+
 def d10(number = 1):
     num = 0
     roll = 0
@@ -33,6 +39,7 @@ def d10(number = 1):
         num += 1
         roll += random.randint(1, 10)
     return roll
+
 def d8(number = 1):
     num = 0
     roll = 0
@@ -40,6 +47,7 @@ def d8(number = 1):
         num += 1
         roll += random.randint(1, 8)
     return roll
+
 def d6(number = 1):
     num = 0
     roll = 0
@@ -47,6 +55,7 @@ def d6(number = 1):
         num += 1
         roll += random.randint(1, 6)
     return roll
+
 def d4(number = 1):
     num = 0
     roll = 0
@@ -56,81 +65,49 @@ def d4(number = 1):
     return roll
 
 
+chance = {
+    1: False, 2: False, 3: False, 4: False, 5: False, 6: False, 7: False, 8: False, 9: False, 10: False, 
+    11: False, 12: False, 13: False, 14: False, 15: False, 16: False, 17: False, 18: False, 19: False, 20: False, 
+    21: False, 22: False, 23: False, 24: False, 25: False, 26: False, 27: False, 28: False, 29: False, 30: False, 
+    31: False, 32: False, 33: False, 34: False, 35: False, 36: False, 37: False, 38: False, 39: False, 40: False, 
+    41: False, 42: False, 43: False, 44: False, 45: False, 46: False, 47: False, 48: False, 49: False, 50: False, 
+    51: False, 52: False, 53: False, 54: False, 55: False, 56: False, 57: False, 58: False, 59: False, 60: False, 
+    61: False, 62: False, 63: False, 64: False, 65: False, 66: False, 67: False, 68: False, 69: False, 70: False, 
+    71: False, 72: False, 73: False, 74: False, 75: False, 76: False, 77: False, 78: False, 79: False, 80: False, 
+    81: False, 82: False, 83: False, 84: False, 85: False, 86: False, 87: False, 88: False, 89: False, 90: False, 
+    91: False, 92: False, 93: False, 94: False, 95: False
+}
+
+encounter = {
+    1: False, 2: False, 3: False, 4: False, 5: False, 6: False, 7: False, 8: False, 9: False, 10: False, 
+    11: False, 12: False, 13: False, 14: False, 15: False, 16: False, 17: False, 18: False, 19: False, 20: False, 
+    21: False, 22: False, 23: False, 24: False, 25: False, 26: False, 27: False, 28: False, 29: False, 30: False, 
+    31: False, 32: False, 33: False, 34: False, 35: False, 36: False, 37: False, 38: False, 39: False, 40: False, 
+    41: False, 42: False, 43: False, 44: False, 45: False, 46: False, 47: False, 48: False, 49: False, 50: False, 
+    51: False, 52: False, 53: False, 54: False, 55: False, 56: False, 57: False, 58: False, 59: False, 60: False, 
+    61: False, 62: False, 63: False, 64: False, 65: False, 66: False, 67: False, 68: False, 69: False, 70: False, 
+    71: False, 72: False, 73: False, 74: False, 75: False, 76: False, 77: False, 78: False, 79: False, 80: False, 
+    81: False, 82: False, 83: False, 84: False, 85: False, 86: False, 87: False, 88: False, 89: False, 90: False, 
+    91: False, 92: False, 93: False, 94: False, 95: False
+}
+
+# Other functions
 def cont():
     input('\nPress enter to continue.\n')
-
-
-level = 1
-difficulty = 1
-str_mod = 0
-dex_mod = 0
-initiative_bonus = 0
-player_ac = 10 + dex_mod
-player_health = 30
-current_player_health = player_health
-
-spell_damage = {
-    ''
-}
-
-weapon_damage = {
-    'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
-    'mace': d6(), 'quarterstaff': d8(), 'sickle': d4(), 'spear': d6(), 'battle axe': d8(),
-    'flail': d8(), 'glaive': d10(), 'greataxe': d12(), 'greatsword': d6(2), 'halberd': d10(),
-    'handaxe': d6(), 'lance': d8(), 'longsword': d8(), 'maul': d6(2), 'morningstar': d8(),
-    'pike': d10(), 'rapier': d8(), 'scimitar': d6(), 'shortsword': d6(), 'trident': d8(),
-    'war pick': d8(), 'warhammer': d8(), 'whip': d4()
-}
-
-weapon_mod = {
-    'club': str_mod, 'dagger': dex_mod, 'great club': str_mod, 'javelin': str_mod, 'light hammer': str_mod,
-    'mace': str_mod, 'quarterstaff': str_mod, 'sickle': str_mod, 'spear': str_mod, 'battle axe': str_mod,
-    'flail': str_mod, 'glaive': str_mod, 'greataxe': str_mod, 'greatsword': str_mod, 'halberd': str_mod,
-    'handaxe': str_mod, 'lance': str_mod, 'longsword': str_mod, 'maul': str_mod, 'morningstar': str_mod,
-    'pike': str_mod, 'rapier': dex_mod, 'scimitar': dex_mod, 'shortsword': dex_mod, 'trident': str_mod,
-    'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod
-}
-
-npc_weapon_mod = {
-    'club': 'str mod', 'dagger': 'dex mod', 'great club': 'str mod', 'javelin': 'str mod', 'light hammer': 'str mod',
-    'mace': 'str mod', 'quarterstaff': 'str mod', 'sickle': 'str mod', 'spear': 'str mod', 'battle axe': 'str mod',
-    'flail': 'str mod', 'glaive': 'str mod', 'greataxe': 'str mod', 'greatsword': 'str mod', 'halberd': 'str mod',
-    'handaxe': 'str mod', 'lance': 'str mod', 'longsword': 'str mod', 'maul': 'str mod', 'morningstar': 'str mod',
-    'pike': 'str mod', 'rapier': 'dex mod', 'scimitar': 'dex mod', 'shortsword': 'dex mod', 'trident': 'str mod',
-    'war pick': 'str mod', 'warhammer': 'str mod', 'whip': 'dex mod'
-}
-
-player_equipment = {
-    'weapon': 'greataxe'
-}
-
-goblin = {
-    'name': 'Goblin',
-    'health': d6(2) * difficulty, 'weapon': 'dagger', 'ac': 10, 'xp': 50, 'agression': 5,
-    'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1
-}
-
-greg = {
-    'name': 'Greg',
-    'health': d6(10) * difficulty, 'weapon': 'maul', 'ac': 15, 'xp': 200, 'agression': 3,
-    'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 1
-}
-
-def bar(current, total, bar_length = 20):
-    fraction = current / total
-    arrow = int(fraction * bar_length - 1) * '█' + '▒'
-    idk = int(fraction * bar_length) * '█'
-    padding = int(bar_length - len(arrow)) * '-'
-    if fraction >= .99:
-        return f'''\r{idk}{padding} {round(current)}%'''
-    else:
-        return f'''\r{arrow}{padding} {round(current)}%'''
 
 def rolling(rolling_for = ''):
     x =0
     while x <= 3:
         xperiod = x * '.'
         print(f'\rRolling {rolling_for}{xperiod}',end='')
+        x += 1
+        time.sleep(1)
+
+def rolling_initiative():
+    x =0
+    while x <= 3:
+        xperiod = x * '.'
+        print(f'\rRolling for Initiative{xperiod}',end='')
         x += 1
         time.sleep(1)
 
@@ -149,6 +126,359 @@ def roll_to_hit(roll, dc, mod):
         print('\nSuccess!')
         return True
 
+def bar(current, total, bar_length = 20):
+    fraction = current / total
+    arrow = int(fraction * bar_length - 1) * '█' + '▒'
+    idk = int(fraction * bar_length) * '█'
+    padding = int(bar_length - len(arrow)) * '-'
+    if fraction >= .99:
+        return f'''{idk}{padding} {round(current)}%'''
+    else:
+        return f'''{arrow}{padding} {round(current)}%'''
+
+
+strength = 0
+dexterity = 0
+endurance = 0
+inteligence = 0
+wisdom = 0
+charisma = 0
+is_str_chosen = False
+is_dex_chosen = False
+is_end_chosen = False
+is_int_chosen = False
+is_wis_chosen = False
+is_cha_chosen = False
+true = True
+all_stats = False
+
+name = input('\nWhat is your name?\n')
+
+
+while true:
+    class_choice = int(input('''Please choose your character class:
+    1. Sorcerer
+    2. Wizard
+    3. Rogue
+    4. Bard
+    5. Cleric
+    6. Monk
+    7. Warlock
+    8. Fighter
+    9. Paladin
+    10. Barbarian\n'''))
+    if class_choice == 1:
+        character_class = 'sorcerer'
+        break
+
+    elif class_choice == 2:
+        character_class = 'wizard'
+        break
+
+    elif class_choice == 3:
+        character_class = 'rogue'
+        break
+
+    elif class_choice == 4:
+        character_class = 'bard'
+        break
+
+    elif class_choice == 5:
+        character_class = 'cleric'
+        break
+
+    elif class_choice == 6:
+        character_class = 'monk'
+        break
+
+    elif class_choice == 7:
+        character_class = 'warlock'
+        break
+
+    elif class_choice == 8:
+        character_class = 'fighter'
+        break
+
+    elif class_choice == 9:
+        character_class = 'paladin'
+        break
+
+    elif class_choice == 10:
+        character_class = 'barbarian'
+        break
+    else:
+        print('Please enter a number from 1-11.\n')
+print(f'You now are a {character_class.title()}')
+
+print('Please choose your equipment')
+cont()
+
+player_equipment = {
+    'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
+    'equipped armor': '', 'stored armor': ''
+}
+
+if character_class == 'barbarian':
+    while true:
+        main = int(input('''Choose your main weapon
+    1. A Greataxe (1d12 + str mod)
+    2. Morningstar (2d6 + str mod)\n'''))
+        if main == 1:
+            player_equipment['equipped weapon'] = 'greataxe'
+            break
+        elif main == 2:
+            player_equipment['equipped weapon'] = 'morningstar'
+            break
+        else:
+            print('Please enter a valid number')
+    while true:
+        stored = int(input('''Choose your other weapon(s)
+    1. 2 handaxes (1d6 + str mod)
+    2. 2 maces (1d6 + str mod)\n'''))
+        if stored == 1:
+            player_equipment['stored weapon 1'] = 'handaxe'
+            player_equipment['stored weapon 2'] = 'handaxe'
+            break
+        elif stored == 2:
+            player_equipment['stored weapon 1'] = 'mace'
+            player_equipment['stored weapon 2'] = 'mace'
+            break
+        else:
+            print('please enter a valid number')
+        
+elif character_class == 'bard':
+
+elif character_class == 'cleric':
+
+elif character_class == 'fighter'  :
+
+elif character_class == 'monk':
+
+elif character_class == 'paladin':
+
+elif character_class == 'rogue':
+
+elif character_class == 'sorcerer':
+
+elif character_class == 'warlock':
+
+elif character_class == 'wizard':
+
+
+print('Please assign your stats')
+cont()
+
+while all_stats == False:
+    if is_str_chosen and is_dex_chosen and is_end_chosen and is_int_chosen and is_wis_chosen and is_cha_chosen:
+        all_stats = True
+        continue
+    stat_roll1 = d6()
+    stat_roll2 = d6()
+    stat_roll3 = d6()
+    stat_roll4 = d6()
+    stat_list = [stat_roll1, stat_roll2, stat_roll3, stat_roll4,]
+    stat_roll_main= stat_roll1 + stat_roll2 + stat_roll3 + stat_roll4 - min(stat_list)
+    print(f'You rolled a {stat_roll_main}!')
+    choice = int(input(f'''Which stat?
+    1. Strength {strength}
+    2. Dexterity {dexterity}
+    3. Endurance {endurance}
+    4. Inteligence {inteligence}
+    5. Wisdom {wisdom}
+    6. Charisma {charisma}\n1-6\n'''))
+    while true:
+        if choice == 1 and is_str_chosen == True:
+            print(f'Stat already chosen please choose another.\n')
+            cont()
+            break
+        elif choice == 1 and is_str_chosen == False:
+            strength = stat_roll_main
+            is_str_chosen = True
+            print(f'Your Strength is now {strength}.')
+            cont()
+            break
+
+        elif choice == 2 and is_dex_chosen == True:
+            print(f'Stat already chosen please choose another.\n')
+            cont()
+            break
+        elif choice == 2 and is_dex_chosen == False:
+            dexterity = stat_roll_main
+            is_dex_chosen = True
+            print(f'Your Dexterity is now {dexterity}.')
+            cont()
+            break
+
+        elif choice == 3 and is_end_chosen == True:
+            print(f'Stat already chosen please choose another.\n')
+            cont()
+            break
+        elif choice == 3 and is_end_chosen == False:
+            endurance = stat_roll_main
+            is_end_chosen = True
+            print(f'Your Endurance is now {endurance}')
+            cont()
+            break
+
+        elif choice == 4 and is_int_chosen == True:
+            print(f'Stat already chosen please choose another.\n')
+            cont()
+            break
+        elif choice == 4 and is_int_chosen == False:
+            inteligence = stat_roll_main
+            is_int_chosen = True
+            print(f'Your Inteligence is now {inteligence}')
+            cont()
+            break
+
+        elif choice == 5 and is_wis_chosen == True:
+            print(f'Stat already chosen please choose another.\n')
+            cont()
+            break
+        elif choice == 5 and is_wis_chosen == False:
+            wisdom = stat_roll_main
+            is_wis_chosen = True
+            print(f'Your Wisdom is now {wisdom}')
+            cont()
+            break
+        elif choice == 6 and is_cha_chosen == True:
+            print(f'Stat already chosen please choose another.\n')
+            cont()
+            break
+        elif choice == 6 and is_cha_chosen == False:
+            charisma = stat_roll_main
+            is_cha_chosen = True
+            print(f'Your charisma is now {charisma}')
+            cont()
+            break
+        else:
+            print('Please pick a number between 1 and 6.')
+
+str_mod = math.floor((strength - 10) / 2)
+dex_mod = math.floor((dexterity - 10) / 2)
+end_mod = math.floor((endurance - 10) / 2)
+int_mod = math.floor((inteligence - 10) / 2)
+wis_mod = math.floor((wisdom - 10) / 2)
+cha_mod = math.floor((charisma - 10) / 2)
+player_ac = 10 + dex_mod
+initiative_bonus = 0
+days = 0
+level = 3
+difficulty = 1 + days / 25
+print(f'''
+str {str_mod}
+dex {dex_mod}
+end {end_mod}
+int {int_mod}
+wis {wis_mod}
+cha {cha_mod}''')
+
+# Various Dictionaries
+
+starting_hit_dice = {
+    'sorcerer': 6, 'wizard': 6, 'rogue': 8, 'bard': 8,
+    'cleric': 8, 'monk': 8, 'warlock': 8, 'fighter': 10,
+    'paladin': 10, 'barbarian': 12
+}
+
+hit_dice = {
+    'sorcerer': d6(level - 1), 'wizard': d6(level - 1), 'rogue': d8(level - 1), 'bard': d8(level - 1),
+    'cleric': d8(level - 1), 'monk': d8(level - 1), 'warlock': d8(level - 1), 'fighter': d10(level - 1),
+    'paladin': d10, 'barbarian': d12(level - 1)
+}
+
+class_caster = {
+    'sorcerer': 'caster',  'wizard': 'caster', 'rogue': 'noncaster', 'bard': 'caster', 'cleric': 'caster', 'monk': 'monk',
+    'warlock': 'caster', 'fighter': 'noncaster', 'paladin': 'caster', 'barbarian': 'barbarian'
+}
+
+player_health = starting_hit_dice[character_class] + hit_dice[character_class] + end_mod * level
+current_player_health = player_health
+print('health = ' + str(player_health) + '\ncurrent = ' + str(current_player_health))
+
+weapon_damage = {
+    'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
+    'mace': d6(), 'quarterstaff': d8(), 'sickle': d4(), 'spear': d6(), 'battle axe': d8(),
+    'flail': d8(), 'glaive': d10(), 'greataxe': d12(), 'greatsword': d6(2), 'halberd': d10(),
+    'handaxe': d6(), 'lance': d8(), 'longsword': d8(), 'maul': d6(2), 'morningstar': d6(2),
+    'pike': d10(), 'rapier': d8(), 'scimitar': d6(), 'shortsword': d6(), 'trident': d8(),
+    'war pick': d8(), 'warhammer': d8(), 'whip': d4(),
+    # unique weapons
+    'dangolf staff': d6(4), 'sif\'s dagger': d4(3), 'gun': d100(100)
+}
+
+weapon_mod = {
+    'club': str_mod, 'dagger': dex_mod, 'great club': str_mod, 'javelin': str_mod, 'light hammer': str_mod,
+    'mace': str_mod, 'quarterstaff': str_mod, 'sickle': str_mod, 'spear': str_mod, 'battle axe': str_mod,
+    'flail': str_mod, 'glaive': str_mod, 'greataxe': str_mod, 'greatsword': str_mod, 'halberd': str_mod,
+    'handaxe': str_mod, 'lance': str_mod, 'longsword': str_mod, 'maul': str_mod, 'morningstar': str_mod,
+    'pike': str_mod, 'rapier': dex_mod, 'scimitar': dex_mod, 'shortsword': dex_mod, 'trident': str_mod,
+    'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod,
+    # unique weapons
+    'dangolf staff': wis_mod, 'sif\'s dagger': dex_mod, 'gun': 100
+}
+
+npc_weapon_mod = {
+    'club': 'str mod', 'dagger': 'dex mod', 'great club': 'str mod', 'javelin': 'str mod', 'light hammer': 'str mod',
+    'mace': 'str mod', 'quarterstaff': 'str mod', 'sickle': 'str mod', 'spear': 'str mod', 'battle axe': 'str mod',
+    'flail': 'str mod', 'glaive': 'str mod', 'greataxe': 'str mod', 'greatsword': 'str mod', 'halberd': 'str mod',
+    'handaxe': 'str mod', 'lance': 'str mod', 'longsword': 'str mod', 'maul': 'str mod', 'morningstar': 'str mod',
+    'pike': 'str mod', 'rapier': 'dex mod', 'scimitar': 'dex mod', 'shortsword': 'dex mod', 'trident': 'str mod',
+    'war pick': 'str mod', 'warhammer': 'str mod', 'whip': 'dex mod',
+    # unique weapons
+    'dangolf staff': 'wis mod', 'sif\'s dagger': 'dex mod', 'gun': 'dex mod'
+}
+
+weapon_descriptions = {
+
+}
+
+player_equipment = {
+    
+}
+
+# Enemies
+
+# Basic
+goblin = {
+    'name': 'Goblin', 'title': '',
+    'health': round(d6(2) * difficulty), 'weapon': 'dagger', 'ac': 10, 'xp': 50, 'agression': 5,
+    'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1
+}
+
+kobold = {
+    'name': 'Kobold', 'title': '',
+    'health': round((d6(2) - 2) * difficulty), 'weapon': 'dagger', 'ac': 12, 'xp': 25, 'agression': 4,
+    'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1
+}
+
+
+
+# Miniboss
+gronk = {
+    'name': 'Gronk', 'title': ', The Killer',
+    'health': round(d6(10) * difficulty), 'weapon': 'maul', 'ac': 13, 'xp': 200, 'agression': 3,
+    'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 1
+}
+
+siffrin_traveler = {
+    'name': 'Siffrin', 'title': ', The Traveler',
+    'health': round(100 * difficulty), 'weapon': 'dagger', 'ac': 15, 'xp': 500, 'agression': 6,
+    'str mod': 0, 'dex mod': 6, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2
+}
+
+siffrin_lost = {
+    'name': 'Siffrin', 'title': ', The Lost',
+    'health': 999, 'weapon': 'sif\'s dagger' 
+}
+
+dangolf = {
+    'name': 'Dangolf', 'title': ', The Gold',
+    'health': round(150 * difficulty), 'weapon': 'dangolf staff', 'ac': 10, 'xp': 1000, 'agression': 2,
+    'str mod': 0, 'dex mod': 0, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2
+}
+
+# Fighting Functions
 def npc_attack(tohit, weapon, enemy):
     if tohit == 'crit':
         print('\nCritical Hit!')
@@ -164,22 +494,21 @@ def npc_attack(tohit, weapon, enemy):
         print('\nAttack missed.')
         return 0
 
-def attack(tohit, weapon):
+def attack(tohit, weapon, ac):
     if tohit == 'crit':
         print('\nCritical Hit!')
         return weapon_damage[weapon] + weapon_mod[weapon] * 2
     elif tohit == True:
-        print('\nAttack hit.')
+        print('\nYour attack hit.')
         return weapon_damage[weapon] + weapon_mod[weapon]
     elif tohit == False:
-        print('\nAttack missed.')
+        print('\nYou missed.')
         return 0
     else:
-        print('\nAttack missed.')
+        print('\nYou missed.')
         return 0
 
 def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
-    print('Your turn.\n')
     player_turn = int(input('''
     1. Attack
     2. Block\n'''))
@@ -192,27 +521,26 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             
             elif no_of_enemy == 2:
                 print(f'''\nChoose who to attack:
-    1. {enemy1['name']}
-    2. {enemy2['name']}''')
+    1. {enemy1["name"]}{enemy1["title"]}
+    2. {enemy2["name"]}{enemy2["title"]}''')
                 choice = int(input(''))
 
             elif no_of_enemy == 3:
                 print(f'''\nChoose who to attack:
-    1. {enemy1['name']}
-    2. {enemy2['name']}
-    3. {enemy3['name']}''')
+    1. {enemy1["name"]}{enemy1["title"]}
+    2. {enemy2["name"]}{enemy2["title"]}
+    3. {enemy3["name"]}{enemy3["title"]}''')
                 choice = int(input(''))
 
             elif no_of_enemy == 4:
                 print(f'''\nChoose who to attack:
-    1. {enemy1['name']}
-    2. {enemy2['name']}
-    3. {enemy3['name']}
-    4. {enemy4['name']}''')
+    1. {enemy1["name"]}{enemy1["title"]}
+    2. {enemy2["name"]}{enemy2["title"]}
+    3. {enemy3["name"]}{enemy3["title"]}
+    4. {enemy4["name"]}{enemy4["title"]}''')
                 choice = int(input(''))
-            
             print()
-            
+
             if choice == 1:
                 damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
                 print(f'You attack {enemy1["name"]} for {damage}')
@@ -242,25 +570,22 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                 break
 
             else:
-                print('Please enter a valid number.')
+                print(f'Please enter a valid number.')
 
     elif player_turn == 2:
         print('You are blocking.')
-        return True, 0, enemy1['name']
-
-
+        return True, 0, ''
 
 def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     global player_health
     global current_player_health
 
-    rolling('initiative')
+    rolling_initiative()
     player_initiative = d20() + dex_mod + initiative_bonus
     initiative = {
         player_initiative: 0
     }
-    print(f'\n\nYou rolled a {player_initiative} for initiative.')
-    cont()
+    print(f'\nYou rolled a {player_initiative} for initiative.')
 
     enemy1_is_alive = False
     enemy2_is_alive = False
@@ -282,39 +607,38 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
         enemy4_is_alive = True
         initiative[d20() + enemy4['dex mod']] = enemy4['name']+'4'
         enemy4_health = enemy4['health']
-    
+
     list_initiative = list(initiative.keys())
     list_initiative.sort(reverse= True)
     initiative = {item: initiative[item] for item in list_initiative}
     list_initiative = list(initiative.values())
-    print
 
     print('Initiative Order:')
     for x in list_initiative:
-        if str(list_initiative).find(x) == -1:
-            if x == 0:
-                print('You ', end = '')
-            else:
-                print(f'{x} ', end = '')
         if x == 0:
             print('You, ', end = '')
         else:
-            print(f'{x}, ', end = '')
-    print()
+            if str(x).endswith('1'):
+                print(f'{enemy1["name"]}, ', end = '')
+            elif str(x).endswith('2'):
+                print(f'{enemy2["name"]}, ', end = '')
+            elif str(x).endswith('3'):
+                print(f'{enemy3["name"]}, ', end = '')
+            elif str(x).endswith('4'):
+                print(f'{enemy4["name"]}, ', end = '')
     cont()
 
     while no_of_enemy > 0 and player_health > 0:
 
+        blocking = 1
+
         for turn in list_initiative:
             if turn == 0:
-
-                blocking = 1
-
+                print('Your turn.\n')
                 print(f'''Player Stats
     Level.............{level}
     Weapon............{player_equipment["weapon"]}
-    Health 
-    {bar(current_player_health, player_health, 20)}''')
+    Health {bar(current_player_health, player_health, 20)}''')
 
                 player = player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4)
 
@@ -323,46 +647,38 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                 elif player[0] == False:
                     blocking = 1
                     if player[2] == enemy1['name']:
-                        print(enemy1_health)
                         enemy1_health -= player[1]
-                        print(enemy1_health)
                     elif player[2] == enemy2['name']:
-                        print(enemy2_health)
                         enemy2_health -= player[1]
-                        print(enemy2_health)
                     elif player[2] == enemy3['name']:
-                        print(enemy3_health)
                         enemy3_health -= player[1]
-                        print(enemy3_health)
                     elif player[2] == enemy4['name']:
-                        print(enemy4_health)
                         enemy4_health -= player[1]
-                        print(enemy4_health)
 
                 if enemy1_health <= 0 and enemy1_is_alive:
-                    print(f'You killed ' + enemy1['name'])
+                    print(f'You killed {enemy1["name"]}')
                     enemy1_is_alive = False
                     no_of_enemy -= 1
                 if enemy2_is_alive:
                     if enemy2_health <= 0:
-                        print(f'You killed ' + enemy2['name'])
+                        print(f'You killed {enemy2["name"]}')
                         enemy2_is_alive = False
                         no_of_enemy -= 1
                 if enemy3_is_alive:
                     if enemy3_health <= 0:
-                        print(f'You killed ' + enemy3['name'])
+                        print(f'You killed {enemy3["name"]}')
                         enemy3_is_alive = False
                         no_of_enemy -= 1
                 if enemy4_is_alive:
                     if enemy4_health <= 0:
-                        print(f'You killed ' + enemy4['name'])
+                        print(f'You killed {enemy4["name"]}')
                         enemy4_is_alive = False
                         no_of_enemy -= 1
                 cont()
 
             elif turn != 0:
                 if str(turn).endswith('1') and enemy1_health > 0:
-                    print('It\'s ' + enemy1['name'].title() + '\'s turn\n')
+                    print('It\'s ' + enemy1['name'] + '\'s turn')
                     roll = d10() + enemy1['agression']
                     if roll > 8:
                         print(enemy1['name'] + ' is attacking.\n')
@@ -376,10 +692,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     cont()
 
                 elif str(turn).endswith('2') and enemy2_health > 0:
-                    print('\nIt\'s ' + enemy2['name'].title() + '\'s turn\n')
+                    print('\nIt\'s ' + enemy2['name'] + '\'s turn')
                     roll = d10() + enemy2['agression']
                     if roll > 8:
-                        print(enemy2['name'] + ' is attacking.')
+                        print(enemy2['name'] + ' is attacking.\n')
                         damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy2['weapon']]), enemy2['weapon'], enemy2)
                         print(f'You took {damage} damage.')
                     elif roll <= 8:
@@ -390,10 +706,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     cont()
 
                 elif str(turn).endswith('3') and enemy3_health > 0:
-                    print('\nIt\'s ' + enemy3['name'].title() + '\'s turn\n')
+                    print('\nIt\'s ' + enemy3['name'] + '\'s turn')
                     roll = d10() + enemy3['agression']
                     if roll > 8:
-                        print(enemy3['name'] + ' is attacking.')
+                        print(enemy3['name'] + ' is attacking.\n')
                         damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy3['weapon']]), enemy3['weapon'], enemy3)
                         print(f'\nYou took {damage} damage.')
                     elif roll <= 8:
@@ -404,10 +720,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     cont()
 
                 elif str(turn).endswith('4') and enemy3_health > 0:
-                    print('\nIt\'s ' + enemy4['name'].title() + '\'s turn\n')
+                    print('\nIt\'s ' + enemy4['name'] + '\'s turn')
                     roll = d10() + enemy4['agression']
                     if roll > 8:
-                        print(enemy4['name'] + 'is attacking.')
+                        print(enemy4['name'] + 'is attacking.\n')
                         damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy4['weapon']]), enemy4['weapon'], enemy4)
                         print(f'\nYou took {damage} damage.')
                     elif roll <= 8:
@@ -416,7 +732,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                         print(enemy4['name'] + ' is blocking.')
                     current_player_health -= round(damage * blocking)
                     cont()
-                    
+
     if current_player_health <= 0:
         print('You Lost.')
         return 0
@@ -424,4 +740,69 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
         print('You won!')
         return 1
 
-print(fight(2, greg, goblin))
+# distance = input('\nhow long do you want to hike?\n')
+# distance_traveled = 0
+# days = 0
+# karma = 0
+# luck_bonus = 0
+# luck_multiplier = 1
+# def luck_calc():
+#     luck = karma/2 + 10 + luck_bonus
+#     luck_mod = int((luck - 10) / 2)
+#     return round(luck, 2), luck_mod
+
+fight(2, goblin, kobold)
+
+# while distance > distance_traveled:
+#     if d20() <= 10:
+#         is_encounter = True
+#     else:
+#         is_encounter = False
+#     if d20() >= 10:
+#         is_cha_chosennce = True
+#     else:
+#         is_cha_chosennce = False
+
+#     if is_cha_chosennce == True and is_encounter == True:
+#         roll_enocounter = d100()
+#         roll_chance = d100()
+
+#     elif is_encounter == True:
+#         roll_encounter = d100()
+
+#     elif is_cha_chosennce == True:
+#         roll_chance = d100()
+
+#         if roll_chance == 1 and chance[1] == False:
+#             print('''As you travel a bit off the beaten path you run into a party of adventurers, they look experienced.
+# One of them notices you and begins to talk;
+# "Oh hey! A person! You're not a bandit are you?"''')
+
+#             say = input('''What do you say?
+#     1. Yes I am, now give me all your money *fight*
+#     2. No I'm just a traveler
+#     3. You'll never know *you wink at them ;D*
+#     4. *Walk away slowly*\n''')
+#             if say == 1:
+#                 if karma <= -5:
+#                     print('They didn\'t like your admition of guilt and begin to quickly prepare for battle.', end= '')
+#                 elif karma >= 5:
+#                     print('They didn\'t like your attempt at humour and begin to quickly prepare for battle.', end= '')
+#                 else:
+#                     print('They didn\'t appear to like that and begin to quickly prepare for battle.', end= '')
+
+#                 if level < 10:
+#                     print(' But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
+#                     save = d20() + dex_mod
+#                     if save < 8:
+#                         print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
+#                         time.sleep(1)
+#                         print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
+#                         print(f'You lost 3 items {random_item1}, {random_item2}, and {random_item3}')
+#                 elif level >= 10:
+#                     print('work in progress')# Fight function here (with named creatures)
+#             elif say == 2:
+
+#         elif roll_chance == 1 and chance[1] == True:
+#             roll_chance += d10()
+#         elif roll_chance == 2 and chance[2] == False:
