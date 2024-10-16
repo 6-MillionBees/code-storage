@@ -219,6 +219,7 @@ player_equipment = {
 }
 
 if character_class == 'barbarian':
+    player_equipment['equipped armor'] = 'skin'
     while true:
         main = int(input('''Choose your main weapon
     1. A Greataxe (1d12 + str mod)
@@ -264,6 +265,7 @@ elif character_class == 'warlock':
 
 elif character_class == 'wizard':
 
+print(player_equipment['equipped weapon'], player_equipment['stored weapon 1'], player_equipment['stored weapon 2'], player_equipment['equipped armor'])
 
 print('Please assign your stats')
 cont()

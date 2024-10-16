@@ -209,6 +209,74 @@ while true:
         print(Fore.RED + 'Please enter a number from 1-11.\n' + Fore.RESET)
 print(f'You now are a {character_class.title()}')
 
+player_equipment = {
+    'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
+    'equipped armor': '', 'stored armor': '',
+    'item 1': '', 'item 2': '',  'item 3': '', 'item 4': '', 'item 5': '', 'item 6': '',
+}
+
+def unarmored():
+    player_ac = 10 + dex_mod
+    return player_ac
+def pickupweapon():
+def pickupitem(item):
+
+
+if character_class == 'barbarian':
+    player_equipment['equipped armor'] = 'unarmored'
+    while true:
+        main = int(input('''Choose your main weapon
+    1. A Greataxe (1d12 + str mod)
+    2. Morningstar (2d6 + str mod)\n'''))
+        if main == 1:
+            player_equipment['equipped weapon'] = 'greataxe'
+            break
+        elif main == 2:
+            player_equipment['equipped weapon'] = 'morningstar'
+            break
+        else:
+            print('Please enter a valid number')
+    while true:
+        stored = int(input('''Choose your other weapon(s)
+    1. 2 handaxes (1d6 + str mod)
+    2. 2 maces (1d6 + str mod)\n'''))
+        if stored == 1:
+            player_equipment['stored weapon 1'] = 'handaxe'
+            player_equipment['stored weapon 2'] = 'handaxe'
+            break
+        elif stored == 2:
+            player_equipment['stored weapon 1'] = 'mace'
+            player_equipment['stored weapon 2'] = 'mace'
+            break
+        else:
+            print('please enter a valid number')
+    def unarmored():
+        player_ac = 10 + dex_mod + end_mod
+        return player_ac
+        
+elif character_class == 'bard':
+    while true:
+        main = int(input('''Choose your main weapon
+    1'''))
+
+# elif character_class == 'cleric':
+
+# elif character_class == 'fighter'  :
+
+# elif character_class == 'monk':
+
+# elif character_class == 'paladin':
+
+# elif character_class == 'rogue':
+
+# elif character_class == 'sorcerer':
+
+# elif character_class == 'warlock':
+
+# elif character_class == 'wizard':
+
+print(player_equipment['equipped weapon'], player_equipment['stored weapon 1'], player_equipment['stored weapon 2'], player_equipment['equipped armor'])
+
 
 print('Please assign your stats')
 cont()
