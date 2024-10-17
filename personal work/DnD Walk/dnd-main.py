@@ -218,10 +218,12 @@ player_equipment = {
 def unarmored():
     player_ac = 10 + dex_mod
     return player_ac
-def pickupweapon(weapon):
 
+def pickupweapon(weapon):
+    print(f'you picked up a {weapon["name"]}')
+    choice = input('''''')
 def pickupitem(item):
-    
+
 
 
 if character_class == 'barbarian':
