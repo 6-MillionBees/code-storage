@@ -218,8 +218,10 @@ player_equipment = {
 def unarmored():
     player_ac = 10 + dex_mod
     return player_ac
-def pickupweapon():
+def pickupweapon(weapon):
+
 def pickupitem(item):
+    
 
 
 if character_class == 'barbarian':
