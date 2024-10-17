@@ -1,0 +1,119 @@
+{
+	"files": [
+		{
+			"path": "personal work/DnD Walk/testing.py",
+			"bookmarks": [
+				{
+					"line": 390,
+					"column": 21,
+					"label": "Dice"
+				},
+				{
+					"line": 458,
+					"column": 17,
+					"label": "Weapon Damage"
+				},
+				{
+					"line": 467,
+					"column": 14,
+					"label": "Weapon Mod"
+				},
+				{
+					"line": 476,
+					"column": 18,
+					"label": "NPC Weapon Mod"
+				},
+				{
+					"line": 485,
+					"column": 20,
+					"label": "Player Equipment"
+				},
+				{
+					"line": 489,
+					"column": 10,
+					"label": "Goblin"
+				},
+				{
+					"line": 495,
+					"column": 8,
+					"label": "Greg"
+				},
+				{
+					"line": 519,
+					"column": 31,
+					"label": "Roll To Hit"
+				},
+				{
+					"line": 534,
+					"column": 37,
+					"label": "NPC Attack"
+				},
+				{
+					"line": 549,
+					"column": 26,
+					"label": "Attack"
+				},
+				{
+					"line": 563,
+					"column": 61,
+					"label": "Player Turn"
+				},
+				{
+					"line": 635,
+					"column": 70,
+					"label": "Fight"
+				}
+			]
+		},
+		{
+			"path": "personal work/DnD Walk/dnd-main.py",
+			"bookmarks": [
+				{
+					"line": 8,
+					"column": 6,
+					"label": "Dice"
+				},
+				{
+					"line": 86,
+					"column": 17,
+					"label": "Other Functions"
+				},
+				{
+					"line": 139,
+					"column": 71,
+					"label": "Name"
+				},
+				{
+					"line": 142,
+					"column": 11,
+					"label": "Class Selector"
+				},
+				{
+					"line": 201,
+					"column": 25,
+					"label": "Stats Selector"
+				},
+				{
+					"line": 212,
+					"column": 21,
+					"label": "Equipment Functions"
+				},
+				{
+					"line": 394,
+					"column": 22,
+					"label": "Various Dictionaries"
+				},
+				{
+					"line": 490,
+					"column": 20,
+					"label": "Fighting Functions"
+				},
+				{
+					"line": 723,
+					"column": 35,
+					"label": "The Beginning"
+				}
+			]
+		}
+	]
+}

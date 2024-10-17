@@ -209,21 +209,30 @@ while true:
         print(Fore.RED + 'Please enter a number from 1-11.\n' + Fore.RESET)
 print(f'You now are a {character_class.title()}')
 
-player_equipment = {
-    'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
-    'equipped armor': '', 'stored armor': '',
-    'item 1': '', 'item 2': '',  'item 3': '', 'item 4': '', 'item 5': '', 'item 6': '',
-}
 
+# Equipment Functions
 def unarmored():
     player_ac = 10 + dex_mod
     return player_ac
 
 def pickupweapon(weapon):
     print(f'you picked up a {weapon["name"]}')
-    choice = input('''''')
-def pickupitem(item):
+    choice = input(f'''Which slot should it be put in?
+    1. {player_equipment['stored weapon 1']}
+    2. {player_equipment['stored weapon 2']}
+    3. {player_equipment['stored weapon 3']}
+    4. {player_equipment['stored weapon 4']}
+    5. {player_equipment['stored weapon 5']}
+    6. Throw away (cannot be undone)\n''')
 
+def pickupitem(item):
+    print(f'You picked up {item}')
+
+player_equipment = {
+    'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
+    'equipped armor': '', 'stored armor': '',
+    'item 1': '', 'item 2': '',  'item 3': '', 'item 4': '', 'item 5': '', 'item 6': '',
+}
 
 
 if character_class == 'barbarian':
@@ -261,7 +270,7 @@ if character_class == 'barbarian':
 elif character_class == 'bard':
     while true:
         main = int(input('''Choose your main weapon
-    1'''))
+    1. '''))
 
 # elif character_class == 'cleric':
 
@@ -436,10 +445,6 @@ npc_weapon_mod = {
     'war pick': 'str_mod', 'warhammer': 'str_mod', 'whip': 'dex_mod',
     # unique weapons
     'dangolf staff': 'wis mod', 'sif\'s dagger': 'dex mod', 
-}
-
-player_equipment = {
-    
 }
 
 # Enemies
