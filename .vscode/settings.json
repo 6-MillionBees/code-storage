@@ -85,8 +85,6 @@
             "focusBorder":"#ff6a00c8",
             "foreground": "#e57b2f",
 
-            "gitDecoration.modifiedResourceForeground": "#96bc70",
-
             "input.border": "#754221",
             "icon.foreground": "#e57b2f",
 
@@ -171,7 +169,7 @@
             "foreground": "#ffffff",
             "editor.foreground": "#ff79db"
         }
-        },
+    },
 
     "editor.tokenColorCustomizations": {
         "[the orange box]": {
@@ -187,7 +185,7 @@
             },
             "keywords": {
                 "foreground": "#e8571e",
-                "fontStyle": "underline"
+                "fontStyle": "underline",
             },
             "types": {
                 "foreground": "#f2601c",
