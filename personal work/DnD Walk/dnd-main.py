@@ -15,6 +15,14 @@ def d100(number = 1):
         roll += random.randint(1, 100)
     return roll
 
+def d69(number = 1):
+    num = 0
+    roll = 0
+    while num < number:
+        num += 1
+        roll += random.randint(1, 69)
+    return roll
+
 def d20(number = 1):
     num = 0
     roll = 0
@@ -99,14 +107,6 @@ def rolling(rolling_for = ''):
     while x <= 3:
         xperiod = x * '.'
         print(f'\rRolling {rolling_for}{xperiod}',end='')
-        x += 1
-        time.sleep(1)
-
-def rolling_initiative():
-    x =0
-    while x <= 3:
-        xperiod = x * '.'
-        print(f'\r{Fore.RED}Rolling for Initiative{xperiod}{Fore.RESET}',end='')
         x += 1
         time.sleep(1)
 
@@ -211,28 +211,83 @@ print(f'You now are a {character_class.title()}')
 
 
 # Equipment Functions
-def unarmored():
-    player_ac = 10 + dex_mod
-    return player_ac
-
-def pickupweapon(weapon):
-    print(f'you picked up a {weapon["name"]}')
-    choice = input(f'''Which slot should it be put in?
-    1. {player_equipment['stored weapon 1']}
-    2. {player_equipment['stored weapon 2']}
-    3. {player_equipment['stored weapon 3']}
-    4. {player_equipment['stored weapon 4']}
-    5. {player_equipment['stored weapon 5']}
-    6. Throw away (cannot be undone)\n''')
-
-def pickupitem(item):
-    print(f'You picked up {item}')
 
 player_equipment = {
     'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
     'equipped armor': '', 'stored armor': '',
     'item 1': '', 'item 2': '',  'item 3': '', 'item 4': '', 'item 5': '', 'item 6': '',
 }
+
+def unarmored():
+    player_ac = 10 + dex_mod
+    return player_ac
+
+def pickupweapon(weapon):
+    print(f'you picked up a {weapon_name[weapon]}')
+    while true:
+        choice = input(f'''Which slot should it be put in?
+    1. {player_equipment['stored weapon 1']}
+    2. {player_equipment['stored weapon 2']}
+    3. {player_equipment['stored weapon 3']}
+    4. {player_equipment['stored weapon 4']}
+    5. {player_equipment['stored weapon 5']}
+    6. Throw away (cannot be undone)\n''')
+        if choice == 1:
+            player_equipment['stored weapon 1'] = weapon['name']
+            print('You pick up the weapon')
+            break
+        elif choice == 2:
+            player_equipment['stored weapon 2'] = weapon['name']
+            print('You pick up the weapon')
+            break
+        elif choice == 3:
+            player_equipment['stored weapon 3'] = weapon['name']
+            print('You pick up the weapon')
+            break
+        elif choice == 4:
+            player_equipment['stored weapon 4'] = weapon['name']
+            print('You pick up the weapon')
+            break
+        elif choice == 5:
+            player_equipment['stored weapon 5'] = weapon['name']
+            print('You pick up the weapon')
+            break
+        elif choice == 6:
+            print('You don\'t pick up the weapon')
+            break
+        else:
+            print(Fore.RED + 'Invalid input Please try again.' + Fore.RESET)
+
+def pickupitem(item):
+    print(f'You picked up {item}')
+    choice = input(f'''Which slot should it be put in?
+    1. {player_equipment['item 1']}
+    2. {player_equipment['item 2']}
+    3. {player_equipment['item 3']}
+    4. {player_equipment['item 4']}
+    5. {player_equipment['item 5']}
+    6. {player_equipment['item 6']}
+    7. Throw away (cannot be undone)\n''')
+    if choice == 1:
+        player_equipment['stored weapon 1'] = item['name']
+        print('You pick up the weapon')
+    elif choice == 2:
+        player_equipment['stored weapon 2'] = item['name']
+        print('You pick up the weapon')
+    elif choice == 3:
+        player_equipment['stored weapon 3'] = item['name']
+        print('You pick up the weapon')
+    elif choice == 4:
+        player_equipment['stored weapon 4'] = item['name']
+        print('You pick up the weapon')
+    elif choice == 5:
+        player_equipment['stored weapon 5'] = item['name']
+        print('You pick up the weapon')
+    elif choice == 6:
+        player_equipment['stored weapon 5'] = item['name']
+        print('You pick up the weapon')
+    elif choice == 7:
+        print('You don\'t pick up the weapon')
 
 
 if character_class == 'barbarian':
@@ -401,18 +456,24 @@ starting_hit_dice = {
 }
 
 hit_dice = {
-    'sorcerer': d6(level - 1), 'wizard': d6(level - 1), 'rogue': d8(level - 1), 'bard': d8(level - 1),
-    'cleric': d8(level - 1), 'monk': d8(level - 1), 'warlock': d8(level - 1), 'fighter': d10(level - 1),
-    'paladin': d10, 'barbarian': d12(level - 1)
+    'sorcerer': d6(), 'wizard':  d6(), 'rogue': d8(), 'bard': d8(),
+    'cleric': d8(), 'monk': d8(), 'warlock': d8(), 'fighter': d10(),
+    'paladin': d10(), 'barbarian': d12()
 }
 
-class_caster = {
-    'sorcerer': 'caster',  'wizard': 'caster', 'rogue': 'noncaster', 'bard': 'caster', 'cleric': 'caster', 'monk': 'monk',
-    'warlock': 'caster', 'fighter': 'noncaster', 'paladin': 'caster', 'barbarian': 'barbarian'
-}
-
-player_health = starting_hit_dice[character_class] + hit_dice[character_class] + end_mod * level
+player_health = starting_hit_dice[character_class] + end_mod
 current_player_health = player_health
+
+weapon_name = {
+    'club': 'Club', 'dagger': 'Dagger', 'great club': 'Great Club', 'javelin': 'Javelin', 'light hammer': 'Light Hammer',
+    'mace': 'Mace', 'quarterstaff': 'Quarterstaff', 'sickle': 'Sickle', 'spear': 'Spear', 'battle axe': 'Battle Axe',
+    'flail': 'Flail', 'glaive': 'Glaive', 'greataxe': 'Greataxe', 'greatsword': 'Greatsword', 'halberd': 'Halberd',
+    'handaxe': 'Handaxe', 'lance': 'Lance', 'longsword': 'Longsword', 'maul': 'Maul', 'morningstar': 'Morningstar',
+    'pike': 'Pike', 'rapier': 'Rapier', 'scimitar': 'Scimitar', 'shortsword': 'Shortsword', 'trident': 'Trident',
+    'war pick': 'War Pick', 'warhammer': 'Warhammer', 'whip': 'Whip',
+    # unique weapons
+    'dangolf staff': 'Dangolf\'s Staff', 'sif dagger': 'Siffrin, the Lost\'s Dagger', 'player sif dagger': 'Siffrin\'s Dagger'
+}
 
 weapon_damage = {
     'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
@@ -422,7 +483,7 @@ weapon_damage = {
     'pike': d10(), 'rapier': d8(), 'scimitar': d6(), 'shortsword': d6(), 'trident': d8(),
     'war pick': d8(), 'warhammer': d8(), 'whip': d4(),
     # unique weapons
-    'dangolf staff': d6(4), 'sif\'s dagger': d4(3)
+    'dangolf staff': d6(4), 'sif dagger': 999, 'player sif dagger': d4(10)
 }
 
 weapon_mod = {
@@ -433,7 +494,7 @@ weapon_mod = {
     'pike': str_mod, 'rapier': dex_mod, 'scimitar': dex_mod, 'shortsword': dex_mod, 'trident': str_mod,
     'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod,
     # unique weapons
-    'dangolf staff': wis_mod, 'sif\'s dagger': dex_mod, 
+    'dangolf staff': wis_mod, 'player sif dagger': dex_mod, 
 }
 
 npc_weapon_mod = {
@@ -444,7 +505,7 @@ npc_weapon_mod = {
     'pike': 'str_mod', 'rapier': 'dex_mod', 'scimitar': 'dex_mod', 'shortsword': 'dex_mod', 'trident': 'str_mod',
     'war pick': 'str_mod', 'warhammer': 'str_mod', 'whip': 'dex_mod',
     # unique weapons
-    'dangolf staff': 'wis mod', 'sif\'s dagger': 'dex mod', 
+    'dangolf staff': 'wis mod', 'sif dagger': 'dex mod', 
 }
 
 # Enemies
@@ -452,34 +513,41 @@ npc_weapon_mod = {
 # Basic
 goblin = {
     'name': 'Goblin', 'title': '',
-    'health': int(d6(2) * difficulty), 'weapon': 'dagger', 'ac': 10, 'xp': 50, 'agression': 5,
+    'health': int(d6(2) * difficulty), 'weapon': 'dagger', 'ac': 5, 'xp': 50, 'agression': 5,
     'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1
 }
 
 kobold = {
     'name': 'Kobold', 'title': '',
-    'health': int((d6(2) - 2) * difficulty), 'weapon': 'dagger', 'ac': 12, 'xp': 25, 'agression': 4,
+    'health': int((d4(4) - 2) * difficulty), 'weapon': 'dagger', 'ac': 7, 'xp': 25, 'agression': 4,
     'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1
 }
 
 
 
-# Miniboss
+# Named
+kile = {
+    'name': 'Kile', 'title': ', With An I',
+    'health': int(d4(4) + 20), 'weapon': 'longsword', 'ac': 12, 'xp': 225, 'agression': 2,
+    'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1
+}
+
 gronk = {
     'name': 'Gronk', 'title': ', The Killer',
-    'health': int(d6(10) * difficulty), 'weapon': 'maul', 'ac': 13, 'xp': 200, 'agression': 3,
-    'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 1
+    'health': int(d6(4) + 20), 'weapon': 'maul', 'ac': 13, 'xp': 200, 'agression': 3,
+    'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 0
 }
 
 siffrin_traveler = {
     'name': 'Siffrin', 'title': ', The Traveler',
-    'health': 100 * difficulty, 'weapon': 'dagger', 'ac': 15, 'xp': 500, 'agression': 6,
-    'str mod': 0, 'dex mod': 6, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2
+    'health': 100 * difficulty, 'weapon': 'dagger', 'ac': 13, 'xp': 500, 'agression': 6,
+    'str mod': 0, 'dex mod': 5, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2
 }
 
 siffrin_lost = {
     'name': 'Siffrin', 'title': ', The Lost',
-    'health': 999, 'weapon': 'sif\'s dagger' 
+    'health': 999, 'weapon': 'sif dagger', 'ac': 15, 'xp': 9999, 'agression': 10,
+    'str mod': 0, 'dex mod': 6, 'end mod': 3, 'int mod': 0, 'wis mod': -2, 'cha mod': 1
 }
 
 dangolf = {
@@ -487,6 +555,15 @@ dangolf = {
     'health': 150 * difficulty, 'weapon': 'dangolf staff', 'ac': 10, 'xp': 1000, 'agression': 2,
     'str mod': 0, 'dex mod': 0, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2
 }
+
+# Rolling Functions
+def roll_against_player(agressor_mod, agressor, defender_mod):
+    agressor_roll = d20() + agressor[agressor_mod]
+    defender_roll = d20() + defender_mod
+    if agressor_roll > defender_roll:
+        return True
+    elif agressor_roll < defender_roll:
+        return False
 
 # Fighting Functions
 def npc_attack(tohit, weapon, enemy):
@@ -553,28 +630,40 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 
             if choice == 1:
                 damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
-                print(f'You attack {enemy1["name"]} for {damage}')
+                if damage > 50:
+                    print(f'You attack {enemy1["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                else:
+                    print(f'You attack {enemy1["name"]} for {damage}')
                 cont()
                 return False, damage, enemy1['name']
                 break
 
             elif choice == 2:
                 damage =  attack(roll_to_hit(d20(), enemy2['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
-                print('You attack ' + enemy2['name'] + f' for {damage}')
+                if damage > 50:
+                    print(f'You attack {enemy2["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                else:
+                    print(f'You attack {enemy2["name"]} for {damage}')
                 cont()
                 return False, damage, enemy2['name']
                 break
 
             elif choice == 3:
                 damage =  attack(roll_to_hit(d20(), enemy3['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
-                print('You attack ' + enemy3['name'] + f' for {damage}')
+                if damage > 50:
+                    print(f'You attack {enemy3["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                else:
+                    print(f'You attack {enemy3["name"]} for {damage}')
                 cont()
                 return False, damage, enemy3['name']
                 break
 
             elif choice == 4:
                 damage =  attack(roll_to_hit(d20(), enemy4['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
-                print('You attack ' + enemy4['name'] + f' for {Fore.BLUE}{damage}{Fore}')
+                if damage > 50:
+                    print(f'You attack {enemy4["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                else:
+                    print(f'You attack {enemy4["name"]} for {damage}')
                 cont()
                 return False, damage, enemy4['name']
                 break
@@ -590,7 +679,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     global player_health
     global current_player_health
 
-    rolling_initiative()
+    rolling('for Initiative')
     player_initiative = d20() + dex_mod + initiative_bonus
     initiative = {
         player_initiative: 0
@@ -687,7 +776,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     if roll > 8:
                         print(enemy1['name'] + ' is attacking.\n')
                         damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy1['weapon']]), enemy1['weapon'], enemy1)
-                        print(f'You took {damage} damage.')
+                        if damage > 50:
+                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
+                        else:
+                            print(f'You took {damage} damage.')
                     elif roll <= 8:
                         enemy1_blocking = True
                         damage = 0
@@ -701,7 +793,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     if roll > 8:
                         print(enemy2['name'] + ' is attacking.\n')
                         damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy2['weapon']]), enemy2['weapon'], enemy2)
-                        print(f'You took {damage} damage.')
+                        if damage > 50:
+                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
+                        else:
+                            print(f'You took {damage} damage.')
                     elif roll <= 8:
                         enemy2_blocking = True
                         damage = 0
@@ -715,7 +810,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     if roll > 8:
                         print(enemy3['name'] + ' is attacking.\n')
                         damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy3['weapon']]), enemy3['weapon'], enemy3)
-                        print(f'\nYou took {damage} damage.')
+                        if damage > 50:
+                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
+                        else:
+                            print(f'You took {damage} damage.')
                     elif roll <= 8:
                         enemy3_blocking = True
                         damage = 0
@@ -729,7 +827,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     if roll > 8:
                         print(enemy4['name'] + 'is attacking.\n')
                         damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy4['weapon']]), enemy4['weapon'], enemy4)
-                        print(f'\nYou took {damage} damage.')
+                        if damage > 50:
+                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
+                        else:
+                            print(f'You took {damage} damage.')
                     elif roll <= 8:
                         enemy4_blocking = True
                         damage = 0

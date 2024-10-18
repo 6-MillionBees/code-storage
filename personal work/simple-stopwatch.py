@@ -25,7 +25,7 @@ while True:
 
         if time_local == time_local_1: # A problem that I ran into is that I couldn't have the input detection run while only printing the time every second.
             continue 
-# I solved this by letting the loop run forever but only printing once the local time changed as a side effect, the timer can start between seconds making it slightly inaccurate.
+# I solved this by letting the loop run forever but only printing once the local time changed, as a side effect the timer can start between seconds making it slightly inaccurate.
 
         time_m = time_s / 60 # there is 100% a better way to do this but I love it so much
         time_m = int(time_m)
@@ -36,6 +36,6 @@ while True:
 
         time.sleep(0.075) # This is here to save processing power, without it the loop would just be going crazy with your computers resources.
 
-print(f'end time {time_thing}')
+print(f'Ending time {time_thing}')
 print(f'Total time: {time_m} minutes and {left_time_s} seconds.')
 input('Press enter to finish the program\n') # I use this to time my reading.
