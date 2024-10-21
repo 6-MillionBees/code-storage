@@ -6,6 +6,7 @@ import random
 from colorama import Fore
 import time
 
+
 # Dice
 def d100(number = 1):
     num = 0
