@@ -98,7 +98,7 @@ encounter = {
     91: False, 92: False, 93: False, 94: False, 95: False
 }
 
-# Other functions
+# Other Functions
 def cont():
     input('\nPress enter to continue.\n')
 
@@ -219,7 +219,7 @@ player_equipment = {
 }
 
 def unarmored():
-    player_ac = 10 + dex_mod
+    player_ac = 10 + player_mods['dex_mod']
     return player_ac
 
 def pickupweapon(weapon):
@@ -319,7 +319,7 @@ if character_class == 'barbarian':
         else:
             print('please enter a valid number')
     def unarmored():
-        player_ac = 10 + dex_mod + end_mod
+        player_ac = 10 + player_mods['dex_mod'] + player_mods['end_mod']
         return player_ac
         
 elif character_class == 'bard':
@@ -435,17 +435,23 @@ while all_stats == False:
         else:
             print('Please pick a number between 1 and 6.')
 
-str_mod = int((strength - 10) / 2)
-dex_mod = int((dexterity - 10) / 2)
-end_mod = int((dexterity - 10) / 2)
-int_mod = int((dexterity - 10) / 2)
-wis_mod = int((dexterity - 10) / 2)
-cha_mod = int((dexterity - 10) / 2)
-player_ac = 10 + dex_mod
-initiative_bonus = 0
+player_mods = {
+    'str_mod': int((strength - 10) / 2),
+    'dex_mod': int((dexterity - 10) / 2),
+    'end_mod': int((endurance - 10) / 2),
+    'int_mod': int((inteligence - 10) / 2),
+    'wis_mod': int((wisdom - 10) / 2),
+    'cha_mod': int((charisma - 10) / 2)
+}
+
+print(player_mods)
+player_ac = 10 + player_mods['dex_mod']
+initiative_bonus = player_mods['dex_mod']
 days = 0
 level = 1
 difficulty = 1 + days / 25
+
+print(initiative_bonus)
 
 # Various Dictionaries
 
@@ -461,7 +467,7 @@ hit_dice = {
     'paladin': d10(), 'barbarian': d12()
 }
 
-player_health = starting_hit_dice[character_class] + end_mod
+player_health = starting_hit_dice[character_class] + player_mods['end_mod']
 current_player_health = player_health
 
 weapon_name = {
@@ -475,26 +481,28 @@ weapon_name = {
     'dangolf staff': 'Dangolf\'s Staff', 'sif dagger': 'Siffrin, the Lost\'s Dagger', 'player sif dagger': 'Siffrin\'s Dagger'
 }
 
+
 weapon_damage = {
-    'club': d4(), 'dagger': d4(), 'great club': d10(), 'javelin': d6(), 'light hammer': d4(),
-    'mace': d6(), 'quarterstaff': d8(), 'sickle': d4(), 'spear': d6(), 'battle axe': d8(),
-    'flail': d8(), 'glaive': d10(), 'greataxe': d12(), 'greatsword': d6(2), 'halberd': d10(),
-    'handaxe': d6(), 'lance': d8(), 'longsword': d8(), 'maul': d6(2), 'morningstar': d8(),
-    'pike': d10(), 'rapier': d8(), 'scimitar': d6(), 'shortsword': d6(), 'trident': d8(),
-    'war pick': d8(), 'warhammer': d8(), 'whip': d4(),
+    'club': (lambda: d4()), 'dagger': (lambda: d4()), 'great club': (lambda: d4()), 'javelin': (lambda: d6()), 'light hammer': (lambda: d4()),
+    'mace': (lambda: d6()), 'quarterstaff': (lambda: d8()), 'sickle': (lambda: d4()), 'spear': (lambda: d6()), 'battle axe': (lambda: d8()),
+    'flail': (lambda: d8()), 'glaive': (lambda: d10()), 'greataxe': (lambda: d12()), 'greatsword': (lambda: d6(2)), 'halberd': (lambda: d10()),
+    'handaxe': (lambda: d6()), 'lance': (lambda: d8()), 'longsword': (lambda: d8()), 'maul': (lambda: d6(2)), 'morningstar': (lambda: d8()),
+    'pike': (lambda: d10()), 'rapier': (lambda: d8()), 'scimitar': (lambda: d6()), 'shortsword': (lambda: d6()), 'trident': (lambda: d8()),
+    'war pick': (lambda: d8()), 'warhammer': (lambda: d8()), 'whip': (lambda: d4()),
     # unique weapons
-    'dangolf staff': d6(4), 'sif dagger': 999, 'player sif dagger': d4(10)
+    'dangolf staff': (lambda: d6(4)), 'sif dagger': 999, 'player sif dagger': (lambda: d4(5))
 }
 
 weapon_mod = {
-    'club': str_mod, 'dagger': dex_mod, 'great club': str_mod, 'javelin': str_mod, 'light hammer': str_mod,
-    'mace': str_mod, 'quarterstaff': str_mod, 'sickle': str_mod, 'spear': str_mod, 'battle axe': str_mod,
-    'flail': str_mod, 'glaive': str_mod, 'greataxe': str_mod, 'greatsword': str_mod, 'halberd': str_mod,
-    'handaxe': str_mod, 'lance': str_mod, 'longsword': str_mod, 'maul': str_mod, 'morningstar': str_mod,
-    'pike': str_mod, 'rapier': dex_mod, 'scimitar': dex_mod, 'shortsword': dex_mod, 'trident': str_mod,
-    'war pick': str_mod, 'warhammer': str_mod, 'whip': dex_mod,
+    'club': player_mods['str_mod'], 'dagger': player_mods['dex_mod'], 'great club': player_mods['str_mod'], 'javelin': player_mods['str_mod'],
+    'light hammer': player_mods['str_mod'], 'mace': player_mods['str_mod'], 'quarterstaff': player_mods['str_mod'], 'sickle': player_mods['str_mod'],
+    'spear': player_mods['str_mod'], 'battle axe': player_mods['str_mod'], 'flail': player_mods['str_mod'], 'glaive': player_mods['str_mod'],
+    'greataxe': player_mods['str_mod'], 'greatsword': player_mods['str_mod'], 'halberd': player_mods['str_mod'], 'handaxe': player_mods['str_mod'],
+    'lance': player_mods['str_mod'], 'longsword': player_mods['str_mod'], 'maul': player_mods['str_mod'], 'morningstar': player_mods['str_mod'],
+    'pike': player_mods['str_mod'], 'rapier': player_mods['dex_mod'], 'scimitar': player_mods['dex_mod'], 'shortsword': player_mods['dex_mod'],
+    'trident': player_mods['str_mod'], 'war pick': player_mods['str_mod'], 'warhammer': player_mods['str_mod'], 'whip': player_mods['dex_mod'],
     # unique weapons
-    'dangolf staff': wis_mod, 'player sif dagger': dex_mod, 
+    'dangolf staff': player_mods['wis_mod'], 'player sif dagger': player_mods['dex_mod'], 
 }
 
 npc_weapon_mod = {
@@ -557,9 +565,9 @@ dangolf = {
 }
 
 # Rolling Functions
-def roll_against_player(agressor_mod, agressor, defender_mod):
+def roll_against_player(agressor_mod, agressor, defender, defender_mod):
     agressor_roll = d20() + agressor[agressor_mod]
-    defender_roll = d20() + defender_mod
+    defender_roll = d20() + defender[defender_mod]
     if agressor_roll > defender_roll:
         return True
     elif agressor_roll < defender_roll:
@@ -569,11 +577,11 @@ def roll_against_player(agressor_mod, agressor, defender_mod):
 def npc_attack(tohit, weapon, enemy):
     if tohit == 'crit':
         print('\nCritical Hit!')
-        damage = weapon_damage[weapon] + enemy[weapon_mod[weapon]] * 2
+        damage = weapon_damage[weapon]() + enemy[weapon_mod[weapon]] * 2
         return damage
     elif tohit == True:
         print('\nAttack hit.')
-        return weapon_damage[weapon] + enemy[npc_weapon_mod[weapon]]
+        return weapon_damage[weapon]() + enemy[npc_weapon_mod[weapon]]
     elif tohit == False:
         print('\nAttack missed.')
         return 0
@@ -584,10 +592,10 @@ def npc_attack(tohit, weapon, enemy):
 def attack(tohit, weapon, ac):
     if tohit == 'crit':
         print(Fore.RED + '\nCritical' + Fore.RESET +' Hit!')
-        return weapon_damage[weapon] + weapon_mod[weapon] * 2
+        return weapon_damage[weapon]() + weapon_mod[weapon] * 2
     elif tohit == True:
         print('\nYour attack hit.')
-        return weapon_damage[weapon] + weapon_mod[weapon]
+        return weapon_damage[weapon]() + weapon_mod[weapon]
     elif tohit == False:
         print('\nYou missed.')
         return 0
@@ -629,7 +637,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             print()
 
             if choice == 1:
-                damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
+                damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['weapon'])
                 if damage > 50:
                     print(f'You attack {enemy1["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                 else:
@@ -639,7 +647,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                 break
 
             elif choice == 2:
-                damage =  attack(roll_to_hit(d20(), enemy2['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
+                damage =  attack(roll_to_hit(d20(), enemy2['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['weapon'])
                 if damage > 50:
                     print(f'You attack {enemy2["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                 else:
@@ -649,7 +657,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                 break
 
             elif choice == 3:
-                damage =  attack(roll_to_hit(d20(), enemy3['ac'], weapon_mod[player_equipment['weapon']]), player_equipment['weapon'])
+                damage =  attack(roll_to_hit(d20(), enemy3['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['weapon'])
                 if damage > 50:
                     print(f'You attack {enemy3["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                 else:
@@ -680,7 +688,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     global current_player_health
 
     rolling('for Initiative')
-    player_initiative = d20() + dex_mod + initiative_bonus
+    player_initiative = d20() + player_mods['dex_mod'] + initiative_bonus
     initiative = {
         player_initiative: 0
     }
@@ -722,10 +730,14 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     cont()
 
     while no_of_enemy > 0 and player_health > 0:
-
+        if player_health <= 0:
+            break
         blocking = 1
 
         for turn in list_initiative:
+            if player_health <= 0:
+                continue
+
             if turn == 0:
                 print('Your turn.\n')
                 print(f'''Player Stats
@@ -856,7 +868,7 @@ def luck_calc():
     luck_mod = int((luck - 10) / 2)
     return round(luck, 2), luck_mod
 
-fight(2, goblin, kobold)
+fight(1, goblin)
 
 # while distance > distance_traveled:
 #     if d20() <= 10:
@@ -898,7 +910,7 @@ fight(2, goblin, kobold)
 
 #                 if level < 10:
 #                     print(' But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
-#                     save = d20() + dex_mod
+#                     save = d20() + player_mods['dex_mod']
 #                     if save < 8:
 #                         print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
 #                         time.sleep(1)

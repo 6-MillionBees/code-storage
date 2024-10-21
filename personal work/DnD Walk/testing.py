@@ -9,8 +9,10 @@ def d10(number = 1):
         roll += rollnum()
     return roll
 
-a = lambda: d10()
+dict = {
+    'a': (lambda num = 1: d10(num))
+}
 
-print(a())
+print(dict['a']())
 
-print(a())
+print(dict['a']())

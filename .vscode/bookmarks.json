@@ -9,42 +9,27 @@
 					"label": "Dice"
 				},
 				{
-					"line": 94,
+					"line": 100,
 					"column": 17,
 					"label": "Other Functions"
 				},
 				{
-					"line": 139,
-					"column": 71,
-					"label": "Name"
-				},
-				{
-					"line": 142,
-					"column": 11,
-					"label": "Class Selector"
-				},
-				{
-					"line": 201,
-					"column": 25,
-					"label": "Stats Selector"
-				},
-				{
 					"line": 212,
 					"column": 21,
-					"label": "Inventory stuff"
+					"label": "Eqiupment Functions"
 				},
 				{
-					"line": 449,
+					"line": 455,
 					"column": 22,
 					"label": "Various Dictionaries"
 				},
 				{
-					"line": 567,
+					"line": 575,
 					"column": 20,
 					"label": "Fighting Functions"
 				},
 				{
-					"line": 821,
+					"line": 833,
 					"column": 35,
 					"label": "The Beginning"
 				}

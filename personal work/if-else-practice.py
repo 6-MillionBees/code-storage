@@ -9,7 +9,7 @@ extra_reasons = 'I am caught up with all of my work and I want it for purely sch
 
 while True:
     print(please)
-    print('Do I have your permission?')
+    print('Do I have your permission Y/N?')
     check1 = input()
 
     if check1 == 'no': # edit: It works! When it gets an input that isn't yes or no then it goes back to the beginning 
