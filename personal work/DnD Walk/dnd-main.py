@@ -8,6 +8,7 @@ import time
 
 
 # Dice
+
 def d100(number = 1):
     num = 0
     roll = 0
@@ -100,6 +101,7 @@ encounter = {
 }
 
 # Other Functions
+
 def cont():
     input('\nPress enter to continue.\n')
 
@@ -566,6 +568,7 @@ dangolf = {
 }
 
 # Rolling Functions
+
 def roll_against_player(agressor_mod, agressor, defender, defender_mod):
     agressor_roll = d20() + agressor[agressor_mod]
     defender_roll = d20() + defender[defender_mod]
@@ -575,10 +578,11 @@ def roll_against_player(agressor_mod, agressor, defender, defender_mod):
         return False
 
 # Fighting Functions
+
 def npc_attack(tohit, weapon, enemy):
     if tohit == 'crit':
         print('\nCritical Hit!')
-        damage = weapon_damage[weapon]() + enemy[weapon_mod[weapon]] * 2
+        damage = weapon_damage[weapon]() + enemy[npc_weapon_mod[weapon]] * 2
         return damage
     elif tohit == True:
         print('\nAttack hit.')
