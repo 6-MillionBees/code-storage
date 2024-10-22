@@ -4,43 +4,38 @@
 			"path": "personal work/DnD Walk/dnd-main.py",
 			"bookmarks": [
 				{
-					"line": 9,
+					"line": 10,
 					"column": 6,
 					"label": "Dice"
 				},
 				{
-					"line": 102,
+					"line": 103,
 					"column": 0,
 					"label": "Other Functions"
 				},
 				{
-					"line": 215,
+					"line": 216,
 					"column": 21,
 					"label": "Equipment Functions"
 				},
 				{
-					"line": 348,
-					"column": 152,
-					"label": "Remove after testing"
-				},
-				{
-					"line": 354,
+					"line": 328,
 					"column": 25,
 					"label": "Stats"
 				},
 				{
-					"line": 458,
-					"column": 0,
+					"line": 433,
+					"column": 22,
 					"label": "Various Dictionaries"
 				},
 				{
-					"line": 579,
-					"column": 20,
+					"line": 547,
+					"column": 19,
 					"label": "Fighting Functions"
 				},
 				{
-					"line": 877,
-					"column": 37,
+					"line": 882,
+					"column": 35,
 					"label": "The Beginning"
 				}
 			]

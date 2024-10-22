@@ -4,6 +4,7 @@
 
 import random
 from colorama import Fore
+from colorama import Back
 import time
 
 
@@ -103,7 +104,7 @@ encounter = {
 # Other Functions
 
 def cont():
-    input('\nPress enter to continue.\n')
+    input(Fore.BLACK + Back.WHITE + '\nPress enter to continue.\n' + Fore.RESET + Back.RESET)
 
 def rolling(rolling_for = ''):
     x =0
@@ -218,10 +219,10 @@ print(f'You now are a {character_class.title()}')
 player_equipment = {
     'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
     'equipped armor': '', 'stored armor': '',
-    'item 1': '', 'item 2': '',  'item 3': '', 'item 4': '', 'item 5': '', 'item 6': '',
+    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': '', 'item 5': '', 'item 6': ''
 }
 
-player_items = []
+player_unique_items = []
 
 def unarmored():
     player_ac = 10 + player_mods['dex mod']
@@ -237,62 +238,33 @@ def pickupweapon(weapon):
     4. {player_equipment['stored weapon 4']}
     5. {player_equipment['stored weapon 5']}
     6. Throw away (cannot be undone)\n''')
-        if choice == 1:
-            player_equipment['stored weapon 1'] = weapon['name']
-            print('You pick up the weapon')
-            break
-        elif choice == 2:
-            player_equipment['stored weapon 2'] = weapon['name']
-            print('You pick up the weapon')
-            break
-        elif choice == 3:
-            player_equipment['stored weapon 3'] = weapon['name']
-            print('You pick up the weapon')
-            break
-        elif choice == 4:
-            player_equipment['stored weapon 4'] = weapon['name']
-            print('You pick up the weapon')
-            break
-        elif choice == 5:
-            player_equipment['stored weapon 5'] = weapon['name']
-            print('You pick up the weapon')
-            break
-        elif choice == 6:
-            print('You don\'t pick up the weapon')
-            break
-        else:
-            print(Fore.RED + 'Invalid input Please try again.' + Fore.RESET)
-
-def pickupitem(item):
-    print(f'You picked up {item}')
-    choice = input(f'''Which slot should it be put in?
-    1. {player_equipment['item 1']}
-    2. {player_equipment['item 2']}
-    3. {player_equipment['item 3']}
-    4. {player_equipment['item 4']}
-    5. {player_equipment['item 5']}
-    6. {player_equipment['item 6']}
-    7. Throw away (cannot be undone)\n''')
-    if choice == 1:
-        player_equipment['stored weapon 1'] = item['name']
-        print('You pick up the weapon')
-    elif choice == 2:
-        player_equipment['stored weapon 2'] = item['name']
-        print('You pick up the weapon')
-    elif choice == 3:
-        player_equipment['stored weapon 3'] = item['name']
-        print('You pick up the weapon')
-    elif choice == 4:
-        player_equipment['stored weapon 4'] = item['name']
-        print('You pick up the weapon')
-    elif choice == 5:
-        player_equipment['stored weapon 5'] = item['name']
-        print('You pick up the weapon')
-    elif choice == 6:
-        player_equipment['stored weapon 5'] = item['name']
-        print('You pick up the weapon')
-    elif choice == 7:
-        print('You don\'t pick up the weapon')
+        ynchoice = input('Are you sure? Yes or No\n')
+        if ynchoice.lower() == 'yes':
+            if choice == 1:
+                player_equipment['stored weapon 1'] = weapon['name']
+                print('You pick up the weapon')
+                break
+            elif choice == 2:
+                player_equipment['stored weapon 2'] = weapon['name']
+                print('You pick up the weapon')
+                break
+            elif choice == 3:
+                player_equipment['stored weapon 3'] = weapon['name']
+                print('You pick up the weapon')
+                break
+            elif choice == 4:
+                player_equipment['stored weapon 4'] = weapon['name']
+                print('You pick up the weapon')
+                break
+            elif choice == 5:
+                player_equipment['stored weapon 5'] = weapon['name']
+                print('You pick up the weapon')
+                break
+            elif choice == 6:
+                print('You don\'t pick up the weapon')
+                break
+            else:
+                print(Fore.RED + 'Invalid input Please try again.' + Fore.RESET)
 
 
 if character_class == 'barbarian':
@@ -589,29 +561,37 @@ def npc_attack(tohit, weapon, enemy):
     if tohit == 'crit':
         print('\nCritical Hit!')
         damage = weapon_damage[weapon]() + enemy[npc_weapon_mod[weapon]] * 2
+        cont()
         return damage
     elif tohit == True:
         print('\nAttack hit.')
+        cont()
         return weapon_damage[weapon]() + enemy[npc_weapon_mod[weapon]]
     elif tohit == False:
         print('\nAttack missed.')
+        cont()
         return 0
     else:
         print('\nAttack missed.')
+        cont()
         return 0
 
 def attack(tohit, weapon):
     if tohit == 'crit':
         print(Fore.RED + '\nCritical' + Fore.RESET +' Hit!')
+        cont()
         return weapon_damage[weapon]() + weapon_mod[weapon] * 2
     elif tohit == True:
         print('\nYour attack hit.')
+        cont()
         return weapon_damage[weapon]() + weapon_mod[weapon]
     elif tohit == False:
         print('\nYou missed.')
+        cont()
         return 0
     else:
         print('\nYou missed.')
+        cont()
         return 0
 
 
@@ -623,6 +603,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             2. Block\n'''))
         except ValueError:
             print('Invalid Input: please enter a valid input')
+            cont()
         else:
             break
 
@@ -631,7 +612,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             if no_of_enemy == 1:
                 print(f'You attack {enemy1["name"]}')
                 choice = 1
-            
+
             elif no_of_enemy == 2:
                 print(f'''\nChoose who to attack:
     1. {enemy1["name"]}{enemy1["title"]}
@@ -925,36 +906,40 @@ while distance > distance_traveled:
         if roll_chance == 1 and chance[1] == False:
             print('''As you travel a bit off the beaten path you run into a party of adventurers, they look experienced.
 One of them notices you and begins to talk;
-"Oh hey! A person! You're not a bandit are you?"''')
+"Oh hey! A person! You're not a bandit are you?"\n''')
+            cont()
 
             say = int(input('''What do you say?
-    1. Yes I am, now give me all your money *fight*
+    1. Yes I am. Now give me all your money *fight*
     2. No I'm just a traveler
     3. You'll never know *you wink at them ;D*
     4. *Walk away slowly*\n'''))
             if say == 1:
                 if karma <= -5:
                     print('They didn\'t like your admition of guilt and begin to quickly prepare for battle.')
+                    cont()
                 elif karma >= 5:
                     print('They didn\'t like your attempt at humour and begin to quickly prepare for battle.')
+                    cont()
                 else:
                     print('They didn\'t appear to like that and begin to quickly prepare for battle.')
+                    cont()
 
                 if level < 10:
-                    print('But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
                     rolling('for a dex save')
-                    save = d20() + player_mods['dex mod']
-                    print(f'You rolled a {save}')
+                    save = d20()
+                    print(f'You rolled a {save} for a total of  {save + player_mods["dex mod"]}')
+                    save += player_mods["dex mod"]
                     cont()
                     if save < 8:
+                        print('But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
+                        cont()
                         print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
                         time.sleep(1)
                         print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
-                        try:
-                            print(f'You lost 3 items {player_items[random.randint(0, len(player_items) - 1)]}, {player_items[random.randint(0, len(player_items) - 1)]}, and {player_items[random.randint(0, len(player_items) - 1)]}')
-                            cont()
-                        except ValueError:
-                            cont()
+                        thing = round(current_player_health/8)
+                        print(f'You are slightly hurt and lost {thing} heath.')
+                        cont()
 
                     elif save > 18:
                         print('You notice one of them begins to cast a spell, instinctively you cover your eyes')
@@ -963,8 +948,10 @@ One of them notices you and begins to talk;
                     elif save >= 8:
                         print('')
                 elif level >= 10:
-                    fight(4, )
+                    fight(2, kile, gronk)
             elif say == 2:
+                print('work in progress')
+            elif say == 3:
                 print('work in progress')
 
         elif roll_chance == 1 and chance[1] == True:
