@@ -229,7 +229,7 @@
                 },
                 "variable": {
                     "foreground": "#63c4b9",
-                    "fontStyle": "italic"
+                    "fontStyle": ""
                 },
                 "builtinConstant": "#ce2dc0",
                 "function.builtin": "#f88833",
