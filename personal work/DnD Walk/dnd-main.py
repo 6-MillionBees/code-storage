@@ -600,6 +600,11 @@ def attack(tohit, weapon):
 
 def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
     while True:
+        print('Your turn.\n')
+        print(f'''Player Stats
+    Level.............{level}
+    Weapon............{weapon_name[player_equipment["equipped weapon"]]}
+    Health {bar(current_player_health, player_health, 20)}''')
         try:
             player_turn = int(input('''
             1. Attack
@@ -740,11 +745,6 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                 continue
 
             if turn == 0:
-                print('Your turn.\n')
-                print(f'''Player Stats
-    Level.............{level}
-    Weapon............{weapon_name[player_equipment["equipped weapon"]]}
-    Health {bar(current_player_health, player_health, 20)}''')
 
                 player = player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4)
 
@@ -886,13 +886,15 @@ def luck_calc():
     return round(luck, 2), luck_mod
 
 fight(1, goblin)
+game_over()
 
 # Chances & encounters
 
 def chance1():
-    print('''As you travel a bit off the beaten path you run into a party of adventurers, they look experienced.
+    chance[1] = True
+    print('''As you travel a bit off the beaten path you run into a party of adventurers around a campfire, they look experienced.
 One of them notices you and begins to talk;
-"Oh hey! A person! You're not a bandit are you?"\n''')
+"Oh hey! A person! You're not a bandit are you?"''')
     cont()
     while True:
         try:

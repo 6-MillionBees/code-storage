@@ -63,8 +63,8 @@ students_len = len(students) - 1
 students_rand = lambda: random.randint(0, students_len)
 
 print(f'''{students[students_rand()].title()}\'s score is {score()}
-{students[students_rand()]}\'s score is {score()}
-{students[students_rand()]}\'s score is {score()}''')
+{students[students_rand()].title()}\'s score is {score()}
+{students[students_rand()].title()}\'s score is {score()}''')
 
 
 
