@@ -941,8 +941,8 @@ while distance > distance_traveled:
     #     is_chance = True
     # else:
     #     is_chance = False
-    is_chance = True
-    is_encounter = False
+    is_chance = True # REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING
+    is_encounter = False # REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING
 
     if is_chance == True and is_encounter == True:
         roll_enocounter = d100()
@@ -953,7 +953,7 @@ while distance > distance_traveled:
 
     elif is_chance == True:
         roll_chance = d100()
-        roll_chance = 1
+        roll_chance = 1 # REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING
 
         if roll_chance == 1 and chance[1] == False:
             chance1()
