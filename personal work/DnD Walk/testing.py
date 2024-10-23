@@ -1,5 +1,10 @@
 
-try:
-    distance = int(input('\nhow long do you want to hike?\n'))
-except ValueError:
-    print('Invalid Input Please try again')
+
+while True:
+    thing = input('does this loop work?\n')
+    if thing == 'y':
+        print('let\'s see :P')
+        continue
+    else:
+        input('testing testing... is this working?\n')
+        break

@@ -103,8 +103,12 @@ encounter = {
 
 # Other Functions
 
+def game_over():
+    if current_player_health <= 0:
+        quit
+
 def cont():
-    input(Fore.BLACK + Back.WHITE + '\nPress enter to continue.\n' + Fore.RESET + Back.RESET)
+    input('\n' + Fore.BLACK + Back.WHITE + 'Press enter to continue.' + Fore.RESET + Back.RESET + '\n')
 
 def rolling(rolling_for = ''):
     x =0
@@ -152,13 +156,12 @@ is_end_chosen = False
 is_int_chosen = False
 is_wis_chosen = False
 is_cha_chosen = False
-true = True
 all_stats = False
 
 name = input(Fore.GREEN +'\nWhat is your name?\n' + Fore.RESET)
 
 
-while true:
+while True:
     class_choice = int(input('''Please choose your character class:
     1. Sorcerer
     2. Wizard
@@ -230,7 +233,7 @@ def unarmored():
 
 def pickupweapon(weapon):
     print(f'you picked up a {weapon_name[weapon]}')
-    while true:
+    while True:
         choice = input(f'''Which slot should it be put in?
     1. {player_equipment['stored weapon 1']}
     2. {player_equipment['stored weapon 2']}
@@ -269,7 +272,7 @@ def pickupweapon(weapon):
 
 if character_class == 'barbarian':
     player_equipment['equipped armor'] = 'unarmored'
-    while true:
+    while True:
         main = int(input('''Choose your main weapon
     1. A Greataxe (1d12 + str mod)
     2. Morningstar (2d6 + str mod)\n'''))
@@ -281,7 +284,7 @@ if character_class == 'barbarian':
             break
         else:
             print('Please enter a valid number')
-    while true:
+    while True:
         stored = int(input('''Choose your other weapon(s)
     1. 2 handaxes (1d6 + str mod)
     2. 2 maces (1d6 + str mod)\n'''))
@@ -300,7 +303,7 @@ if character_class == 'barbarian':
         return player_ac
         
 elif character_class == 'bard':
-    while true:
+    while True:
         main = int(input('''Choose your main weapon
     1. '''))
 
@@ -344,7 +347,7 @@ while all_stats == False:
     4. Inteligence {inteligence}
     5. Wisdom {wisdom}
     6. Charisma {charisma}\n1-6\n'''))
-    while true:
+    while True:
         if choice == 1 and is_str_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
@@ -596,7 +599,7 @@ def attack(tohit, weapon):
 
 
 def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
-    while true:
+    while True:
         try:
             player_turn = int(input('''
             1. Attack
@@ -691,6 +694,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     enemy2_is_alive = False
     enemy3_is_alive = False
     enemy4_is_alive = False
+    enemy1_blocking = 1
+    enemy2_blocking = 1
+    enemy3_blocking = 1
+    enemy4_blocking = 1
 
     enemy1_is_alive = True
     initiative[d20() + enemy1['dex mod']] = enemy1['name']+'1'
@@ -746,13 +753,13 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                 elif player[0] == False:
                     blocking = 1
                     if player[2] == enemy1['name']:
-                        enemy1_health -= player[1]
+                        enemy1_health -= player[1] * enemy1_blocking
                     elif player[2] == enemy2['name']:
-                        enemy2_health -= player[1]
+                        enemy2_health -= player[1] * enemy2_blocking
                     elif player[2] == enemy3['name']:
-                        enemy3_health -= player[1]
+                        enemy3_health -= player[1] * enemy3_blocking
                     elif player[2] == enemy4['name']:
-                        enemy4_health -= player[1]
+                        enemy4_health -= player[1] * enemy4_blocking
 
                 if enemy1_health <= 0 and enemy1_is_alive:
                     print(f'{Fore.LIGHTRED_EX}You killed {enemy1["name"]}{Fore.RESET}')
@@ -780,7 +787,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                 cont()
 
             elif turn != 0:
-                if str(turn).endswith('1') and enemy1_health > 0:
+                if str(turn).endswith('1') and enemy1_is_alive:
                     print('It\'s ' + enemy1['name'] + '\'s turn')
                     roll = d10() + enemy1['agression']
                     if roll > 8:
@@ -792,13 +799,13 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                         else:
                             print(f'You took {damage} damage.')
                     elif roll <= 8:
-                        enemy1_blocking = True
+                        enemy1_blocking = 0.5
                         damage = 0
                         print(enemy1['name'] + ' is blocking.')
                     current_player_health -= damage
                     cont()
 
-                elif str(turn).endswith('2') and enemy2_health > 0:
+                elif str(turn).endswith('2') and enemy2_is_alive:
                     print('\nIt\'s ' + enemy2['name'] + '\'s turn')
                     roll = d10() + enemy2['agression']
                     if roll > 8:
@@ -810,13 +817,13 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                         else:
                             print(f'You took {damage} damage.')
                     elif roll <= 8:
-                        enemy2_blocking = True
+                        enemy2_blocking = 0.5
                         damage = 0
                         print(enemy2['name'] + ' is blocking.')
                     current_player_health -= damage
                     cont()
 
-                elif str(turn).endswith('3') and enemy3_health > 0:
+                elif str(turn).endswith('3') and enemy3_is_alive:
                     print('\nIt\'s ' + enemy3['name'] + '\'s turn')
                     roll = d10() + enemy3['agression']
                     if roll > 8:
@@ -828,13 +835,13 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                         else:
                             print(f'You took {damage} damage.')
                     elif roll <= 8:
-                        enemy3_blocking = True
+                        enemy3_blocking = 0.5
                         damage = 0
                         print(enemy3['name'] + ' is blocking.')
                     current_player_health -= damage
                     cont()
 
-                elif str(turn).endswith('4') and enemy3_health > 0:
+                elif str(turn).endswith('4') and enemy4_is_alive:
                     print('\nIt\'s ' + enemy4['name'] + '\'s turn')
                     roll = d10() + enemy4['agression']
                     if roll > 8:
@@ -846,7 +853,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                         else:
                             print(f'You took {damage} damage.')
                     elif roll <= 8:
-                        enemy4_blocking = True
+                        enemy4_blocking = 0.5
                         damage = 0
                         print(enemy4['name'] + ' is blocking.')
                     current_player_health -= damage
@@ -860,7 +867,7 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
         print(f'You gained {exp} exp')
         return 1, exp
 
-while true:
+while True:
     try:
         distance = int(input(Fore.GREEN + '\nhow long do you want to hike?\n' + Fore.RESET))
     except ValueError:
@@ -879,6 +886,85 @@ def luck_calc():
     return round(luck, 2), luck_mod
 
 fight(1, goblin)
+
+# Chances & encounters
+
+def chance1():
+    print('''As you travel a bit off the beaten path you run into a party of adventurers, they look experienced.
+One of them notices you and begins to talk;
+"Oh hey! A person! You're not a bandit are you?"\n''')
+    cont()
+    while True:
+        try:
+            say = int(input('''What do you say?
+    1. Yes I am. Now give me all your money *fight*
+    2. No I'm just a traveler
+    3. You'll never know *you wink at them ;D*
+    4. *Walk away slowly*\n'''))
+        except ValueError:
+            print('Invalid Input: please try again')
+            continue
+        else:
+            break
+    if say == 1:
+        if karma <= -5:
+            print('They didn\'t like your admition of guilt and begin to quickly prepare for battle.')
+            cont()
+        elif karma >= 5:
+            print('They didn\'t like your attempt at humour and begin to quickly prepare for battle.')
+            cont()
+        else:
+            print('They didn\'t appear to like that and begin to quickly prepare for battle.')
+            cont()
+
+        if level < 10:
+            rolling('for a dex save')
+            save = d20()
+            print(f'You rolled a {save} for a total of  {save + player_mods["dex mod"]}')
+            save += player_mods["dex mod"]
+            cont()
+            if save < 8:
+                print('But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
+                cont()
+                print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
+                time.sleep(1)
+                print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
+                thing = round(current_player_health/8)
+                print(f'You are slightly hurt and lost {thing} heath.')
+                cont()
+
+            elif save > 18:
+                print('You notice one of them begins to cast a spell, instinctively you cover your eyes')
+                cont()
+                print('You see a flash through your hands and are partially stunned')
+                while True:
+                    try:
+                        choice = int(input('''What do you do?
+        1. Stay and fight
+        2. RUN AWAY\n'''))
+                    except ValueError:
+                        print('Invalid Input: please try again')
+                        continue
+                    else:
+                        if choice == 1:
+                            fight(2, kile, gronk)
+                            break
+                        elif choice == 2:
+                            print('You manage to escape')
+                            cont()
+                            break
+                        else:
+                            print('Invalid Input: please try again')
+                            continue
+            elif save >= 8:
+                print('')
+        elif level >= 10:
+            fight(2, kile, gronk)
+    elif say == 2:
+        print('work in progress')
+    elif say == 3:
+        print('work in progress')
+
 
 while distance > distance_traveled:
     # if d20() <= 10:
@@ -904,61 +990,7 @@ while distance > distance_traveled:
         roll_chance = 1
 
         if roll_chance == 1 and chance[1] == False:
-            print('''As you travel a bit off the beaten path you run into a party of adventurers, they look experienced.
-One of them notices you and begins to talk;
-"Oh hey! A person! You're not a bandit are you?"\n''')
-            cont()
-            while true:
-                try:
-                    say = int(input('''What do you say?
-    1. Yes I am. Now give me all your money *fight*
-    2. No I'm just a traveler
-    3. You'll never know *you wink at them ;D*
-    4. *Walk away slowly*\n'''))
-                except ValueError:
-                    print('Invalid Input: please try again')
-                    continue
-                else:
-                    break
-            if say == 1:
-                if karma <= -5:
-                    print('They didn\'t like your admition of guilt and begin to quickly prepare for battle.')
-                    cont()
-                elif karma >= 5:
-                    print('They didn\'t like your attempt at humour and begin to quickly prepare for battle.')
-                    cont()
-                else:
-                    print('They didn\'t appear to like that and begin to quickly prepare for battle.')
-                    cont()
-
-                if level < 10:
-                    rolling('for a dex save')
-                    save = d20()
-                    print(f'You rolled a {save} for a total of  {save + player_mods["dex mod"]}')
-                    save += player_mods["dex mod"]
-                    cont()
-                    if save < 8:
-                        print('But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
-                        cont()
-                        print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
-                        time.sleep(1)
-                        print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
-                        thing = round(current_player_health/8)
-                        print(f'You are slightly hurt and lost {thing} heath.')
-                        cont()
-
-                    elif save > 18:
-                        print('You notice one of them begins to cast a spell, instinctively you cover your eyes')
-                        cont()
-                        print('You see a flash through your hands')
-                    elif save >= 8:
-                        print('')
-                elif level >= 10:
-                    fight(2, kile, gronk)
-            elif say == 2:
-                print('work in progress')
-            elif say == 3:
-                print('work in progress')
+            chance1()
 
         elif roll_chance == 1 and chance[1] == True:
             roll_chance = 90 + d10()
