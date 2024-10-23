@@ -864,7 +864,7 @@ while true:
     try:
         distance = int(input(Fore.GREEN + '\nhow long do you want to hike?\n' + Fore.RESET))
     except ValueError:
-        print('Invalid Input: please enter a valid number')
+        print('Invalid Input: please try again')
         continue
     else:
         break
@@ -908,12 +908,18 @@ while distance > distance_traveled:
 One of them notices you and begins to talk;
 "Oh hey! A person! You're not a bandit are you?"\n''')
             cont()
-
-            say = int(input('''What do you say?
+            while true:
+                try:
+                    say = int(input('''What do you say?
     1. Yes I am. Now give me all your money *fight*
     2. No I'm just a traveler
     3. You'll never know *you wink at them ;D*
     4. *Walk away slowly*\n'''))
+                except ValueError:
+                    print('Invalid Input: please try again')
+                    continue
+                else:
+                    break
             if say == 1:
                 if karma <= -5:
                     print('They didn\'t like your admition of guilt and begin to quickly prepare for battle.')
