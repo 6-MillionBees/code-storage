@@ -597,6 +597,30 @@ def attack(tohit, weapon):
         cont()
         return 0
 
+def npc_turn(enemy, blocking):
+    global current_player_health
+
+    print('It\'s ' + enemy['name'] + '\'s turn')
+    roll = d10() + enemy['agression']
+
+    if roll > 8:
+        print(enemy['name'] + ' is attacking.\n')
+
+        damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy['weapon']]), enemy['weapon'], enemy)
+        damage = round(damage * blocking)
+
+        if damage > 50:
+            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
+        else:
+            print(f'You took {damage} damage.')
+
+    elif roll <= 8:
+        enemy1_blocking = 0.5
+        damage = 0
+        print(enemy['name'] + ' is blocking.')
+
+    current_player_health -= damage
+    cont()
 
 def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
     while True:
@@ -788,76 +812,16 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
             elif turn != 0:
                 if str(turn).endswith('1') and enemy1_is_alive:
-                    print('It\'s ' + enemy1['name'] + '\'s turn')
-                    roll = d10() + enemy1['agression']
-                    if roll > 8:
-                        print(enemy1['name'] + ' is attacking.\n')
-                        damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy1['weapon']]), enemy1['weapon'], enemy1)
-                        damage = round(damage * blocking)
-                        if damage > 50:
-                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
-                        else:
-                            print(f'You took {damage} damage.')
-                    elif roll <= 8:
-                        enemy1_blocking = 0.5
-                        damage = 0
-                        print(enemy1['name'] + ' is blocking.')
-                    current_player_health -= damage
-                    cont()
+                    npc_turn(enemy1, blocking)
 
                 elif str(turn).endswith('2') and enemy2_is_alive:
-                    print('\nIt\'s ' + enemy2['name'] + '\'s turn')
-                    roll = d10() + enemy2['agression']
-                    if roll > 8:
-                        print(enemy2['name'] + ' is attacking.\n')
-                        damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy2['weapon']]), enemy2['weapon'], enemy2)
-                        damage = round(damage * blocking)
-                        if damage > 50:
-                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
-                        else:
-                            print(f'You took {damage} damage.')
-                    elif roll <= 8:
-                        enemy2_blocking = 0.5
-                        damage = 0
-                        print(enemy2['name'] + ' is blocking.')
-                    current_player_health -= damage
-                    cont()
+                    npc_turn(enemy1, blocking)
 
                 elif str(turn).endswith('3') and enemy3_is_alive:
-                    print('\nIt\'s ' + enemy3['name'] + '\'s turn')
-                    roll = d10() + enemy3['agression']
-                    if roll > 8:
-                        print(enemy3['name'] + ' is attacking.\n')
-                        damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy3['weapon']]), enemy3['weapon'], enemy3)
-                        damage = round(damage * blocking)
-                        if damage > 50:
-                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
-                        else:
-                            print(f'You took {damage} damage.')
-                    elif roll <= 8:
-                        enemy3_blocking = 0.5
-                        damage = 0
-                        print(enemy3['name'] + ' is blocking.')
-                    current_player_health -= damage
-                    cont()
+                    npc_turn(enemy1, blocking)
 
                 elif str(turn).endswith('4') and enemy4_is_alive:
-                    print('\nIt\'s ' + enemy4['name'] + '\'s turn')
-                    roll = d10() + enemy4['agression']
-                    if roll > 8:
-                        print(enemy4['name'] + 'is attacking.\n')
-                        damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy4['weapon']]), enemy4['weapon'], enemy4)
-                        damage = round(damage * blocking)
-                        if damage > 50:
-                            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
-                        else:
-                            print(f'You took {damage} damage.')
-                    elif roll <= 8:
-                        enemy4_blocking = 0.5
-                        damage = 0
-                        print(enemy4['name'] + ' is blocking.')
-                    current_player_health -= damage
-                    cont()
+                    npc_turn(enemy1, blocking)
 
     if current_player_health <= 0:
         print(Fore.RED + 'You Lost.' + Fore.RESET)
@@ -977,8 +941,8 @@ while distance > distance_traveled:
     #     is_chance = True
     # else:
     #     is_chance = False
-    is_chance = True
-    is_encounter = False
+    is_chance = True # REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING
+    is_encounter = False # REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING
 
     if is_chance == True and is_encounter == True:
         roll_enocounter = d100()
@@ -989,7 +953,7 @@ while distance > distance_traveled:
 
     elif is_chance == True:
         roll_chance = d100()
-        roll_chance = 1
+        roll_chance = 1 # REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING REMOVE AFTER TESTING
 
         if roll_chance == 1 and chance[1] == False:
             chance1()
