@@ -103,9 +103,16 @@ encounter = {
 
 # Other Functions
 
-def game_over():
+def game_over(bool):
+    if bool:
+        print('Game Over')
+        exit()
+
+def health_check():
     if current_player_health <= 0:
-        quit
+        return True
+    else:
+        return False
 
 def cont():
     input('\n' + Fore.BLACK + Back.WHITE + 'Press enter to continue.' + Fore.RESET + Back.RESET + '\n')
@@ -222,7 +229,7 @@ print(f'You now are a {character_class.title()}')
 player_equipment = {
     'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
     'equipped armor': '', 'stored armor': '',
-    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': '', 'item 5': '', 'item 6': ''
+    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'item 5': '', 'item 6': ''
 }
 
 player_unique_items = []
@@ -330,9 +337,11 @@ print('Please assign your stats')
 cont()
 
 while all_stats == False:
+
     if is_str_chosen and is_dex_chosen and is_end_chosen and is_int_chosen and is_wis_chosen and is_cha_chosen:
         all_stats = True
         continue
+
     stat_roll1 = d6()
     stat_roll2 = d6()
     stat_roll3 = d6()
@@ -340,13 +349,21 @@ while all_stats == False:
     stat_list = [stat_roll1, stat_roll2, stat_roll3, stat_roll4,]
     stat_roll_main= stat_roll1 + stat_roll2 + stat_roll3 + stat_roll4 - min(stat_list)
     print(f'You rolled a {stat_roll_main}!')
-    choice = int(input(f'''{Fore.GREEN}Which stat?{Fore.RESET}
+
+    while True:
+        try:
+            choice = int(input(f'''{Fore.GREEN}Which stat?{Fore.RESET}
     1. Strength {strength}
     2. Dexterity {dexterity}
     3. Endurance {endurance}
     4. Inteligence {inteligence}
     5. Wisdom {wisdom}
     6. Charisma {charisma}\n1-6\n'''))
+        except ValueError:
+            print(Fore.RED + '\n\nInvalid Input please try again' + Fore.RESET)
+        else:
+            break
+
     while True:
         if choice == 1 and is_str_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
@@ -402,6 +419,7 @@ while all_stats == False:
             print(f'Your Wisdom is now {wisdom}')
             cont()
             break
+
         elif choice == 6 and is_cha_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
@@ -412,6 +430,7 @@ while all_stats == False:
             print(f'Your charisma is now {charisma}')
             cont()
             break
+
         else:
             print('Please pick a number between 1 and 6.')
             continue
@@ -502,6 +521,12 @@ npc_weapon_mod = {
 
 # Enemies
 
+empty_npc = {
+    'name': '', 'title': '',
+    'health': '', 'weapon': '', 'ac': 0, 'exp': 0, 'agression': 0,
+    'str mod': 0, 'dex mod': 0, 'end mod': 0, 'int mod': 0, 'wis mod': 0, 'cha mod': 0
+}
+
 # Basic
 goblin = {
     'name': 'Goblin', 'title': '',
@@ -516,34 +541,41 @@ kobold = {
 }
 
 
-
 # Named
+
+lily = {
+    'name': 'Lily', 'title': '', 'caster': True,
+    'health': d6(2) + 15, 'weapon': 'staff'
+}
+
 kile = {
-    'name': 'Kile', 'title': ', With An I',
+    'name': 'Kile', 'title': ', With An I', 'caster': False,
     'health': d4(4) + 20, 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
-    'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1
+    'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1,
+    'casting mod': 0
 }
 
 gronk = {
-    'name': 'Gronk', 'title': ', The Killer',
+    'name': 'Gronk', 'title': ', The Killer', 'caster': False,
     'health': d6(4) + 20, 'weapon': 'maul', 'ac': 13, 'exp': 200, 'agression': 3,
-    'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 0
+    'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 0,
+    'casting mod': 0
 }
 
 siffrin_traveler = {
-    'name': 'Siffrin', 'title': ', The Traveler',
+    'name': 'Siffrin', 'title': ', The Traveler', 'caster': False,
     'health': 50, 'weapon': 'dagger', 'ac': 13, 'exp': 500, 'agression': 6,
     'str mod': 0, 'dex mod': 5, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2
 }
 
 siffrin_lost = {
-    'name': 'Siffrin', 'title': ', The Lost',
+    'name': 'Siffrin', 'title': ', The Lost', 'caster': False,
     'health': 999, 'weapon': 'sif dagger', 'ac': 15, 'exp': 9999, 'agression': 10,
     'str mod': 0, 'dex mod': 6, 'end mod': 3, 'int mod': 0, 'wis mod': -2, 'cha mod': 1
 }
 
 dangolf = {
-    'name': 'Dangolf', 'title': ', The Gold',
+    'name': 'Dangolf', 'title': ', The Gold', 'caster': True,
     'health': 150, 'weapon': 'dangolf staff', 'ac': 10, 'exp': 1000, 'agression': 2,
     'str mod': -2, 'dex mod': -2, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2
 }
@@ -559,6 +591,9 @@ def roll_against_player(agressor_mod, agressor, defender, defender_mod):
         return False
 
 # Fighting Functions
+
+def cast(spell, mod):
+
 
 def npc_attack(tohit, weapon, enemy):
     if tohit == 'crit':
@@ -597,29 +632,40 @@ def attack(tohit, weapon):
         cont()
         return 0
 
-def npc_turn(enemy, blocking):
+def npc_turn(enemy, current_health, blocking):
     global current_player_health
-
     print('It\'s ' + enemy['name'] + '\'s turn')
-    roll = d10() + enemy['agression']
 
-    if roll > 8:
-        print(enemy['name'] + ' is attacking.\n')
+    if enemy['caster'] == False:
+        roll = d10() + enemy['agression']
 
-        damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy['weapon']]), enemy['weapon'], enemy)
-        damage = round(damage * blocking)
+        if roll > 6:
+            print(enemy['name'] + ' is attacking.\n')
 
-        if damage > 50:
-            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
-        else:
-            print(f'You took {damage} damage.')
+            damage = npc_attack(roll_to_hit(d20(), player_ac, weapon_mod[enemy['weapon']]), enemy['weapon'], enemy)
+            damage = round(damage * blocking)
 
-    elif roll <= 8:
-        enemy1_blocking = 0.5
-        damage = 0
-        print(enemy['name'] + ' is blocking.')
+            if damage > 50:
+                print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
+            else:
+                print(f'You took {damage} damage.')
 
-    current_player_health -= damage
+        elif roll <= 6:
+            enemy1_blocking = 0.5
+            damage = 0
+            print(enemy['name'] + ' is blocking.')
+
+        return 0, damage
+    
+    elif enemy['caster'] == True:
+        roll = d10() + enemy['int mod']
+
+        if roll > 5:
+            spell = random.randint(0, len(enemy['spells']) - 1)
+            spell_cast = cast(spell)
+
+
+
     cont()
 
 def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
@@ -706,7 +752,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
         print('You are blocking.')
         return True, 0, ''
 
-def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
+def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = empty_npc):
     global player_health
     global current_player_health
     no_of_turns = 0
@@ -719,7 +765,6 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     }
     print(f'\nYou rolled a {player_initiative} for initiative.')
 
-    enemy1_is_alive = False
     enemy2_is_alive = False
     enemy3_is_alive = False
     enemy4_is_alive = False
@@ -731,31 +776,45 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     enemy1_is_alive = True
     initiative[d20() + enemy1['dex mod']] = enemy1['name']+'1'
     enemy1_health = enemy1['health']
-    if enemy2 != '':
+
+    if enemy2 != empty_npc:
         enemy2_is_alive = True
         initiative[d20() + enemy2['dex mod']] = enemy2['name']+'2'
         enemy2_health = enemy2['health']
-    if enemy3 != '':
+
+    if enemy3 != empty_npc:
         enemy3_is_alive = True
         initiative[d20() + enemy3['dex mod']] = enemy3['name']+'3'
         enemy3_health = enemy3['health']
-    if enemy4 != '':
+
+    if enemy4 != empty_npc:
         enemy4_is_alive = True
         initiative[d20() + enemy4['dex mod']] = enemy4['name']+'4'
         enemy4_health = enemy4['health']
 
     list_initiative = list(initiative.keys())
-    list_initiative.sort(reverse= True)
+    list_initiative.sort(reverse = True)
     initiative = {item: initiative[item] for item in list_initiative}
     list_initiative = list(initiative.values())
 
+    print(f'''
+    You Face:
+{enemy1['name'], enemy1['title']}
+{enemy2['name'], enemy2['title']}
+{enemy3['name'], enemy3['title']}
+{enemy4['name'], enemy4['title']}''')
+
     print('Initiative Order:')
     for x in list_initiative:
+        if x == list_initiative[no_of_enemy]:
+            if x == 0:
+                print('You. ')
+            else:
+                print(f'{x}.')
         if x == 0:
             print('You, ', end = '')
         else:
             print(f'{x}, ', end = '')
-    print()
     cont()
 
     while no_of_enemy > 0 and current_player_health > 0:
@@ -812,16 +871,16 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
             elif turn != 0:
                 if str(turn).endswith('1') and enemy1_is_alive:
-                    npc_turn(enemy1, blocking)
+                    npc_turn(enemy1, enemy1_health, blocking)
 
                 elif str(turn).endswith('2') and enemy2_is_alive:
-                    npc_turn(enemy1, blocking)
+                    npc_turn(enemy1, enemy2_health, blocking)
 
                 elif str(turn).endswith('3') and enemy3_is_alive:
-                    npc_turn(enemy1, blocking)
+                    npc_turn(enemy1, enemy3_health, blocking)
 
                 elif str(turn).endswith('4') and enemy4_is_alive:
-                    npc_turn(enemy1, blocking)
+                    npc_turn(enemy1, enemy4_health, blocking)
 
     if current_player_health <= 0:
         print(Fore.RED + 'You Lost.' + Fore.RESET)
@@ -850,7 +909,7 @@ def luck_calc():
     return round(luck, 2), luck_mod
 
 fight(1, goblin)
-game_over()
+health_check()
 
 # Chances & encounters
 
@@ -894,9 +953,15 @@ One of them notices you and begins to talk;
                 cont()
                 print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
                 time.sleep(1)
-                print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.\n')
-                thing = round(current_player_health/8)
-                print(f'You are slightly hurt and lost {thing} heath.')
+                print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.')
+
+                thing = round(current_player_health/8) + random.randint(-3, 3)
+                if current_player_health < thing:
+                    thing = 0
+                if thing <= 0:
+                    print(f'You feel sore but are otherwise fine.')
+                else:
+                    print(f'You are slightly hurt and lost {thing} heath.')
                 cont()
 
             elif save > 18:
@@ -921,7 +986,6 @@ One of them notices you and begins to talk;
                             break
                         else:
                             print('Invalid Input: please try again')
-                            continue
             elif save >= 8:
                 print('')
         elif level >= 10:

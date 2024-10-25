@@ -59,7 +59,7 @@
             "editor.wordHighlightBackground": "#ff880046",
             "editorBracketHighlight.foreground1": "#ff7f0f",
             "editorBracketHighlight.foreground2": "#ffc20c",
-            "editorBracketHighlight.foreground3": "#ffc477",
+            "editorBracketHighlight.foreground3": "#ffe9cb",
             "editorCursor.foreground": "#ff9436",
             "editorGroup.dropBackground": "#4665806e",
             "editorGroupHeader.tabsBackground": "#0d0c09",
@@ -201,15 +201,15 @@
                 "fontStyle": ""
             },
             "functions": {
-                "foreground": "#ff8248",
+                "foreground": "#ff9361",
                 "fontStyle": ""
             },
             "keywords": {
-                "foreground": "#ff5e1e",
+                "foreground": "#d45320",
                 "fontStyle": "italic bold"
             },
             "types": {
-                "foreground": "#ff621a",
+                "foreground": "#ff891a",
                 "fontStyle": ""
             }
         }
@@ -220,9 +220,9 @@
         "[the orange box]": {
             "enabled": true,
             "rules": {
-                "method": "#ec8240",
-                "method.builtin": "#ec8240",
-                "method.declaration": "#ec8240",
+                "method": "#f88b47",
+                "method.builtin": "#f07c34",
+                "method.declaration": "#ee8a4b",
                 "module": {
                     "foreground": "#ff4848",
                     "fontStyle": "underline",
@@ -232,9 +232,10 @@
                     "fontStyle": ""
                 },
                 "builtinConstant": "#ce2dc0",
-                "function.builtin": "#f88833",
+                "function": "#f89233",
+                "function.builtin": "#ffac46",
                 "function.declaration": {
-                    "foreground": "#ff963a",
+                    "foreground": "#f19645",
                     "fontStyle": "italic bold"
                 },
                 "class": "#ffe14b",
