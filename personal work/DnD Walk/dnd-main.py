@@ -224,7 +224,7 @@ while True:
 print(f'You now are a {character_class.title()}')
 
 
-# Equipment Functions
+# Equipment/Item Functions
 
 player_equipment = {
     'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
@@ -331,6 +331,8 @@ elif character_class == 'bard':
 # elif character_class == 'wizard':
 
 print(player_equipment['equipped weapon'], player_equipment['stored weapon 1'], player_equipment['stored weapon 2'], player_equipment['equipped armor'])
+
+def random_item_pickup(enemy):
 
 
 print('Please assign your stats')
@@ -481,7 +483,9 @@ weapon_name = {
     'pike': 'Pike', 'rapier': 'Rapier', 'scimitar': 'Scimitar', 'shortsword': 'Shortsword', 'trident': 'Trident',
     'war pick': 'War Pick', 'warhammer': 'Warhammer', 'whip': 'Whip',
     # unique weapons
-    'dangolf staff': 'Dangolf\'s Staff', 'sif dagger': 'Siffrin\'s Dagger', 'player sif dagger': 'Siffrin\'s Dagger'
+    'dangolf staff': 'Dangolf\'s Staff', 'sif dagger': 'Siffrin\'s Dagger', 'player sif dagger': 'Siffrin\'s Dagger',
+    # No Touchy
+    'gun': 'Item Name Error'
 }
 
 
@@ -493,7 +497,9 @@ weapon_damage = {
     'pike': (lambda: d10()), 'rapier': (lambda: d8()), 'scimitar': (lambda: d6()), 'shortsword': (lambda: d6()), 'trident': (lambda: d8()),
     'war pick': (lambda: d8()), 'warhammer': (lambda: d8()), 'whip': (lambda: d4()),
     # unique weapons
-    'dangolf staff': (lambda: d6(4)), 'sif dagger': 999, 'player sif dagger': (lambda: d4(5))
+    'dangolf staff': (lambda: d6(4)), 'sif dagger': 999, 'player sif dagger': (lambda: d4(5)),
+    # No Touchy
+    'gun': 999999
 }
 
 weapon_mod = {
@@ -506,6 +512,8 @@ weapon_mod = {
     'trident': player_mods['str mod'], 'war pick': player_mods['str mod'], 'warhammer': player_mods['str mod'], 'whip': player_mods['dex mod'],
     # unique weapons
     'dangolf staff': player_mods['wis mod'], 'player sif dagger': player_mods['dex mod'], 
+    # No Touchy
+    'gun': 99999999
 }
 
 npc_weapon_mod = {
@@ -555,6 +563,11 @@ kile = {
     'casting mod': 0
 }
 
+kyle = {
+    'name': 'Kyle', 'title': ', With A Y',
+    'health': d4(4) + 20, 'weapon': ''
+}
+
 gronk = {
     'name': 'Gronk', 'title': ', The Killer', 'caster': False,
     'health': d6(4) + 20, 'weapon': 'maul', 'ac': 13, 'exp': 200, 'agression': 3,
@@ -575,14 +588,20 @@ siffrin_lost = {
 }
 
 dangolf = {
-    'name': 'Dangolf', 'title': ', The Gold', 'caster': True,
+    'name': 'Dangolf', 'title': ', The Gold',
     'health': 150, 'weapon': 'dangolf staff', 'ac': 10, 'exp': 1000, 'agression': 2,
     'str mod': -2, 'dex mod': -2, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2
 }
 
+godwin = {
+    'name': 'Godwin', 'title': ', The Golden',
+    'health': 60, 'weapon': 'golden spirit', 'ac': 12, 'exp': 2000, 'agression': -3,
+    'str mod': 5, 'dex mod': 2, 'end mod': 4, 'int mod': 1, 'wis mod': 2, 'cha mod': 10
+}
+
 # Rolling Functions
 
-def roll_against_player(agressor_mod, agressor, defender, defender_mod):
+def roll_against(agressor_mod, agressor, defender, defender_mod):
     agressor_roll = d20() + agressor[agressor_mod]
     defender_roll = d20() + defender[defender_mod]
     if agressor_roll > defender_roll:
