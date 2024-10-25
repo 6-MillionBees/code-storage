@@ -115,7 +115,23 @@ def health_check():
         return False
 
 def cont():
-    input('\n' + Fore.BLACK + Back.WHITE + 'Press enter to continue.' + Fore.RESET + Back.RESET + '\n')
+    input('\n' + Fore.BLACK + Back.WHITE + 'Press enter to continue.' + Fore.RESET + Back.RESET)
+
+def invalid():
+    print(Fore.RED + 'Invalid Input: Please try again\n' + Fore.RESET)
+    cont()
+
+def confirm():
+    while True:
+        try:
+            sure = int(input('''Are you sure?
+        1.) Yes
+        2.) No\n'''))
+        except ValueError:
+            invalid()
+        else:
+            return sure
+
 
 def rolling(rolling_for = ''):
     x =0
@@ -169,7 +185,8 @@ name = input(Fore.GREEN +'\nWhat is your name?\n' + Fore.RESET)
 
 
 while True:
-    class_choice = int(input('''Please choose your character class:
+    try:
+        class_choice = int(input('''Please choose your character class:
     1. Sorcerer
     2. Wizard
     3. Rogue
@@ -180,47 +197,57 @@ while True:
     8. Fighter
     9. Paladin
     10. Barbarian\n'''))
-    if class_choice == 1:
-        character_class = 'sorcerer'
-        break
-
-    elif class_choice == 2:
-        character_class = 'wizard'
-        break
-
-    elif class_choice == 3:
-        character_class = 'rogue'
-        break
-
-    elif class_choice == 4:
-        character_class = 'bard'
-        break
-
-    elif class_choice == 5:
-        character_class = 'cleric'
-        break
-
-    elif class_choice == 6:
-        character_class = 'monk'
-        break
-
-    elif class_choice == 7:
-        character_class = 'warlock'
-        break
-
-    elif class_choice == 8:
-        character_class = 'fighter'
-        break
-
-    elif class_choice == 9:
-        character_class = 'paladin'
-        break
-
-    elif class_choice == 10:
-        character_class = 'barbarian'
-        break
+    except ValueError:
+        invalid()
     else:
-        print(Fore.RED + 'Please enter a number from 1-11.\n' + Fore.RESET)
+
+        if class_choice not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+            invalid()
+            continue
+
+        sure = confirm()
+
+        if sure == 1:
+            if class_choice == 1:
+                character_class = 'sorcerer'
+                break
+
+            elif class_choice == 2:
+                character_class = 'wizard'
+                break
+
+            elif class_choice == 3:
+                character_class = 'rogue'
+                break
+
+            elif class_choice == 4:
+                character_class = 'bard'
+                break
+
+            elif class_choice == 5:
+                character_class = 'cleric'
+                break
+
+            elif class_choice == 6:
+                character_class = 'monk'
+                break
+
+            elif class_choice == 7:
+                character_class = 'warlock'
+                break
+
+            elif class_choice == 8:
+                character_class = 'fighter'
+                break
+
+            elif class_choice == 9:
+                character_class = 'paladin'
+                break
+
+            elif class_choice == 10:
+                character_class = 'barbarian'
+                break
+
 print(f'You now are a {character_class.title()}')
 
 
@@ -242,13 +269,16 @@ def pickupweapon(weapon):
     print(f'you picked up a {weapon_name[weapon]}')
     while True:
         choice = input(f'''Which slot should it be put in?
-    1. {player_equipment['stored weapon 1']}
-    2. {player_equipment['stored weapon 2']}
-    3. {player_equipment['stored weapon 3']}
-    4. {player_equipment['stored weapon 4']}
-    5. {player_equipment['stored weapon 5']}
+    1. {weapon_name[player_equipment['stored weapon 1']]} ({weapon_print_damage[player_equipment['stored weapon 1']]})
+    2. {weapon_name[player_equipment['stored weapon 2']]} ({weapon_print_damage[player_equipment['stored weapon 2']]})
+    3. {weapon_name[player_equipment['stored weapon 3']]} ({weapon_print_damage[player_equipment['stored weapon 3']]})
+    4. {weapon_name[player_equipment['stored weapon 4']]} ({weapon_print_damage[player_equipment['stored weapon 4']]})
+    5. {weapon_name[player_equipment['stored weapon 5']]} ({weapon_print_damage[player_equipment['stored weapon 5']]})
     6. Throw away (cannot be undone)\n''')
-        ynchoice = input('Are you sure? Yes or No\n')
+        try:
+            ynchoice = int(input('Are you sure?\n    1.) Yes\n    2.) No'))
+        except ValueError:
+            print('Invalid Input: Please try again')
         if ynchoice.lower() == 'yes':
             if choice == 1:
                 player_equipment['stored weapon 1'] = weapon['name']
@@ -271,10 +301,131 @@ def pickupweapon(weapon):
                 print('You pick up the weapon')
                 break
             elif choice == 6:
-                print('You don\'t pick up the weapon')
+                    print('You don\'t pick up the weapon')
+
+            else:
+                print(Fore.RED + 'Invalid input: Please try again.' + Fore.RESET)
+
+
+
+def pickupitem(item):
+    player_unique_items.sort()
+    print(f'You picked up {item}')
+    print(f'You currently have {len(player_unique_items)} unique items:')
+    for x in player_unique_items:
+        if x == len(player_unique_items) - 1:
+            print(x, end = '.\n')
+        else:
+            print(x, end = ', ')
+    while True:
+        try:
+            choice = int(input('''Do you want to pick up this item?
+    1. Yes
+    2. No'''))
+        except ValueError:
+            invalid()
+        else:
+            if choice == 1:
+                player_unique_items.append(item)
+                break
+            elif choice == 2:
                 break
             else:
-                print(Fore.RED + 'Invalid input Please try again.' + Fore.RESET)
+                invalid()
+
+
+
+def drop_item():
+    print('Which item?')
+    if len(player_unique_items) > 0:
+        print(f'    1.) {player_unique_items[0]}')
+        no_of_items = 1
+    if len(player_unique_items) > 1:
+        print(f'    2.){player_unique_items[1]}')
+        no_of_items = 2
+    if len(player_unique_items) > 2:
+        print(f'    3.){player_unique_items[2]}')
+        no_of_items = 3
+    if len(player_unique_items) > 3:
+        print(f'    4.){player_unique_items[3]}')
+        no_of_items = 4
+    if len(player_unique_items) > 4:
+        print(f'    5.){player_unique_items[4]}')
+        no_of_items = 5
+    if len(player_unique_items) > 5:
+        print(f'    6.){player_unique_items[5]}')
+        no_of_items = 6
+    if len(player_unique_items) > 6:
+        print(f'    7.){player_unique_items[6]}')
+        no_of_items = 7
+    if len(player_unique_items) > 7:
+        print(f'    8.){player_unique_items[7]}')
+        no_of_items = 8
+    if len(player_unique_items) > 8:
+        print(f'    9.){player_unique_items[8]}')
+        no_of_items = 9
+    if len(player_unique_items) > 9:
+        print(f'    10.){player_unique_items[9]}')
+        no_of_items = 10
+    if len(player_unique_items) > 10:
+        print(f'    11.){player_unique_items[10]}')
+        no_of_items = 11
+    if len(player_unique_items) > 11:
+        print(f'    12.){player_unique_items[11]}')
+        no_of_items = 12
+    if len(player_unique_items) == 0:
+        print('You don\'t have any unique items')
+        return None
+
+
+    while True:
+        try:
+            dropped_item = int(input())
+        except ValueError:
+            print('Invalid Input: Please try again')
+        else:
+            if dropped_item == 1:
+                player_unique_items.remove(player_unique_items[0])
+                break
+            elif dropped_item == 2 and no_of_items > 1:
+                player_unique_items.remove(player_unique_items[1])
+                break
+            elif dropped_item == 3 and no_of_items > 2:
+                player_unique_items.remove(player_unique_items[2])
+                break
+            elif dropped_item == 4 and no_of_items > 3:
+                player_unique_items.remove(player_unique_items[3])
+                break
+            elif dropped_item == 5 and no_of_items > 4:
+                player_unique_items.remove(player_unique_items[4])
+                break
+            elif dropped_item == 6 and no_of_items > 5:
+                player_unique_items.remove(player_unique_items[5])
+                break
+            elif dropped_item == 7 and no_of_items > 6:
+                player_unique_items.remove(player_unique_items[6])
+                break
+            elif dropped_item == 8 and no_of_items > 7:
+                player_unique_items.remove(player_unique_items[7])
+                break
+            elif dropped_item == 9 and no_of_items > 8:
+                player_unique_items.remove(player_unique_items[8])
+                break
+            elif dropped_item == 10 and no_of_items > 9:
+                player_unique_items.remove(player_unique_items[9])
+                break
+            elif dropped_item == 11 and no_of_items > 10:
+                player_unique_items.remove(player_unique_items[10])
+                break
+            elif dropped_item == 12 and no_of_items > 11:
+                player_unique_items.remove(player_unique_items[11])
+                break
+            else:
+                print('Invalid Input: Please try again')
+
+
+
+
 
 
 if character_class == 'barbarian':
@@ -332,7 +483,10 @@ elif character_class == 'bard':
 
 print(player_equipment['equipped weapon'], player_equipment['stored weapon 1'], player_equipment['stored weapon 2'], player_equipment['equipped armor'])
 
-def random_item_pickup(enemy):
+def random_item_enemy(enemy):
+    
+
+def random_item_world(pool):
 
 
 print('Please assign your stats')
@@ -458,15 +612,29 @@ print(initiative_bonus)
 # Various Dictionaries
 
 starting_hit_dice = {
-    'sorcerer': 6, 'wizard': 6, 'rogue': 8, 'bard': 8,
-    'cleric': 8, 'monk': 8, 'warlock': 8, 'fighter': 10,
-    'paladin': 10, 'barbarian': 12
+    'barbarian': 12,
+    'bard':      8,
+    'cleric':    8,
+    'fighter':   10,
+    'monk':      8,
+    'paladin':   10,
+    'rogue':     8,
+    'sorcerer':  6,
+    'warlock':   8,
+    'wizard':    6,
 }
 
 hit_dice = {
-    'sorcerer': d6(), 'wizard':  d6(), 'rogue': d8(), 'bard': d8(),
-    'cleric': d8(), 'monk': d8(), 'warlock': d8(), 'fighter': d10(),
-    'paladin': d10(), 'barbarian': d12()
+    'barbarian': (lambda: d12()),
+    'bard':      (lambda: d8()),
+    'cleric':    (lambda: d8()),
+    'fighter':   (lambda: d10()),
+    'monk':      (lambda: d8()),
+    'paladin':   (lambda: d10()),
+    'rogue':     (lambda: d8()),
+    'sorcerer':  (lambda: d6()),
+    'warlock':   (lambda: d8()),
+    'wizard':    (lambda: d6()),
 }
 
 player_health = starting_hit_dice[character_class] + player_mods['end mod']
@@ -476,76 +644,243 @@ print(current_player_health)
 cont()
 
 weapon_name = {
-    'club': 'Club', 'dagger': 'Dagger', 'great club': 'Great Club', 'javelin': 'Javelin', 'light hammer': 'Light Hammer',
-    'mace': 'Mace', 'quarterstaff': 'Quarterstaff', 'sickle': 'Sickle', 'spear': 'Spear', 'battle axe': 'Battle Axe',
-    'flail': 'Flail', 'glaive': 'Glaive', 'greataxe': 'Greataxe', 'greatsword': 'Greatsword', 'halberd': 'Halberd',
-    'handaxe': 'Handaxe', 'lance': 'Lance', 'longsword': 'Longsword', 'maul': 'Maul', 'morningstar': 'Morningstar',
-    'pike': 'Pike', 'rapier': 'Rapier', 'scimitar': 'Scimitar', 'shortsword': 'Shortsword', 'trident': 'Trident',
-    'war pick': 'War Pick', 'warhammer': 'Warhammer', 'whip': 'Whip',
+    'battle axe':        'Battle Axe',
+    'club':              'Club', 
+    'dagger':            'Dagger', 
+    'flail':             'Flail', 
+    'glaive':            'Glaive', 
+    'great club':        'Great Club', 
+    'greataxe':          'Greataxe', 
+    'greatsword':        'Greatsword', 
+    'halberd':           'Halberd',
+    'handaxe':           'Handaxe', 
+    'javelin':           'Javelin', 
+    'lance':             'Lance', 
+    'longsword':         'Longsword', 
+    'light hammer':      'Light Hammer',
+    'mace':              'Mace', 
+    'maul':              'Maul', 
+    'morningstar':       'Morningstar',
+    'pike':              'Pike', 
+    'quarterstaff':      'Quarterstaff', 
+    'sickle':            'Sickle', 
+    'spear':             'Spear', 
+    'rapier':            'Rapier', 
+    'scimitar':          'Scimitar', 
+    'shortsword':        'Shortsword', 
+    'trident':           'Trident',
+    'war pick':          'War Pick', 
+    'warhammer':         'Warhammer', 
+    'whip':              'Whip',
+
     # unique weapons
-    'dangolf staff': 'Dangolf\'s Staff', 'sif dagger': 'Siffrin\'s Dagger', 'player sif dagger': 'Siffrin\'s Dagger',
+
+    'dangolf staff':     'Dangolf\'s Staff', 
+    'sif dagger':        'Siffrin\'s Dagger', 
+    'player sif dagger': 'Siffrin\'s Dagger',
+
     # No Touchy
-    'gun': 'Item Name Error'
+
+    'gun':               'Item Name Error'
+}
+
+weapon_print_damage = {
+    'club':              'd4',
+    'dagger':            'd4', 
+    'great club':        'd4',
+    'light hammer':      'd4',
+    'sickle':            'd4',
+    'whip':              'd4',
+
+    'greatsword':        '2d6',
+    'maul':              '2d6',
+    'handaxe':           'd6',
+    'javelin':           'd6',
+    'mace':              'd6',
+    'scimitar':          'd6',
+    'shortsword':        'd6',
+    'spear':             'd6',
+
+    'battle axe':        'd8',
+    'flail':             'd8',
+    'lance':             'd8',
+    'longsword':         'd8',
+    'morningstar':       'd8',
+    'quarterstaff':      'd8',
+    'rapier':            'd8',
+    'trident':           'd8',
+    'war pick':          'd8',
+    'warhammer':         'd8',
+
+    'glaive':            'd10',
+    'halberd':           'd10',
+    'pike':              'd10',
+
+    'greataxe':          'd12',
+
+    # unique weapons
+
+    'player sif dagger': '5d4',
+    'dangolf staff':     '2d6',
+    'sif dagger':        '999',
+
+    # No Touchy
+
+    'gun':               '999999'
 }
 
 
 weapon_damage = {
-    'club': (lambda: d4()), 'dagger': (lambda: d4()), 'great club': (lambda: d4()), 'javelin': (lambda: d6()), 'light hammer': (lambda: d4()),
-    'mace': (lambda: d6()), 'quarterstaff': (lambda: d8()), 'sickle': (lambda: d4()), 'spear': (lambda: d6()), 'battle axe': (lambda: d8()),
-    'flail': (lambda: d8()), 'glaive': (lambda: d10()), 'greataxe': (lambda: d12()), 'greatsword': (lambda: d6(2)), 'halberd': (lambda: d10()),
-    'handaxe': (lambda: d6()), 'lance': (lambda: d8()), 'longsword': (lambda: d8()), 'maul': (lambda: d6(2)), 'morningstar': (lambda: d8()),
-    'pike': (lambda: d10()), 'rapier': (lambda: d8()), 'scimitar': (lambda: d6()), 'shortsword': (lambda: d6()), 'trident': (lambda: d8()),
-    'war pick': (lambda: d8()), 'warhammer': (lambda: d8()), 'whip': (lambda: d4()),
+    'club':              (lambda: d4()),
+    'dagger':            (lambda: d4()),
+    'great club':        (lambda: d4()),
+    'light hammer':      (lambda: d4()),
+    'sickle':            (lambda: d4()),
+    'whip':              (lambda: d4()),
+
+    'handaxe':           (lambda: d6()),
+    'javelin':           (lambda: d6()),
+    'mace':              (lambda: d6()),
+    'scimitar':          (lambda: d6()),
+    'shortsword':        (lambda: d6()),
+    'spear':             (lambda: d6()),
+    'greatsword':        (lambda: d6(2)),
+    'maul':              (lambda: d6(2)),
+
+    'flail':             (lambda: d8()),
+    'battle axe':        (lambda: d8()),
+    'lance':             (lambda: d8()),
+    'longsword':         (lambda: d8()),
+    'morningstar':       (lambda: d8()),
+    'quarterstaff':      (lambda: d8()),
+    'trident':           (lambda: d8()),
+    'rapier':            (lambda: d8()),
+    'war pick':          (lambda: d8()),
+    'warhammer':         (lambda: d8()),
+
+    'glaive':            (lambda: d10()),
+    'halberd':           (lambda: d10()),
+    'pike':              (lambda: d10()),
+
+    'greataxe':          (lambda: d12()),
+
+
     # unique weapons
-    'dangolf staff': (lambda: d6(4)), 'sif dagger': 999, 'player sif dagger': (lambda: d4(5)),
+
+    'player sif dagger': (lambda: d4(5)),
+    'dangolf staff':     (lambda: d6(4)), 
+    'golden spirit':     (lambda: d10(2)),
+    'sif dagger':        (lambda: 999), 
+
     # No Touchy
-    'gun': 999999
+
+    'gun':               (lambda: 999999)
 }
 
 weapon_mod = {
-    'club': player_mods['str mod'], 'dagger': player_mods['dex mod'], 'great club': player_mods['str mod'], 'javelin': player_mods['str mod'],
-    'light hammer': player_mods['str mod'], 'mace': player_mods['str mod'], 'quarterstaff': player_mods['str mod'], 'sickle': player_mods['str mod'],
-    'spear': player_mods['str mod'], 'battle axe': player_mods['str mod'], 'flail': player_mods['str mod'], 'glaive': player_mods['str mod'],
-    'greataxe': player_mods['str mod'], 'greatsword': player_mods['str mod'], 'halberd': player_mods['str mod'], 'handaxe': player_mods['str mod'],
-    'lance': player_mods['str mod'], 'longsword': player_mods['str mod'], 'maul': player_mods['str mod'], 'morningstar': player_mods['str mod'],
-    'pike': player_mods['str mod'], 'rapier': player_mods['dex mod'], 'scimitar': player_mods['dex mod'], 'shortsword': player_mods['dex mod'],
-    'trident': player_mods['str mod'], 'war pick': player_mods['str mod'], 'warhammer': player_mods['str mod'], 'whip': player_mods['dex mod'],
+    'battle axe':        player_mods['str mod'],
+    'club':              player_mods['str mod'],
+    'flail':             player_mods['str mod'],
+    'glaive':            player_mods['str mod'],
+    'great club':        player_mods['str mod'],
+    'greataxe':          player_mods['str mod'],
+    'greatsword':        player_mods['str mod'],
+    'halberd':           player_mods['str mod'],
+    'handaxe':           player_mods['str mod'],
+    'javelin':           player_mods['str mod'],
+    'lance':             player_mods['str mod'],
+    'light hammer':      player_mods['str mod'],
+    'longsword':         player_mods['str mod'],
+    'mace':              player_mods['str mod'],
+    'maul':              player_mods['str mod'],
+    'morningstar':       player_mods['str mod'],
+    'pike':              player_mods['str mod'],
+    'quarterstaff':      player_mods['str mod'],
+    'sickle':            player_mods['str mod'],
+    'spear':             player_mods['str mod'],
+    'trident':           player_mods['str mod'],
+    'war pick':          player_mods['str mod'],
+    'warhammer':         player_mods['str mod'],
+
+    'dagger':            player_mods['dex mod'],
+    'scimitar':          player_mods['dex mod'],
+    'shortsword':        player_mods['dex mod'],
+    'rapier':            player_mods['dex mod'],
+    'whip':              player_mods['dex mod'],
+
     # unique weapons
-    'dangolf staff': player_mods['wis mod'], 'player sif dagger': player_mods['dex mod'], 
+
+    'dangolf staff':     player_mods['wis mod'],
+    'player sif dagger': player_mods['dex mod'],
+
     # No Touchy
-    'gun': 99999999
+
+    'gun':               99999999
 }
 
 npc_weapon_mod = {
-    'club': 'str mod', 'dagger': 'dex mod', 'great club': 'str mod', 'javelin': 'str mod', 'light hammer': 'str mod',
-    'mace': 'str mod', 'quarterstaff': 'str mod', 'sickle': 'str mod', 'spear': 'str mod', 'battle axe': 'str mod',
-    'flail': 'str mod', 'glaive': 'str mod', 'greataxe': 'str mod', 'greatsword': 'str mod', 'halberd': 'str mod',
-    'handaxe': 'str mod', 'lance': 'str mod', 'longsword': 'str mod', 'maul': 'str mod', 'morningstar': 'str mod',
-    'pike': 'str mod', 'rapier': 'dex mod', 'scimitar': 'dex mod', 'shortsword': 'dex mod', 'trident': 'str mod',
-    'war pick': 'str mod', 'warhammer': 'str mod', 'whip': 'dex mod',
+    'battle axe':    'str mod',
+    'club':          'str mod',
+    'flail':         'str mod',
+    'glaive':        'str mod',
+    'great club':    'str mod',
+    'greataxe':      'str mod',
+    'greatsword':    'str mod',
+    'halberd':       'str mod',
+    'handaxe':       'str mod',
+    'javelin':       'str mod',
+    'lance':         'str mod',
+    'light hammer':  'str mod',
+    'longsword':     'str mod',
+    'mace':          'str mod',
+    'maul':          'str mod',
+    'morningstar':   'str mod',
+    'pike':          'str mod',
+    'quarterstaff':  'str mod',
+    'sickle':        'str mod',
+    'spear':         'str mod',
+    'trident':       'str mod',
+    'war pick':      'str mod',
+    'warhammer':     'str mod',
+
+    'dagger':        'dex mod',
+    'rapier':        'dex mod',
+    'scimitar':      'dex mod',
+    'shortsword':    'dex mod',
+    'whip':          'dex mod',
+
     # unique weapons
-    'dangolf staff': 'wis mod', 'sif dagger': 'dex mod', 
+    'sif dagger':    'dex mod',
+    'dangolf staff': 'wis mod',
+    'golden spirit': 'cha mod'
 }
+
+# Spell Lists
+
+lily_spells = []
 
 # Enemies
 
 empty_npc = {
-    'name': '', 'title': '',
+    'name': '', 'title': '', 'caster': False,
     'health': '', 'weapon': '', 'ac': 0, 'exp': 0, 'agression': 0,
-    'str mod': 0, 'dex mod': 0, 'end mod': 0, 'int mod': 0, 'wis mod': 0, 'cha mod': 0
+    'str mod': 0, 'dex mod': 0, 'end mod': 0, 'int mod': 0, 'wis mod': 0, 'cha mod': 0,
+    'casting mod': 0, 'layer': 1
 }
 
 # Basic
 goblin = {
-    'name': 'Goblin', 'title': '',
+    'name': 'Goblin', 'title': '', 'caster': False,
     'health': int(d6(2) * difficulty), 'weapon': 'dagger', 'ac': 5, 'exp': 50, 'agression': 5,
-    'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1
+    'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1,
+    'casting mod': 0, 'layer': 1
 }
 
 kobold = {
-    'name': 'Kobold', 'title': '',
+    'name': 'Kobold', 'title': '', 'caster': False,
     'health': int((d4(4) - 2) * difficulty), 'weapon': 'dagger', 'ac': 7, 'exp': 25, 'agression': 4,
-    'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1
+    'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1,
+    'casting mod': 0, 'layer': 1
 }
 
 
@@ -553,53 +888,82 @@ kobold = {
 
 lily = {
     'name': 'Lily', 'title': '', 'caster': True,
-    'health': d6(2) + 15, 'weapon': 'staff'
+    'health': d6(3) + 10, 'weapon': 'staff', 'ac': 8, 'exp': 250, 'agression': 0,
+    'str mod': 0, 'dex mod': 1, 'end mod': 1, 'int mod': 3, 'wis mod': 2, 'cha mod': 1,
+    'casting mod': 3, 'layer': 2,
+    'spells': lily_spells
 }
 
 kile = {
     'name': 'Kile', 'title': ', With An I', 'caster': False,
     'health': d4(4) + 20, 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
     'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1,
-    'casting mod': 0
+    'casting mod': 0, 'layer': 1
 }
 
 kyle = {
     'name': 'Kyle', 'title': ', With A Y',
-    'health': d4(4) + 20, 'weapon': ''
+    'health': d4(4) + 20, 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
+    'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1,
+    'casting mod': 0, 'layer': 1
 }
 
 gronk = {
     'name': 'Gronk', 'title': ', The Killer', 'caster': False,
     'health': d6(4) + 20, 'weapon': 'maul', 'ac': 13, 'exp': 200, 'agression': 3,
     'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 0,
-    'casting mod': 0
+    'casting mod': 0, 'layer': 1
 }
 
 siffrin_traveler = {
     'name': 'Siffrin', 'title': ', The Traveler', 'caster': False,
     'health': 50, 'weapon': 'dagger', 'ac': 13, 'exp': 500, 'agression': 6,
-    'str mod': 0, 'dex mod': 5, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2
+    'str mod': 0, 'dex mod': 5, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2,
+    'casting mod': 0, 'layer': 1
 }
 
 siffrin_lost = {
     'name': 'Siffrin', 'title': ', The Lost', 'caster': False,
     'health': 999, 'weapon': 'sif dagger', 'ac': 15, 'exp': 9999, 'agression': 10,
-    'str mod': 0, 'dex mod': 6, 'end mod': 3, 'int mod': 0, 'wis mod': -2, 'cha mod': 1
+    'str mod': 0, 'dex mod': 6, 'end mod': 3, 'int mod': 0, 'wis mod': -2, 'cha mod': 1,
+    'casting mod': 0, 'layer': 1
 }
 
 dangolf = {
     'name': 'Dangolf', 'title': ', The Gold',
     'health': 150, 'weapon': 'dangolf staff', 'ac': 10, 'exp': 1000, 'agression': 2,
-    'str mod': -2, 'dex mod': -2, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2
+    'str mod': -2, 'dex mod': -2, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2,
+    'casting mod': 0, 'layer': 2
 }
 
 godwin = {
     'name': 'Godwin', 'title': ', The Golden',
     'health': 60, 'weapon': 'golden spirit', 'ac': 12, 'exp': 2000, 'agression': -3,
-    'str mod': 5, 'dex mod': 2, 'end mod': 4, 'int mod': 1, 'wis mod': 2, 'cha mod': 10
+    'str mod': 5, 'dex mod': 2, 'end mod': 4, 'int mod': 1, 'wis mod': 2, 'cha mod': 10,
+    'casting mod': 0, 'layer': 1
 }
 
-# Rolling Functions
+
+
+# loot tables
+
+common_table = [
+    'arrows1', 'arrows1', 'arrows1', 'arrows1', 'arrows1', 'arrows5', 'arrows5', 'arrows10',
+    'copper pieces50', 'copper pieces50', 'copper pieces50', 'copper pieces50', 'copper pieces50',
+    'silver pieces1', 'silver pieces1', 'silver pieces1', 'silver pieces1',
+    'silver pieces5', 'silver pieces5', 'silver pieces10', 'gold pieces1',
+    'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1',
+    'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1',
+]
+
+uncommon_table = [
+    'arrows5', 'arrows5', 
+]
+
+
+
+
+# Fighting Functions
 
 def roll_against(agressor_mod, agressor, defender, defender_mod):
     agressor_roll = d20() + agressor[agressor_mod]
@@ -609,7 +973,6 @@ def roll_against(agressor_mod, agressor, defender, defender_mod):
     elif agressor_roll < defender_roll:
         return False
 
-# Fighting Functions
 
 def cast(spell, mod):
 
@@ -682,8 +1045,7 @@ def npc_turn(enemy, current_health, blocking):
         if roll > 5:
             spell = random.randint(0, len(enemy['spells']) - 1)
             spell_cast = cast(spell)
-
-
+            
 
     cont()
 
@@ -692,45 +1054,41 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
         print('Your turn.\n')
         print(f'''Player Stats
     Level.............{level}
-    Weapon............{weapon_name[player_equipment["equipped weapon"]]}
+    Weapon............{weapon_name[player_equipment["equipped weapon"]]} ({weapon_print_damage[player_equipment['equipped weapon']]})
     Health {bar(current_player_health, player_health, 20)}''')
         try:
-            player_turn = int(input('''
-            1. Attack
-            2. Block\n'''))
+            player_turn = int(input(f'''
+            1. Attack 
+            2. Cast
+            3. Block\n'''))
         except ValueError:
             print('Invalid Input: please enter a valid input')
             cont()
         else:
-            break
-
+            if player_turn in range(1, 4):
+                break
+            else:
+                invalid()
+    
     if player_turn == 1:
         while True:
             if no_of_enemy == 1:
                 print(f'You attack {enemy1["name"]}')
                 choice = 1
 
-            elif no_of_enemy == 2:
+            elif no_of_enemy > 1:
                 print(f'''\nChoose who to attack:
     1. {enemy1["name"]}{enemy1["title"]}
     2. {enemy2["name"]}{enemy2["title"]}''')
-                choice = int(input(''))
 
-            elif no_of_enemy == 3:
-                print(f'''\nChoose who to attack:
-    1. {enemy1["name"]}{enemy1["title"]}
-    2. {enemy2["name"]}{enemy2["title"]}
-    3. {enemy3["name"]}{enemy3["title"]}''')
-                choice = int(input(''))
+            elif no_of_enemy > 2:
+                print(f'    3. {enemy3["name"]}{enemy3["title"]}')
 
-            elif no_of_enemy == 4:
-                print(f'''\nChoose who to attack:
-    1. {enemy1["name"]}{enemy1["title"]}
-    2. {enemy2["name"]}{enemy2["title"]}
-    3. {enemy3["name"]}{enemy3["title"]}
-    4. {enemy4["name"]}{enemy4["title"]}''')
-                choice = int(input(''))
+            elif no_of_enemy > 3:
+                print(f'    4. {enemy4["name"]}{enemy4["title"]}')
             print()
+
+
 
             if choice == 1:
                 damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
@@ -768,6 +1126,8 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                 print(f'{Fore.RED}Please enter a valid number.{Fore.RESET}')
 
     elif player_turn == 2:
+
+    elif player_turn == 3:
         print('You are blocking.')
         return True, 0, ''
 
