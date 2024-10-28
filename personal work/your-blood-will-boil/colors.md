@@ -1,0 +1,8 @@
+## colors still under review
+
+15171C
+28232F
+37313B
+834739
+CF5C36
+F62535
