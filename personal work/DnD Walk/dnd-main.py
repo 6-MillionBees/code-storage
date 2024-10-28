@@ -434,7 +434,6 @@ while all_stats == False:
         all_stats = True
         continue
 
-
     stat_list = [d6(), d6(), d6(), d6()]
     stat_roll_main= sum(stat_list) - min(stat_list)
     print(f'You rolled a {stat_roll_main}!')
