@@ -9,27 +9,27 @@
 					"label": "Dice"
 				},
 				{
-					"line": 103,
-					"column": 0,
-					"label": "Other Functions"
-				},
-				{
-					"line": 434,
+					"line": 610,
 					"column": 21,
 					"label": "Equipment Functions"
 				},
 				{
-					"line": 777,
+					"line": 722,
+					"column": 25,
+					"label": "Stats"
+				},
+				{
+					"line": 839,
 					"column": 22,
 					"label": "Various Dictionaries"
 				},
 				{
-					"line": 965,
-					"column": 20,
+					"line": 995,
+					"column": 19,
 					"label": "Fighting Functions"
 				},
 				{
-					"line": 1329,
+					"line": 1358,
 					"column": 35,
 					"label": "The Beginning"
 				}
