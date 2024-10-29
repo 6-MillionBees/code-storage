@@ -2,10 +2,10 @@
 # 10/29/24
 # Lists MC
 
-import random
+from random import randint
 
 def grades(): # I didn't want to write down the grades
-    number = [random.randint(80, 100) for x in range(4)]
+    number = [randint(80, 100) for x in range(4)]
     return sum(number) / len(number)
 
 
