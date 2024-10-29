@@ -9,6 +9,7 @@ def grades(): # I didn't want to write down the grades
     return sum(number) / len(number)
 
 
+
 boettcher_sydney = []
 baylie_oliver = []
 feck_sophie = []
