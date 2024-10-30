@@ -177,7 +177,7 @@
             "numbers": "#bb4fa9",
             "strings": {
                 "foreground": "#96bc70",
-                "fontStyle": "italic"
+                "fontStyle": ""
             },
             "functions": {
                 "foreground": "#f89f33",
@@ -191,6 +191,26 @@
                 "foreground": "#f2601c",
                 "fontStyle": ""
             },
+            "textMateRules":[
+
+                // Python Rules
+                {
+                    "scope": "",
+                    "settings": {"foreground": "#FF0000", "fontStyle": "bold"}
+                },
+
+
+                // Markdown Rules
+                {
+                    "scope": "markup.heading.markdown entity.name.section.markdown",
+                    "settings": { "foreground": "#43cab8",   "fontStyle": ""}
+                },
+
+                {
+                    "scope": "",
+                    "settings": {"foreground": "#FF0000", "fontStyle": "bold"}
+                }
+            ]
         },
 
         "[Dark Pink Pro]": {
@@ -232,12 +252,14 @@
                     "fontStyle": ""
                 },
                 "builtinConstant": "#ce2dc0",
+
                 "function": "#f89233",
                 "function.builtin": "#ffac46",
                 "function.declaration": {
                     "foreground": "#f19645",
                     "fontStyle": "italic bold"
                 },
+
                 "class": "#ffe14b",
                 "parameter": "#04cc79",
                 "property": "#e7e568"

@@ -1,4 +1,8 @@
-## colors still under review
+##### e
+#### d
+### c
+## b
+# a
 
 15171C
 28232F
