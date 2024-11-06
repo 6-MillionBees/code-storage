@@ -43,8 +43,8 @@ guest_list = ['Abraham (The Prophet)', 'Leonardo Da Vinci', 'Laozi', 'Jesus Chri
 # A lot of these are founders of religions
 
 
-print('Keeping the exsistance of God a mystery Jesus failed to arrive.')
-guest_list.remove('Jesus Christ')
+print('Unfortunately Gautama Buddha is busy meditating for a few decades.')
+guest_list.remove('Gautama Buddha')
 input('Press enter to continue:\n')
 
 for guest in guest_list:
@@ -58,3 +58,15 @@ ps. You can sleep in you\'ll always be on time
 ''')
     time.sleep(1)
 
+print('Oh my! It appears my fancy dinner table was lost in transit! :(')
+print('I unfortunately can only seat 2 guests\n')
+
+for x in range(3):
+    guest_list.pop(0)
+
+for guest in guest_list:
+    print(f'Thankfully you are still invited, {guest}.')
+
+del guest_list[:]
+
+print(guest_list)
