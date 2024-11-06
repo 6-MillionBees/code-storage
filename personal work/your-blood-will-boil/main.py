@@ -5,8 +5,7 @@
 
 
 from PIL import Image
-from tkinter import *
 
-# img = Image.open('C:\\Users\\BoettcherAr321\\Desktop\\code storage\\personal work\\your-blood-will-boil\\SUNP0118.jpg')
+img = Image.open('C:\\Users\\BoettcherAr321\\Desktop\\code storage\\personal work\\your-blood-will-boil\\SUNP0118.jpg')
 
-# img.show()
+img.show()
