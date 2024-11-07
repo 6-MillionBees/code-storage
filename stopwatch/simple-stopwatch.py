@@ -11,17 +11,17 @@ input('Press enter to start the timer\n')
 
 time_local_1 = 0
 time_s = 0
-print('Press S to stop the timer')
 time_local = time.localtime()
-time_thing = time.strftime('%H:%M:%S', time_local)
-print(f'Starting time {time_thing}')
+time_formatted = time.strftime('%H:%M:%S', time_local)
+print('Press S to stop the timer')
+print(f'Starting time {time_formatted}')
 
 while True:
     if keyboard.is_pressed('s'):
         break
     else:
         time_local = time.localtime()
-        time_thing = time.strftime('%H:%M:%S', time_local)
+        time_formatted = time.strftime('%H:%M:%S', time_local)
 
         if time_local == time_local_1: # A problem that I ran into is that I couldn't have the input detection run while only printing the time every second.
             continue 
@@ -37,6 +37,6 @@ while True:
         time.sleep(0.01) # This is here to save processing power, without it the loop would just be going crazy with your computers resources.
 
 print()
-print(f'Ending time {time_thing}')
+print(f'Ending time {time_formatted}')
 print(f'Total time: {time_m} minutes and {left_time_s} seconds.')
 input('Press enter to finish the program\n') # I use this to time my reading.
