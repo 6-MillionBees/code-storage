@@ -143,8 +143,9 @@ def rolling(rolling_for = ''):
 
 def roll_to_hit(roll, dc, mod):
     rolling('to hit')
-    if roll == 20:
-        print('\nNATURAL 20!')
+    print(f'You rolled a {roll}')
+    if roll + mod >= 20:
+        print(Fore.RED + '\nCRITICAL HIT' + Fore.RESET)
         return 'crit'
     elif roll == 1:
         print('\nCritical Fail.')
