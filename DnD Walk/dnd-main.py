@@ -5,7 +5,8 @@
 import random
 from colorama import Fore
 from colorama import Back
-import time
+from time import sleep
+from math import floor
 
 
 # Dice
@@ -139,7 +140,7 @@ def rolling(rolling_for = ''):
         xperiod = x * '.'
         print(f'\rRolling {rolling_for}{xperiod}',end='')
         x += 1
-        time.sleep(1)
+        sleep(1)
 
 def roll_to_hit(roll, dc, mod):
     rolling('to hit')
@@ -257,7 +258,7 @@ print(f'You now are a {character_class.title()}')
 player_equipment = {
     'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
     'equipped armor': '', 'stored armor': '',
-    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'item 5': '', 'item 6': ''
+    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'rope': 0, 'rocks': 0
 }
 
 player_unique_items = []
@@ -425,71 +426,6 @@ def drop_item():
                 print('Invalid Input: Please try again')
 
 
-
-
-
-
-if character_class == 'barbarian':
-    player_equipment['equipped armor'] = 'unarmored'
-    while True:
-        main = int(input('''Choose your main weapon
-    1. A Greataxe (1d12 + str mod)
-    2. Morningstar (2d6 + str mod)\n'''))
-        if main == 1:
-            player_equipment['equipped weapon'] = 'greataxe'
-            break
-        elif main == 2:
-            player_equipment['equipped weapon'] = 'morningstar'
-            break
-        else:
-            print('Please enter a valid number')
-    while True:
-        stored = int(input('''Choose your other weapon(s)
-    1. 2 handaxes (1d6 + str mod)
-    2. 2 maces (1d6 + str mod)\n'''))
-        if stored == 1:
-            player_equipment['stored weapon 1'] = 'handaxe'
-            player_equipment['stored weapon 2'] = 'handaxe'
-            break
-        elif stored == 2:
-            player_equipment['stored weapon 1'] = 'mace'
-            player_equipment['stored weapon 2'] = 'mace'
-            break
-        else:
-            print('please enter a valid number')
-    def unarmored():
-        player_ac = 10 + player_mods['dex mod'] + player_mods['end mod']
-        return player_ac
-        
-elif character_class == 'bard':
-    while True:
-        main = int(input('''Choose your main weapon
-    1. '''))
-
-# elif character_class == 'cleric':
-
-# elif character_class == 'fighter'  :
-
-# elif character_class == 'monk':
-
-# elif character_class == 'paladin':
-
-# elif character_class == 'rogue':
-
-# elif character_class == 'sorcerer':
-
-# elif character_class == 'warlock':
-
-# elif character_class == 'wizard':
-
-print(player_equipment['equipped weapon'], player_equipment['stored weapon 1'], player_equipment['stored weapon 2'], player_equipment['equipped armor'])
-
-def random_item_enemy(enemy):
-    
-
-def random_item_world(pool):
-
-
 print('Please assign your stats')
 cont()
 
@@ -499,12 +435,8 @@ while all_stats == False:
         all_stats = True
         continue
 
-    stat_roll1 = d6()
-    stat_roll2 = d6()
-    stat_roll3 = d6()
-    stat_roll4 = d6()
-    stat_list = [stat_roll1, stat_roll2, stat_roll3, stat_roll4,]
-    stat_roll_main= stat_roll1 + stat_roll2 + stat_roll3 + stat_roll4 - min(stat_list)
+    stat_list = [d6(), d6(), d6(), d6()]
+    stat_roll_main= sum(stat_list) - min(stat_list)
     print(f'You rolled a {stat_roll_main}!')
 
     while True:
@@ -598,7 +530,8 @@ player_mods = {
     'end mod': int((endurance - 10) / 2),
     'int mod': int((inteligence - 10) / 2),
     'wis mod': int((wisdom - 10) / 2),
-    'cha mod': int((charisma - 10) / 2)
+    'cha mod': int((charisma - 10) / 2),
+    'casting mod': 0
 }
 
 print(player_mods)
@@ -609,6 +542,85 @@ level = 1
 difficulty = 1 + days / 25
 
 print(initiative_bonus)
+
+
+
+if character_class == 'barbarian':
+    player_equipment['equipped armor'] = 'unarmored'
+    while True:
+        main = int(input('''Choose your main weapon
+    1. A Greataxe (1d12 + str mod)
+    2. Morningstar (2d6 + str mod)\n'''))
+        if main == 1:
+            player_equipment['equipped weapon'] = 'greataxe'
+            break
+        elif main == 2:
+            player_equipment['equipped weapon'] = 'morningstar'
+            break
+        else:
+            print('Please enter a valid number')
+    while True:
+        stored = int(input('''Choose your other weapon(s)
+    1. 2 handaxes (1d6 + str mod)
+    2. 2 maces (1d6 + str mod)\n'''))
+        if stored == 1:
+            player_equipment['stored weapon 1'] = 'handaxe'
+            player_equipment['stored weapon 2'] = 'handaxe'
+            break
+        elif stored == 2:
+            player_equipment['stored weapon 1'] = 'mace'
+            player_equipment['stored weapon 2'] = 'mace'
+            break
+        else:
+            print('please enter a valid number')
+    def unarmored():
+        player_ac = 10 + player_mods['dex mod'] + player_mods['end mod']
+        return player_ac
+    caster = False
+        
+elif character_class == 'bard':
+    while True:
+        main = int(input('''Choose your main weapon
+    1. '''))
+        
+
+        break
+
+    
+    caster = True
+    player_mods['casting mod'] = player_mods['cha mod']
+    
+elif character_class == 'cleric':
+    caster = True
+    player_mods['casting mod'] = player_mods['cha mod']
+
+elif character_class == 'fighter'  :
+    caster = False
+
+elif character_class == 'monk':
+    caster = False
+
+elif character_class == 'paladin':
+    caster = True
+    player_mods['casting mod'] = player_mods['cha mod']
+
+elif character_class == 'rogue':
+    caster = False
+
+elif character_class == 'sorcerer':
+    caster = True
+    player_mods['casting mod'] = player_mods['int mod']
+
+elif character_class == 'warlock':
+    caster = True
+    player_mods['casting mod'] = player_mods['cha mod']
+
+elif character_class == 'wizard':
+    caster = True
+    player_mods['casting mod'] = player_mods['wis mod']
+
+print(player_equipment['equipped weapon'], player_equipment['stored weapon 1'], player_equipment['stored weapon 2'], player_equipment['equipped armor'])
+
 
 # Various Dictionaries
 
@@ -872,7 +884,7 @@ empty_npc = {
 # Basic
 goblin = {
     'name': 'Goblin', 'title': '', 'caster': False,
-    'health': int(d6(2) * difficulty), 'weapon': 'dagger', 'ac': 5, 'exp': 50, 'agression': 5,
+    'health': int(d6(1) + 6 * difficulty), 'weapon': 'dagger', 'ac': 5, 'exp': 50, 'agression': 5,
     'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1,
     'casting mod': 0, 'layer': 1
 }
@@ -948,14 +960,42 @@ godwin = {
 
 # loot tables
 
-common_table = [
-    'arrows1', 'arrows1', 'arrows1', 'arrows1', 'arrows1', 'arrows5', 'arrows5', 'arrows10',
-    'copper pieces50', 'copper pieces50', 'copper pieces50', 'copper pieces50', 'copper pieces50',
-    'silver pieces1', 'silver pieces1', 'silver pieces1', 'silver pieces1',
-    'silver pieces5', 'silver pieces5', 'silver pieces10', 'gold pieces1',
-    'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1',
-    'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1', 'rock1',
-]
+def item_pickup(drops, numbers):
+    global player_equipment
+    num = 0
+    for item in drops:
+        player_equipment[item] += numbers[num]
+        num += 1
+
+
+def common_table(no_of_items):
+    drops = []
+    numbers = []
+    num = 0
+    while num < no_of_items:
+        rand = random.randint(1, 100)
+        if rand < 30:
+            drops.append('copper pieces')
+            numbers.append(random.randint(30, 90))
+        elif rand > 30 and rand < 50:
+            drops.append('arrows')
+            numbers.append(random.randint(1, 10))
+        elif rand > 50 and rand < 60:
+            drops.append('silver pieces')
+            numbers.append(random.randint(1, 5))
+        elif rand > 60 and rand < 75:
+            drops.append('rocks')
+            numbers.append(1)
+        elif rand > 75 and rand < 97:
+            drops.append('rope')
+            numbers.append(random.randint(25, 75))
+        elif rand > 97:
+            drops.append('gold pieces')
+            numbers.append(1)
+        num += 1
+    return drops, numbers
+
+
 
 uncommon_table = [
     'arrows5', 'arrows5', 
@@ -975,7 +1015,7 @@ def roll_against(agressor_mod, agressor, defender, defender_mod):
         return False
 
 
-def cast(spell, mod):
+def cast(spell, casting_mod):
 
 
 def npc_attack(tohit, weapon, enemy):
@@ -1332,7 +1372,7 @@ One of them notices you and begins to talk;
                 print('But before you can grasp the depth of your mistake one of them hits you with a spell that blinds you with a flash of light.')
                 cont()
                 print('After being blinded you feel a sharp pain as something hits you on the back of the head. You lose consciousness.')
-                time.sleep(1)
+                sleep(1)
                 print('You slowly start to wake up and realise you are tied up, with your belongings hung from the branches of a very tall tree.')
 
                 thing = round(current_player_health/8) + random.randint(-3, 3)

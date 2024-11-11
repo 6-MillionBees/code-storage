@@ -18,11 +18,11 @@ except Exception:
     quit()
 
 while guessing != number:
-    # range = rand2 - rand1 # lines 21 and 22 are the less random ones
-    # guessing = rand1 + round(range / 2, 0)
-    guessing = random.randint(rand1, rand2)
-    print(f'\nfloor: {rand1}, ceil: {rand2}', end = '')
-    print(f'\ngoal: {number}, guess: {guessing}')
+    range = rand2 - rand1 # lines 21 and 22 are the less random ones
+    guessing = rand1 + round(range / 2, 0)
+    # guessing = random.randint(rand1, rand2)
+    # print(f'\nfloor: {rand1}, ceil: {rand2}', end = '')
+    # print(f'\ngoal: {number}, guess: {guessing}')
     num_of_guesses += 1
     if guessing < number:
         rand1 = guessing

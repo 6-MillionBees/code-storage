@@ -71,7 +71,7 @@ if question.lower() in ['y', 'yes']:
         else:
             print('Please enter a valid magic color.')
             color = input('[Blue/Red/Green/Yellow]\n')
-    print('The spirits are telling me...')
+    print('\n\nThe spirits are telling me...\n')
     time.sleep(1)
     if fortune_rand == 0:
         print('Congratulations!')
@@ -80,10 +80,11 @@ if question.lower() in ['y', 'yes']:
     elif fortune_rand == 7:
         print('Oh no...')
         time.sleep(1)
+    print()
     print(fortunes[fortune_rand])
     if fortune_rand == 6:
+        time.sleep(1)
         sys.exit('Dispite having no legs the robot manages to leave')
-
 
 elif question.lower() in ['n', 'no']:
     print('Suit yourself.')

@@ -57,8 +57,8 @@
             "editor.foreground": "#ffcb2f",
             "editor.hoverHighlightBackground": "#b1651a45",
             "editor.wordHighlightBackground": "#ff880046",
-            "editorBracketHighlight.foreground1": "#ff7f0f",
-            "editorBracketHighlight.foreground2": "#ffc20c",
+            "editorBracketHighlight.foreground1": "#ffc20c",
+            "editorBracketHighlight.foreground2": "#ff7f0f",
             "editorBracketHighlight.foreground3": "#ffe9cb",
             "editorCursor.foreground": "#ff9436",
             "editorGroup.dropBackground": "#4665806e",
@@ -177,7 +177,7 @@
             "numbers": "#bb4fa9",
             "strings": {
                 "foreground": "#96bc70",
-                "fontStyle": "italic"
+                "fontStyle": ""
             },
             "functions": {
                 "foreground": "#f89f33",
@@ -191,6 +191,26 @@
                 "foreground": "#f2601c",
                 "fontStyle": ""
             },
+            "textMateRules":[
+
+                // Python Rules
+                {
+                    "scope": "",
+                    "settings": {"foreground": "#FF0000", "fontStyle": "bold"}
+                },
+
+
+                // Markdown Rules
+                {
+                    "scope": "markup.heading.markdown entity.name.section.markdown",
+                    "settings": { "foreground": "#43cab8",   "fontStyle": ""}
+                },
+
+                {
+                    "scope": "",
+                    "settings": {"foreground": "#FF0000", "fontStyle": "bold"}
+                }
+            ]
         },
 
         "[Dark Pink Pro]": {
@@ -232,12 +252,14 @@
                     "fontStyle": ""
                 },
                 "builtinConstant": "#ce2dc0",
+
                 "function": "#f89233",
                 "function.builtin": "#ffac46",
                 "function.declaration": {
                     "foreground": "#f19645",
                     "fontStyle": "italic bold"
                 },
+
                 "class": "#ffe14b",
                 "parameter": "#04cc79",
                 "property": "#e7e568"
