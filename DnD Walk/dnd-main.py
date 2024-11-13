@@ -1225,16 +1225,7 @@ def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = 
 {enemy4['name'], enemy4['title']}''')
 
     print('Initiative Order:')
-    for x in list_initiative:
-        if x == list_initiative[no_of_enemy]:
-            if x == 0:
-                print('You. ')
-            else:
-                print(f'{x}.')
-        if x == 0:
-            print('You, ', end = '')
-        else:
-            print(f'{x}, ', end = '')
+    print(', '.join(list_initiative))
     cont()
 
     while no_of_enemy > 0 and current_player_health > 0:

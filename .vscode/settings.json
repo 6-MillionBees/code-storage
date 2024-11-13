@@ -7,12 +7,30 @@
         "*test.py"
     ],
 
+    "terminal.integrated.profiles.windows": {
+        "Exoskeleton": {
+            "source": "PowerShell",
+            "args": ["-nologo"],
+            "icon": "bug",
+            "color": "terminal.ansiYellow"
+        }
+    },
+
+    "editor.fontFamily": "Cascadia Code NF, Cascadia Code, monospace",
+    "editor.fontWeight": "300",
+    "comments.visible": true,
+    "terminal.integrated.defaultProfile.windows": "Exoskeleton",
+    "terminal.integrated.fontFamily": "Cascadia Code NF",
+    "terminal.integrated.fontWeight": "normal",
 
     "editor.suggest.showCustomcolors": true,
     "editor.wordWrap": "on",
     "editor.semanticHighlighting.enabled": true,
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": true,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorWidth": 2,
 
 
     "workbench.colorCustomizations": {
@@ -54,7 +72,7 @@
             "editor.findMatchBorder": "#ff5e00",
             "editor.findMatchHighlightBackground": "#ff823479",
             "editor.findMatchHighlightBorder": "#ff5e0000",
-            "editor.foreground": "#ffcb2f",
+            "editor.foreground": "#ffffff",
             "editor.hoverHighlightBackground": "#b1651a45",
             "editor.wordHighlightBackground": "#ff880046",
             "editorBracketHighlight.foreground1": "#ffc20c",
@@ -195,8 +213,23 @@
 
                 // Python Rules
                 {
-                    "scope": "",
-                    "settings": {"foreground": "#FF0000", "fontStyle": "bold"}
+                    "scope": "punctuation.separator.colon.python",
+                    "settings": {"foreground": "#ff912b", "fontStyle": ""}
+                },
+
+                {
+                    "scope": "punctuation.separator.element.python",
+                    "settings": {"foreground": "#ffc559", "fontStyle": ""}
+                },
+
+                {
+                    "scope": "punctuation.separator.arguments.python",
+                    "settings": {"foreground": "#ffc559", "fontStyle": ""}
+                },
+
+                {
+                    "scope": "punctuation.separator.period.python",
+                    "settings": {"foreground": "#ff912b", "fontStyle": ""}
                 },
 
 
@@ -209,6 +242,24 @@
                 {
                     "scope": "",
                     "settings": {"foreground": "#FF0000", "fontStyle": "bold"}
+                },
+
+                // Json Rules
+
+                {
+                    "scope": "punctuation.separator.dictionary.key-value.json.comments",
+                    "settings":{
+                        "foreground": "#ffc559",
+                        "fontStyle": ""
+                    }
+                },
+
+                {
+                    "scope": "punctuation.separator.dictionary.pair.json.comments",
+                    "settings":{
+                        "foreground": "#ffc559",
+                        "fontStyle": ""
+                    }
                 }
             ]
         },
