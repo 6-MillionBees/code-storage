@@ -635,10 +635,7 @@ bard_spells = {
     'level 1': [
         'animal Friendship', 'bane', 'charm person', 'comprehend languages',
         'cure wounds', 'detect magic', 'disguise self', 'dissonant whispers',
-        'faerie fire', 'feather fall', 'healing word', 'herosim', 'identify',
-        'illusory script', 'longstrider', 'silent image', 'sleep', 
-        'speak with animals', 'tashas hideous laughter', 'thunderwave',
-        'unseen servant'
+        'faerie fire', 'feather fall', 'healing word', 'herosim', 'identify','longstrider', 'speak with animals', 'thunderwave',
     ],
 
     'level 2': [
@@ -654,7 +651,26 @@ bard_spells = {
     'level 3': [
         'bestow curse', 'clairvoyance', 'dispell magic', 'fear',
         'feign death', 'glyph of warding', 'hypnotic pattern',
-        ''
+        'leomunds tiny hut', 'major image', 'nondetection', 
+        'plant growth', 'sending', 'speak with dead', 'speak with plants',
+        'stinking cloud', 'toungues'
+    ],
+
+    'level 4': [
+        'compulsion', 'confusion', 'dimension door', 'freedom of movement',
+        'greater invisibility', 'hallucinatory terrain', 'locate creature',
+        'polymorph'
+    ],
+
+    'level 5': [
+        'animate objects', 'awaken', 'dominate person', 'dream', 'geas',
+        'greater restoration', 'hold monster', 'legend lore', 
+        'mass cure wounds', 'mislead', 'modify memory', 'planar binding',
+        'raise dead', 'scrying', 'seeming', 'teleportation circle'
+    ],
+
+    'level 6': [
+        'eyebite', 'find the path', 'guards and wards', ''
     ]
 }
 
