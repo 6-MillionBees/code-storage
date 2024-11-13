@@ -82,7 +82,7 @@ numbers = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 num_elements = len(numbers)
 
 # You could skip out on using the len() and the range() functions and just put the list directly in the for loop
-# Lists are known as an iterable for a reason
+# Lists are called an iterable for a reason
 # Like so:
 
 # for i in numbers:

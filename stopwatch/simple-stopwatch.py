@@ -30,11 +30,9 @@ while True:
         time_m = time_s / 60 # there is 100% a better way to do this but I love it so much
         time_m = int(time_m)
         left_time_s = time_s % 60
-        print(f'\r{time_m}.{left_time_s}', end = '')
+        print(f'\r{time_m}:{left_time_s}  ', end = '')
         time_s += 1
         time_local_1 = time_local
-
-        time.sleep(0.01) # This is here to save processing power, without it the loop would just be going crazy with your computers resources.
 
 print()
 print(f'Ending time {time_formatted}')

@@ -24,8 +24,8 @@ print(students_lower)
 inches = [14, 20, 36, 40]
 centimeters = [inch * 2.54 for inch in inches]
 
-print(f'inches: {inches}')
-print(f'centimeters: {centimeters}')
+print('Input (inches): ', *inches)
+print('Output (centimeters): ', *centimeters)
 
 
 # filtered last names
