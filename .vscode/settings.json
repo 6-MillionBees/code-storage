@@ -166,7 +166,7 @@
             "panelTitle.activeBorder": "#f17923",
             "panelTitle.activeForeground": "#f17923",
             "panelTitle.inactiveForeground": "#ff9900a1",
-            "terminal.foreground": "#ffc8dc",
+            "terminal.foreground": "#ffebf3",
             "terminal.selectionBackground": "#ff005d62",
             "terminal.selectionForeground": "#39ffeb",
             "terminalCommandDecoration.defaultBackground": "#85ebff",
