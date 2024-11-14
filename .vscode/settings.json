@@ -116,6 +116,10 @@
             "list.inactiveSelectionBackground": "#c9580641",
             "list.inactiveFocusOutline": "#754221",
 
+            "editor.findMatchForeground": "#ffe7cf",
+            "editor.findMatchHighlightForeground": "#fff2e5fe",
+            
+
             "menu.background": "#181511",
             "menu.border": "#754221",
             "menu.foreground": "#e57b2f",

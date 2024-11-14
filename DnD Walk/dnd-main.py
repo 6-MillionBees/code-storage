@@ -6,7 +6,6 @@ import random
 from colorama import Fore
 from colorama import Back
 from time import sleep
-from math import floor
 
 
 # Dice
@@ -116,7 +115,7 @@ def health_check():
         return False
 
 def cont():
-    input('\n' + Fore.BLACK + Back.WHITE + 'Press enter to continue.' + Fore.RESET + Back.RESET)
+    input('\n' + Fore.GREEN + 'Press enter to continue.' + Fore.RESET)
 
 def invalid():
     print(Fore.RED + 'Invalid Input: Please try again\n' + Fore.RESET)
@@ -280,7 +279,7 @@ def pickupweapon(weapon):
         try:
             ynchoice = int(input('Are you sure?\n    1.) Yes\n    2.) No'))
         except ValueError:
-            print('Invalid Input: Please try again')
+            invalid()
         if ynchoice.lower() == 'yes':
             if choice == 1:
                 player_equipment['stored weapon 1'] = weapon['name']
@@ -306,7 +305,7 @@ def pickupweapon(weapon):
                     print('You don\'t pick up the weapon')
 
             else:
-                print(Fore.RED + 'Invalid input: Please try again.' + Fore.RESET)
+                invalid()
 
 
 
@@ -384,7 +383,7 @@ def drop_item():
         try:
             dropped_item = int(input())
         except ValueError:
-            print('Invalid Input: Please try again')
+            invalid()
         else:
             if dropped_item == 1:
                 player_unique_items.remove(player_unique_items[0])
@@ -423,7 +422,7 @@ def drop_item():
                 player_unique_items.remove(player_unique_items[11])
                 break
             else:
-                print('Invalid Input: Please try again')
+                invalid()
 
 
 print('Please assign your stats')
@@ -449,7 +448,7 @@ while all_stats == False:
     5. Wisdom {wisdom}
     6. Charisma {charisma}\n1-6\n'''))
         except ValueError:
-            print(Fore.RED + '\n\nInvalid Input please try again' + Fore.RESET)
+            invalid()
         else:
             break
 
@@ -624,6 +623,57 @@ print(player_equipment['equipped weapon'], player_equipment['stored weapon 1'], 
 
 # Various Dictionaries
 
+# Class Spells
+
+bard_spells = {
+    'cantrips': [
+        'blade ward', 'dancing lights', 'friends', 'light', 'mage hand',
+        'mending', 'minor illision', 'prestidigitation', 'true strike',
+        'vicious mockery'
+    ],
+
+    'level 1': [
+        'animal Friendship', 'bane', 'charm person', 'comprehend languages',
+        'cure wounds', 'detect magic', 'disguise self', 'dissonant whispers',
+        'faerie fire', 'feather fall', 'healing word', 'herosim', 'identify','longstrider', 'speak with animals', 'thunderwave',
+    ],
+
+    'level 2': [
+        'animal messenger', 'blindness deafness', 'calm emotions', 
+        'cloud of daggers', 'crown of madness', 'detect thoughts',
+        'enhance ability', 'enthrall', 'heat metal', 'hold person',
+        'invisibility', 'knock', 'lesser resotration',
+        'locate animals or plants', 'locate object', 'magic mouth',
+        'phantasmal force', 'see invisibility', 'shatter', 'silence',
+        'suggestion', 'zone of truth'
+    ],
+
+    'level 3': [
+        'bestow curse', 'clairvoyance', 'dispell magic', 'fear',
+        'feign death', 'glyph of warding', 'hypnotic pattern',
+        'leomunds tiny hut', 'major image', 'nondetection', 
+        'plant growth', 'sending', 'speak with dead', 'speak with plants',
+        'stinking cloud', 'toungues'
+    ],
+
+    'level 4': [
+        'compulsion', 'confusion', 'dimension door', 'freedom of movement',
+        'greater invisibility', 'hallucinatory terrain', 'locate creature',
+        'polymorph'
+    ],
+
+    'level 5': [
+        'animate objects', 'awaken', 'dominate person', 'dream', 'geas',
+        'greater restoration', 'hold monster', 'legend lore', 
+        'mass cure wounds', 'mislead', 'modify memory', 'planar binding',
+        'raise dead', 'scrying', 'seeming', 'teleportation circle'
+    ],
+
+    'level 6': [
+        'eyebite', 'find the path', 'guards and wards', ''
+    ]
+}
+
 starting_hit_dice = {
     'barbarian': 12,
     'bard':      8,
@@ -652,8 +702,8 @@ hit_dice = {
 
 player_health = starting_hit_dice[character_class] + player_mods['end mod']
 current_player_health = player_health
-print(player_health)
-print(current_player_health)
+print('Total Health: ', player_health)
+print('Current Health: ', current_player_health)
 cont()
 
 weapon_name = {
@@ -870,6 +920,19 @@ npc_weapon_mod = {
 
 # Spell Lists
 
+player_spells = {
+    'cantrips': [],
+    'level_1': [], 
+    'level_2': [],
+    'level_3': [],
+    'level_4': [],
+    'level_5': [], 
+    'level_6': [],
+    'level_7': [],
+    'level_8': [],
+    'level_9': []
+}
+
 lily_spells = []
 
 # Enemies
@@ -960,12 +1023,10 @@ godwin = {
 
 # loot tables
 
-def item_pickup(drops, numbers):
+def item_pickup(items):
     global player_equipment
-    num = 0
-    for item in drops:
-        player_equipment[item] += numbers[num]
-        num += 1
+    for item, numbers in items:
+        player_equipment[item] += numbers
 
 
 def common_table(no_of_items):
@@ -993,7 +1054,7 @@ def common_table(no_of_items):
             drops.append('gold pieces')
             numbers.append(1)
         num += 1
-    return drops, numbers
+    return zip(drops, numbers), unique_items
 
 
 
@@ -1014,9 +1075,8 @@ def roll_against(agressor_mod, agressor, defender, defender_mod):
     elif agressor_roll < defender_roll:
         return False
 
-
 def cast(spell, casting_mod):
-
+    print('work in progress')
 
 def npc_attack(tohit, weapon, enemy):
     if tohit == 'crit':
@@ -1103,8 +1163,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             2. Cast
             3. Block\n'''))
         except ValueError:
-            print('Invalid Input: please enter a valid input')
-            cont()
+            invalid()
         else:
             if player_turn in range(1, 4):
                 break
@@ -1167,7 +1226,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                 print(f'{Fore.RED}Please enter a valid number.{Fore.RESET}')
 
     elif player_turn == 2:
-
+        print('work in progress')
     elif player_turn == 3:
         print('You are blocking.')
         return True, 0, ''
@@ -1260,24 +1319,28 @@ def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = 
                     enemy1_is_alive = False
                     no_of_enemy -= 1
                     exp += enemy1['exp']
+                    print('+', enemy1['exp'], 'exp')
                 if enemy2_is_alive:
                     if enemy2_health <= 0:
                         print(f'{Fore.LIGHTRED_EX}You killed {enemy2["name"]}{Fore.RESET}')
                         enemy2_is_alive = False
                         no_of_enemy -= 1
                         exp += enemy2['exp']
+                        print('+', enemy2['exp'], 'exp')
                 if enemy3_is_alive:
                     if enemy3_health <= 0:
                         print(f'{Fore.LIGHTRED_EX}You killed {enemy3["name"]}{Fore.RESET}')
                         enemy3_is_alive = False
                         no_of_enemy -= 1
                         exp += enemy3['exp']
+                        print('+', enemy3['exp'], 'exp')
                 if enemy4_is_alive:
                     if enemy4_health <= 0:
                         print(f'{Fore.LIGHTRED_EX}You killed {enemy4["name"]}{Fore.RESET}')
                         enemy4_is_alive = False
                         no_of_enemy -= 1
                         exp += enemy4['exp']
+                        print('+', enemy4['exp'], 'exp')
                 cont()
 
             elif turn != 0:
@@ -1305,8 +1368,7 @@ while True:
     try:
         distance = int(input(Fore.GREEN + '\nhow long do you want to hike?\n' + Fore.RESET))
     except ValueError:
-        print('Invalid Input: please try again')
-        continue
+        invalid()
     else:
         break
 distance_traveled = 0
@@ -1338,8 +1400,7 @@ One of them notices you and begins to talk;
     3. You'll never know *you wink at them ;D*
     4. *Walk away slowly*\n'''))
         except ValueError:
-            print('Invalid Input: please try again')
-            continue
+            invalid()
         else:
             break
     if say == 1:
@@ -1385,8 +1446,7 @@ One of them notices you and begins to talk;
         1. Stay and fight
         2. RUN AWAY\n'''))
                     except ValueError:
-                        print('Invalid Input: please try again')
-                        continue
+                        invalid()
                     else:
                         if choice == 1:
                             fight(2, kile, gronk)
@@ -1396,7 +1456,7 @@ One of them notices you and begins to talk;
                             cont()
                             break
                         else:
-                            print('Invalid Input: please try again')
+                            invalid()
             elif save >= 8:
                 print('')
         elif level >= 10:
