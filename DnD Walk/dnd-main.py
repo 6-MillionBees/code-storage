@@ -140,10 +140,11 @@ def rolling(rolling_for = ''):
         print(f'\rRolling {rolling_for}{xperiod}',end='')
         x += 1
         sleep(1)
+    print()
 
 def roll_to_hit(roll, dc, mod):
     rolling('to hit')
-    print(f'You rolled a {roll}')
+    print(f'{roll}')
     if roll + mod >= 20:
         print(Fore.RED + '\nCRITICAL HIT' + Fore.RESET)
         return 'crit'
@@ -533,7 +534,14 @@ player_mods = {
     'casting mod': 0
 }
 
-print(player_mods)
+print(f'''
+str mod: {player_mods["str mod"]}
+dex mod: {player_mods["dex mod"]}
+end mod: {player_mods["end mod"]}
+int mod: {player_mods["int mod"]}
+wis mod: {player_mods["wis mod"]}
+cha mod: {player_mods["cha mod"]}''')
+
 player_ac = 10 + player_mods['dex mod']
 initiative_bonus = player_mods['dex mod']
 days = 0
@@ -1054,7 +1062,7 @@ def common_table(no_of_items):
             drops.append('gold pieces')
             numbers.append(1)
         num += 1
-    return zip(drops, numbers), unique_items
+    return zip(drops, numbers), # unique_items
 
 
 
@@ -1282,9 +1290,11 @@ def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = 
 {enemy2['name'], enemy2['title']}
 {enemy3['name'], enemy3['title']}
 {enemy4['name'], enemy4['title']}''')
+    
+    initiative_string = [str(item) for item in list_initiative]
 
     print('Initiative Order:')
-    print(', '.join(list_initiative))
+    print(', '.join(initiative_string))
     cont()
 
     while no_of_enemy > 0 and current_player_health > 0:
