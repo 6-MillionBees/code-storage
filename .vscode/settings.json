@@ -11,7 +11,7 @@
         "Exoskeleton": {
             "source": "PowerShell",
             "args": ["-nologo"],
-            "icon": "bug",
+            "icon": "play",
             "color": "terminal.ansiYellow"
         }
     },
@@ -337,7 +337,7 @@
                 },
 
                 "class": "#ffe14b",
-                "parameter": "#04cc79",
+                "parameter": "#04d19e",
                 "property": "#e7e568"
             }
         },
