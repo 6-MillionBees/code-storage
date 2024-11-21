@@ -12,4 +12,5 @@ What do I store in this repo?
 
 <br>
 
-I have like 4 different computers this is synced across (｡o‿‿o｡) \< the creature of git suffering
+I have like 4 different computers this is synced across <br>
+(｡o‿‿o｡) \< the creature of git suffering
