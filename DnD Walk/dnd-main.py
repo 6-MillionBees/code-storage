@@ -635,7 +635,8 @@ bard_spells = {
     'level 1': [
         'animal Friendship', 'bane', 'charm person', 'comprehend languages',
         'cure wounds', 'detect magic', 'disguise self', 'dissonant whispers',
-        'faerie fire', 'feather fall', 'healing word', 'herosim', 'identify','longstrider', 'speak with animals', 'thunderwave',
+        'faerie fire', 'feather fall', 'healing word', 'herosim', 'identify',
+        'longstrider', 'speak with animals', 'thunderwave'
     ],
 
     'level 2': [
@@ -922,15 +923,15 @@ npc_weapon_mod = {
 
 player_spells = {
     'cantrips': [],
-    'level_1': [], 
-    'level_2': [],
-    'level_3': [],
-    'level_4': [],
-    'level_5': [], 
-    'level_6': [],
-    'level_7': [],
-    'level_8': [],
-    'level_9': []
+    'level_1':  [], 
+    'level_2':  [],
+    'level_3':  [],
+    'level_4':  [],
+    'level_5':  [], 
+    'level_6':  [],
+    'level_7':  [],
+    'level_8':  [],
+    'level_9':  []
 }
 
 lily_spells = []
