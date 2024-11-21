@@ -12,7 +12,4 @@ What do I store in this repo?
 
 <br>
 
-You must be thinking; "Wow how rich is this guy? Multiple computers?"
-
-The reason I need so many computers is because of school (and a few other reasons)<br>
-Split custody really do be like that. (｡>‿‿<｡)
+I have like 4 different computers this is synced across (｡o‿‿o｡) \<- the creature of git suffering
