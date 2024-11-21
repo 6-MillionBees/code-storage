@@ -5,6 +5,7 @@
 import math
 import string
 
+
 superscript_map = { # this whole thing is because I want the powers and square roots to be in superscript
     "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶",
     "7": "⁷", "8": "⁸", "9": "⁹"} # literally just stole this from a guy on stack overflow

@@ -9,49 +9,27 @@
 					"label": "Dice"
 				},
 				{
-<<<<<<< HEAD
-					"line": 103,
-					"column": 0,
-					"label": "Other Functions"
-				},
-				{
-					"line": 435,
-=======
 					"line": 627,
->>>>>>> ee3015aca586246c182eb37914a3ff74ba3d9a34
 					"column": 21,
 					"label": "Equipment Functions"
 				},
 				{
-<<<<<<< HEAD
-					"line": 778,
-=======
 					"line": 739,
 					"column": 25,
 					"label": "Stats"
 				},
 				{
 					"line": 856,
->>>>>>> ee3015aca586246c182eb37914a3ff74ba3d9a34
 					"column": 22,
 					"label": "Various Dictionaries"
 				},
 				{
-<<<<<<< HEAD
-					"line": 966,
-					"column": 20,
-					"label": "Fighting Functions"
-				},
-				{
-					"line": 1330,
-=======
 					"line": 1012,
 					"column": 19,
 					"label": "Fighting Functions"
 				},
 				{
 					"line": 1375,
->>>>>>> ee3015aca586246c182eb37914a3ff74ba3d9a34
 					"column": 35,
 					"label": "The Beginning"
 				}

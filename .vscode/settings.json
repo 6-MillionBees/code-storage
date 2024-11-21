@@ -11,7 +11,7 @@
         "Exoskeleton": {
             "source": "PowerShell",
             "args": ["-nologo"],
-            "icon": "bug",
+            "icon": "play",
             "color": "terminal.ansiYellow"
         }
     },
@@ -116,8 +116,8 @@
             "list.inactiveSelectionBackground": "#c9580641",
             "list.inactiveFocusOutline": "#754221",
 
-            "editor.findMatchForeground": "#ffe7cf",
-            "editor.findMatchHighlightForeground": "#fff2e5fe",
+            //"editor.findMatchForeground": "#ffe7cf",
+            //"editor.findMatchHighlightForeground": "#fff2e5fe",
             
 
             "menu.background": "#181511",
@@ -170,7 +170,7 @@
             "panelTitle.activeBorder": "#f17923",
             "panelTitle.activeForeground": "#f17923",
             "panelTitle.inactiveForeground": "#ff9900a1",
-            "terminal.foreground": "#ffc8dc",
+            "terminal.foreground": "#ffebf3",
             "terminal.selectionBackground": "#ff005d62",
             "terminal.selectionForeground": "#39ffeb",
             "terminalCommandDecoration.defaultBackground": "#85ebff",
@@ -245,6 +245,16 @@
                 {
                     "scope": "punctuation.separator.period.python",
                     "settings": {"foreground": "#ff912b", "fontStyle": ""}
+                },
+
+                {
+                    "scope": "meta.function-call.generic.python",
+                    "settings":{"foreground": "#f88b47", "fontStyle": ""}
+                },
+
+                {
+                    "scope": "meta.attribute.python",
+                    "settings":{"foreground": "#e7bb68", "fontStyle": ""}
                 },
 
 
@@ -327,7 +337,7 @@
                 },
 
                 "class": "#ffe14b",
-                "parameter": "#04cc79",
+                "parameter": "#04d19e",
                 "property": "#e7e568"
             }
         },
