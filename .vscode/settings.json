@@ -118,7 +118,6 @@
 
             //"editor.findMatchForeground": "#ffe7cf",
             //"editor.findMatchHighlightForeground": "#fff2e5fe",
-            
 
             "menu.background": "#181511",
             "menu.border": "#754221",
@@ -225,6 +224,12 @@
                 "fontStyle": ""
             },
             "textMateRules":[
+
+                // Java Rules
+                {
+                    "scope": "punctuation.terminator.statement.js",
+                    "settings": {"foreground": "#ffc98b", "fontStyle": "bold"}
+                },
 
                 // Python Rules
                 {
