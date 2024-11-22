@@ -2,6 +2,9 @@ from colorama import Fore
 
 from dice import *
 from starting_functions import cont, invalid, confirm
+from pygame import *
+
+
 
 def define_class():
     while True:
@@ -183,7 +186,7 @@ def define_stats():
             else:
                 print('Please pick a number between 1 and 6.')
                 continue
-    return strength, dexterity, endurance, inteligence, wisdom, charisma
+    return [strength, dexterity, endurance, inteligence, wisdom, charisma]
 
 
 

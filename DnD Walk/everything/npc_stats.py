@@ -2,7 +2,7 @@ from random import randint
 
 from dice import *
 from dnd_main import difficulty
-
+from world import luck, luck_mod, luck_calc
 
 
 # Spell Lists
@@ -120,8 +120,9 @@ def common_table(no_of_items):
     drops = []
     numbers = []
     num = 0
+    luck_mod = luck_calc()[1]
     while num < no_of_items:
-        rand = randint(1, 100)
+        rand = randint(1, 100) + luck_mod()
         if rand < 30:
             drops.append('copper pieces')
             numbers.append(randint(30, 90))

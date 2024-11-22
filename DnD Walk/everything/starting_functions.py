@@ -2,10 +2,9 @@ from random import randint
 from time import sleep
 from colorama import Fore
 
-def game_over(bool):
-    if bool:
-        print('Game Over')
-        exit()
+
+
+
 
 def cont():
     input('\n' + Fore.GREEN + 'Press enter to continue.' + Fore.RESET)
@@ -20,10 +19,14 @@ def confirm():
             sure = int(input('''Are you sure?
         1.) Yes
         2.) No\n'''))
+            if sure in range(1, 3):
+                raise ValueError
         except ValueError:
             invalid()
         else:
             return sure
+
+
 
 
 def rolling(rolling_for = ''):
@@ -57,6 +60,13 @@ def bar(current, total, bar_length = 20):
     idk = int(fraction * bar_length) * '█'
     padding = int(bar_length - len(arrow)) * '-'
     if fraction >= .99:
-        return f'''{idk}{padding} {round(current)}hp'''
+        return f'{idk}{padding} {round(current)}hp'
     else:
-        return f'''{arrow}{padding} {round(current)}hp'''
+        return f'{arrow}{padding} {round(current)}hp'
+
+
+
+from player_stats import *
+from spells import *
+
+def rest():

@@ -1,24 +1,26 @@
 # Arden Boettcher
-# Start: 10/9/24
-# A Hike Through The Woods
+# DnD project
 
-import random
+# Start: 10/9/24
+# Finish:
+
+# These top lines are like a time capsule
+
 from colorama import Fore
 from colorama import Back
-from time import sleep
 
-from starting_functions import cont, invalid, confirm, rolling
-
-# Dice
+from starting_functions import cont
 from dice import *
-
+from pygame import *
 
 
 days = 0
 difficulty = 1 + days / 25
 
+first_name = input(Fore.GREEN +'\nWhat is your first name?\n' + Fore.RESET)
+last_name = input(Fore.GREEN + '\nWhat is your last name?:\n' + Fore.RESET)
 
-name = input(Fore.GREEN +'\nWhat is your name?\n' + Fore.RESET)
+print(f'Are you sure you want this name? \n{first_name + " " + last_name}')
 
 
 
@@ -56,6 +58,7 @@ cont()
 from player_stats import *
 from chances import *
 from world import *
+from starting_functions import rest
 
 while distance > distance_traveled:
     # if d20() <= 10:
