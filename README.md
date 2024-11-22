@@ -8,13 +8,9 @@ What do I store in this repo?
 
 <br>
 
-&nbsp;&nbsp;&nbsp;&nbsp;I have this repository copied across a couple devices to keep all my code up to date. <br>
-This repo is not for any specific project and it only exsists to toss around code between <br>
-a couple different computers of mine and to be a general storage soulution.
+&nbsp;&nbsp;&nbsp;&nbsp;I have this repository copied across a couple devices to keep all my code up to date. This repo is not for any specific project and it only exsists to toss around code between a couple different computers of mine and to be a general storage soulution.
 
 <br>
 
-You must be thinking; "Wow how rich is this guy? Multiple computers?"
-
-The reason I need so many computers is because my parents are devorced (｡>‿‿<｡) <br>
-Split custody really do be like that.
+I have like 4 different computers this is synced across <br>
+(｡o‿‿o｡) \< the creature of git suffering
