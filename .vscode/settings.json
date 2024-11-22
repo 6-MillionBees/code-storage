@@ -359,5 +359,21 @@
                 "property": "#da7a20"
             }
         }
-    }
+    },
+
+    // TODO highlight
+
+    "todohighlight.keywords": [
+        {
+            "text": "True",
+            "color": "#ce2dc0",
+            "backgroundColor": ""
+        },
+
+        {
+            "text": "False",
+            "color": "#8c42d2",
+            "backgroundColor": ""
+        }
+    ]
 }

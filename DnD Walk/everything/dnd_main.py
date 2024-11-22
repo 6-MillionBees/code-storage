@@ -11,7 +11,7 @@ from colorama import Back
 
 from starting_functions import cont
 from dice import *
-
+from pygame import *
 
 
 days = 0

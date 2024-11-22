@@ -34,15 +34,15 @@ score = 0
 white = (255, 255, 255)
 
 font = pygame.font.Font('CascadiaCodeNF.ttf', 15)
-text1_rect1 = font.render(f'click', True, white, None)
-text2_rect1 = font.render(f'me!', True, white, None)
-text1_rect2 = font.render(f'click', True, white, None)
-text2_rect2 = font.render(f'me!', True, white, None)
-text1_rect3 = font.render(f'click', True, white, None)
-text2_rect3 = font.render(f'me!', True, white, None)
+text1_rect1 = font.render('click', True, white, None)
+text2_rect1 = font.render('me!', True, white, None)
+text1_rect2 = font.render('click', True, white, None)
+text2_rect2 = font.render('me!', True, white, None)
+text1_rect3 = font.render('click', True, white, None)
+text2_rect3 = font.render('me!', True, white, None)
 
-text_triple_combo = font.render(f'Triple Combo', True, white, None)
-text_basic_triple = font.render(f'Basic Triple', True, white, None)
+text_triple_combo = font.render('Triple Combo', True, white, None)
+text_basic_triple = font.render('Basic Triple', True, white, None)
 
 gamemode = None
 

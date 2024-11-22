@@ -52,3 +52,19 @@ bard_spells = {
         'eyebite', 'find the path', 'guards and wards', ''
     ]
 }
+
+# Every Single Dnd Spell (and whether it's going to be in the game)
+
+dnd_spells = {
+    'acid splash':          True,
+    'aid':                  True,
+    'alarm':                False,
+    'alter self':           [True, 'changed'],
+    'animal friendship':    True,
+    'animal messenger':     False,
+    'animal shapes':        False,
+    'animate dead':         True,
+    'animate objects':      True,
+    
+
+}
