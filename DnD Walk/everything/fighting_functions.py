@@ -23,6 +23,7 @@ def cast(spell, casting_mod):
     print('work in progress')
 
 
+def damage_over_time(target, duration, damage, damage_type = ''):
 
 
 
@@ -30,13 +31,13 @@ def cast(spell, casting_mod):
 def npc_attack(tohit, weapon, enemy):
     if tohit == 'crit':
         print('\nCritical Hit!')
-        damage = weapon_damage[weapon]() + enemy[npc_weapon_mod[weapon]] * 2
+        damage = weapon_damage[weapon]() + enemy[weapon_mod[weapon]] * 2
         cont()
         return damage
     elif tohit == True:
         print('\nAttack hit.')
         cont()
-        return weapon_damage[weapon]() + enemy[npc_weapon_mod[weapon]]
+        return weapon_damage[weapon]() + enemy[weapon_mod[weapon]]
     elif tohit == False:
         print('\nAttack missed.')
         cont()
@@ -50,11 +51,11 @@ def attack(tohit, weapon):
     if tohit == 'crit':
         print(Fore.RED + '\nCritical' + Fore.RESET +' Hit!')
         cont()
-        return weapon_damage[weapon]() + weapon_mod[weapon] * 2
+        return weapon_damage[weapon]() + player_mods[weapon_mod[weapon]] * 2
     elif tohit == True:
         print('\nYour attack hit.')
         cont()
-        return weapon_damage[weapon]() + weapon_mod[weapon]
+        return weapon_damage[weapon]() + player_mods[weapon_mod[weapon]]
     elif tohit == False:
         print('\nYou missed.')
         cont()

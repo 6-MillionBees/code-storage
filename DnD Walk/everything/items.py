@@ -137,81 +137,44 @@ weapon_damage = {
 }
 
 weapon_mod = {
-    'battle axe':        player_mods['str mod'],
-    'club':              player_mods['str mod'],
-    'flail':             player_mods['str mod'],
-    'glaive':            player_mods['str mod'],
-    'great club':        player_mods['str mod'],
-    'greataxe':          player_mods['str mod'],
-    'greatsword':        player_mods['str mod'],
-    'halberd':           player_mods['str mod'],
-    'handaxe':           player_mods['str mod'],
-    'javelin':           player_mods['str mod'],
-    'lance':             player_mods['str mod'],
-    'light hammer':      player_mods['str mod'],
-    'longsword':         player_mods['str mod'],
-    'mace':              player_mods['str mod'],
-    'maul':              player_mods['str mod'],
-    'morningstar':       player_mods['str mod'],
-    'pike':              player_mods['str mod'],
-    'quarterstaff':      player_mods['str mod'],
-    'sickle':            player_mods['str mod'],
-    'spear':             player_mods['str mod'],
-    'trident':           player_mods['str mod'],
-    'war pick':          player_mods['str mod'],
-    'warhammer':         player_mods['str mod'],
+    'battle axe':        'str mod',
+    'club':              'str mod',
+    'flail':             'str mod',
+    'glaive':            'str mod',
+    'great club':        'str mod',
+    'greataxe':          'str mod',
+    'greatsword':        'str mod',
+    'halberd':           'str mod',
+    'handaxe':           'str mod',
+    'javelin':           'str mod',
+    'lance':             'str mod',
+    'light hammer':      'str mod',
+    'longsword':         'str mod',
+    'mace':              'str mod',
+    'maul':              'str mod',
+    'morningstar':       'str mod',
+    'pike':              'str mod',
+    'quarterstaff':      'str mod',
+    'sickle':            'str mod',
+    'spear':             'str mod',
+    'trident':           'str mod',
+    'war pick':          'str mod',
+    'warhammer':         'str mod',
 
-    'dagger':            player_mods['dex mod'],
-    'scimitar':          player_mods['dex mod'],
-    'shortsword':        player_mods['dex mod'],
-    'rapier':            player_mods['dex mod'],
-    'whip':              player_mods['dex mod'],
+    'dagger':            'dex mod',
+    'scimitar':          'dex mod',
+    'shortsword':        'dex mod',
+    'rapier':            'dex mod',
+    'whip':              'dex mod',
 
     # unique weapons
 
-    'dangolf staff':     player_mods['wis mod'],
-    'player sif dagger': player_mods['dex mod'],
+    'dangolf staff':     'wis mod',
+    'player sif dagger': 'dex mod',
 
     # No Touchy
 
     'gun':               99999999
-}
-
-npc_weapon_mod = {
-    'battle axe':    'str mod',
-    'club':          'str mod',
-    'flail':         'str mod',
-    'glaive':        'str mod',
-    'great club':    'str mod',
-    'greataxe':      'str mod',
-    'greatsword':    'str mod',
-    'halberd':       'str mod',
-    'handaxe':       'str mod',
-    'javelin':       'str mod',
-    'lance':         'str mod',
-    'light hammer':  'str mod',
-    'longsword':     'str mod',
-    'mace':          'str mod',
-    'maul':          'str mod',
-    'morningstar':   'str mod',
-    'pike':          'str mod',
-    'quarterstaff':  'str mod',
-    'sickle':        'str mod',
-    'spear':         'str mod',
-    'trident':       'str mod',
-    'war pick':      'str mod',
-    'warhammer':     'str mod',
-
-    'dagger':        'dex mod',
-    'rapier':        'dex mod',
-    'scimitar':      'dex mod',
-    'shortsword':    'dex mod',
-    'whip':          'dex mod',
-
-    # unique weapons
-    'sif dagger':    'dex mod',
-    'dangolf staff': 'wis mod',
-    'golden spirit': 'cha mod'
 }
 
 player_equipment = {

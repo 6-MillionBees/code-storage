@@ -5,7 +5,6 @@
 from random import randint
 import pygame
 from pygame.locals import *
-from sys import exit
 pygame.init()
 
 
@@ -24,8 +23,8 @@ rect2_hit = False
 rect3_hit = False
 
 
-menu_basic_triple = Rect(100, 100, 200, 50)
-menu_triple_combo = Rect(100, 200, 200, 50)
+menu_basic_triple = Rect(100, 200, 200, 50)
+menu_triple_combo = Rect(100, 275, 200, 50)
 
 running = True
 score = 0
@@ -159,10 +158,10 @@ while running:
 
     screen.fill((127,127,127))
     pygame.draw.rect(screen, red, menu_basic_triple)
-    screen.blit(text_basic_triple, (menu_basic_triple[0] + 50, menu_basic_triple[1]))
+    screen.blit(text_basic_triple, (menu_basic_triple[0] + 50, menu_basic_triple[1] + 15))
 
     pygame.draw.rect(screen, red, menu_triple_combo)
-    screen.blit(text_triple_combo, (menu_triple_combo[0] + 50, menu_triple_combo[1]))
+    screen.blit(text_triple_combo, (menu_triple_combo[0] + 50, menu_triple_combo[1] + 15))
 
     pygame.display.flip()
 
