@@ -167,6 +167,7 @@
             "terminal.ansiYellow": "#ffae00",
             "terminal.background": "#090c0c",
             "terminal.border": "#754221",
+            "terminal.ansiBrightRed": "#ff87a1",
             "panelTitle.activeBorder": "#f17923",
             "panelTitle.activeForeground": "#f17923",
             "panelTitle.inactiveForeground": "#ff9900a1",

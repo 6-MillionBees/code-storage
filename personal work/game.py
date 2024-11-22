@@ -30,13 +30,19 @@ menu_triple_combo = Rect(100, 200, 200, 50)
 running = True
 score = 0
 
+# Colors
+white = (255, 255, 255)
+
 font = pygame.font.Font('CascadiaCodeNF.ttf', 15)
-text1_rect1 = font.render(f'click', True, (255, 255, 255), None)
-text2_rect1 = font.render(f'me!', True, (255, 255, 255), None)
-text1_rect2 = font.render(f'click', True, (255, 255, 255), None)
-text2_rect2 = font.render(f'me!', True, (255, 255, 255), None)
-text1_rect3 = font.render(f'click', True, (255, 255, 255), None)
-text2_rect3 = font.render(f'me!', True, (255, 255, 255), None)
+text1_rect1 = font.render(f'click', True, white, None)
+text2_rect1 = font.render(f'me!', True, white, None)
+text1_rect2 = font.render(f'click', True, white, None)
+text2_rect2 = font.render(f'me!', True, white, None)
+text1_rect3 = font.render(f'click', True, white, None)
+text2_rect3 = font.render(f'me!', True, white, None)
+
+text_triple_combo = font.render(f'Triple Combo', True, white, None)
+text_basic_triple = font.render(f'Basic Triple', True, white, None)
 
 gamemode = None
 
@@ -153,7 +159,11 @@ while running:
 
     screen.fill((127,127,127))
     pygame.draw.rect(screen, red, menu_basic_triple)
+    screen.blit(text_basic_triple, (menu_basic_triple[0] + 50, menu_basic_triple[1]))
+
     pygame.draw.rect(screen, red, menu_triple_combo)
+    screen.blit(text_triple_combo, (menu_triple_combo[0] + 50, menu_triple_combo[1]))
+
     pygame.display.flip()
 
 

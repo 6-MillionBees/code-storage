@@ -9,12 +9,19 @@ while True:
         invalid()
     else:
         break
+
 distance_traveled = 0
-karma = 0
+karma = 2.891
+
 luck_bonus = 0
 luck_multiplier = 1
+luck_mod = 0
 
-def luck_calc():
-    luck = karma/2 + 10 + luck_bonus
-    luck_mod = int((luck - 10) / 2)
-    return round(luck, 2), luck_mod
+
+# def luck_calc():
+#     luck = round(karma/2 + luck + luck_bonus)
+#     luck_mod = int((luck - 10) / 2)
+#     return round(luck, 2), luck_mod
+
+luck = lambda: karma * 1.5 + 10 + luck_bonus
+luck_mod = lambda: int((luck() - 10) / 2)

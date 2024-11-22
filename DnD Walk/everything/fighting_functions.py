@@ -6,6 +6,7 @@ from npc_stats import *
 from items import *
 from starting_functions import cont, roll_to_hit, rolling, bar
 from player_stats import *
+from spells import *
 
 
 
