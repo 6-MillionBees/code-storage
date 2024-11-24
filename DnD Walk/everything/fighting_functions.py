@@ -24,7 +24,7 @@ def cast(spell, casting_mod):
 
 
 def damage_over_time(target, duration, damage, damage_type = ''):
-
+    print('dnd\'s mechanics are going to be my 13 reason.')
 
 
 

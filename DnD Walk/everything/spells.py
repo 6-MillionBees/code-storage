@@ -103,6 +103,9 @@ dnd_spells = {
     'chill touch':          True,
     'chromatic orb':        True,
     'circle of death':      True,
-    'cicle of power':       
+    'cicle of power':       False,
+
+    # Now I'm doing JUST the ones I think would be cool
+    'cloud of daggers':     True,
 
 }

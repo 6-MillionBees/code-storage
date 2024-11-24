@@ -232,6 +232,94 @@
                     "settings": {"foreground": "#ffc98b", "fontStyle": "bold"}
                 },
 
+                // HTML Rules
+                {
+                    "scope": "entity.other.attribute-name.html",
+                    "settings": {
+                        "foreground": "#ff7b2f",
+                        "fontStyle": ""
+                    }
+                },
+
+                {
+                    "scope": [
+                        "meta.tag.structure.html.start.html entity.name.tag.html",
+                        "meta.tag.structure.html.start.html",
+                        "meta.tag.structure.html.end.html entity.name.tag.html",
+                        "meta.tag.structure.html.end.html"
+                    ],
+                    "settings": {
+                        "foreground": "#e8571e",
+                        "fontStyle": ""
+                    }
+                },
+
+                {
+                    "scope": [
+                        "meta.tag.structure.body.start.html entity.name.tag.html",
+                        "meta.tag.structure.body.start.html",
+                        "meta.tag.structure.body.end.html entity.name.tag.html",
+                        "meta.tag.structure.body.end.html"
+                    ],
+                    "settings": {
+                        "foreground": "#acc8ff",
+                        "fontStyle": ""
+                    }
+                },
+
+
+                {
+                    "scope": [
+                        "meta.tag.structure.button.start.html entity.name.tag.html",
+                        "meta.tag.structure.button.start.html",
+                        "meta.tag.structure.button.end.html entity.name.tag.html",
+                        "meta.tag.structure.button.end.html"
+                    ],
+                    "settings": {
+                        "foreground": "#ff9785",
+                        "fontStyle": ""
+                    }
+                },
+
+                {
+                    "scope": [
+                        "meta.tag.structure.h1.start.html entity.name.tag.html",
+                        "meta.tag.structure.h1.start.html",
+                        "meta.tag.structure.h1.end.html entity.name.tag.html",
+                        "meta.tag.structure.h1.end.html"
+                    ],
+                    "settings": {
+                        "foreground": "#bbce16",
+                        "fontStyle": ""
+                    }
+                },
+
+                {
+                    "scope": [
+                        "meta.tag.structure.h2.start.html entity.name.tag.html",
+                        "meta.tag.structure.h2.start.html",
+                        "meta.tag.structure.h2.end.html entity.name.tag.html",
+                        "meta.tag.structure.h2.end.html"
+                    ],
+                    "settings": {
+                        "foreground": "#f8ec48",
+                        "fontStyle": ""
+                    }
+                },
+
+                {
+                    "scope": [
+                        "meta.tag.structure.p.start.html entity.name.tag.html",
+                        "meta.tag.structure.p.start.html",
+                        "meta.tag.structure.p.end.html entity.name.tag.html",
+                        "meta.tag.structure.p.end.html",
+                    ],
+                    "settings": {
+                        "foreground": "#85f19c",
+                        "fontStyle": ""
+                    }
+                },
+
                 // Python Rules
                 {
                     "scope": "punctuation.separator.colon.python",
@@ -377,7 +465,13 @@
 
         {
             "text": "False",
-            "color": "#8c42d2",
+            "color": "#6d42d2",
+            "backgroundColor": ""
+        },
+
+        {
+            "text": "REMOVE AFTER TESTING",
+            "color": "#ff0000",
             "backgroundColor": ""
         }
     ]
