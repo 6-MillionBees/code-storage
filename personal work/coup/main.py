@@ -30,7 +30,6 @@ def render_text(words, pos_x, pos_y, size = 50, color = black, rect_color = whit
     return text, text_rect
 
 while running:
-    text1 = render_text(str(number), 250, 250)
 
     for event in pygame.event.get():
 
@@ -42,6 +41,8 @@ while running:
             if text1[1].collidepoint(event.pos):
                 number += 1
 
+    text1 = render_text(str(number), 250, 250)
+    
     window.fill(white)
     # pygame.draw.rect(window, white, rect)
     outline(text1[1])

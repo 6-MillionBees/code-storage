@@ -1,13 +1,20 @@
 from random import randint
 from time import sleep
 from colorama import Fore
-
+import pygame
+from pygame.locals import *
+from colors_boxes import *
+pygame.init()
 
 
 
 
 def cont():
-    input('\n' + Fore.GREEN + 'Press enter to continue.' + Fore.RESET)
+    font = pygame.font.Font('CascadiaCodeNF.ttf', 25)
+    text = font.render('', True, black, white)
+    text_rect = text.get_rect()
+    text_rect.center = [center, center - 50]
+    screen.blit(text, text_rect)
 
 def invalid():
     print(Fore.RED + 'Invalid Input: Please try again\n' + Fore.RESET)
