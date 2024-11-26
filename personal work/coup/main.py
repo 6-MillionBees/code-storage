@@ -42,8 +42,15 @@ while running:
             if text1[1].collidepoint(event.pos):
                 number += 1
 
+<<<<<<< HEAD
     screen.fill(white)
     text1 = render_text(str(number), 250, 250, 50)
+=======
+    text1 = render_text(str(number), 250, 250)
+    
+    window.fill(white)
+    # pygame.draw.rect(window, white, rect)
+>>>>>>> 880a948a19f6c5b851fb8062b68d0c52dd844754
     outline(text1[1])
     screen.blit(text1[0], text1[1])
 

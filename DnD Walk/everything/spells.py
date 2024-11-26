@@ -2,6 +2,122 @@
 # 11/20/24
 # Spells
 
+from starting_functions import invalid, cont
+
+player_spells = { # WIP
+    0: ['acid splash', 'fire bolt', 'light', 'poison spray'],
+    1: ['burning hands', 'magic missile'],
+    2: ['fireball'],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+}
+
+print_spell_level = {
+    0: 'cantrips',
+    1: 'level 1',
+    2: 'level 2',
+    3: 'level 3',
+    4: 'level 4',
+    5: 'level 5',
+    6: 'level 6',
+    7: 'level 7',
+    8: 'level 8',
+    9: 'level 9',
+}
+
+player_spell_slots = { # WIP
+    '0': 'yes',
+    '1': 3,
+    '2': 1,
+    '3': 0,
+    '4': 0,
+    '5': 0,
+    '6': 0,
+    '7': 0,
+    '8': 0,
+    '9': 0
+}
+
+
+def spells_menu():
+    num = 0
+    player_spells
+
+    while True:
+        print('Spells:')
+        for spell_level in player_spells.keys():
+            if player_spells[spell_level] == []:
+                continue
+            print(f'    {num}.) {print_spell_level[num]}: {", ".join(player_spells[spell_level])}')
+            num += 1
+
+        while True:
+            try:
+                spell_level = int(input('Which spell level? (-1 to cancel): '))
+            except ValueError:
+                invalid()
+                continue
+            else:
+                break
+
+        if spell_level == -1:
+            return False
+        elif spell_level in range(0, num):
+
+            if spell_level != 0:
+                print(f'You have {player_spell_slots[str(spell_level)]} {print_spell_level[str(spell_level)]}')
+            print('Which spell?: ')
+
+            num = 0
+            for spell in player_spells[spell_level]:
+                num += 1
+                print('    {0}.) '.format(num) + {spell})
+        else:
+            invalid()
+            continue
+
+
+
+
+
+def cast_acid_splash():
+    print('wip')
+def cast_fireball():
+    print('wip')
+
+spells_menu()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 bard_spells = {

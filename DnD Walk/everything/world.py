@@ -2,6 +2,7 @@ from colorama import Fore
 
 from starting_functions import invalid
 
+
 while True:
     try:
         distance = int(input(Fore.GREEN + '\nhow long do you want to hike?\n' + Fore.RESET))
