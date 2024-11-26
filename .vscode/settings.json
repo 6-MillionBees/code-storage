@@ -486,6 +486,12 @@
             "text": "REMOVE AFTER TESTING",
             "color": "#ff0000",
             "backgroundColor": ""
+        },
+
+        {
+            "text": "# WIP",
+            "color": "#000000",
+            "backgroundColor": "#ff29a6"
         }
     ]
 }

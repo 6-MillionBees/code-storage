@@ -2,9 +2,6 @@
 # 9/18/24
 # Simple Recursive Sequence Solver
 
-import math
-import string
-
 
 superscript_map = { # this whole thing is because I want the powers and square roots to be in superscript
     "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶",

@@ -11,12 +11,7 @@ from colorama import Back
 
 from starting_functions import cont
 from dice import *
-from pygame import *
-import pygame
 
-pygame.init()
-
-screen = pygame.display.set_mode(500, 500)
 
 days = 0
 difficulty = 1 + days / 25
