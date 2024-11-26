@@ -43,6 +43,17 @@ def confirm():
 
 
 
+def int_input(words):
+    while True:
+        try:
+            choice = int(input(words))
+        except ValueError:
+            invalid()
+            continue
+        else:
+            break
+    return choice
+
 
 def rolling(rolling_for = ''):
     x =0

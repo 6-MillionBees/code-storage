@@ -19,8 +19,7 @@ def roll_against(agressor_mod, agressor, defender, defender_mod):
     elif agressor_roll < defender_roll:
         return False
 
-def cast(spell, casting_mod):
-    print('work in progress')
+
 
 
 def damage_over_time(target, duration, damage, damage_type = ''):
@@ -110,88 +109,96 @@ def npc_turn(enemy, current_health, blocking):
 
 
 
-
-
 def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
     while True:
-        print('Your turn.\n')
-        print(f'''Player Stats
-    Level.............{level}
-    Weapon............{weapon_name[player_equipment["equipped weapon"]]} ({weapon_print_damage[player_equipment['equipped weapon']]})
-    Health {bar(current_player_health, player_health, 20)}''')
-        try:
-            player_turn = int(input(f'''
-            1. Attack 
-            2. Cast
-            3. Block\n'''))
-        except ValueError:
-            invalid()
-        else:
-            if player_turn in range(1, 4):
-                break
-            else:
-                invalid()
-    
-    if player_turn == 1:
         while True:
-            if no_of_enemy == 1:
-                print(f'You attack {enemy1["name"]}')
-                choice = 1
-
-            elif no_of_enemy > 1:
-                print(f'''\nChoose who to attack:
-    1. {enemy1["name"]}{enemy1["title"]}
-    2. {enemy2["name"]}{enemy2["title"]}''')
-
-            elif no_of_enemy > 2:
-                print(f'    3. {enemy3["name"]}{enemy3["title"]}')
-
-            elif no_of_enemy > 3:
-                print(f'    4. {enemy4["name"]}{enemy4["title"]}')
-            print()
-
-
-
-            if choice == 1:
-                damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
-                if damage > 50:
-                    print(f'You attack {enemy1["name"]} for {Fore.RED}{damage}{Fore.RESET}')
-                else:
-                    print(f'You attack {enemy1["name"]} for {damage}')
-                return False, damage, enemy1['name']
-
-            elif choice == 2:
-                damage =  attack(roll_to_hit(d20(), enemy2['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
-                if damage > 50:
-                    print(f'You attack {enemy2["name"]} for {Fore.RED}{damage}{Fore.RESET}')
-                else:
-                    print(f'You attack {enemy2["name"]} for {damage}')
-                return False, damage, enemy2['name']
-
-            elif choice == 3:
-                damage =  attack(roll_to_hit(d20(), enemy3['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
-                if damage > 50:
-                    print(f'You attack {enemy3["name"]} for {Fore.RED}{damage}{Fore.RESET}')
-                else:
-                    print(f'You attack {enemy3["name"]} for {damage}')
-                return False, damage, enemy3['name']
-
-            elif choice == 4:
-                damage =  attack(roll_to_hit(d20(), enemy4['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
-                if damage > 50:
-                    print(f'You attack {enemy4["name"]} for {Fore.RED}{damage}{Fore.RESET}')
-                else:
-                    print(f'You attack {enemy4["name"]} for {damage}')
-                return False, damage, enemy4['name']
-
+            print('Your turn.\n')
+            print(f'''Player Stats
+        Level.............{level}
+        Weapon............{weapon_name[player_equipment["equipped weapon"]]} ({weapon_print_damage[player_equipment['equipped weapon']]})
+        Health {bar(current_player_health, player_health, 20)}''')
+            try:
+                player_turn = int(input(f'''
+                1. Attack 
+                2. Cast
+                3. Block\n'''))
+            except ValueError:
+                invalid()
             else:
-                print(f'{Fore.RED}Please enter a valid number.{Fore.RESET}')
+                if player_turn in range(1, 4):
+                    break
+                else:
+                    invalid()
+        
+        if player_turn == 1:
+            while True:
+                if no_of_enemy == 1:
+                    print(f'You attack {enemy1["name"]}')
+                    choice = 1
 
-    elif player_turn == 2:
-        print('work in progress')
-    elif player_turn == 3:
-        print('You are blocking.')
-        return True, 0, ''
+                elif no_of_enemy > 1:
+                    print(f'''\nChoose who to attack:
+        1. {enemy1["name"]}{enemy1["title"]}
+        2. {enemy2["name"]}{enemy2["title"]}''')
+
+                elif no_of_enemy > 2:
+                    print(f'    3. {enemy3["name"]}{enemy3["title"]}')
+
+                elif no_of_enemy > 3:
+                    print(f'    4. {enemy4["name"]}{enemy4["title"]}')
+                print()
+
+
+
+                if choice == 1:
+                    damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    if damage > 50:
+                        print(f'You attack {enemy1["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                    else:
+                        print(f'You attack {enemy1["name"]} for {damage}')
+                    return 'attack', damage, enemy1['name']
+
+                elif choice == 2:
+                    damage =  attack(roll_to_hit(d20(), enemy2['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    if damage > 50:
+                        print(f'You attack {enemy2["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                    else:
+                        print(f'You attack {enemy2["name"]} for {damage}')
+                    return 'attack', damage, enemy2['name']
+
+                elif choice == 3:
+                    damage =  attack(roll_to_hit(d20(), enemy3['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    if damage > 50:
+                        print(f'You attack {enemy3["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                    else:
+                        print(f'You attack {enemy3["name"]} for {damage}')
+                    return 'attack', damage, enemy3['name']
+
+                elif choice == 4:
+                    damage =  attack(roll_to_hit(d20(), enemy4['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    if damage > 50:
+                        print(f'You attack {enemy4["name"]} for {Fore.RED}{damage}{Fore.RESET}')
+                    else:
+                        print(f'You attack {enemy4["name"]} for {damage}')
+                    return 'attack', damage, enemy4['name']
+
+                else:
+                    print(f'{Fore.RED}Please enter a valid number.{Fore.RESET}')
+
+        elif player_turn == 2:
+            spell = spells_menu
+            if spell == -1:
+                continue
+            else:
+                enemies = [enemy1, enemy2, enemy3, enemy4]
+                casting = cast(spell, player_mods['casting_mod'], enemies)
+                return 'cast', casting
+
+
+
+        elif player_turn == 3:
+            print('You are blocking.')
+            return 'block', 0, ''
 
 
 
@@ -271,9 +278,9 @@ def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = 
 
                 player = player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4)
 
-                if player[0] == True:
+                if player[0] == 'block':
                     blocking = 0.25
-                elif player[0] == False:
+                elif player[0] == 'attack':
                     blocking = 1
                     if player[2] == enemy1['name']:
                         enemy1_health -= player[1] * enemy1_blocking
@@ -283,6 +290,12 @@ def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = 
                         enemy3_health -= player[1] * enemy3_blocking
                     elif player[2] == enemy4['name']:
                         enemy4_health -= player[1] * enemy4_blocking
+
+                elif player[0] == 'cast':
+                    targets = player[1][0]
+                    damage = player[1][1]
+                    if 'enemy1' in targets:
+
 
                 if enemy1_health <= 0 and enemy1_is_alive:
                     print(f'{Fore.LIGHTRED_EX}You killed {enemy1["name"]}{Fore.RESET}')

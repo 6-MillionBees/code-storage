@@ -8,34 +8,21 @@ from colorama import Fore
 # better on the fingers to have a tiny function do it
 def cont(): 
     input('Press enter to continue')
-
-    # IGNORE THIS: it's a work in progress
-    # I want to make it into a pygame game but it's complicated :(
-
-    # while True: # WIP
-    #     font = pygame.font.Font('CascadiaCodeNF.ttf', 25)
-    #     text = font.render('', True, black, white)
-    #     text_rect = text.get_rect()
-    #     text_rect.center = [center, center - 50]
-    #     screen.blit(text, text_rect)
-    #     for event in pygame.event.get():
-    #         if event == MOUSEBUTTONDOWN:
-    #             if text_rect.collidepoint(event.pos):
-    #                 break
+    print()
 
 
 def invalid(): # same use as cont()
-    print(Fore.RED + 'Invalid Input: Please try again\n' + Fore.RESET)
+    print(Fore.RED + 'Invalid Input: Please try again' + Fore.RESET)
     cont()
 
 def confirm(): # used to confirm user input
-    while True:
+    while True: # like if they make an important decision
         try:
             print('''Are you sure?
         1.) Yes
-        2.) No\n''')
+        2.) No''')
             sure = int(input())
-            if sure in range(1, 3):
+            if sure not in range(1, 3):
                 raise ValueError
         except ValueError:
             invalid()

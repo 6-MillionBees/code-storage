@@ -2,7 +2,7 @@
 # 11/20/24
 # Spells
 
-from starting_functions import invalid, cont
+from starting_functions import invalid, cont, int_input
 
 player_spells = { # WIP
     0: ['acid splash', 'fire bolt', 'light', 'poison spray'],
@@ -30,64 +30,94 @@ print_spell_level = {
     9: 'level 9',
 }
 
-player_spell_slots = { # WIP
-    '0': 'yes',
-    '1': 3,
-    '2': 1,
-    '3': 0,
-    '4': 0,
-    '5': 0,
-    '6': 0,
-    '7': 0,
-    '8': 0,
-    '9': 0
+c_player_spell_slots = { # WIP
+    0: -1,
+    1: 3,
+    2: 1,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+    9: 0
+}
+
+m_player_spell_slots = { # WIP
+    0: -1,
+    1: 3,
+    2: 1,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+    9: 0
 }
 
 
+# This is so complicated because of customizability
+# It works regardless of any other variable
+# you could have hundreds of spells and it'd still keep on chuggin
 def spells_menu():
-    num = 0
-    player_spells
 
     while True:
         print('Spells:')
+
+        num = 0
         for spell_level in player_spells.keys():
             if player_spells[spell_level] == []:
                 continue
             print(f'    {num}.) {print_spell_level[num]}: {", ".join(player_spells[spell_level])}')
             num += 1
 
-        while True:
-            try:
-                spell_level = int(input('Which spell level? (-1 to cancel): '))
-            except ValueError:
-                invalid()
-                continue
-            else:
-                break
+        spell_level = int_input('Choose a spell level (-1 to go back): ')
+        print()
 
         if spell_level == -1:
             return False
         elif spell_level in range(0, num):
 
             if spell_level != 0:
-                print(f'You have {player_spell_slots[str(spell_level)]} {print_spell_level[str(spell_level)]}')
+                print(f'You have {c_player_spell_slots[spell_level]} {print_spell_level[spell_level]} spell slots')
             print('Which spell?: ')
 
             num = 0
             for spell in player_spells[spell_level]:
                 num += 1
-                print('    {0}.) '.format(num) + {spell})
+                print('    {0}.) '.format(num) + spell)
+            spell_choice = int_input('Which spell (-1 to go back): ')
+
+            if spell_choice == -1:
+                continue
+            elif spell_choice in range(1, num + 1):
+                print(f'You cast {player_spells[spell_level][spell_choice - 1].title()}')
+                return player_spells[spell_level][spell_choice - 1]
+            else:
+                invalid()
+                continue
+
         else:
             invalid()
             continue
 
 
+def cast(spell, casting_mod): # WIP
+    if spell == 'acid splash':
+        cast_acid_splash(casting_mod)
+    elif spell == 'fire bolt':
+        cast_fire_bolt(casting_mod)
+    elif spell == 'fireball':
+        cast_fireball
 
 
-
-def cast_acid_splash():
+def cast_acid_splash(casting_mod):
     print('wip')
-def cast_fireball():
+
+def cast_fire_bolt(casting_mod):
+
+def cast_fireball(casting_mod):
     print('wip')
 
 spells_menu()

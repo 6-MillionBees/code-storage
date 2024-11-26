@@ -1,7 +1,7 @@
 from colorama import Fore
 
-from dice import *
-from starting_functions import cont, invalid, confirm
+from dice_demo import *
+from starting_functions_demo import cont, invalid, confirm
 from pygame import *
 
 
@@ -177,7 +177,7 @@ def define_stats():
                 cont()
                 break
             elif choice == 6 and is_cha_chosen == False:
-                charisma = stat_roll_main
+                player_stats['cha'] = stat_roll_main
                 is_cha_chosen = True
                 print(f'Your charisma is now {charisma}')
                 cont()
@@ -186,20 +186,24 @@ def define_stats():
             else:
                 print('Please pick a number between 1 and 6.')
                 continue
-    return [strength, dexterity, endurance, inteligence, wisdom, charisma]
 
 
-
-from dnd_main import stats
-from dnd_main import character_class
+player_stats = {
+    'str': 0,
+    'dex': 0,
+    'end': 0,
+    'int': 0,
+    'wis': 0,
+    'cha': 0
+}
 
 player_mods = {
-    'str mod': int((stats[0] - 10) / 2),
-    'dex mod': int((stats[1] - 10) / 2),
-    'end mod': int((stats[3] - 10) / 2),
-    'int mod': int((stats[4] - 10) / 2),
-    'wis mod': int((stats[5] - 10) / 2),
-    'cha mod': int((stats[6] - 10) / 2),
+    'str mod': int((player_stats['str'] - 10) / 2),
+    'dex mod': int((player_stats['str'] - 10) / 2),
+    'end mod': int((player_stats['str'] - 10) / 2),
+    'int mod': int((player_stats['str'] - 10) / 2),
+    'wis mod': int((player_stats['str'] - 10) / 2),
+    'cha mod': int((player_stats['str'] - 10) / 2),
     'casting mod': 0
 }
 
@@ -207,7 +211,7 @@ class_casting_mods = {
     'barbarian': 0,
     'bard':      player_mods['cha mod'],
     'cleric':    player_mods['wis mod'],
-    'fighter':   0,
+    'fighter':   2, # WIP
     'monk':      0,
     'paladin':   player_mods['cha mod'],
     'rogue':     0,
@@ -216,9 +220,6 @@ class_casting_mods = {
     'wizard':    player_mods['int mod']
 }
 
-player_ac = 10 + player_mods['dex mod']
-initiative_bonus = player_mods['dex mod']
-player_mods['casting mod'] = class_casting_mods[character_class]
 
 starting_hit_dice = {
     'barbarian': 12,
@@ -246,9 +247,13 @@ hit_dice = {
     'wizard':    (lambda: d6()),
 }
 
+character_class = 'fighter'
 
+player_ac = 10 + player_mods['dex mod']
+initiative_bonus = player_mods['dex mod']
+player_mods['casting mod'] = class_casting_mods[character_class]
 
-level = 1
+level = 3
 player_health = starting_hit_dice[character_class] + player_mods['end mod']
 current_player_health = player_health
 print('Total Health: ', player_health)

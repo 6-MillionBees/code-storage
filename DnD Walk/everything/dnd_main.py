@@ -26,8 +26,8 @@ print(f'Are you sure you want this name? \n{first_name + " " + last_name}')
 
 from player_stats import define_class
 
-player_class = define_class()
 
+character_class = define_class()
 
 
 print('Please assign your stats')
