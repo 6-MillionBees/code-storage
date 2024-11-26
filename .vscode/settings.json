@@ -256,6 +256,19 @@
 
                 {
                     "scope": [
+                        "meta.tag.structure.script.start.html entity.name.tag.html",
+                        "meta.tag.structure.script.start.html",
+                        "meta.tag.structure.script.end.html entity.name.tag.html",
+                        "meta.tag.structure.script.end.html"
+                    ],
+                    "settings": {
+                        "foreground": "#e8571e",
+                        "fontStyle": ""
+                    }
+                },
+
+                {
+                    "scope": [
                         "meta.tag.structure.body.start.html entity.name.tag.html",
                         "meta.tag.structure.body.start.html",
                         "meta.tag.structure.body.end.html entity.name.tag.html",

@@ -15,6 +15,9 @@ def cont():
     text_rect = text.get_rect()
     text_rect.center = [center, center - 50]
     screen.blit(text, text_rect)
+    for event in pygame.event.get():
+        if event == MOUSEBUTTONDOWN:
+            if 
 
 def invalid():
     print(Fore.RED + 'Invalid Input: Please try again\n' + Fore.RESET)
@@ -77,3 +80,4 @@ from player_stats import *
 from spells import *
 
 def rest():
+    print('working on it')

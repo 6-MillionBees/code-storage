@@ -3,6 +3,7 @@
 # Spells
 
 
+player_spells = {}
 
 bard_spells = {
     'cantrips': [
