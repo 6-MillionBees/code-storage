@@ -292,17 +292,32 @@ def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = 
                         enemy4_health -= player[1] * enemy4_blocking
 
                 elif player[0] == 'cast':
-                    targets = player[1][0]
-                    damage = player[1][1]
-                    if 'enemy1' in targets:
+                    cast_targets = player[1][0]
+
+                    for target in cast_targets:
+                        if target == 0:
+                            current_player_health -= player[1][1]()
+
+                            if current_player_health > player_health:
+                                current_player_health = player_health
+
+                        if target == 1:
+                            enemy1_health -= player[1][1]()
+                        if target == 2:
+                            enemy2_health -= player[1][1]()
+                        if target == 3:
+                            enemy3_health -= player[1][1]()
+                        if target == 4:
+                            enemy4_health -= player[1][1]()
 
 
-                if enemy1_health <= 0 and enemy1_is_alive:
-                    print(f'{Fore.LIGHTRED_EX}You killed {enemy1["name"]}{Fore.RESET}')
-                    enemy1_is_alive = False
-                    no_of_enemy -= 1
-                    exp += enemy1['exp']
-                    print('+', enemy1['exp'], 'exp')
+                if enemy1_is_alive:
+                    if enemy1_health <= 0 and enemy1_is_alive:
+                        print(f'{Fore.LIGHTRED_EX}You killed {enemy1["name"]}{Fore.RESET}')
+                        enemy1_is_alive = False
+                        no_of_enemy -= 1
+                        exp += enemy1['exp']
+                        print('+', enemy1['exp'], 'exp')
                 if enemy2_is_alive:
                     if enemy2_health <= 0:
                         print(f'{Fore.LIGHTRED_EX}You killed {enemy2["name"]}{Fore.RESET}')
@@ -326,18 +341,18 @@ def fight(no_of_enemy, enemy1, enemy2 = empty_npc, enemy3 = empty_npc, enemy4 = 
                         print('+', enemy4['exp'], 'exp')
                 cont()
 
-            elif turn != 0:
-                if str(turn).endswith('1') and enemy1_is_alive:
-                    enemy1_blocking = npc_turn(enemy1, enemy1_health, blocking)
+            
+            elif str(turn).endswith('1') and enemy1_is_alive:
+                enemy1_blocking = npc_turn(enemy1, enemy1_health, blocking)
 
-                elif str(turn).endswith('2') and enemy2_is_alive:
-                    enemy2_blocking = npc_turn(enemy2, enemy2_health, blocking)
+            elif str(turn).endswith('2') and enemy2_is_alive:
+                enemy2_blocking = npc_turn(enemy2, enemy2_health, blocking)
 
-                elif str(turn).endswith('3') and enemy3_is_alive:
-                    enemy3_blocking = npc_turn(enemy3, enemy3_health, blocking)
+            elif str(turn).endswith('3') and enemy3_is_alive:
+                enemy3_blocking = npc_turn(enemy3, enemy3_health, blocking)
 
-                elif str(turn).endswith('4') and enemy4_is_alive:
-                    enemy4_blocking = npc_turn(enemy4, enemy4_health, blocking)
+            elif str(turn).endswith('4') and enemy4_is_alive:
+                enemy4_blocking = npc_turn(enemy4, enemy4_health, blocking)
 
     if current_player_health <= 0:
         print(Fore.RED + 'You Lost.' + Fore.RESET)

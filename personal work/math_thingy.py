@@ -14,9 +14,7 @@ for velocity in max_v_list:
     ship_momentum = ship_mass * velocity
     final_momentum = astroid_momentum - ship_momentum
     final_astroid_velocity = final_momentum / astroid_mass
-
-    if final_astroid_velocity <= 3999.9:
-        print(max_v_list.index(velocity) + 1)
+    print(max_v_list.index(velocity) + 1, ':', final_astroid_velocity, final_momentum, ship_momentum)
 
 
 print('min velocities that work:')
@@ -25,5 +23,5 @@ for velocity in min_v_list:
     final_momentum = astroid_momentum - ship_momentum
     final_astroid_velocity = final_momentum / astroid_mass
 
-    if final_astroid_velocity <= 3999.9:
-        print(min_v_list.index(velocity) + 1)
+
+    print(min_v_list.index(velocity) + 1, ':', final_astroid_velocity, final_momentum, ship_momentum)

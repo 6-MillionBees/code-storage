@@ -3,6 +3,9 @@
 # Spells
 
 from starting_functions import invalid, cont, int_input
+from dice import *
+from npc_stats import *
+from colorama import Fore
 
 player_spells = { # WIP
     0: ['acid splash', 'fire bolt', 'light', 'poison spray'],
@@ -56,6 +59,38 @@ m_player_spell_slots = { # WIP
     9: 0
 }
 
+spell_descriptions = {
+    'acid splash': f'''{Fore.GREEN}    cantrip, single, 1d6{Fore.RESET}
+details: You swing a bubble of acid towards an enemy
+dealing 1d6 damage''',
+
+    'fire bolt': f'''{Fore.GREEN}    cantrip, single, 1d10{Fore.RESET}
+details: You throw a small ball of fire towards one
+unlucky enemy damaging it for 1d10 fire damage.''',
+
+    'light': f'''{Fore.GREEN}    cantrip, non-combat
+details: You hover a glowing ball of light over your
+palm, letting you see in the dark.''',
+
+    'poison spray': f'''{Fore.GREEN}    cantrip, single, 1d12 {Fore.RESET}
+details: You sent a puff of noxious gas towards one
+enemy, they take 1d12 damage on a failed constitution
+save and half that on a success.''',
+
+    'burning hands': f'''{Fore.GREEN}    level 1, AOE, 3d6 {Fore.RESET}
+details: You spread your fingers sending out a wave 
+of flame hitting 3 adjacent enemies for 3d6.''',
+
+    'magic missile': f'''{Fore.GREEN}    level 1, multi-hit, 1d4 + 1 {Fore.RESET}
+details: You fire three homing bolts of glowing blue
+magic dealing 1d4 + 1 to three enemies of your choice.''',
+
+    'fireball': f'''{Fore.GREEN}    level 2, AOE, 8d6 {Fore.GREEN}
+details : You throw a hurtling ball of fire that
+explodes on contact dealing 8d6 to all enemies.'''
+
+}
+
 
 # This is so complicated because of customizability
 # It works regardless of any other variable
@@ -105,22 +140,41 @@ def spells_menu():
 
 def cast(spell, casting_mod): # WIP
     if spell == 'acid splash':
-        cast_acid_splash(casting_mod)
+        return cast_acid_splash()
     elif spell == 'fire bolt':
-        cast_fire_bolt(casting_mod)
+        return cast_fire_bolt()
     elif spell == 'fireball':
-        cast_fireball
+        return cast_fireball()
 
 
-def cast_acid_splash(casting_mod):
+def cast_acid_splash(enemies):
+    print('You cast Acid Splash')
+    while True:
+        for enemy in enemies:
+            print(f'{enemies.index(enemy) + 1}.) {enemy['name']}')
+        
+        choice = int_input('Which enemy do you attack?: ')
+        if choice in range(1, len(enemies) + 1):
+            break
+        else:
+            invalid()
+            continue
+    return choice, lambda: d6()
+
+
+def cast_fire_bolt(enemies):
     print('wip')
 
-def cast_fire_bolt(casting_mod):
+# def cast_light():
 
-def cast_fireball(casting_mod):
-    print('wip')
+def cast_fireball():
+    print('You cast Fireball.')
+    cont()
+    return [1, 2, 3, 4], lambda: d6(8)
 
-spells_menu()
+enemies = [goblin, kobold, goblin, goblin]
+
+print(cast(spells_menu(), 0, enemies))
 
 
 
