@@ -483,15 +483,21 @@
         },
 
         {
-            "text": "REMOVE AFTER TESTING",
-            "color": "#ff0000",
-            "backgroundColor": ""
+            "text": "# REMOVE AFTER TESTING",
+            "color": "#000000",
+            "backgroundColor": "#ffff00"
         },
 
         {
             "text": "# WIP",
             "color": "#000000",
             "backgroundColor": "#ff29a6"
+        },
+
+        {
+            "text": "# IMPORT",
+            "color": "#000000",
+            "backgroundColor": "#ff0808"
         }
     ]
 }

@@ -1,3 +1,7 @@
+# Arden Bottcher
+# 12/2/24
+# Dice Functions
+
 from random import randint
 
 def d100(number = 1):
@@ -6,14 +10,6 @@ def d100(number = 1):
     while num < number:
         num += 1
         roll += randint(1, 100)
-    return roll
-
-def d69(number = 1):
-    num = 0
-    roll = 0
-    while num < number:
-        num += 1
-        roll += randint(1, 69)
     return roll
 
 def d20(number = 1):

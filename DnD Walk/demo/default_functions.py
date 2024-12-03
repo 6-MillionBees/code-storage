@@ -1,3 +1,8 @@
+# Arden Boettcher
+# 12/2/24
+# Default Functions
+
+
 from time import sleep
 from colorama import Fore
 
@@ -27,6 +32,10 @@ def confirm(): # used to confirm user input
         except ValueError:
             invalid()
         else:
+            if sure == 1:
+                sure = True
+            elif sure == 2:
+                sure = False
             return sure
 
 
@@ -60,12 +69,19 @@ def roll_to_hit(roll, dc, mod): # use this in combat to check if it hit
 def bar(current, total, bar_length = 20): # This is a bar for health and other things (I'll see what I use it for)
     fraction = current / total
     arrow = int(fraction * bar_length - 1) * '█' + '▒'
-    idk = int(fraction * bar_length) * '█'
     padding = int(bar_length - len(arrow)) * '-'
-    if fraction >= .99:
-        return f'{idk}{padding} {round(current)}hp'
-    else:
-        return f'{arrow}{padding} {round(current)}hp'
+    return f'{arrow}{padding} {round(current)}hp'
+
+def int_input(words):
+    while True:
+        try:
+            choice = int(input(words))
+        except ValueError:
+            invalid()
+            continue
+        else:
+            break
+    return choice
 
 
 # WIP

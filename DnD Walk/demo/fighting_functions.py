@@ -1,14 +1,10 @@
 from colorama import Fore
 # from random import randint
 
-from dice import *
-from npc_stats import *
+from player_stats import * # IMPORT
+from default_functions import *
 from items import *
-from starting_functions import cont, roll_to_hit, rolling, bar
-from player_stats import *
-from spells import *
-
-
+from main import full_name
 
 
 def roll_against(agressor_mod, agressor, defender, defender_mod):
@@ -67,7 +63,7 @@ def attack(tohit, weapon):
 
 
 
-
+from spells import * # IMPORT
 
 def npc_turn(enemy, current_health, blocking):
     global current_player_health

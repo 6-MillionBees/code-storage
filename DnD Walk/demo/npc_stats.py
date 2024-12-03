@@ -1,35 +1,18 @@
+# Arden Boettcher
+# 12/2/24
+# NPC Stats
+
 from random import randint
 
 from dice import *
-from dnd_main import difficulty
-from world import luck, luck_mod, luck_calc
+from world import luck, luck_mod, difficulty
+from items import *
 
 
-# Spell Lists
-
-player_spells = {
-    'cantrips': [],
-    'level_1': [], 
-    'level_2': [],
-    'level_3': [],
-    'level_4': [],
-    'level_5': [], 
-    'level_6': [],
-    'level_7': [],
-    'level_8': [],
-    'level_9': []
-}
 
 lily_spells = []
 
 # Enemies
-
-# empty_npc = { # I was doing something with this but I forgot
-#     'name': '', 'title': '', 'caster': False,
-#     'health': '', 'weapon': '', 'ac': 0, 'exp': 0, 'agression': 0,
-#     'str mod': 0, 'dex mod': 0, 'end mod': 0, 'int mod': 0, 'wis mod': 0, 'cha mod': 0,
-#     'casting mod': 0, 
-# }
 
 # Basic
 goblin = {
@@ -120,7 +103,6 @@ def common_table(no_of_items):
     drops = []
     numbers = []
     num = 0
-    luck_mod = luck_calc()[1]
     while num < no_of_items:
         rand = randint(1, 100) + luck_mod()
         if rand < 30:
