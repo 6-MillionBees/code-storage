@@ -2,9 +2,7 @@ from colorama import Fore
 # from random import randint
 
 from player_stats import * # IMPORT
-from default_functions import *
 from items import *
-from main import full_name
 
 
 def roll_against(agressor_mod, agressor, defender, defender_mod):
@@ -302,22 +300,22 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                             if current_player_health > player_health:
                                 current_player_health = player_health
 
-                        if target == 1:
+                        if target == 1 and enemy1_is_alive:
                             spell_damage = player[1][1]()
                             enemy1_health -= spell_damage * enemy1_blocking
                             print(f'{enemy1["name"]} took {damage} damage.')
 
-                        if target == 2:
+                        if target == 2 and enemy2_is_alive:
                             spell_damage = player[1][1]()
                             enemy2_health -= spell_damage * enemy2_blocking
                             print(f'{enemy2["name"]} took {spell_damage} damage.')
 
-                        if target == 3:
+                        if target == 3 and enemy3_is_alive:
                             spell_damage = player[1][1]()
                             enemy3_health -= spell_damage * enemy3_blocking
                             print(f'{enemy3["name"]} took {spell_damage} damage.')
 
-                        if target == 4:
+                        if target == 4 and enemy4_is_alive:
                             spell_damage = player[1][1]()
                             enemy4_health -= spell_damage * enemy4_blocking
                             print(f'{enemy4["name"]} took {spell_damage} damage.')

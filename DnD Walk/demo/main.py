@@ -28,10 +28,12 @@ difficulty = 1 + days / 25
 first_name = input(Fore.GREEN +'\nWhat is your first name?\n' + Fore.RESET)
 last_name = input(Fore.GREEN + '\nWhat is your last name?:\n' + Fore.RESET)
 
-full_name = first_name.title() + last_name.title()
+full_name = first_name.title() + ' ' + last_name.title()
 
+print()
 print(Fore.GREEN + 'Welcome ' + full_name + '! To my DnD demo!')
 print('I\'d say it\'s pretty good (I am very biased)' + Fore.RESET)
+print()
 
 cont()
 
@@ -39,3 +41,8 @@ print('To start we\'re going to assign your stats (this is permenent)')
 
 from player_stats import *
 from fighting_functions import *
+from npc_stats import goblin
+
+pickupweapon('greatsword')
+equip_weapon()
+fight(goblin, goblin)

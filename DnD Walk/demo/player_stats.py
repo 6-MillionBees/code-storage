@@ -6,12 +6,6 @@
 from default_functions import *
 from dice import *
 
-strength = 0
-dexterity = 0
-endurance = 0
-inteligence = 0
-wisdom = 0
-charisma = 0
 is_str_chosen = False
 is_dex_chosen = False
 is_end_chosen = False
@@ -39,85 +33,88 @@ while stats_choice_num < 6:
     while True:
         try:
             print(f'You rolled a {Fore.GREEN}{stat_roll_main}{Fore.RESET}!')
+
             choice = int(input(f'''{Fore.GREEN}Which stat?{Fore.RESET}
-    1. Strength {strength}
-    2. Dexterity {dexterity}
-    3. Endurance {endurance}
-    4. Inteligence {inteligence}
-    5. Wisdom {wisdom}
-    6. Charisma {charisma}\n1-6\n'''))
+    1. Strength {player_stats["str"]}
+    2. Dexterity {player_stats["dex"]}
+    3. Endurance {player_stats["end"]}
+    4. Inteligence {player_stats["int"]}
+    5. Wisdom {player_stats["wis"]}
+    6. Charisma {player_stats["cha"]}
+Enter a number 1-6: '''))
+
         except ValueError:
             invalid()
+
         else:
+            print()
             sure = confirm()
-            if sure == True:
-                break
+            if sure == False:
+                continue
 
-
-    while True:
         if choice == 1 and is_str_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
-            break
+            continue
         elif choice == 1 and is_str_chosen == False:
-            strength = stat_roll_main
+            player_stats['str'] = stat_roll_main
             is_str_chosen = True
-            print(f'Your Strength is now {strength}.')
+            print(f'Your Strength is now {player_stats["str"]}.')
             cont()
             break
 
         elif choice == 2 and is_dex_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
-            break
+            continue
         elif choice == 2 and is_dex_chosen == False:
-            dexterity = stat_roll_main
+            player_stats["dex"] = stat_roll_main
             is_dex_chosen = True
-            print(f'Your Dexterity is now {dexterity}.')
+            print(f'Your Dexterity is now {player_stats["dex"]}.')
             cont()
             break
 
         elif choice == 3 and is_end_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
-            break
+            continue
         elif choice == 3 and is_end_chosen == False:
-            endurance = stat_roll_main
+            player_stats["end"] = stat_roll_main
             is_end_chosen = True
-            print(f'Your Endurance is now {endurance}')
+            print(f'Your Endurance is now {player_stats["end"]}')
             cont()
             break
 
         elif choice == 4 and is_int_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
-            break
+            continue
         elif choice == 4 and is_int_chosen == False:
-            inteligence = stat_roll_main
+            player_stats["int"] = stat_roll_main
             is_int_chosen = True
-            print(f'Your Inteligence is now {inteligence}')
+            print(f'Your Inteligence is now {player_stats["int"]}')
             cont()
             break
 
         elif choice == 5 and is_wis_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
-            break
+            continue
         elif choice == 5 and is_wis_chosen == False:
-            wisdom = stat_roll_main
+            player_stats["wis"] = stat_roll_main
             is_wis_chosen = True
-            print(f'Your Wisdom is now {wisdom}')
+            print(f'Your Wisdom is now {player_stats["wis"]}')
             cont()
             break
 
         elif choice == 6 and is_cha_chosen == True:
             print(f'{Fore.RED}Stat already chosen please choose another.\n{Fore.RESET}')
             cont()
-            break
+            continue
         elif choice == 6 and is_cha_chosen == False:
             player_stats['cha'] = stat_roll_main
             is_cha_chosen = True
-            print(f'Your charisma is now {charisma}')
+            print(f'Your charisma is now {player_stats["cha"]}')
             cont()
             break
 
@@ -171,7 +168,11 @@ player_ac = 10 + player_mods['dex mod']
 initiative_bonus = player_mods['dex mod']
 
 level = 3
+
 player_health = starting_hit_dice[character_class] + player_mods['end mod']
+for x in range(level):
+    player_health += hit_dice[character_class]()
 current_player_health = player_health
+
 print('Total Health: ', player_health)
 print('Current Health: ', current_player_health)

@@ -24,11 +24,9 @@ def confirm(): # used to confirm user input
     while True: # like if they make an important decision
         try:
             print('''Are you sure?
-        1.) Yes
-        2.) No''')
+    1.) Yes
+    2.) No''')
             sure = int(input())
-            if sure not in range(1, 3):
-                raise ValueError
         except ValueError:
             invalid()
         else:
@@ -36,6 +34,9 @@ def confirm(): # used to confirm user input
                 sure = True
             elif sure == 2:
                 sure = False
+            else:
+                invalid()
+                continue
             return sure
 
 

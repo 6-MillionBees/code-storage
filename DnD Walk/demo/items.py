@@ -7,6 +7,8 @@ from dice import *
 from player_stats import *
 
 weapon_name = {
+    'empty':             'Empty',
+
     'battle axe':        'Battle Axe',
     'club':              'Club', 
     'dagger':            'Dagger', 
@@ -48,6 +50,8 @@ weapon_name = {
 }
 
 weapon_print_damage = {
+    'empty':             '1',
+
     'club':              'd4',
     'dagger':            'd4', 
     'great club':        'd4',
@@ -94,6 +98,8 @@ weapon_print_damage = {
 
 
 weapon_damage = {
+    'empty':             1,
+
     'club':              (lambda: d4()),
     'dagger':            (lambda: d4()),
     'great club':        (lambda: d4()),
@@ -141,6 +147,8 @@ weapon_damage = {
 }
 
 weapon_mod = {
+    'empty':             'str mod',
+
     'battle axe':        'str mod',
     'club':              'str mod',
     'flail':             'str mod',
@@ -182,10 +190,14 @@ weapon_mod = {
 }
 
 player_equipment = {
-    'equipped weapon': '', 'stored weapon 1': '', 'stored weapon 2': '', 'stored weapon 3': '', 'stored weapon 4': '', 'stored weapon 5': '',
+    'equipped weapon': 'empty', 'stored weapon 1': 'empty', 'stored weapon 2': 'empty', 'stored weapon 3': 'empty',
+    'stored weapon 4': 'empty', 'stored weapon 5': 'empty',
     'equipped armor': '', 'stored armor': '',
-    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'rope': 0, 'rocks': 0
+    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'rope': 0, 'rocks': 0,
+    'common keys': 0
 }
+
+player_unique_items = []
 
 def unarmored():
     player_ac = 10 + player_mods['dex mod']
@@ -194,43 +206,89 @@ def unarmored():
 def pickupweapon(weapon):
     print(f'you picked up a {weapon_name[weapon]}')
     while True:
-        choice = input(f'''Which slot should it be put in?
+        choice = int_input(f'''Which slot should it be put in?
     1. {weapon_name[player_equipment['stored weapon 1']]} ({weapon_print_damage[player_equipment['stored weapon 1']]})
     2. {weapon_name[player_equipment['stored weapon 2']]} ({weapon_print_damage[player_equipment['stored weapon 2']]})
     3. {weapon_name[player_equipment['stored weapon 3']]} ({weapon_print_damage[player_equipment['stored weapon 3']]})
     4. {weapon_name[player_equipment['stored weapon 4']]} ({weapon_print_damage[player_equipment['stored weapon 4']]})
     5. {weapon_name[player_equipment['stored weapon 5']]} ({weapon_print_damage[player_equipment['stored weapon 5']]})
     6. Throw away (cannot be undone)\n''')
-        try:
-            ynchoice = int(input('Are you sure?\n    1.) Yes\n    2.) No'))
-        except ValueError:
-            invalid()
-        if ynchoice.lower() == 'yes':
+        ynchoice = confirm()
+        if ynchoice == True:
             if choice == 1:
-                player_equipment['stored weapon 1'] = weapon['name']
+                player_equipment['stored weapon 1'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 2:
-                player_equipment['stored weapon 2'] = weapon['name']
+                player_equipment['stored weapon 2'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 3:
-                player_equipment['stored weapon 3'] = weapon['name']
+                player_equipment['stored weapon 3'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 4:
-                player_equipment['stored weapon 4'] = weapon['name']
+                player_equipment['stored weapon 4'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 5:
-                player_equipment['stored weapon 5'] = weapon['name']
+                player_equipment['stored weapon 5'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 6:
-                    print('You don\'t pick up the weapon')
+                print('You don\'t pick up the weapon')
+                break
 
             else:
                 invalid()
+
+def equip_weapon():
+    while True:
+        choice = int_input(f'''Which weapon do you want to equip?
+
+current: {weapon_name[player_equipment['equipped weapon']]} ({weapon_print_damage[player_equipment['equipped weapon']]})
+
+    1. {weapon_name[player_equipment['stored weapon 1']]} ({weapon_print_damage[player_equipment['stored weapon 1']]})
+    2. {weapon_name[player_equipment['stored weapon 2']]} ({weapon_print_damage[player_equipment['stored weapon 2']]})
+    3. {weapon_name[player_equipment['stored weapon 3']]} ({weapon_print_damage[player_equipment['stored weapon 3']]})
+    4. {weapon_name[player_equipment['stored weapon 4']]} ({weapon_print_damage[player_equipment['stored weapon 4']]})
+    5. {weapon_name[player_equipment['stored weapon 5']]} ({weapon_print_damage[player_equipment['stored weapon 5']]})
+    6. Throw away (cannot be undone)\n''')
+        ynchoice = confirm()
+        if ynchoice == True:
+            if choice == 1:
+                player_equipment['equipped weapon'] = player_equipment['stored weapon 1']
+                player_equipment['stored weapon 1'] = 'empty'
+                print(f'You equip {player_equipment["equipped weapon"]}')
+                break
+            elif choice == 2:
+                player_equipment['equipped weapon'] = player_equipment['stored weapon 2']
+                player_equipment['stored weapon 2'] = 'empty'
+                print(f'You equip {player_equipment["equipped weapon"]}')
+                break
+            elif choice == 3:
+                player_equipment['equipped weapon'] = player_equipment['stored weapon 3']
+                player_equipment['stored weapon 3'] = 'empty'
+                print(f'You equip {player_equipment["equipped weapon"]}')
+                break
+            elif choice == 4:
+                player_equipment['equipped weapon'] = player_equipment['stored weapon 4']
+                player_equipment['stored weapon 4'] = 'empty'
+                print(f'You equip {player_equipment["equipped weapon"]}')
+                break
+            elif choice == 5:
+                player_equipment['equipped weapon'] = player_equipment['stored weapon 5']
+                player_equipment['stored weapon 5'] = 'empty'
+                print(f'You equip {player_equipment["equipped weapon"]}')
+                break
+            elif choice == 6:
+                print('You don\'t equip the weapon')
+                break
+
+            else:
+                invalid()
+        else:
+            print()
 
 
 
@@ -266,46 +324,10 @@ def drop_item():
     global player_unique_items
     player_unique_items.sort()
     print('Which item?')
-    if len(player_unique_items) > 0:
-        print(f'    1.) {player_unique_items[0]}')
-        no_of_items = 1
-    if len(player_unique_items) > 1:
-        print(f'    2.){player_unique_items[1]}')
-        no_of_items = 2
-    if len(player_unique_items) > 2:
-        print(f'    3.){player_unique_items[2]}')
-        no_of_items = 3
-    if len(player_unique_items) > 3:
-        print(f'    4.){player_unique_items[3]}')
-        no_of_items = 4
-    if len(player_unique_items) > 4:
-        print(f'    5.){player_unique_items[4]}')
-        no_of_items = 5
-    if len(player_unique_items) > 5:
-        print(f'    6.){player_unique_items[5]}')
-        no_of_items = 6
-    if len(player_unique_items) > 6:
-        print(f'    7.){player_unique_items[6]}')
-        no_of_items = 7
-    if len(player_unique_items) > 7:
-        print(f'    8.){player_unique_items[7]}')
-        no_of_items = 8
-    if len(player_unique_items) > 8:
-        print(f'    9.){player_unique_items[8]}')
-        no_of_items = 9
-    if len(player_unique_items) > 9:
-        print(f'    10.){player_unique_items[9]}')
-        no_of_items = 10
-    if len(player_unique_items) > 10:
-        print(f'    11.){player_unique_items[10]}')
-        no_of_items = 11
-    if len(player_unique_items) > 11:
-        print(f'    12.){player_unique_items[11]}')
-        no_of_items = 12
-    if len(player_unique_items) == 0:
-        print('You don\'t have any unique items')
-        return None
-
+    num = 0
+    for item in player_unique_items:
+        num += 1
+        print(f'    {num}.) {item}')
 
     while True:
         try:
@@ -313,41 +335,4 @@ def drop_item():
         except ValueError:
             invalid()
         else:
-            if dropped_item == 1:
-                player_unique_items.remove(player_unique_items[0])
-                break
-            elif dropped_item == 2 and no_of_items > 1:
-                player_unique_items.remove(player_unique_items[1])
-                break
-            elif dropped_item == 3 and no_of_items > 2:
-                player_unique_items.remove(player_unique_items[2])
-                break
-            elif dropped_item == 4 and no_of_items > 3:
-                player_unique_items.remove(player_unique_items[3])
-                break
-            elif dropped_item == 5 and no_of_items > 4:
-                player_unique_items.remove(player_unique_items[4])
-                break
-            elif dropped_item == 6 and no_of_items > 5:
-                player_unique_items.remove(player_unique_items[5])
-                break
-            elif dropped_item == 7 and no_of_items > 6:
-                player_unique_items.remove(player_unique_items[6])
-                break
-            elif dropped_item == 8 and no_of_items > 7:
-                player_unique_items.remove(player_unique_items[7])
-                break
-            elif dropped_item == 9 and no_of_items > 8:
-                player_unique_items.remove(player_unique_items[8])
-                break
-            elif dropped_item == 10 and no_of_items > 9:
-                player_unique_items.remove(player_unique_items[9])
-                break
-            elif dropped_item == 11 and no_of_items > 10:
-                player_unique_items.remove(player_unique_items[10])
-                break
-            elif dropped_item == 12 and no_of_items > 11:
-                player_unique_items.remove(player_unique_items[11])
-                break
-            else:
-                invalid()
+            player_unique_items.pop(dropped_item)

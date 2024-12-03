@@ -66,7 +66,7 @@ dealing 1d6 damage''',
     'fire bolt': f'''{Fore.GREEN}    cantrip, single, 1d10{Fore.RESET}
 details: You throw a small ball of fire towards one
 unlucky enemy damaging it for 1d10 fire damage on a
-failed dexterity save and 1d10 -3 on a success.''',
+failed dexterity save and half that on a success.''',
 
     'healing word': f'''{Fore.GREEN}    cantrip, healing, 2d4 {Fore.RESET}
 details: You speak a word commading the arcane to
@@ -200,21 +200,21 @@ def cast_healing_word(enemies):
         else:
             invalid()
             continue
-    dictionary = {choice: lambda: d4(2) * -1}
+    dictionary = {choice: (lambda: d4(2) * -1)}
     return dictionary
 
 def cast_fireball():
     print('You cast Fireball.')
     cont()
-    return [1, 2, 3, 4], lambda: d6(8)
-
+    dictionary = {1: (lambda: d6(8)), 2: (lambda: d6(8)), 3: (lambda: d6(8)), 4: (lambda: d6(8)),}
+    return dictionary
 
 
 # REMOVE AFTER TESTING
 
-from npc_stats import *
+# from npc_stats import *
 
-enemies = [goblin, kobold, goblin, goblin] 
-spell = cast(spells_menu(), enemies)
+# enemies = [goblin, kobold, goblin, goblin] 
+# spell = cast(spells_menu(), enemies)
 
-print(spell)
+# print(spell)

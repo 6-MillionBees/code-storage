@@ -10,8 +10,6 @@ from items import *
 
 
 
-lily_spells = []
-
 # Enemies
 
 # Basic
@@ -37,7 +35,7 @@ lily = {
     'health': d6(3) + 10, 'weapon': 'staff', 'ac': 8, 'exp': 250, 'agression': 0,
     'str mod': 0, 'dex mod': 1, 'end mod': 1, 'int mod': 3, 'wis mod': 2, 'cha mod': 1,
     'casting mod': 3,
-    'spells': lily_spells
+    'spells': 'firebolt'
 }
 
 kile = {
@@ -126,8 +124,6 @@ def common_table(no_of_items):
         num += 1
     return zip(drops, numbers), # unique_items
 
-
-
-uncommon_table = [
-    'arrows5', 'arrows5', 
-]
+def common_chest_table():
+    if difficulty < 1.25:
+        print('# WIP')
