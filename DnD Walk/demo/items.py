@@ -244,6 +244,8 @@ def pickupweapon(weapon):
             else:
                 invalid()
 
+
+
 def equip_weapon():
     while True:
         choice = int_input(f'''Which weapon do you want to equip?
@@ -322,14 +324,16 @@ def pickupitem(item):
 
 
 
-def drop_item():
+def drop_weapon():
     global player_unique_items
     player_unique_items.sort()
     print('Which item?')
-    num = 0
-    for item in player_unique_items:
-        num += 1
-        print(f'    {num}.) {item}')
+    print(f'''
+    1.) {weapon_name[player_equipment['stored weapon 1']]}
+    2.) {weapon_name[player_equipment['stored weapon 2']]}
+    3.) {weapon_name[player_equipment['stored weapon 3']]}
+    4.) {weapon_name[player_equipment['stored weapon 4']]}
+    5.) {weapon_name[player_equipment['stored weapon 5']]}''')
 
     while True:
         try:
@@ -337,10 +341,19 @@ def drop_item():
         except ValueError:
             invalid()
             continue
-        except IndexError:
-            invalid()
-            continue
         else:
             if dropped_item == -1:
                 return
-            player_unique_items.pop(dropped_item)
+            elif dropped_item == 1:
+                player_equipment['stored weapon 1']
+            elif dropped_item == 2:
+                player_equipment['stored weapon 2']
+            elif dropped_item == 3:
+                player_equipment['stored weapon 3']
+            elif dropped_item == 4:
+                player_equipment['stored weapon 4']
+            elif dropped_item == 5:
+                player_equipment['stored weapon 5']
+            else:
+                continue
+            return

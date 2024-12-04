@@ -181,7 +181,7 @@ print('Current Health: ', current_player_health)
 
 
 def skill_save(save_mod, dc):
-    save = d20() + player_mods[save_mod]
+    save = d20() + save_mod
     print(f'You rolled a {save}')
     if save > dc:
         print('Success!')
@@ -253,7 +253,13 @@ def level_up():
                 player_stats['cha'] += 1
                 break
 
-from items import weapon_name, weapon_print_damage, player_equipment, drop_item
+    if level % 6 == 0:
+        print('Spell slots increased.')
+        for key in max_player_spell_slots.keys():
+            max_player_spell_slots[key] += 1
+            print(f'level {key}: {max_player_spell_slots}')
+
+from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
 
 def rest_items_menu():
     print()
@@ -261,15 +267,46 @@ def rest_items_menu():
     while True:
         print('''    1.) Veiw all items
     2.) Drop Item
-    3.) Use Item
-    4.) Exit''')
+    3.) Use Potion
+    4.) Equip Weapon
+    5.) Exit''')
         items_choice = int_input()
-        if items_choice == 4:
+        if items_choice == 5:
             return
         elif items_choice == 1:
             print(f'''
 weapons:
-Equipped: {weapon_name[player_equipment['equipped weapon']]} damage: {weapon_print_damage[player_equipment['equipped weapon']]}''')
+Equipped: {weapon_name[player_equipment['equipped weapon']]} damage: {weapon_print_damage[player_equipment['equipped weapon']]}Stored 1: {weapon_name[player_equipment['stored weapon 1']]} damage: {weapon_print_damage[player_equipment['stored weapon 1']]}Stored 2: {weapon_name[player_equipment['stored weapon 2']]} damage: {weapon_print_damage[player_equipment['stored weapon 2']]}Stored 3: {weapon_name[player_equipment['stored weapon 3']]} damage: {weapon_print_damage[player_equipment['stored weapon 3']]}Stored 4: {weapon_name[player_equipment['stored weapon 4']]} damage: {weapon_print_damage[player_equipment['stored weapon 4']]}Stored 5: {weapon_name[player_equipment['stored weapon 5']]} damage: {weapon_print_damage[player_equipment['stored weapon 5']]}
+
+items:
+Copper Pieces: {player_equipment['copper pieces']}
+Silver Pieces: {player_equipment['silver pieces']}
+Gold Pieces: {player_equipment['gold pieces']}
+Health Potions: {player_equipment['health potions']}
+''')
+            cont()
+            continue
+        elif items_choice == 2:
+            drop_weapon()
+            continue
+        elif items_choice == 3:
+            print('Use Health Potion? (2d4)')
+            while True:
+                confirm = int_input('''    1.) Yes
+    2.) No''')
+                if confirm in range(1, 3):
+                    break
+                else:
+                    invalid()
+                    continue
+
+        elif items_choice == 4:
+            equip_weapon()
+        else:
+            invalid()
+            continue
+
+
 
 from spells import *
 

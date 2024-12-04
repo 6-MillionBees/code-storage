@@ -194,7 +194,7 @@ def dungeon_trap(column):
     global current_player_health
 
     rolling('')
-    wis_save = skill_save('wis mod', 10 + int(difficulty / 2))
+    wis_save = skill_save(player_mods['wis mod'], 10 + int(difficulty / 2))
 
     if column == 'dart':
         if wis_save == True:
@@ -207,7 +207,7 @@ def dungeon_trap(column):
             cont()
 
             rolling('Intelegence Save')
-            int_save = skill_save('int mod', 10 + int(difficulty / 3))
+            int_save = skill_save(player_mods['int mod'], 10 + int(difficulty / 3))
 
             if int_save == True:
                 print('You manage to defuse the trap, letting you move forward.')
@@ -217,7 +217,7 @@ def dungeon_trap(column):
         if wis_save == False or int_save == False:
             print('The dart trap inside of the room goes off!')
             rolling('Dexterity Save')
-            dex_save = skill_save('dex mod', 10 + int(difficulty / 2))
+            dex_save = skill_save(player_mods['dex mod'], 10 + int(difficulty / 2))
             if dex_save == True:
                 damage = d4()
                 print('You managed to dodge the majority of the darts!')
@@ -242,7 +242,7 @@ def dungeon_trap(column):
             cont()
 
             rolling('Strength Save')
-            str_save = skill_save('str mod', 10 + int(difficulty / 2))
+            str_save = skill_save(player_mods['str mod'], 10 + int(difficulty / 2))
 
             if str_save == True:
                 print('You just barely manage to jump over the gap.')
@@ -251,7 +251,7 @@ def dungeon_trap(column):
         elif str_save == False or wis_save == False:
             print('You fall into a spike trap!')
             rolling('Dexterity Save')
-            dex_save = skill_save('dex mod', 10 + int(difficulty / 2))
+            dex_save = skill_save(player_mods['dex mod'], 10 + int(difficulty / 2))
             if dex_save == True:
                 damage = d4()
                 print('You manage to flail your arms enough to keep balance')
@@ -295,17 +295,19 @@ def dungeon_chest():
             item = ['weapon', 'greataxe']
 
     elif rarity <= 99:
-        item_rand = randint(1, 5)
+        item_rand = randint(1, 10)
         print('You found a rare chest.')
         cont()
         rolling('for goodies')
-        if item_rand <= 2:
+        if item_rand <= 5:
+            item = ['basic', 'health potion', 10]
+        elif item_rand <= 7:
             item = ['basic', 'silver pieces', 75]
-        if item_rand == 3:
+        if item_rand == 8:
             item = ['basic', 'gold pieces', randint(1, 2)]
-        if item_rand == 4:
+        if item_rand == 9:
             item = ['weapon', 'greataxe']
-        if item_rand == 5:
+        if item_rand == 10:
             item = ['weapon', 'maul']
 
     elif rarity == 100:
