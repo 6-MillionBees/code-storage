@@ -195,7 +195,7 @@ player_equipment = {
     'equipped weapon': 'empty', 'stored weapon 1': 'empty', 'stored weapon 2': 'empty', 'stored weapon 3': 'empty',
     'stored weapon 4': 'empty', 'stored weapon 5': 'empty',
     'equipped armor': '', 'stored armor': '',
-    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'rope': 0, 'rocks': 0,
+    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'rope': 0, 'health potion': 0,
     'common keys': 0
 }
 
@@ -333,8 +333,14 @@ def drop_item():
 
     while True:
         try:
-            dropped_item = int(input())
+            dropped_item = int(input('(-1 to quit)'))
         except ValueError:
             invalid()
+            continue
+        except IndexError:
+            invalid()
+            continue
         else:
+            if dropped_item == -1:
+                return
             player_unique_items.pop(dropped_item)

@@ -109,12 +109,16 @@ def item_pickup(items):
     global player_equipment
     for item, numbers in items:
         player_equipment[item] += numbers
+        print(f'You picked up {numbers} {item}')
 
 
-def common_table(no_of_items):
+def common_table(no_of_items, enemy):
     drops = []
     numbers = []
     num = 0
+    if enemy == dangolf:
+        pickupweapon('dangolf staff')
+
     while num < no_of_items:
         rand = randint(1, 100) + luck_mod()
         if rand < 30:
@@ -127,7 +131,7 @@ def common_table(no_of_items):
             drops.append('silver pieces')
             numbers.append(randint(1, 5))
         elif rand > 60 and rand < 75:
-            drops.append('rocks')
+            drops.append('health potion')
             numbers.append(1)
         elif rand > 75 and rand < 97:
             drops.append('rope')
@@ -137,7 +141,3 @@ def common_table(no_of_items):
             numbers.append(1)
         num += 1
     return zip(drops, numbers), # unique_items
-
-def common_chest_table():
-    if difficulty < 1.25:
-        print('# WIP')

@@ -196,7 +196,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 
 
 
-
+from npc_stats import *
 
 
 def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
@@ -326,6 +326,8 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy1['exp']
                     print('+', enemy1['exp'], 'exp')
+                    item_pickup(common_table(2))
+                    cont()
 
                 if enemy2_health <= 0 and enemy2_is_alive:
                     print(f'{Fore.LIGHTRED_EX}You killed {enemy2["name"]}{Fore.RESET}')
@@ -333,6 +335,8 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy2['exp']
                     print('+', enemy2['exp'], 'exp')
+                    item_pickup(common_table(2))
+                    cont()
 
                 if enemy3_health <= 0 and enemy3_is_alive:
                     print(f'{Fore.LIGHTRED_EX}You killed {enemy3["name"]}{Fore.RESET}')
@@ -340,6 +344,8 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy3['exp']
                     print('+', enemy3['exp'], 'exp')
+                    item_pickup(common_table(2))
+                    cont()
 
                 if enemy4_health <= 0 and enemy4_is_alive:
                     print(f'{Fore.LIGHTRED_EX}You killed {enemy4["name"]}{Fore.RESET}')
@@ -347,9 +353,10 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy4['exp']
                     print('+', enemy4['exp'], 'exp')
-                cont()
+                    item_pickup(common_table(2))
+                    cont()
 
-            
+
             elif str(turn).endswith('1') and enemy1_is_alive:
                 enemy1_blocking = npc_turn(enemy1, enemy1_health, blocking)
 
