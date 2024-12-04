@@ -202,6 +202,7 @@ from npc_stats import *
 def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     global player_health
     global current_player_health
+    global player_exp
     no_of_turns = 0
     exp = 0
 
@@ -373,7 +374,9 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
         global player_is_alive
         print(Fore.RED + 'You Died.' + Fore.RESET)
         player_is_alive = False
+        return False
     elif no_of_enemy == 0:
         print(Fore.GREEN + 'You Won!' + Fore.RESET)
         print(f'You gained {exp} exp')
-        return True, exp
+        player_exp += exp
+        return True

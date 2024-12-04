@@ -2,7 +2,7 @@
 # 12/2/24
 # Item Stats
 
-
+from default_functions import *
 from dice import *
 from player_stats import *
 

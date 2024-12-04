@@ -168,6 +168,8 @@ player_ac = 10 + player_mods['dex mod']
 initiative_bonus = player_mods['dex mod']
 
 level = 4 # WIP
+player_exp = 0
+exp_needed = 100
 
 player_health = starting_hit_dice[character_class] + player_mods['end mod']
 for x in range(level):
@@ -192,17 +194,27 @@ def skill_save(save_mod, dc):
 from spells import spell_damage_increase
 
 def level_up():
+
     global level
     global player_health
+    global current_player_health
     global spell_damage_increase
     global player_stats
+    global exp_needed
 
+    if player_exp < exp_needed:
+        return
+    
     level += 1
+    exp_needed *= 1.5
+    exp_needed = int(exp_needed)
 
     print(Fore.GREEN + 'You Leveled Up!')
     print(f'You are now level {level}' + Fore.RESET)
+    print(f'{exp_needed} exp until next level up.')
 
     player_health += hit_dice[character_class]()
+    current_player_health = player_health
 
 
     print(f'You now have {player_health} health')
@@ -241,4 +253,51 @@ def level_up():
                 player_stats['cha'] += 1
                 break
 
-level_up()
+from items import weapon_name, weapon_print_damage, player_equipment, drop_item
+
+def rest_items_menu():
+    print()
+    print('What do you want to do?')
+    while True:
+        print('''    1.) Veiw all items
+    2.) Drop Item
+    3.) Use Item
+    4.) Exit''')
+        items_choice = int_input()
+        if items_choice == 4:
+            return
+        elif items_choice == 1:
+            print(f'''
+weapons:
+Equipped: {weapon_name[player_equipment['equipped weapon']]} damage: {weapon_print_damage[player_equipment['equipped weapon']]}''')
+
+from spells import *
+
+rested = False
+
+def rest():
+    global current_player_health
+    global current_player_spell_slots
+
+    if rested == True:
+        print('Since you already rested on this floor you don\'t get any health back')
+    else:
+        print('You have been restored to full health')
+        print('and your spell slots have been restored')
+        current_player_health = player_health
+        current_player_spell_slots = max_player_spell_slots
+
+    print()
+
+    while True:
+        print('Options')
+        print(f'''    1.) Items
+    2.) Stats
+    3.) Spells
+    4.) back''')
+        rest_choice = int_input()
+        if rest_choice == 4:
+            return
+        elif rest_choice == 1:
+            rest_items_menu()
+            continue

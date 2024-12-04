@@ -86,8 +86,4 @@ def int_input(words = ''):
 
 
 # WIP
-# from player_stats import *
-# from spells import *
 
-# def rest():
-#     print('working on it')

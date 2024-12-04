@@ -34,7 +34,7 @@ print_spell_level = {
     9: 'level 9',
 }
 
-c_player_spell_slots = { # WIP
+current_player_spell_slots = { # WIP
     0: -1,
     1: 3,
     2: 1,
@@ -47,7 +47,7 @@ c_player_spell_slots = { # WIP
     9: 0
 }
 
-m_player_spell_slots = { # WIP
+max_player_spell_slots = { # WIP
     0: -1,
     1: 3,
     2: 1,
@@ -105,18 +105,20 @@ def spells_menu():
         for spell_level in player_spells.keys():
             if player_spells[spell_level] == []:
                 continue
-            print(f'    {num}.) {print_spell_level[num]}: {", ".join(player_spells[spell_level])}')
+            print(f'    {num}.) {print_spell_level[num]}: {", ".join(player_spells[spell_level])} (spell slots: {current_player_spell_slots[spell_level]})')
             num += 1
 
         spell_level = int_input('Choose a spell level (-1 to go back): ')
         print()
+        if current_player_spell_slots[spell_level] <= 0:
+            print('You don\'t have enough spell slots to cast that')
 
         if spell_level == -1:
             return False
         elif spell_level in range(num):
 
             if spell_level != 0:
-                print(f'You have {c_player_spell_slots[spell_level]} {print_spell_level[spell_level]} spell slots')
+                print(f'You have {current_player_spell_slots[spell_level]} {print_spell_level[spell_level]} spell slots')
             print('Which spell?: ')
 
             while True:
@@ -157,6 +159,7 @@ def spells_menu():
 
 def cast(spell, enemies): # WIP
     if spell == 'acid splash':
+        current_player_spell_slots[1] - 1
         return cast_acid_splash(enemies)
     elif spell == 'healing word':
         return cast_healing_word(enemies)
@@ -172,7 +175,7 @@ def cast_acid_splash(enemies):
     while True:
         for enemy in enemies:
             num +=1
-            print(f'{num}.) {enemy['name']}')
+            print(f'{num}.) {enemy["name"]}')
         
         choice = int_input('Which enemy do you attack?: ')
         if choice in range(1, len(enemies) + 1):
@@ -194,7 +197,7 @@ def cast_healing_word(enemies):
         print('0.) Yourself')
         for enemy in enemies:
             num +=1
-            print(f'{num}.) {enemy['name']}')
+            print(f'{num}.) {enemy["name"]}')
         
         choice = int_input('Which enemy do you attack?: ')
         if choice in range(len(enemies) + 1):

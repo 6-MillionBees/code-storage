@@ -5,14 +5,14 @@
 from dice import *
 
 
-days = 0
 # distance_traveled = 0
 
 karma = 1
 
 luck_bonus = 0
 
-difficulty = 1 + days / 10 * karma
+dun_level = 1
+difficulty = 1 + dun_level / 5
 
 luck = lambda: (karma - 1) * 8 + 10 + luck_bonus
 luck_mod = lambda: int((luck() - 10) / 2)
@@ -57,10 +57,10 @@ def make_dungeon():
                 else:
                     encounter_type = 'slime'
 
-                dungeon[row].append(['encounter', encounter_type, False])
+                dungeon[row].append(['encounter', encounter_type, False, True])
 
             elif 4 < type <= 6:
-                dungeon[row].append(['chest', None, False])
+                dungeon[row].append(['chest', None, False, True])
 
             elif 6 < type <= 8:
                 trap_type_rand = randint(1, 10)
@@ -68,10 +68,10 @@ def make_dungeon():
                     trap_type = 'dart'
                 elif 5 < trap_type_rand <= 10:
                     trap_type = 'spike'
-                dungeon[row].append(['trap', trap_type, False])
+                dungeon[row].append(['trap', trap_type, False, True])
 
             else:
-                dungeon[row].append(['empty', None, False])
+                dungeon[row].append(['empty', None, False, True])
 
     def find_entrance(dungeon):
         while True:
@@ -82,6 +82,7 @@ def make_dungeon():
                         if entrance_rand == 1:
                             column[0] = 'entrance'
                             column[2] = True
+                            column[3] = False
                             return dungeon
 
     def find_exit(dungeon):
@@ -106,10 +107,12 @@ def print_dungeon(dungeon):
     printing_dungeon = ''
     for row in dungeon:
         for column in row:
-            if column[2] == True:
+            if column[3]:
+                printing_dungeon += '█'
+            elif column[2] == True:
                 printing_dungeon += f'{Fore.GREEN}+{Fore.RESET}'
             elif column[0] == 'empty':
-                printing_dungeon += '.'
+                printing_dungeon += '·'
             elif column[0] == 'exit':
                 printing_dungeon += 'E'
             elif column[0] == 'encounter':
@@ -123,63 +126,6 @@ def print_dungeon(dungeon):
         printing_dungeon += '\n'
     print(printing_dungeon)
 
-
-
-def player_move_left(dungeon):
-    while True:
-        for row in dungeon:
-            for column in row:
-                if column[2] == True:
-                    try:
-                        row[row.index(column) - 1][2] = True
-                        column[2] = False
-                    except IndexError:
-                        invalid()
-                        return dungeon
-                    print('You move to the left.')
-                    return dungeon
-
-def player_move_right(dungeon):
-    while True:
-        for row in dungeon:
-            for column in row:
-                if column[2] == True:
-                    try:
-                        row[row.index(column) + 1][2] = True
-                        column[2] = False
-                    except IndexError:
-                        invalid()
-                        return dungeon
-                    print('You move to the right.')
-                    return dungeon
-
-def player_move_up(dungeon):
-    while True:
-        for row in dungeon:
-            for column in row:
-                if column[2] == True:
-                    try:
-                        dungeon[dungeon.index(row) - 1][row.index(column)][2] = True
-                        column[2] = False
-                    except IndexError:
-                        invalid()
-                        return dungeon
-                    print('You move up.')
-                    return dungeon
-
-def player_move_down(dungeon):
-    while True:
-        for row in dungeon:
-            for column in row:
-                if column[2] == True:
-                    try:
-                        dungeon[dungeon.index(row) + 1][row.index(column)][2] = True
-                        column[2] = False
-                    except IndexError:
-                        invalid()
-                        return dungeon
-                    print('You move down.')
-                    return dungeon
 
 from fighting_functions import *
 from npc_stats import *
@@ -398,22 +344,144 @@ def dungeon_exit():
         if go_down == 1:
             dun_level += 1
             return True
-            break
         elif go_down == 2:
             return False
         else:
             invalid()
 
 def dungeon_effects(dungeon):
+    global player_is_alive
+
     for row in dungeon:
         for column in row:
             if column[2] == True:
                 if column[0] == 'encounter':
-                    dungeon_encounters(column)
+                    if column[3]:
+                        dungeon_encounters(column)
+                        if current_player_health <= 0:
+                            player_is_alive = False
+                            return
+                    else:
+                        print('You\'ve been here before.')
+
+                elif column[0] == 'chest':
+                    if column[3]:
+                        dungeon_chest()
+                        column[3] = False
+                        return
+                    else:
+                        print('You\'ve been here before.')
+
                 elif column[0] == 'trap':
                     dungeon_trap(column[1])
+                    if current_player_health <= 0:
+                        player_is_alive = False
+                        return
+
                 elif column[0] == 'exit':
+                    if column[3]:
+                        column[3] = False
                     exit_choice = dungeon_exit()
                     if exit_choice == True:
                         return True
-                
+
+                elif column[0] == 'empty':
+                    print('The room is empty.')
+                elif column[0] == 'entrance':
+                    print('You are at the entrance')
+
+
+
+
+def player_move_left(dungeon):
+    while True:
+        for row in dungeon:
+            for column in row:
+                if column[2] == True:
+                    try:
+                        row[row.index(column) - 1][2] = True
+                        column[2] = False
+                    except IndexError:
+                        invalid()
+                        return dungeon
+                    print('You move to the left.')
+                    return dungeon
+
+def player_move_right(dungeon):
+    while True:
+        for row in dungeon:
+            for column in row:
+                if column[2] == True:
+                    try:
+                        row[row.index(column) + 1][2] = True
+                        column[2] = False
+                    except IndexError:
+                        invalid()
+                        return dungeon
+                    print('You move to the right.')
+                    return dungeon
+
+def player_move_up(dungeon):
+    while True:
+        for row in dungeon:
+            for column in row:
+                if column[2] == True:
+                    try:
+                        dungeon[dungeon.index(row) - 1][row.index(column)][2] = True
+                        column[2] = False
+                    except IndexError:
+                        invalid()
+                        return dungeon
+                    print('You move up.')
+                    return dungeon
+
+def player_move_down(dungeon):
+    while True:
+        for row in dungeon:
+            for column in row:
+                if column[2] == True:
+                    try:
+                        dungeon[dungeon.index(row) + 1][row.index(column)][2] = True
+                        column[2] = False
+                    except IndexError:
+                        invalid()
+                        return dungeon
+                    print('You move down.')
+                    return dungeon
+
+
+from player_stats import rest
+# from main import dungeon
+
+def movement_menu():
+    global dungeon
+
+    while True:
+        print('Please pick a direction:')
+        print('''    1.) Up
+    2.) Down
+    3.) Left
+    4.) Right
+    5.) Rest''')
+        direction = int_input()
+        if direction == 5:
+            rest()
+            rested = True
+            break
+        elif direction == 1:
+            dungeon = player_move_up(dungeon)
+            break
+        elif direction == 2:
+            dungeon = player_move_down(dungeon)
+            break
+        elif direction == 3:
+            dungeon = player_move_left(dungeon)
+            break
+        elif direction == 4:
+            dungeon = player_move_right(dungeon)
+            break
+        else:
+            invalid()
+
+
+

@@ -19,8 +19,7 @@ from default_functions import *
 # 
 
 
-days = 0
-difficulty = 1 + days / 25
+
 player_is_alive = True
 
 first_name = input(Fore.GREEN +'\nWhat is your first name?\n' + Fore.RESET)
@@ -29,7 +28,7 @@ last_name = input(Fore.GREEN + '\nWhat is your last name?:\n' + Fore.RESET)
 full_name = first_name.title() + ' ' + last_name.title()
 
 print()
-print(Fore.GREEN + 'Welcome ' + full_name + '! To my DnD demo!')
+print(Fore.GREEN + 'Welcome ' + full_name + '! To my RPG demo!')
 print('I\'d say it\'s pretty good (I am very biased)' + Fore.RESET)
 print()
 
@@ -39,12 +38,25 @@ print('To start we\'re going to assign your stats (this is permenent)')
 
 from player_stats import *
 from fighting_functions import *
-from npc_stats import goblin
+from world import make_dungeon
 
-pickupweapon('greatsword') # REMOVE AFTER TESTING
-equip_weapon()
-fight(goblin, goblin)
+print(f'you are here > {Fore.GREEN}+{Fore.RESET}')
+dungeon = make_dungeon()
+player_is_alive = True
 
+from world import *
 
 while player_is_alive:
-    print(':)') # WIP
+
+    print_dungeon(dungeon)
+    movement_menu()
+    print()
+    effects = dungeon_effects(dungeon)
+    cont()
+    if effects == True:
+        dungeon = make_dungeon()
+        rested = False
+
+score = dun_level * 1000 + round(player_equipment['copper pieces'] * 0.1) + player_equipment['silver pieces'] * 10 + player_equipment['gold pieces'] * 1000
+
+print()
