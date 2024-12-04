@@ -125,11 +125,11 @@ Enter a number 1-6: '''))
 
 player_mods = {
     'str mod': int((player_stats['str'] - 10) / 2),
-    'dex mod': int((player_stats['str'] - 10) / 2),
-    'end mod': int((player_stats['str'] - 10) / 2),
-    'int mod': int((player_stats['str'] - 10) / 2),
-    'wis mod': int((player_stats['str'] - 10) / 2),
-    'cha mod': int((player_stats['str'] - 10) / 2),
+    'dex mod': int((player_stats['dex'] - 10) / 2),
+    'end mod': int((player_stats['end'] - 10) / 2),
+    'int mod': int((player_stats['int'] - 10) / 2),
+    'wis mod': int((player_stats['wis'] - 10) / 2),
+    'cha mod': int((player_stats['cha'] - 10) / 2),
 }
 
 
@@ -167,7 +167,7 @@ character_class = 'fighter'
 player_ac = 10 + player_mods['dex mod']
 initiative_bonus = player_mods['dex mod']
 
-level = 3
+level = 4 # WIP
 
 player_health = starting_hit_dice[character_class] + player_mods['end mod']
 for x in range(level):
@@ -176,3 +176,58 @@ current_player_health = player_health
 
 print('Total Health: ', player_health)
 print('Current Health: ', current_player_health)
+
+
+from spells import spell_damage_increase
+
+def level_up():
+    global level
+    global player_health
+    global spell_damage_increase
+    global player_stats
+
+    level += 1
+
+    print(Fore.GREEN + 'You Leveled Up!')
+    print(f'You are now level {level}' + Fore.RESET)
+
+    player_health += hit_dice[character_class]()
+
+
+    print(f'You now have {player_health} health')
+
+    if level % 3 == 0:
+        spell_damage_increase += 1
+
+    if level % 5 == 0:
+        while True:
+            print('Please pick one stat to increase:')
+            num = 0
+            for stat in player_stats.keys():
+                num += 1
+                print(f'    {num}.) {stat} ({player_stats[stat]})')
+            stat_pick = int_input()
+            if stat_pick not in range(1, num + 1):
+                invalid()
+                continue
+
+            if stat_pick == 1:
+                player_stats['str'] += 1
+                break
+            elif stat_pick == 2:
+                player_stats['dex'] += 1
+                break
+            elif stat_pick == 3:
+                player_stats['end'] += 1
+                break
+            elif stat_pick == 4:
+                player_stats['int'] += 1
+                break
+            elif stat_pick == 5:
+                player_stats['wis'] += 1
+                break
+            elif stat_pick == 6:
+                player_stats['cha'] += 1
+                break
+
+level_up()

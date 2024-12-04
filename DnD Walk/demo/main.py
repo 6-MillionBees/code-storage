@@ -2,8 +2,6 @@
 # 11/26/24
 # DnD walk demo (for class)
 
-from colorama import Fore
-from colorama import Back
 from time import sleep
 
 from dice import *
@@ -23,7 +21,7 @@ from default_functions import *
 
 days = 0
 difficulty = 1 + days / 25
-
+player_is_alive = True
 
 first_name = input(Fore.GREEN +'\nWhat is your first name?\n' + Fore.RESET)
 last_name = input(Fore.GREEN + '\nWhat is your last name?:\n' + Fore.RESET)
@@ -43,6 +41,10 @@ from player_stats import *
 from fighting_functions import *
 from npc_stats import goblin
 
-pickupweapon('greatsword')
+pickupweapon('greatsword') # REMOVE AFTER TESTING
 equip_weapon()
 fight(goblin, goblin)
+
+
+while player_is_alive:
+    print(':)') # WIP

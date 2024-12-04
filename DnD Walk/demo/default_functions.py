@@ -73,7 +73,7 @@ def bar(current, total, bar_length = 20): # This is a bar for health and other t
     padding = int(bar_length - len(arrow)) * '-'
     return f'{arrow}{padding} {round(current)}hp'
 
-def int_input(words):
+def int_input(words = ''):
     while True:
         try:
             choice = int(input(words))

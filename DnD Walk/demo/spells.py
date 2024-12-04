@@ -6,6 +6,8 @@ from default_functions import invalid, cont, int_input # IMPORT
 from dice import *
 from colorama import Fore
 
+spell_damage_increase = 0
+
 player_spells = { # WIP
     0: ['acid splash', 'fire bolt', 'healing word', 'poison spray'],
     1: ['burning hands', 'magic missile'],
@@ -59,36 +61,35 @@ m_player_spell_slots = { # WIP
 }
 
 spell_descriptions = {
-    'acid splash': f'''{Fore.GREEN}    cantrip, single, 1d6{Fore.RESET}
+    'acid splash': f'''{Fore.GREEN}    cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
 details: You swing a bubble of acid towards an enemy
 dealing 1d6 damage''',
 
-    'fire bolt': f'''{Fore.GREEN}    cantrip, single, 1d10{Fore.RESET}
+    'fire bolt': f'''{Fore.GREEN}    cantrip, single, {1 + spell_damage_increase}d10{Fore.RESET}
 details: You throw a small ball of fire towards one
 unlucky enemy damaging it for 1d10 fire damage on a
 failed dexterity save and half that on a success.''',
 
-    'healing word': f'''{Fore.GREEN}    cantrip, healing, 2d4 {Fore.RESET}
+    'healing word': f'''{Fore.GREEN}    cantrip, healing, {2 + int(spell_damage_increase / 2)}d4{Fore.RESET}
 details: You speak a word commading the arcane to
 heal the desired wound restoring 2d4 health.''',
 
-    'poison spray': f'''{Fore.GREEN}    cantrip, single, 1d12 {Fore.RESET}
+    'poison spray': f'''{Fore.GREEN}    cantrip, single, {1 + spell_damage_increase}d12{Fore.RESET}
 details: You sent a puff of noxious gas towards one
 enemy, they take 1d12 damage on a failed constitution
 save and half that on a success.''',
 
-    'burning hands': f'''{Fore.GREEN}    level 1, AOE, 3d6 {Fore.RESET}
+    'burning hands': f'''{Fore.GREEN}    level 1, AOE, {3 + spell_damage_increase}d6 {Fore.RESET}
 details: You spread your fingers sending out a wave 
 of flame hitting 3 adjacent enemies for 3d6.''',
 
-    'magic missile': f'''{Fore.GREEN}    level 1, multi-hit, 1d4 + 1 {Fore.RESET}
+    'magic missile': f'''{Fore.GREEN}    level 1, multi-hit, {1 + int(spell_damage_increase / 2)}d4 + 1 {Fore.RESET}
 details: You fire three homing bolts of glowing blue
 magic dealing 1d4 + 1 to three enemies of your choice.''',
 
-    'fireball': f'''{Fore.GREEN}    level 2, AOE, 8d6 {Fore.GREEN}
+    'fireball': f'''{Fore.GREEN}    level 2, AOE, {8 + int(spell_damage_increase / 2)}d6 {Fore.GREEN}
 details : You throw a hurtling ball of fire that
 explodes on contact dealing 8d6 to all enemies.'''
-
 }
 
 
@@ -112,7 +113,7 @@ def spells_menu():
 
         if spell_level == -1:
             return False
-        elif spell_level in range(0, num):
+        elif spell_level in range(num):
 
             if spell_level != 0:
                 print(f'You have {c_player_spell_slots[spell_level]} {print_spell_level[spell_level]} spell slots')
@@ -133,7 +134,8 @@ def spells_menu():
 {spell_descriptions[spell]}''')
                     cont()
                     continue
-                elif spell_choice in range(1, len(player_spells) + 1):
+
+                if spell_choice in range(1, len(player_spells) + 1):
                     break
                 else:
                     invalid()

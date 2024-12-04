@@ -143,7 +143,8 @@ weapon_damage = {
 
     # No Touchy
 
-    'gun':               (lambda: 999999)
+    'gun':               (lambda: 999999),
+    'slime':             (lambda: d4())
 }
 
 weapon_mod = {
@@ -186,7 +187,8 @@ weapon_mod = {
 
     # No Touchy
 
-    'gun':               99999999
+    'gun':               99999999,
+    'slime':             'end mod'
 }
 
 player_equipment = {

@@ -5,7 +5,7 @@
 from random import randint
 
 from dice import *
-from world import luck, luck_mod, difficulty
+from world import luck_mod, difficulty
 from items import *
 
 
@@ -15,16 +15,30 @@ from items import *
 # Basic
 goblin = {
     'name': 'Goblin', 'title': '', 'caster': False,
-    'health': int(d6(1) + 6 * difficulty), 'weapon': 'dagger', 'ac': 5, 'exp': 50, 'agression': 5,
+    'health': (lambda: int(d6(1) + 6 * difficulty)), 'weapon': 'dagger', 'ac': 5,
+    'exp': int(50 * difficulty), 'agression': 5,
     'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1,
     'casting mod': 0
 }
 
 kobold = {
     'name': 'Kobold', 'title': '', 'caster': False,
-    'health': int((d4(4) - 2) * difficulty), 'weapon': 'dagger', 'ac': 7, 'exp': 25, 'agression': 4,
+    'health': (lambda: int((d4(4) - 2) * difficulty)), 'weapon': 'dagger', 'ac': 7,
+    'exp': int(25 * difficulty), 'agression': 4,
     'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1,
     'casting mod': 0
+}
+
+slime = {
+    'name': 'Slime', 'title': '', 'caster': False,
+    'health': (lambda: int(d4(2) * difficulty)), 'weapon': 'dagger', 'ac': 6,
+    'exp': int(26 * difficulty), 'agression': 20,
+    'str mod': -4, 'dex mod': -3, 'con mod': 5, 'int mod': -5, 'wis mod': -5, 'cha mod': 1,
+    'casting mod': 0
+}
+
+la_creatura = {
+    'name': 'La Creatura', 
 }
 
 

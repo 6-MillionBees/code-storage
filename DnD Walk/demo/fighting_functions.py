@@ -180,12 +180,11 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     print(f'{Fore.RED}Please enter a valid number.{Fore.RESET}')
 
         elif player_turn == 2:
-            spell = spells_menu
+            spell = spells_menu()
             if spell == -1:
                 continue
             else:
-                enemies = [enemy1, enemy2, enemy3, enemy4]
-                casting = cast(spell, player_mods['casting_mod'], enemies)
+                casting = cast(spell, [enemy1, enemy2, enemy3, enemy4])
                 return 'cast', casting
 
 
@@ -364,8 +363,9 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                 enemy4_blocking = npc_turn(enemy4, enemy4_health, blocking)
 
     if current_player_health <= 0:
-        print(Fore.RED + 'You Lost.' + Fore.RESET)
-        return 0
+        global player_is_alive
+        print(Fore.RED + 'You Died.' + Fore.RESET)
+        player_is_alive = False
     elif no_of_enemy == 0:
         print(Fore.GREEN + 'You Won!' + Fore.RESET)
         print(f'You gained {exp} exp')
