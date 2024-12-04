@@ -96,7 +96,7 @@ dangolf = {
 
 godwin = {
     'name': 'Godwin', 'title': ', The Golden',
-    'health': 60, 'weapon': 'golden spirit', 'ac': 12, 'exp': 2000, 'agression': -3,
+    'health': 30, 'weapon': 'golden spirit', 'ac': 12, 'exp': 2000, 'agression': -3,
     'str mod': 5, 'dex mod': 2, 'end mod': 4, 'int mod': 1, 'wis mod': 2, 'cha mod': 10,
     'casting mod': 0
 }

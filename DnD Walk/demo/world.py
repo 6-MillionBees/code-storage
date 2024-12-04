@@ -19,6 +19,7 @@ luck_mod = lambda: int((luck() - 10) / 2)
 
 WIDTH = 5
 HEIGHT = 5
+dun_level = 1
 
 from default_functions import *
 
@@ -32,12 +33,13 @@ def make_dungeon():
 
             if type <= 4:
                 encounter_type_num = randint(1, 100)
+                encounter_type = 'goblin'
                 if encounter_type_num <= 20:
                     encounter_type = 'goblin'
                 elif encounter_type_num > 20 and encounter_type_num <= 40:
                     encounter_type = 'kobold'
                 elif encounter_type_num > 40 and encounter_type_num <= 50:
-                    encounter_type_num = 'slime'
+                    encounter_type = 'slime'
                 elif encounter_type_num > 50 and encounter_type_num <= 70:
                     encounter_type = 'mixed'
                 elif encounter_type_num > 70 and encounter_type_num <= 80:
@@ -46,23 +48,34 @@ def make_dungeon():
                     encounter_type = 'kyle'
                 elif encounter_type_num > 85 and encounter_type_num <= 90:
                     encounter_type = 'gronk'
-                elif encounter_type_num > 90 and encounter_type_num <= 96 and difficulty < 3:
-                    encounter_type = 'goblin'
                 elif encounter_type_num > 90 and encounter_type_num <= 96 and difficulty >= 3:
                     encounter_type = 'dangolf'
                 elif encounter_type_num > 96 and encounter_type_num <= 99:
                     encounter_type = 'siffrin traveler'
-                elif encounter_type_num == 100:
+                elif encounter_type_num == 100 and difficulty >= 5:
                     encounter_type = 'siffrin lost'
                 else:
-                    encounter_type = 'goblin'
-                dungeon[row].append(['encounter', encounter_type])
+                    encounter_type = 'slime'
+
+                dungeon[row].append(['encounter', encounter_type, False])
+
             elif 4 < type <= 6:
-                dungeon[row].append(['chest'])
+                dungeon[row].append(['chest', None, False])
+
             elif 6 < type <= 8:
-                dungeon[row].append(['trap'])
+                trap_type_rand = randint(1, 20)
+                if trap_type_rand <= 5:
+                    trap_type = 'dart'
+                elif 5 < trap_type_rand <= 10:
+                    trap_type = 'spike'
+                elif 10 < trap_type_rand <= 15:
+                    trap_type = 'walls'
+                elif 15 < trap_type_rand <= 20:
+                    trap_type = 'bomb'
+                dungeon[row].append(['trap', trap_type, False])
+
             else:
-                dungeon[row].append(['empty'])
+                dungeon[row].append(['empty', None, False])
 
     def find_entrance(dungeon):
         while True:
@@ -72,7 +85,7 @@ def make_dungeon():
                         entrance_rand = randint(1, 25)
                         if entrance_rand == 1:
                             column[0] = 'entrance'
-                            column.append('player')
+                            column[2] = True
                             return dungeon
 
     def find_exit(dungeon):
@@ -97,8 +110,7 @@ def print_dungeon(dungeon):
     printing_dungeon = ''
     for row in dungeon:
         for column in row:
-            print(column) # WIP
-            if column[-1] == 'player':
+            if column[2] == True:
                 printing_dungeon += f'{Fore.GREEN}+{Fore.RESET}'
             elif column[0] == 'empty':
                 printing_dungeon += '.'
@@ -121,38 +133,204 @@ def player_move_left(dungeon):
     while True:
         for row in dungeon:
             for column in row:
-                if column[-1] == 'player':
+                if column[2] == True:
                     try:
-                        row[row.index(column) - 1][-1] = 'player'
-                        column.remove(column[-1])
+                        row[row.index(column) - 1][2] = True
+                        column[2] = False
                     except IndexError:
                         invalid()
                         return dungeon
+                    print('You move to the left.')
                     return dungeon
 
 def player_move_right(dungeon):
     while True:
         for row in dungeon:
             for column in row:
-                if column[-1] == 'player':
+                if column[2] == True:
                     try:
-                        row[row.index(column) + 1][-1] = 'player'
-                        column.remove(column[-1])
+                        row[row.index(column) + 1][2] = True
+                        column[2] = False
                     except IndexError:
                         invalid()
                         return dungeon
+                    print('You move to the right.')
                     return dungeon
 
+def player_move_up(dungeon):
+    while True:
+        for row in dungeon:
+            for column in row:
+                if column[2] == True:
+                    try:
+                        dungeon[dungeon.index(row) - 1][row.index(column)][2] = True
+                        column[2] = False
+                    except IndexError:
+                        invalid()
+                        return dungeon
+                    print('You move up.')
+                    return dungeon
+
+def player_move_down(dungeon):
+    while True:
+        for row in dungeon:
+            for column in row:
+                if column[2] == True:
+                    try:
+                        dungeon[dungeon.index(row) + 1][row.index(column)][2] = True
+                        column[2] = False
+                    except IndexError:
+                        invalid()
+                        return dungeon
+                    print('You move down.')
+                    return dungeon
+
+from fighting_functions import *
+from npc_stats import *
 
 
 
-dungeon = make_dungeon()
-print_dungeon(dungeon) # REMOVE AFTER TESTING
+def dungeon_encounters(column):
+    if column[1] == 'goblin':
+        no_of_enemies = randint(2, 4)
+        if no_of_enemies == 2:
+            encounter = fight(goblin, goblin)
+        elif no_of_enemies == 3:
+            encounter = fight(goblin, goblin, goblin)
+        elif no_of_enemies == 4:
+            encounter = fight(goblin, goblin, goblin, goblin)
 
-print('move right')
-dungeon = player_move_right(dungeon)
-print_dungeon(dungeon)
+    if column[1] == 'kobold':
+        no_of_enemies = randint(3, 4)
+        if no_of_enemies == 3:
+            encounter = fight(kobold, kobold, kobold)
+        elif no_of_enemies == 4:
+            encounter = fight(kobold, kobold, kobold, kobold)
 
-print('move left')
-dungeon = player_move_left(dungeon)
-print_dungeon(dungeon)
+    if column[1] == 'slime':
+        no_of_enemies = randint(1, 4)
+        if no_of_enemies == 1:
+            encounter = fight(slime)
+        elif no_of_enemies == 2:
+            encounter = fight(slime, slime)
+        elif no_of_enemies == 3:
+            encounter = fight(slime, slime, slime)
+        elif no_of_enemies == 4:
+            encounter = fight(slime, slime, slime, slime)
+    
+    if column[1] == 'mixed':
+        encounter = fight(goblin, kobold, slime)
+
+    if column[1] == 'la cretura':
+        encounter = fight(la_creatura, slime)
+
+    if column[1] == 'kyle':
+        random_kyile = randint(1, 2)
+        if random_kyile == 1:
+            encounter = fight(kile)
+        elif random_kyile == 2:
+            encounter = fight(kyle)
+
+    if column[1] == 'gronk':
+        encounter = fight(gronk, godwin)
+    
+    if column[1] == 'dangolf':
+        encounter = fight(dangolf)
+
+    if column[1] == 'siffrin traveler':
+        encounter = fight(siffrin_traveler)
+
+    if column[1] == 'siffrin lost':
+        encounter = fight(siffrin_lost)
+
+    return encounter
+
+
+
+
+def dungeon_trap(column):
+    global player_health
+
+    rolling('')
+    wis_save = skill_save('wis mod', 10 + int(difficulty / 2))
+
+    if column == 'dart':
+        if wis_save == True:
+
+            print()
+            print('You spot small holes in the walls.')
+            print('You know from experience that this is a dart trap.')
+            print('Unfortunately the door to the previous room has closed.')
+            print('The only way forward is to defuse it.\n')
+            cont()
+
+            rolling('Intelegence Save')
+            int_save = skill_save('int mod', 10 + int(difficulty / 3))
+
+            if int_save == True:
+                print('You manage to defuse the trap, letting you move forward.')
+                cont()
+                return
+
+        if wis_save == False or int_save == False:
+            print('The trap inside of the room goes off!')
+            rolling('Dexterity Save')
+            dex_save = skill_save('dex mod', 10 + int(difficulty / 2))
+            if dex_save == True:
+                damage = d4()
+                print('You managed to dodge the majority of the darts!')
+                print(f'You only took {damage} damage.')
+            elif dex_save == False:
+                damage = d4(3)
+                print('You don\'t manage to react in time.')
+                print(f'You took {damage} damage.')
+
+    elif column == 'spike':
+        if wis_save == True:
+
+            print()
+            print('You spot a poorly hidden pit.')
+            print('it\'s filled with deadly spikes')
+            print('(who keeps on making these things???)')
+            print('The door behind you closed.')
+            print('Looks like you\'re going to have to jump it.')
+            cont()
+
+            rolling('Strength Save')
+            str_save = skill_save('str mod', 10 + int(difficulty / 2))
+
+            if str_save == True:
+                print('You just')
+
+
+
+
+def dungeon_exit():
+    global dun_level
+
+    print('You found a starecase leading down!')
+    while True:
+        print('do you want to go down?')
+        print('''
+        1.) Yes
+        2.) No''')
+        go_down = int_input('')
+        if go_down == 1:
+            dun_level += 1
+            return True
+            break
+        elif go_down == 2:
+            return False
+        else:
+            invalid()
+
+def dungeon_effects(dungeon):
+    for row in dungeon:
+        for column in row:
+            if column[2] == True:
+                if column[0] == 'encounter':
+                    dungeon_encounters(column)
+                if column[0] == 'trap':
+                    dungeon_trap(column[1])
+                if column[0] == 'exit':
+                    dungeon_exit()

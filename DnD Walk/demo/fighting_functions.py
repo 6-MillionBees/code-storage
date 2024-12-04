@@ -369,4 +369,4 @@ def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     elif no_of_enemy == 0:
         print(Fore.GREEN + 'You Won!' + Fore.RESET)
         print(f'You gained {exp} exp')
-        return 1, exp
+        return True, exp

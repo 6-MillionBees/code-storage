@@ -178,6 +178,17 @@ print('Total Health: ', player_health)
 print('Current Health: ', current_player_health)
 
 
+def skill_save(save_mod, dc):
+    save = d20() + player_mods[save_mod]
+    print(f'You rolled a {save}')
+    if save > dc:
+        print('Success!')
+        return True
+    elif save < dc:
+        print('Failure.')
+        return False
+
+
 from spells import spell_damage_increase
 
 def level_up():
