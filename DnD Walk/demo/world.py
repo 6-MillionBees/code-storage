@@ -200,6 +200,7 @@ def dungeon_trap(column):
     wis_save = skill_save(player_mods['wis mod'], 10 + int(difficulty / 2))
 
     if column == 'dart':
+        int_save = False
         if wis_save == True:
 
             print()
@@ -330,6 +331,7 @@ def dungeon_chest():
 
     try:
         if item[0] == 'basic':
+            print(f'You obtained {item[2]} {player_equipment[item[1]]}')
             player_equipment[item[1]] += item[2]
         elif item[0] == 'weapon':
             pickupweapon(item[1])
