@@ -49,7 +49,7 @@ from world import *
 while player_is_alive:
 
     print_dungeon(dungeon)
-    movement_menu()
+    dungeon = movement_menu(dungeon)
     print()
     effects = dungeon_effects(dungeon)
     cont()
@@ -58,5 +58,13 @@ while player_is_alive:
         rested = False
 
 score = dun_level * 1000 + round(player_equipment['copper pieces'] * 0.1) + player_equipment['silver pieces'] * 10 + player_equipment['gold pieces'] * 1000
+
+print(f'''Score:
+Dungeon Floors ({dun_level}): {dun_level * 1000}
+Coins (c:{player_equipment['copper pieces']}, s:{player_equipment['silver pieces']}, g: {player_equipment['gold pieces']}): {round(player_equipment['copper pieces'] * 0.1) + player_equipment['silver pieces'] * 10 + player_equipment['gold pieces'] * 1000}
+Level({level}): {level * 100}
+difficulty({difficulty}): {difficulty * 1000}
+''')
+
 
 print()

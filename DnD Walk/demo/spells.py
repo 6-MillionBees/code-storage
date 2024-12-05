@@ -38,26 +38,12 @@ current_player_spell_slots = { # WIP
     0: -1,
     1: 3,
     2: 1,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-    7: 0,
-    8: 0,
-    9: 0
 }
 
 max_player_spell_slots = { # WIP
     0: -1,
     1: 3,
     2: 1,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-    7: 0,
-    8: 0,
-    9: 0
 }
 
 spell_descriptions = {
@@ -110,6 +96,7 @@ def spells_menu():
 
         spell_level = int_input('Choose a spell level (-1 to go back): ')
         print()
+
         if current_player_spell_slots[spell_level] <= 0:
             print('You don\'t have enough spell slots to cast that')
 
@@ -122,7 +109,7 @@ def spells_menu():
             print('Which spell?: ')
 
             while True:
-                
+
                 num = 0
                 for spell in player_spells[spell_level]:
                     num += 1
@@ -132,8 +119,7 @@ def spells_menu():
                     num1 = 0
                     for spell in player_spells[spell_level]:
                         num1 += 1
-                        print(f'''    {num1}.) 
-{spell_descriptions[spell]}''')
+                        print(f'''    {num1}.) {spell_descriptions[spell]}''')
                     cont()
                     continue
 
@@ -147,6 +133,7 @@ def spells_menu():
                 continue
             elif spell_choice in range(1, num + 1):
                 print(f'You cast {player_spells[spell_level][spell_choice - 1].title()}')
+                current_player_spell_slots[spell_level] -= 1
                 return player_spells[spell_level][spell_choice - 1]
             else:
                 invalid()

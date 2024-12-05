@@ -104,6 +104,7 @@ def make_dungeon():
 
 
 def print_dungeon(dungeon):
+    print(f'Floor {dun_level}')
     printing_dungeon = ''
     for row in dungeon:
         for column in row:
@@ -127,8 +128,8 @@ def print_dungeon(dungeon):
     print(printing_dungeon)
 
 
-from fighting_functions import *
 from npc_stats import *
+from fighting_functions import *
 
 
 
@@ -389,6 +390,8 @@ def dungeon_effects(dungeon):
 
                 elif column[0] == 'empty':
                     print('The room is empty.')
+                    column[3] = False
+
                 elif column[0] == 'entrance':
                     print('You are at the entrance')
 
@@ -452,11 +455,10 @@ def player_move_down(dungeon):
                     return dungeon
 
 
-from player_stats import rest
+from player_stats import rest, rest_without_the_rest
 # from main import dungeon
 
-def movement_menu():
-    global dungeon
+def movement_menu(dungeon):
 
     while True:
         print('Please pick a direction:')
@@ -464,24 +466,30 @@ def movement_menu():
     2.) Down
     3.) Left
     4.) Right
-    5.) Rest''')
+    5.) Menu
+    6.) Rest''')
         direction = int_input()
-        if direction == 5:
+        if direction == 6:
             rest()
             rested = True
-            break
+            return dungeon
+        
+        elif direction == 5:
+            rest_without_the_rest()
+            return dungeon
+        
         elif direction == 1:
-            dungeon = player_move_up(dungeon)
-            break
+            return player_move_up(dungeon)
+            
         elif direction == 2:
-            dungeon = player_move_down(dungeon)
-            break
+            return player_move_down(dungeon)
+            
         elif direction == 3:
-            dungeon = player_move_left(dungeon)
-            break
+            return player_move_left(dungeon)
+            
         elif direction == 4:
-            dungeon = player_move_right(dungeon)
-            break
+            return player_move_right(dungeon)
+            
         else:
             invalid()
 

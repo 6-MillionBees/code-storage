@@ -254,12 +254,14 @@ def level_up():
                 break
 
     if level % 6 == 0:
-        print('Spell slots increased.')
-        for key in max_player_spell_slots.keys():
-            max_player_spell_slots[key] += 1
-            print(f'level {key}: {max_player_spell_slots}')
+        max_player_spell_slots[1] += 1
+    if level % 7 == 0:
+        max_player_spell_slots[2] += 1
+
 
 from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
+
+
 
 def rest_items_menu():
     print()
@@ -293,7 +295,8 @@ Health Potions: {player_equipment['health potions']}
             print('Use Health Potion? (2d4)')
             while True:
                 confirm = int_input('''    1.) Yes
-    2.) No''')
+    2.) No
+''')
                 if confirm in range(1, 3):
                     break
                 else:
@@ -307,8 +310,43 @@ Health Potions: {player_equipment['health potions']}
             continue
 
 
+def stats_menu():
+    print('Stats:')
+    print(f'''
+Strength:       {player_stats["str"]} {player_mods["str mod"]}
+Dexterity:      {player_stats["dex"]} {player_mods["dex mod"]}
+Endurance:      {player_stats["end"]} {player_mods["end mod"]}
+Inteligence:    {player_stats["int"]} {player_mods["int mod"]}
+Wisdom:         {player_stats["wis"]} {player_mods["wis mod"]}
+Charisma:       {player_stats["cha"]} {player_mods["cha mod"]}
+
+Health {current_player_health}/{player_health}
+{bar(current_player_health, player_health, 15)}''')
+    cont()
+
 
 from spells import *
+
+def rest_spells_menu():
+    print('Current/Max Spell Slots:')
+    for spell_level in max_player_spell_slots.keys():
+        print(f'level {spell_level}: {current_player_spell_slots[spell_level]}/{max_player_spell_slots[spell_level]}')
+    while True:
+        num = 0
+        for spell_level in max_player_spell_slots.keys():
+            num += 1
+            print(f'    {spell_level}.) {player_spells[spell_level]}')
+
+        spell_level = int_input()
+
+        if spell_level not in range(num + 1):
+            continue
+        num1 = 0
+        for spell in player_spells[spell_level]:
+            num1 += 1
+            print(f'''    {num1}.) {spell_descriptions[spell]}''')
+        cont()
+
 
 rested = False
 
@@ -338,3 +376,27 @@ def rest():
         elif rest_choice == 1:
             rest_items_menu()
             continue
+        elif rest_choice == 2:
+            stats_menu()
+        elif rest_choice == 3:
+            rest_spells_menu()
+
+def rest_without_the_rest():
+    print()
+
+    while True:
+        print('Options')
+        print(f'''    1.) Items
+    2.) Stats
+    3.) Spells
+    4.) back''')
+        rest_choice = int_input()
+        if rest_choice == 4:
+            return
+        elif rest_choice == 1:
+            rest_items_menu()
+            continue
+        elif rest_choice == 2:
+            stats_menu()
+        elif rest_choice == 3:
+            rest_spells_menu()

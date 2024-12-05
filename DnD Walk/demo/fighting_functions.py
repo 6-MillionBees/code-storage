@@ -199,7 +199,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 from npc_stats import *
 
 
-def fight(no_of_enemy, enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
+def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     global player_health
     global current_player_health
     global player_exp
