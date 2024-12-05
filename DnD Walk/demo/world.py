@@ -129,8 +129,7 @@ def print_dungeon(dungeon):
 
 
 from npc_stats import *
-from fighting_functions import *
-
+from fighting_functions import fight
 
 
 def dungeon_encounters(column):
@@ -143,14 +142,14 @@ def dungeon_encounters(column):
         elif no_of_enemies == 4:
             encounter = fight(goblin, goblin, goblin, goblin)
 
-    if column[1] == 'kobold':
+    elif column[1] == 'kobold':
         no_of_enemies = randint(3, 4)
         if no_of_enemies == 3:
             encounter = fight(kobold, kobold, kobold)
         elif no_of_enemies == 4:
             encounter = fight(kobold, kobold, kobold, kobold)
 
-    if column[1] == 'slime':
+    elif column[1] == 'slime':
         no_of_enemies = randint(1, 4)
         if no_of_enemies == 1:
             encounter = fight(slime)
@@ -161,30 +160,33 @@ def dungeon_encounters(column):
         elif no_of_enemies == 4:
             encounter = fight(slime, slime, slime, slime)
     
-    if column[1] == 'mixed':
+    elif column[1] == 'mixed':
         encounter = fight(goblin, kobold, slime)
 
-    if column[1] == 'la cretura':
+    elif column[1] == 'la cretura':
         encounter = fight(la_creatura, slime)
 
-    if column[1] == 'kyle':
+    elif column[1] == 'kyle':
         random_kyile = randint(1, 2)
         if random_kyile == 1:
             encounter = fight(kile)
         elif random_kyile == 2:
             encounter = fight(kyle)
 
-    if column[1] == 'gronk':
-        encounter = fight(gronk, godwin)
+    elif column[1] == 'gronk':
+        encounter = fight(gronk, lily)
     
-    if column[1] == 'dangolf':
+    elif column[1] == 'dangolf':
         encounter = fight(dangolf)
 
-    if column[1] == 'siffrin traveler':
+    elif column[1] == 'siffrin traveler':
         encounter = fight(siffrin_traveler)
 
-    if column[1] == 'siffrin lost':
+    elif column[1] == 'siffrin lost':
         encounter = fight(siffrin_lost)
+    
+    else:
+        encounter = fight(goblin, goblin)
 
     return encounter
 
@@ -269,7 +271,7 @@ def dungeon_trap(column):
 from items import *
 
 def dungeon_chest():
-    rarity = randint(luck_mod * 10, 100)
+    rarity = randint(luck_mod() * 10, 100)
     if rarity <= 25:
         print('You find a chest')
         print('The chest is empty.')
@@ -326,10 +328,13 @@ def dungeon_chest():
         elif item_rand == 6:
             item = ['weapon', 'gun']
 
-    if item[0] == 'basic':
-        player_equipment[item[1]] += item[2]
-    elif item[0] == 'weapon':
-        pickupweapon(item[1])
+    try:
+        if item[0] == 'basic':
+            player_equipment[item[1]] += item[2]
+        elif item[0] == 'weapon':
+            pickupweapon(item[1])
+    except UnboundLocalError:
+        return
 
 
 
@@ -380,10 +385,10 @@ def dungeon_effects(dungeon):
                     if current_player_health <= 0:
                         player_is_alive = False
                         return
+                    column[3] = False
 
                 elif column[0] == 'exit':
-                    if column[3]:
-                        column[3] = False
+                    column[3] = False
                     exit_choice = dungeon_exit()
                     if exit_choice == True:
                         return True
@@ -404,6 +409,8 @@ def player_move_left(dungeon):
             for column in row:
                 if column[2] == True:
                     try:
+                        if row.index(column) - 1 == -1:
+                            raise IndexError
                         row[row.index(column) - 1][2] = True
                         column[2] = False
                     except IndexError:
@@ -432,6 +439,8 @@ def player_move_up(dungeon):
             for column in row:
                 if column[2] == True:
                     try:
+                        if dungeon.index(dungeon[dungeon.index(row)]) - 1 == -1:
+                            raise IndexError
                         dungeon[dungeon.index(row) - 1][row.index(column)][2] = True
                         column[2] = False
                     except IndexError:
@@ -492,6 +501,3 @@ def movement_menu(dungeon):
             
         else:
             invalid()
-
-
-

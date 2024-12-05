@@ -5,7 +5,8 @@
 from random import randint
 
 from dice import *
-from world import luck_mod, difficulty
+from world import difficulty as difficulty_silly
+from world import luck_mod as luck_mod_var
 from items import *
 
 
@@ -15,37 +16,41 @@ from items import *
 # Basic
 goblin = {
     'name': 'Goblin', 'title': '', 'caster': False,
-    'health': (lambda: int(d6(1) + 6 * difficulty)), 'weapon': 'dagger', 'ac': 5,
-    'exp': int(50 * difficulty), 'agression': 5,
+    'health': (lambda: int(d6(1) + 6 * difficulty_silly)), 'weapon': 'dagger', 'ac': 5,
+    'exp': int(50 * difficulty_silly), 'agression': 5,
     'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1,
-    'casting mod': 0
+    'score': 20
 }
 
 kobold = {
     'name': 'Kobold', 'title': '', 'caster': False,
-    'health': (lambda: int((d4(4) - 2) * difficulty)), 'weapon': 'dagger', 'ac': 7,
-    'exp': int(25 * difficulty), 'agression': 4,
+    'health': (lambda: int((d4(4) - 2) * difficulty_silly)), 'weapon': 'dagger', 'ac': 7,
+    'exp': int(25 * difficulty_silly), 'agression': 4,
     'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1,
-    'casting mod': 0
+    'score': 20
 }
 
 slime = {
     'name': 'Slime', 'title': '', 'caster': False,
-    'health': (lambda: int(d4(2) * difficulty)), 'weapon': 'dagger', 'ac': 6,
-    'exp': int(26 * difficulty), 'agression': 20,
+    'health': (lambda: int(d4(2) * difficulty_silly)), 'weapon': 'dagger', 'ac': 6,
+    'exp': int(26 * difficulty_silly), 'agression': 20,
     'str mod': -4, 'dex mod': -3, 'con mod': 5, 'int mod': -5, 'wis mod': -5, 'cha mod': 1,
-    'casting mod': 0
+    'score': 10
 }
 
 la_creatura = {
-    'name': 'La Creatura', 
+    'name': 'La Creatura', 'title': '',
+    'health': (lambda: int(d4(8) * difficulty_silly)), 'weapon': 'sickle', 'ac': 0,
+    'exp': int(50 * difficulty_silly), 'agrssion': 20,
+    'str mod': 3, 'dex mod': -2, 'con mod': 4, 'int mod': -3, 'wis mod': -2, 'cha mod': -1,
+    'score': 30
 }
 
 
 # Named
 
 lily = {
-    'name': 'Lily', 'title': '', 'caster': True,
+    'name': 'Lily', 'title': '', 
     'health': d6(3) + 10, 'weapon': 'staff', 'ac': 8, 'exp': 250, 'agression': 0,
     'str mod': 0, 'dex mod': 1, 'end mod': 1, 'int mod': 3, 'wis mod': 2, 'cha mod': 1,
     'casting mod': 3,
@@ -53,7 +58,7 @@ lily = {
 }
 
 kile = {
-    'name': 'Kile', 'title': ', With An I', 'caster': False,
+    'name': 'Kile', 'title': ', With An I', 
     'health': d4(4) + 20, 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
     'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1,
     'casting mod': 0
@@ -120,7 +125,7 @@ def common_table(no_of_items, enemy):
         pickupweapon('dangolf staff')
 
     while num < no_of_items:
-        rand = randint(1, 100) + luck_mod()
+        rand = randint(1, 100) + luck_mod_var()
         if rand < 30:
             drops.append('copper pieces')
             numbers.append(randint(30, 90))

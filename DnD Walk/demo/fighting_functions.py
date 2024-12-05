@@ -18,6 +18,7 @@ def roll_against(agressor_mod, agressor, defender, defender_mod):
 
 def damage_over_time(target, duration, damage, damage_type = ''):
     print('dnd\'s mechanics are going to be my 13 reason.')
+    # I'm not finishing some things because I don't need to ¯\_(ツ)_/¯
 
 
 

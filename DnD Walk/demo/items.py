@@ -10,38 +10,39 @@ weapon_name = {
     'empty':             'Empty',
 
     'battle axe':        'Battle Axe',
-    'club':              'Club', 
-    'dagger':            'Dagger', 
-    'flail':             'Flail', 
-    'glaive':            'Glaive', 
-    'great club':        'Great Club', 
-    'greataxe':          'Greataxe', 
-    'greatsword':        'Greatsword', 
+    'club':              'Club',
+    'dagger':            'Dagger',
+    'flail':             'Flail',
+    'glaive':            'Glaive',
+    'great club':        'Great Club',
+    'greataxe':          'Greataxe',
+    'greatsword':        'Greatsword',
     'halberd':           'Halberd',
-    'handaxe':           'Handaxe', 
-    'javelin':           'Javelin', 
-    'lance':             'Lance', 
-    'longsword':         'Longsword', 
+    'handaxe':           'Handaxe',
+    'javelin':           'Javelin',
+    'lance':             'Lance',
+    'longsword':         'Longsword',
     'light hammer':      'Light Hammer',
-    'mace':              'Mace', 
-    'maul':              'Maul', 
+    'mace':              'Mace',
+    'maul':              'Maul',
     'morningstar':       'Morningstar',
-    'pike':              'Pike', 
-    'quarterstaff':      'Quarterstaff', 
-    'sickle':            'Sickle', 
-    'spear':             'Spear', 
-    'rapier':            'Rapier', 
-    'scimitar':          'Scimitar', 
-    'shortsword':        'Shortsword', 
+    'pike':              'Pike',
+    'quarterstaff':      'Quarterstaff',
+    'sickle':            'Sickle',
+    'spear':             'Spear',
+    'rapier':            'Rapier',
+    'scimitar':          'Scimitar',
+    'shortsword':        'Shortsword',
     'trident':           'Trident',
-    'war pick':          'War Pick', 
-    'warhammer':         'Warhammer', 
+    'war pick':          'War Pick',
+    'warhammer':         'Warhammer',
     'whip':              'Whip',
 
     # unique weapons
 
-    'dangolf staff':     'Dangolf\'s Staff', 
-    'sif dagger':        'Siffrin\'s Dagger', 
+    'lilys staff':       'Lily\'s Staff',
+    'dangolf staff':     'Dangolf\'s Staff',
+    'sif dagger':        'Siffrin\'s Dagger',
     'player sif dagger': 'Siffrin\'s Dagger',
 
     # No Touchy
@@ -87,6 +88,7 @@ weapon_print_damage = {
 
     # unique weapons
 
+    'lilys staff':       '5d4',
     'player sif dagger': '5d4',
     'dangolf staff':     '2d6',
     'sif dagger':        '999',
@@ -136,6 +138,7 @@ weapon_damage = {
 
     # unique weapons
 
+    'lilys staff':       (lambda: d4(5)),
     'player sif dagger': (lambda: d4(5)),
     'dangolf staff':     (lambda: d6(4)), 
     'golden spirit':     (lambda: d10(2)),
@@ -182,6 +185,7 @@ weapon_mod = {
 
     # unique weapons
 
+    'lilys staff':       'int mod',
     'dangolf staff':     'wis mod',
     'player sif dagger': 'dex mod',
 

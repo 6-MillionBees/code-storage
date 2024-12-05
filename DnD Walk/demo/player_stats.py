@@ -264,6 +264,8 @@ from items import weapon_name, weapon_print_damage, player_equipment, drop_weapo
 
 
 def rest_items_menu():
+    global current_player_health
+
     print()
     print('What do you want to do?')
     while True:
@@ -278,13 +280,18 @@ def rest_items_menu():
         elif items_choice == 1:
             print(f'''
 weapons:
-Equipped: {weapon_name[player_equipment['equipped weapon']]} damage: {weapon_print_damage[player_equipment['equipped weapon']]}Stored 1: {weapon_name[player_equipment['stored weapon 1']]} damage: {weapon_print_damage[player_equipment['stored weapon 1']]}Stored 2: {weapon_name[player_equipment['stored weapon 2']]} damage: {weapon_print_damage[player_equipment['stored weapon 2']]}Stored 3: {weapon_name[player_equipment['stored weapon 3']]} damage: {weapon_print_damage[player_equipment['stored weapon 3']]}Stored 4: {weapon_name[player_equipment['stored weapon 4']]} damage: {weapon_print_damage[player_equipment['stored weapon 4']]}Stored 5: {weapon_name[player_equipment['stored weapon 5']]} damage: {weapon_print_damage[player_equipment['stored weapon 5']]}
+Equipped: {weapon_name[player_equipment['equipped weapon']]} damage: {weapon_print_damage[player_equipment['equipped weapon']]}
+Stored 1: {weapon_name[player_equipment['stored weapon 1']]} damage: {weapon_print_damage[player_equipment['stored weapon 1']]}
+Stored 2: {weapon_name[player_equipment['stored weapon 2']]} damage: {weapon_print_damage[player_equipment['stored weapon 2']]}
+Stored 3: {weapon_name[player_equipment['stored weapon 3']]} damage: {weapon_print_damage[player_equipment['stored weapon 3']]}
+Stored 4: {weapon_name[player_equipment['stored weapon 4']]} damage: {weapon_print_damage[player_equipment['stored weapon 4']]}
+Stored 5: {weapon_name[player_equipment['stored weapon 5']]} damage: {weapon_print_damage[player_equipment['stored weapon 5']]}
 
 items:
 Copper Pieces: {player_equipment['copper pieces']}
 Silver Pieces: {player_equipment['silver pieces']}
 Gold Pieces: {player_equipment['gold pieces']}
-Health Potions: {player_equipment['health potions']}
+Health Potions: {player_equipment['health potion']}
 ''')
             cont()
             continue
@@ -298,11 +305,22 @@ Health Potions: {player_equipment['health potions']}
     2.) No
 ''')
                 if confirm in range(1, 3):
+                    if current_player_health == player_health:
+                        print('You already have full health.')
+                        current_player_health = player_health
+                        break
+
+                    health_potion = d4(2)
+                    current_player_health += health_potion
+                    if current_player_health >= player_health:
+                        current_player_health = player_health
+                    print(f'You gained {health_potion} health.')
+                    bar(current_player_health, player_health, 15)
                     break
                 else:
                     invalid()
                     continue
-
+            
         elif items_choice == 4:
             equip_weapon()
         else:
@@ -313,12 +331,12 @@ Health Potions: {player_equipment['health potions']}
 def stats_menu():
     print('Stats:')
     print(f'''
-Strength:       {player_stats["str"]} {player_mods["str mod"]}
-Dexterity:      {player_stats["dex"]} {player_mods["dex mod"]}
-Endurance:      {player_stats["end"]} {player_mods["end mod"]}
-Inteligence:    {player_stats["int"]} {player_mods["int mod"]}
-Wisdom:         {player_stats["wis"]} {player_mods["wis mod"]}
-Charisma:       {player_stats["cha"]} {player_mods["cha mod"]}
+Strength:       {player_stats["str"]} modifier: {player_mods["str mod"]}
+Dexterity:      {player_stats["dex"]} modifier: {player_mods["dex mod"]}
+Endurance:      {player_stats["end"]} modifier: {player_mods["end mod"]}
+Inteligence:    {player_stats["int"]} modifier: {player_mods["int mod"]}
+Wisdom:         {player_stats["wis"]} modifier: {player_mods["wis mod"]}
+Charisma:       {player_stats["cha"]} modifier: {player_mods["cha mod"]}
 
 Health {current_player_health}/{player_health}
 {bar(current_player_health, player_health, 15)}''')
@@ -333,18 +351,22 @@ def rest_spells_menu():
         print(f'level {spell_level}: {current_player_spell_slots[spell_level]}/{max_player_spell_slots[spell_level]}')
     while True:
         num = 0
+        print('See spell descriptions (-1 to exit)')
         for spell_level in max_player_spell_slots.keys():
             num += 1
-            print(f'    {spell_level}.) {player_spells[spell_level]}')
+            print(f'    {spell_level}.) {', '.join(player_spells[spell_level])}')
 
         spell_level = int_input()
 
-        if spell_level not in range(num + 1):
+        if spell_level == -1:
+            return
+        elif spell_level not in range(num + 1):
             continue
+ 
         num1 = 0
         for spell in player_spells[spell_level]:
             num1 += 1
-            print(f'''    {num1}.) {spell_descriptions[spell]}''')
+            print(f'''    {num1}.) {spell_descriptions[spell]}\n''')
         cont()
 
 

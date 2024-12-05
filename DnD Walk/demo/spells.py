@@ -47,33 +47,33 @@ max_player_spell_slots = { # WIP
 }
 
 spell_descriptions = {
-    'acid splash': f'''{Fore.GREEN}    cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
+    'acid splash': f'''{Fore.GREEN}Acid Splash, cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
 details: You swing a bubble of acid towards an enemy
 dealing {1 + spell_damage_increase}d6 damage''',
 
-    'fire bolt': f'''{Fore.GREEN}    cantrip, single, {1 + spell_damage_increase}d10{Fore.RESET}
+    'fire bolt': f'''{Fore.GREEN}Fire Bolt, cantrip, single, {1 + spell_damage_increase}d10{Fore.RESET}
 details: You throw a small ball of fire towards one
 unlucky enemy damaging it for {1 + spell_damage_increase}d10 fire damage on a
 failed dexterity save and half that on a success.''',
 
-    'poison spray': f'''{Fore.GREEN}    cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
+    'poison spray': f'''{Fore.GREEN}Poison Spray, cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
 details: You sent a puff of noxious gas towards two random
 enemies, they take {1 + spell_damage_increase}d6 damage on a failed constitution
 save and half that on a success.''',
 
-    'healing word': f'''{Fore.GREEN}    level 1, healing, {2 + int(spell_damage_increase / 2)}d4{Fore.RESET}
+    'healing word': f'''{Fore.GREEN}Healing Word, level 1, healing, {2 + int(spell_damage_increase / 2)}d4{Fore.RESET}
 details: You speak a word commading the arcane to
 heal the desired wound restoring {2 + int(spell_damage_increase / 2)}d4 health.''',
 
-    'burning hands': f'''{Fore.GREEN}    level 1, AOE, {3 + spell_damage_increase}d6 {Fore.RESET}
+    'burning hands': f'''{Fore.GREEN}Burning Hands, level 1, AOE, {3 + spell_damage_increase}d6 {Fore.RESET}
 details: You spread your fingers sending out a wave 
 of flame hitting 3 adjacent enemies for {3 + spell_damage_increase}d6.''',
 
-    'magic missile': f'''{Fore.GREEN}    level 1, multi-hit, {1 + int(spell_damage_increase / 2)}d4 + 1 {Fore.RESET}
+    'magic missile': f'''{Fore.GREEN}Magic Missile, level 1, multi-hit, {1 + int(spell_damage_increase / 2)}d4 + 1 {Fore.RESET}
 details: You fire three homing bolts of glowing blue
 magic dealing {1 + int(spell_damage_increase / 2)}d4 + 1 to three enemies of your choice.''',
 
-    'fireball': f'''{Fore.GREEN}    level 2, AOE, {8 + int(spell_damage_increase / 2)}d6 {Fore.GREEN}
+    'fireball': f'''{Fore.GREEN}Fireball, level 2, AOE, {8 + int(spell_damage_increase / 2)}d6 {Fore.GREEN}
 details : You throw a hurtling ball of fire that
 explodes on contact dealing {8 + int(spell_damage_increase / 2)}d6 to all enemies.'''
 }
@@ -253,13 +253,3 @@ def cast_fireball():
     cont()
     dictionary = {1: (lambda: d6(8)), 2: (lambda: d6(8)), 3: (lambda: d6(8)), 4: (lambda: d6(8)),}
     return dictionary
-
-
-# REMOVE AFTER TESTING
-
-# from npc_stats import *
-
-# enemies = [goblin, kobold, goblin, goblin] 
-# spell = cast(spells_menu(), enemies)
-
-# print(spell)

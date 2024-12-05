@@ -69,9 +69,9 @@ def roll_to_hit(roll, dc, mod): # use this in combat to check if it hit
 
 def bar(current, total, bar_length = 20): # This is a bar for health and other things (I'll see what I use it for)
     fraction = current / total
-    arrow = int(fraction * bar_length - 1) * '█' + '▒'
+    arrow = int(fraction * bar_length) * '█'
     padding = int(bar_length - len(arrow)) * '-'
-    return f'{arrow}{padding} {round(current)}hp'
+    return f'{arrow}{padding} {round(current)} hp'
 
 def int_input(words = ''):
     while True:
