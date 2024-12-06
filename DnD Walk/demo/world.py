@@ -199,7 +199,10 @@ def dungeon_trap(column):
     rolling('')
     wis_save = skill_save(player_mods['wis mod'], 10 + int(difficulty / 2))
 
-    if column == 'dart':
+    if column[3] == False:
+        print('You\'ve been here before')
+
+    elif column == 'dart':
         int_save = False
         if wis_save == True:
 
@@ -251,7 +254,7 @@ def dungeon_trap(column):
                 print('You just barely manage to jump over the gap.')
                 cont()
                 return
-        elif str_save == False or wis_save == False:
+        else:
             print('You fall into a spike trap!')
             rolling('Dexterity Save')
             dex_save = skill_save(player_mods['dex mod'], 10 + int(difficulty / 2))
@@ -327,7 +330,7 @@ def dungeon_chest():
 
     try:
         if item[0] == 'basic':
-            print(f'You obtained {item[2]} {player_equipment[item[1]]}')
+            print(f'You obtained {item[2]} {item[1]}')
             player_equipment[item[1]] += item[2]
         elif item[0] == 'weapon':
             pickupweapon(item[1])

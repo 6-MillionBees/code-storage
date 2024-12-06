@@ -37,13 +37,17 @@ print('To start we\'re going to assign your stats (this is permenent)')
 
 from player_stats import *
 from world import make_dungeon
- 
+
 print(f'you are here > {Fore.GREEN}+{Fore.RESET}')
 print()
 dungeon = make_dungeon()
 player_is_alive = True
 
 import world as w
+
+from npc_stats import slime # REMOVE AFTER TESTING
+
+w.fight(slime, slime)
 
 while player_is_alive:
 

@@ -92,7 +92,7 @@ def npc_turn(enemy, current_health, blocking):
         return 0, damage
 
     cont()
-    return enemy_blocking
+    return enemy_blocking, 0
 
 
 
@@ -180,7 +180,14 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             if spell == -1:
                 continue
             else:
-                casting = cast(spell, [enemy1, enemy2, enemy3, enemy4])
+
+                enemies = []
+                for enemy in [enemy1, enemy2, enemy3, enemy4]:
+                    if enemy == "":
+                        continue
+                    elif enemy != "":
+                        enemies.append(enemy)
+                casting = cast(spell, enemies)
                 return 'cast', casting
 
 
@@ -321,7 +328,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                             damage = player[1][0]()
                             current_player_health -= player[1][1]()
                             if damage < 0:
-                                print(f'You gained {Fore.GREEN}{damage * -1}{Fore.RESET} health.')
+                                print(f'You gained {Fore.GREEN}{damage}{Fore.RESET} health.')
                             else:
                                 print(f'You took {damage} damage.')
 
@@ -330,22 +337,26 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
                         if target == 1 and enemy1_is_alive:
                             spell_damage = player[1][1]()
-                            enemy1_health -= spell_damage * enemy1_blocking
+                            spell_damage = spell_damage * enemy1_blocking
+                            enemy1_health -= spell_damage
                             print(f'{enemy1["name"]} took {damage} damage.')
 
                         if target == 2 and enemy2_is_alive:
                             spell_damage = player[1][1]()
-                            enemy2_health -= spell_damage * enemy2_blocking
+                            spell_damage = spell_damage * enemy2_blocking
+                            enemy2_health -= spell_damage
                             print(f'{enemy2["name"]} took {spell_damage} damage.')
 
                         if target == 3 and enemy3_is_alive:
                             spell_damage = player[1][1]()
-                            enemy3_health -= spell_damage * enemy3_blocking
+                            spell_damage = spell_damage * enemy3_blocking
+                            enemy3_health -= spell_damage
                             print(f'{enemy3["name"]} took {spell_damage} damage.')
 
                         if target == 4 and enemy4_is_alive:
                             spell_damage = player[1][1]()
-                            enemy4_health -= spell_damage * enemy4_blocking
+                            spell_damage = spell_damage * enemy4_blocking
+                            enemy4_health -= spell_damage
                             print(f'{enemy4["name"]} took {spell_damage} damage.')
 
 
@@ -387,16 +398,24 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
 
             elif turn == enemy1 and enemy1_is_alive:
-                enemy1_blocking = npc_turn(enemy1, enemy1_health, blocking)
+                enemy1_turn = npc_turn(enemy1, enemy1_health, blocking)
+                enemy1_blocking = enemy1_turn[0]
+                current_player_health -= enemy1_turn[1]
 
             elif turn == enemy2 and enemy2_is_alive:
-                enemy2_blocking = npc_turn(enemy2, enemy2_health, blocking)
+                enemy2_turn = npc_turn(enemy2, enemy2_health, blocking)
+                enemy2_blocking = enemy2_turn[0]
+                current_player_health -= enemy2_turn[1]
 
             elif turn == enemy3 and enemy3_is_alive:
-                enemy3_blocking = npc_turn(enemy3, enemy3_health, blocking)
+                enemy3_turn = npc_turn(enemy3, enemy3_health, blocking)
+                enemy3_blocking = enemy3_turn[0]
+                current_player_health -= enemy3_turn[1]
 
             elif turn == enemy4 and enemy4_is_alive:
-                enemy4_blocking = npc_turn(enemy4, enemy4_health, blocking)
+                enemy4_turn = npc_turn(enemy4, enemy4_health, blocking)
+                enemy4_blocking = enemy4_turn[0]
+                current_player_health -= enemy4_turn[1]
 
     if current_player_health <= 0:
         global player_is_alive

@@ -300,6 +300,9 @@ Health Potions: {player_equipment['health potion']}
             continue
         elif items_choice == 3:
             print('Use Health Potion? (2d4)')
+            if player_equipment['health potion'] == 0:
+                print('You don\'t have any potions')
+                continue
             while True:
                 confirm = int_input('''    1.) Yes
     2.) No
@@ -316,6 +319,7 @@ Health Potions: {player_equipment['health potion']}
                         current_player_health = player_health
                     print(f'You gained {health_potion} health.')
                     bar(current_player_health, player_health, 15)
+                    player_equipment['health potion'] -= 1
                     break
                 else:
                     invalid()
@@ -354,7 +358,7 @@ def rest_spells_menu():
         print('See spell descriptions (-1 to exit)')
         for spell_level in max_player_spell_slots.keys():
             num += 1
-            print(f'    {spell_level}.) {', '.join(player_spells[spell_level])}')
+            print(f'    {spell_level}.) {", ".join(player_spells[spell_level])}')
 
         spell_level = int_input()
 
