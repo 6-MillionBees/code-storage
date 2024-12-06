@@ -227,7 +227,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     no_of_enemy = 1
     enemy1_is_alive = True
     enemy1['initiative'] = d20() + enemy1['dex mod']
-    enemy1_health = enemy1['health']
+    enemy1_health = enemy1['health']()
 
     if enemy1['initiative'] <= player_dict['initiative']:
         initiative.append(enemy1)
@@ -237,7 +237,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
     if enemy2 != '':
         enemy2_is_alive = True
-        enemy2_health = enemy2['health']
+        enemy2_health = enemy2['health']()
         no_of_enemy += 1
 
         initiative_var = 0
@@ -253,7 +253,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
     if enemy3 != '':
         enemy3_is_alive = True
-        enemy3_health = enemy3['health']
+        enemy3_health = enemy3['health']()
         no_of_enemy += 1
 
         initiative_var = 0
@@ -268,7 +268,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
     if enemy4 != '':
         enemy4_is_alive = True
-        enemy4_health = enemy4['health']
+        enemy4_health = enemy4['health']()
         no_of_enemy += 1
 
         initiative_var = 0
