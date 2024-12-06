@@ -215,7 +215,6 @@ def dungeon_trap(column):
 
             if int_save == True:
                 print('You manage to defuse the trap, letting you move forward.')
-                cont()
                 return
 
         if wis_save == False or int_save == False:
@@ -260,12 +259,10 @@ def dungeon_trap(column):
                 damage = d4()
                 print('You manage to flail your arms enough to keep balance')
                 print(f'You took no damage.')
-                cont()
             elif dex_save == False:
                 damage = d4(3)
                 print('You fell right into the traps thorny embrace.')
                 print(f'You took {damage} damage.')
-                cont()
             current_player_health -= damage
 
 
@@ -277,7 +274,6 @@ def dungeon_chest():
         print('You find a chest')
         print('The chest is empty.')
         print(':(')
-        cont()
 
     elif rarity <= 75:
         item_rand = randint(1, 25)

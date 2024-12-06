@@ -82,6 +82,7 @@ def npc_turn(enemy, current_health, blocking):
                 print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
             else:
                 print(f'You took {damage} damage.')
+                print()
 
         elif roll <= 6:
             enemy_blocking = 0.5
@@ -89,14 +90,7 @@ def npc_turn(enemy, current_health, blocking):
             print(enemy['name'] + ' is blocking.')
 
         return 0, damage
-    
-    elif enemy['caster'] == True:
-        roll = d10() + enemy['int mod']
 
-        if roll > 5:
-            spell = randint(0, len(enemy['spells']) - 1)
-            spell_cast = cast(spell)
-    
     cont()
     return enemy_blocking
 
@@ -200,6 +194,8 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 
 from npc_stats import *
 
+# If it ain't broke don't fix it
+player_dict = {'initiative': 0, 'name': 'You'}
 
 def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     global player_health
@@ -209,11 +205,9 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     exp = 0
 
     rolling('for Initiative')
-    player_initiative = d20() + player_mods['dex mod'] + initiative_bonus
-    initiative = {
-        player_initiative: 'You'
-    }
-    print(f'\nYou rolled a {player_initiative} for initiative.')
+    player_dict['initiative'] = d20() + player_mods['dex mod'] + initiative_bonus
+    initiative = [player_dict]
+    print(f'\nYou rolled a {player_dict["initiative"]} for initiative.')
 
     enemy2_is_alive = False
     enemy3_is_alive = False
@@ -225,37 +219,71 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
 
     no_of_enemy = 1
     enemy1_is_alive = True
-    initiative[d20() + enemy1['dex mod']] = enemy1['name']+'1'
+    enemy1['initiative'] = d20() + enemy1['dex mod']
     enemy1_health = enemy1['health']
+
+    if enemy1['initiative'] <= player_dict['initiative']:
+        initiative.append(enemy1)
+    else:
+        initiative.insert(0, enemy1)
+    print(enemy1['initiative']) # REMOVE AFTER TESTING
 
     if enemy2 != '':
         enemy2_is_alive = True
-        initiative[d20() + enemy2['dex mod']] = enemy2['name']+'2'
         enemy2_health = enemy2['health']
         no_of_enemy += 1
 
+        initiative_var = 0
+        enemy2['initiative'] = d20() + enemy2['dex mod']
+        for turn in initiative:
+            if turn['initiative'] > enemy2['initiative']:
+                initiative_var += 1
+            else:
+                initiative.insert(initiative_var, enemy2)
+                break
+        print(enemy2['initiative']) # REMOVE AFTER TESTING
+
+
     if enemy3 != '':
         enemy3_is_alive = True
-        initiative[d20() + enemy3['dex mod']] = enemy3['name']+'3'
         enemy3_health = enemy3['health']
         no_of_enemy += 1
 
+        initiative_var = 0
+        enemy3['initiative'] = d20() + enemy3['dex mod']
+        for turn in initiative:
+            if turn['initiative'] > enemy3['initiative']:
+                initiative_var += 1
+            else:
+                initiative.insert(initiative_var, enemy3)
+                break
+        print(enemy3['initiative']) # REMOVE AFTER TESTING
+
     if enemy4 != '':
         enemy4_is_alive = True
-        initiative[d20() + enemy4['dex mod']] = enemy4['name']+'4'
         enemy4_health = enemy4['health']
         no_of_enemy += 1
 
-    list_initiative = list(initiative.keys())
-    list_initiative.sort(reverse = True)
-    initiative = {item: initiative[item] for item in list_initiative}
-    list_initiative = list(initiative.values())
+        initiative_var = 0
+        enemy4['initiative'] = d20() + enemy4['dex mod']
+        for turn in initiative:
+            if turn['initiative'] > enemy4['initiative']:
+                initiative_var += 1
+            else:
+                initiative.insert(initiative_var, enemy4)
+                break
+        print(enemy4['initiative']) # REMOVE AFTER TESTING
 
-    
-    initiative_string = [str(item) for item in list_initiative]
-
+    print()
     print('Initiative Order:')
-    print(', '.join(initiative_string))
+    initiative_print_num = 0
+    for turn in initiative:
+        if initiative_print_num == 0:
+            print(turn['name'], end = '')
+            initiative_print_num += 1
+        else:
+            print(f', {turn["name"]}', end = '')
+    print()
     cont()
 
     while no_of_enemy > 0 and current_player_health > 0:
@@ -263,12 +291,12 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
             break
         blocking = 1
 
-        for turn in list_initiative:
+        for turn in initiative:
             no_of_turns += 1
             if current_player_health <= 0:
                 break
 
-            if turn == 'You':
+            if turn == player_dict:
 
                 player = player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4)
 
@@ -358,16 +386,16 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     cont()
 
 
-            elif str(turn).endswith('1') and enemy1_is_alive:
+            elif turn == enemy1 and enemy1_is_alive:
                 enemy1_blocking = npc_turn(enemy1, enemy1_health, blocking)
 
-            elif str(turn).endswith('2') and enemy2_is_alive:
+            elif turn == enemy2 and enemy2_is_alive:
                 enemy2_blocking = npc_turn(enemy2, enemy2_health, blocking)
 
-            elif str(turn).endswith('3') and enemy3_is_alive:
+            elif turn == enemy3 and enemy3_is_alive:
                 enemy3_blocking = npc_turn(enemy3, enemy3_health, blocking)
 
-            elif str(turn).endswith('4') and enemy4_is_alive:
+            elif turn == enemy4 and enemy4_is_alive:
                 enemy4_blocking = npc_turn(enemy4, enemy4_health, blocking)
 
     if current_player_health <= 0:

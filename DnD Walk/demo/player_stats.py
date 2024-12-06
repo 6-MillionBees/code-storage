@@ -167,7 +167,7 @@ character_class = 'fighter'
 player_ac = 10 + player_mods['dex mod']
 initiative_bonus = player_mods['dex mod']
 
-level = 4 # WIP
+level = 3
 player_exp = 0
 exp_needed = 100
 
@@ -183,7 +183,7 @@ print('Current Health: ', current_player_health)
 def skill_save(save_mod, dc):
     save = d20() + save_mod
     print(f'You rolled a {save}')
-    if save > dc:
+    if save >= dc:
         print('Success!')
         return True
     elif save < dc:

@@ -26,15 +26,15 @@ kobold = {
     'name': 'Kobold', 'title': '', 'caster': False,
     'health': (lambda: int((d4(4) - 2) * difficulty_silly)), 'weapon': 'dagger', 'ac': 7,
     'exp': int(25 * difficulty_silly), 'agression': 4,
-    'str mod': -2, 'dex mod': 2, 'con mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1,
+    'str mod': -2, 'dex mod': 2, 'end mod': -1, 'int mod': -1, 'wis mod': -2, 'cha mod': -1,
     'score': 20
 }
 
 slime = {
     'name': 'Slime', 'title': '', 'caster': False,
-    'health': (lambda: int(d4(2) * difficulty_silly)), 'weapon': 'dagger', 'ac': 6,
+    'health': (lambda: int(d4(2) * difficulty_silly)), 'weapon': 'slime', 'ac': 6,
     'exp': int(26 * difficulty_silly), 'agression': 20,
-    'str mod': -4, 'dex mod': -3, 'con mod': 5, 'int mod': -5, 'wis mod': -5, 'cha mod': 1,
+    'str mod': -4, 'dex mod': -3, 'end mod': 5, 'int mod': -5, 'wis mod': -5, 'cha mod': 1,
     'score': 10
 }
 
@@ -42,7 +42,7 @@ la_creatura = {
     'name': 'La Creatura', 'title': '',
     'health': (lambda: int(d4(8) * difficulty_silly)), 'weapon': 'sickle', 'ac': 0,
     'exp': int(50 * difficulty_silly), 'agrssion': 20,
-    'str mod': 3, 'dex mod': -2, 'con mod': 4, 'int mod': -3, 'wis mod': -2, 'cha mod': -1,
+    'str mod': 3, 'dex mod': -2, 'end mod': 4, 'int mod': -3, 'wis mod': -2, 'cha mod': -1,
     'score': 30
 }
 

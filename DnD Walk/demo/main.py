@@ -24,10 +24,10 @@ from default_functions import *
 player_is_alive = True
 
 name = input(Fore.GREEN +'\nWhat is your name?\n' + Fore.RESET)
-name = name.title()
+name_title = name.title()
 
 print()
-print(Fore.GREEN + 'Welcome ' + name + '! To my RPG demo!')
+print(Fore.GREEN + 'Welcome ' + name_title + '! To my RPG demo!')
 print('I\'d say it\'s pretty good (I am very biased)' + Fore.RESET)
 print()
 
@@ -63,7 +63,8 @@ Dungeon Floors ({w.dun_level}): {w.dun_level * 1000}
 Coins (c:{player_equipment['copper pieces']}, s:{player_equipment['silver pieces']}, g: {player_equipment['gold pieces']}): {round(player_equipment['copper pieces'] * 0.1) + player_equipment['silver pieces'] * 10 + player_equipment['gold pieces'] * 1000}
 Level({level}): {level * 100}
 difficulty({w.difficulty}): {w.difficulty * 1000}
-''')
+
+Total: {score}''')
 
 
 print()

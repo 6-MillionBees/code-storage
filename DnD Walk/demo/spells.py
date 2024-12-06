@@ -73,7 +73,7 @@ of flame hitting 3 adjacent enemies for {3 + spell_damage_increase}d6.''',
 details: You fire three homing bolts of glowing blue
 magic dealing {1 + int(spell_damage_increase / 2)}d4 + 1 to three enemies of your choice.''',
 
-    'fireball': f'''{Fore.GREEN}Fireball, level 2, AOE, {8 + int(spell_damage_increase / 2)}d6 {Fore.GREEN}
+    'fireball': f'''{Fore.GREEN}Fireball, level 2, AOE, {8 + int(spell_damage_increase / 2)}d6 {Fore.RESET}
 details : You throw a hurtling ball of fire that
 explodes on contact dealing {8 + int(spell_damage_increase / 2)}d6 to all enemies.'''
 }
@@ -122,7 +122,13 @@ def spells_menu():
                         print(f'''    {num1}.) {spell_descriptions[spell]}''')
                     cont()
                     continue
-
+                
+                try:
+                    int(spell_choice)
+                except ValueError:
+                    invalid()
+                    continue
+                
                 if spell_choice in range(1, len(player_spells) + 1):
                     break
                 else:
