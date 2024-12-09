@@ -191,7 +191,7 @@ def cast_acid_splash(enemies):
         else:
             invalid()
             continue
-    dictionary = {choice: lambda: d6(1 + spell_damage_increase)}
+    dictionary = {choice: d6(1 + spell_damage_increase)}
     return dictionary
 
 def cast_magic_missile(enemies):
@@ -218,11 +218,12 @@ def cast_magic_missile(enemies):
     for target in choice:
         dictionary[target] = 0
     for target in choice:
-        dictionary[target] += lambda: d4(1 + int(spell_damage_increase / 2) + 1)
-    
+        damage = lambda: d4(1 + int(spell_damage_increase / 2) + 1)
+        dictionary[target] += damage()
     return dictionary
 
 def cast_burning_hands(enemies):
+    print('You cast Burning Hands')
     var = 0
     while True:
         for enemy in enemies:
@@ -239,26 +240,22 @@ def cast_burning_hands(enemies):
             continue
     
     dictionary = {choice1: d6(3 + spell_damage_increase)}
-    try:
+    if choice0 >= 1:
         dictionary[choice0] = d6(3 + spell_damage_increase)
-    except IndexError:
-        dictionary = dictionary
-    try:
+    if choice2 <= len(enemies):
         dictionary[choice2] = d6(3 + spell_damage_increase)
-    except IndexError:
-        dictionary = dictionary
     return dictionary
 
 def cast_poison_spray(enemies):
-    print('You cast Fire Bolt')
+    print('You cast Poison Spray')
     choice1 = randint(1, len(enemies))
 
     rolling('Enemy Dex Save')
     enemy_save = skill_save(enemies[choice1 - 1]['dex mod'], 10 + (spell_damage_increase - 1))
     if enemy_save == True:
-        dictionary = {choice1: lambda: d10(1 + spell_damage_increase) / 2}
+        dictionary = {choice1: d10(1 + spell_damage_increase) / 2}
     elif enemy_save == False:
-        dictionary = {choice1: lambda: d10(1 + spell_damage_increase)}
+        dictionary = {choice1: d10(1 + spell_damage_increase)}
 
     if len(enemies) == 1:
         return dictionary
@@ -269,9 +266,9 @@ def cast_poison_spray(enemies):
 
     enemy_save = skill_save(enemies[choice2 - 1]['dex mod'], 10 + (spell_damage_increase - 1))
     if enemy_save == True:
-        dictionary += {choice2: lambda: d10(1 + spell_damage_increase) / 2}
+        dictionary += {choice2: d10(1 + spell_damage_increase) / 2}
     elif enemy_save == False:
-        dictionary += {choice2: lambda: d10(1 + spell_damage_increase)}
+        dictionary += {choice2: d10(1 + spell_damage_increase)}
 
     return dictionary
 
@@ -292,9 +289,9 @@ def cast_fire_bolt(enemies):
     rolling('Enemy Dex Save')
     enemy_save = skill_save(enemies[choice - 1]['dex mod'], 10 + (spell_damage_increase - 1))
     if enemy_save == True:
-        dictionary = {choice: lambda: d10(1 + spell_damage_increase) / 2}
+        dictionary = {choice: d10(1 + spell_damage_increase) / 2}
     elif enemy_save == False:
-        dictionary = {choice: lambda: d10(1 + spell_damage_increase)}
+        dictionary = {choice: d10(1 + spell_damage_increase)}
     return dictionary
 
 def cast_healing_word(enemies):
@@ -312,12 +309,12 @@ def cast_healing_word(enemies):
         else:
             invalid()
             continue
-    dictionary = {choice: lambda: d4(2 + int(spell_damage_increase / 2)) * -1}
+    dictionary = {choice: d4(2 + int(spell_damage_increase / 2)) * -1}
     return dictionary
 
 
 def cast_fireball(enemies):
     print('You cast Fireball.')
     cont()
-    dictionary = {1: lambda: d6(8), 2: lambda: d6(8), 3: lambda: d6(8), 4: lambda: d6(8),}
+    dictionary = {1: d6(8), 2: d6(8), 3: d6(8), 4: d6(8)}
     return dictionary

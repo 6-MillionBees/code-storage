@@ -70,11 +70,15 @@ def roll_to_hit(roll, dc, mod): # use this in combat to check if it hit
         print('\nSuccess!')
         return True
 
-def bar(current, total, bar_length = 20): # This is a bar for health and other things (I'll see what I use it for)
+def bar(current, total, bar_length = 20, text = 'hp'): # This is a bar for health and other things (I'll see what I use it for)
     fraction = current / total
-    arrow = int(fraction * bar_length) * '█'
+    extra = ''
+    if fraction > 1:
+        extra = '░'
+        fraction = 1
+    arrow = int(fraction * bar_length) * '█' + extra
     padding = int(bar_length - len(arrow)) * '-'
-    return f'{arrow}{padding} {round(current)}/{total} hp'
+    return f'{arrow}{padding} {round(current)}/{total} {text}'
 
 def int_input(words = ''):
     while True:

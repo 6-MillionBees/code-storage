@@ -284,10 +284,10 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     # I have it in a for loop so it can hit a single target multiple times
                     for target in player[1].keys(): 
                         if target == 0:
-                            damage = player[1][0]()
-                            current_player_health -= player[1][1]()
+                            damage = player[1][1]()
+                            current_player_health -= damage
                             if damage < 0:
-                                print(f'You gained {Fore.GREEN}{damage}{Fore.RESET} health.')
+                                print(f'You restored {Fore.GREEN}{damage}{Fore.RESET} health.')
                             else:
                                 print(f'You took {damage} damage.')
 
@@ -295,25 +295,25 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                                 current_player_health = player_health
 
                         if target == 1 and enemy1_is_alive:
-                            spell_damage = player[1][1]()
+                            spell_damage = player[1][target]
                             spell_damage = spell_damage * enemy1_blocking
                             enemy1_health -= spell_damage
                             print(f'{enemy1["name"]} took {spell_damage} damage.')
 
                         if target == 2 and enemy2_is_alive:
-                            spell_damage = player[1][1]()
+                            spell_damage = player[1][target]
                             spell_damage = spell_damage * enemy2_blocking
                             enemy2_health -= spell_damage
                             print(f'{enemy2["name"]} took {spell_damage} damage.')
 
                         if target == 3 and enemy3_is_alive:
-                            spell_damage = player[1][1]()
+                            spell_damage = player[1][target]
                             spell_damage = spell_damage * enemy3_blocking
                             enemy3_health -= spell_damage
                             print(f'{enemy3["name"]} took {spell_damage} damage.')
 
                         if target == 4 and enemy4_is_alive:
-                            spell_damage = player[1][1]()
+                            spell_damage = player[1][target]
                             spell_damage = spell_damage * enemy4_blocking
                             enemy4_health -= spell_damage
                             print(f'{enemy4["name"]} took {spell_damage} damage.')
@@ -386,4 +386,5 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
         print(Fore.GREEN + 'You Won!' + Fore.RESET)
         print(f'You gained {exp} exp')
         player_exp += exp
+        print(bar(player_exp, exp_needed, 15, 'exp'))
         return True

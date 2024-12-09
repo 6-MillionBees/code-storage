@@ -45,6 +45,8 @@ player_is_alive = True
 
 import world as w
 
+w.fight(w.slime, w.slime, w.slime, w.slime)
+
 while player_is_alive:
 
     w.print_dungeon(dungeon)

@@ -235,7 +235,7 @@ def dungeon_trap(column):
                 print('You don\'t manage to react in time.')
                 print(f'You took {damage} damage.')
                 cont()
-            return damage
+        return damage
 
     elif column == 'spike':
         if wis_save == True:
@@ -266,7 +266,7 @@ def dungeon_trap(column):
                 damage = d4(3)
                 print('You fell right into the traps thorny embrace.')
                 print(f'You took {damage} damage.')
-            return damage
+        return damage
 
 
 from items import *
@@ -367,9 +367,8 @@ def dungeon_effects(dungeon):
             if column[2] == True:
                 if column[0] == 'encounter':
                     if column[3]:
-                        dungeon_encounters(column)
-                        if current_player_health <= 0:
-                            player_is_alive = False
+                        player_is_alive = dungeon_encounters(column)
+                        if player_is_alive == False:
                             return
                         if player_exp >= exp_needed:
                             level_up()
@@ -385,11 +384,12 @@ def dungeon_effects(dungeon):
                         print('You\'ve been here before.')
 
                 elif column[0] == 'trap':
-                    current_player_health -= dungeon_trap(column[1])
-                    if current_player_health <= 0:
-                        player_is_alive = False
-                        return
-                    column[3] = False
+                    if column[3]:
+                        current_player_health -= dungeon_trap(column[1])
+                        if current_player_health <= 0:
+                            player_is_alive = False
+                            return
+                        column[3] = False
                     print(current_player_health, player_health)
 
                 elif column[0] == 'exit':
@@ -484,7 +484,7 @@ def movement_menu(dungeon):
     6.) Rest''')
         direction = int_input()
         if direction == 6:
-            rest()
+            rest(rested)
             rested = True
             return dungeon
         

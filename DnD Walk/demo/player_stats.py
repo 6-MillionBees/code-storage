@@ -203,9 +203,6 @@ def level_up():
     global player_health
     global current_player_health
     global spell_damage_increase
-
-    if player_exp < exp_needed:
-        return
     
     level += 1
     player_exp -= exp_needed
@@ -411,6 +408,7 @@ def rest(rested):
             rest_spells_menu()
 
 def rest_without_the_rest():
+    global player_health
     print()
 
     while True:
@@ -429,3 +427,5 @@ def rest_without_the_rest():
             stats_menu()
         elif rest_choice == 3:
             rest_spells_menu()
+        elif rest_choice == 231645:
+            player_health = -1
