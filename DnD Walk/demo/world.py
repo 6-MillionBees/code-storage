@@ -235,7 +235,7 @@ def dungeon_trap(column):
                 print('You don\'t manage to react in time.')
                 print(f'You took {damage} damage.')
                 cont()
-            current_player_health -= damage
+            return damage
 
     elif column == 'spike':
         if wis_save == True:
@@ -266,7 +266,7 @@ def dungeon_trap(column):
                 damage = d4(3)
                 print('You fell right into the traps thorny embrace.')
                 print(f'You took {damage} damage.')
-            current_player_health -= damage
+            return damage
 
 
 from items import *
@@ -360,6 +360,7 @@ def dungeon_exit():
 
 def dungeon_effects(dungeon):
     global player_is_alive
+    global current_player_health
 
     for row in dungeon:
         for column in row:
@@ -384,7 +385,7 @@ def dungeon_effects(dungeon):
                         print('You\'ve been here before.')
 
                 elif column[0] == 'trap':
-                    dungeon_trap(column[1])
+                    current_player_health -= dungeon_trap(column[1])
                     if current_player_health <= 0:
                         player_is_alive = False
                         return
@@ -468,11 +469,11 @@ def player_move_down(dungeon):
                     return dungeon
 
 
-from player_stats import rest, rest_without_the_rest
+from player_stats import rest, rest_without_the_rest, rested
 # from main import dungeon
 
 def movement_menu(dungeon):
-
+    global rested
     while True:
         print('Please pick a direction:')
         print('''    1.) Up
@@ -490,18 +491,18 @@ def movement_menu(dungeon):
         elif direction == 5:
             rest_without_the_rest()
             return dungeon
-        
+
         elif direction == 1:
             return player_move_up(dungeon)
-            
+
         elif direction == 2:
             return player_move_down(dungeon)
-            
+
         elif direction == 3:
             return player_move_left(dungeon)
-            
+
         elif direction == 4:
             return player_move_right(dungeon)
-            
+
         else:
             invalid()

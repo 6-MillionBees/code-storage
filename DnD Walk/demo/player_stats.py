@@ -379,7 +379,7 @@ def rest_spells_menu():
 
 rested = False
 
-def rest():
+def rest(rested):
     global current_player_health
     global current_player_spell_slots
 

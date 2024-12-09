@@ -218,7 +218,7 @@ def cast_magic_missile(enemies):
     for target in choice:
         dictionary[target] = 0
     for target in choice:
-        dictionary[target] += d4(1 + int(spell_damage_increase / 2) + 1)
+        dictionary[target] += lambda: d4(1 + int(spell_damage_increase / 2) + 1)
     
     return dictionary
 

@@ -74,7 +74,7 @@ def bar(current, total, bar_length = 20): # This is a bar for health and other t
     fraction = current / total
     arrow = int(fraction * bar_length) * '█'
     padding = int(bar_length - len(arrow)) * '-'
-    return f'{arrow}{padding} {round(current)} hp'
+    return f'{arrow}{padding} {round(current)}/{total} hp'
 
 def int_input(words = ''):
     while True:

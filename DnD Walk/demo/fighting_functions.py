@@ -69,30 +69,28 @@ def npc_turn(enemy, current_health, blocking):
     print('It\'s ' + enemy['name'] + '\'s turn')
     cont()
 
-    if enemy['caster'] == False:
-        roll = d10() + enemy['agression']
+    roll = d10() + enemy['agression']
 
-        if roll > 6:
-            print(enemy['name'] + ' is attacking.\n')
+    if roll > 6:
+        print(enemy['name'] + ' is attacking.\n')
 
-            damage = npc_attack(roll_to_hit(d20(), player_ac, enemy[weapon_mod[enemy['weapon']]]), enemy['weapon'], enemy)
-            damage = round(damage * blocking)
+        damage = npc_attack(roll_to_hit(d20(), player_ac, enemy[weapon_mod[enemy['weapon']]]), enemy['weapon'], enemy)
+        damage = round(damage * blocking)
 
-            if damage > 50:
-                print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
-            else:
-                print(f'You took {damage} damage.')
-                print()
-
-        elif roll <= 6:
-            enemy_blocking = 0.5
-            damage = 0
-            print(enemy['name'] + ' is blocking.')
-
+        if damage > 50:
+            print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
+        else:
+            print(f'You took {damage} damage.')
+            print()
         return 0, damage
 
-    cont()
-    return enemy_blocking, 0
+    elif roll <= 6:
+        enemy_blocking = 0.5
+        damage = 0
+        print(enemy['name'] + ' is blocking.')
+        cont()
+        return enemy_blocking, 0
+
 
 
 
@@ -104,14 +102,14 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
         while True:
             print('Your turn.\n')
             print(f'''Player Stats
-        Level.............{level}
-        Weapon............{weapon_name[player_equipment["equipped weapon"]]} ({weapon_print_damage[player_equipment['equipped weapon']]})
-        Health {bar(current_player_health, player_health, 20)}''')
+    Level.............{level}
+    Weapon............{weapon_name[player_equipment["equipped weapon"]]} ({weapon_print_damage[player_equipment['equipped weapon']]})
+    Health {bar(current_player_health, player_health, 20)}''')
             try:
                 player_turn = int(input(f'''
-                1. Attack 
-                2. Cast
-                3. Block\n'''))
+    1. Attack 
+    2. Cast
+    3. Block\n'''))
             except ValueError:
                 invalid()
             else:
