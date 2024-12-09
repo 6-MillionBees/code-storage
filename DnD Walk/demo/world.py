@@ -360,6 +360,7 @@ def dungeon_exit():
             invalid()
 
 def dungeon_effects(dungeon):
+    global player_exp
     global player_is_alive
     global current_player_health
 
