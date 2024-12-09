@@ -57,12 +57,13 @@ while player_is_alive:
     if effects == True:
         dungeon = make_dungeon()
         rested = False
+    from world import player_is_alive
 
 score = w.dun_level * 1000 + round(player_equipment['copper pieces'] * 0.1) + player_equipment['silver pieces'] * 10 + player_equipment['gold pieces'] * 1000
 
 print(f'''Score:
 Dungeon Floors ({w.dun_level}): {w.dun_level * 1000}
-Coins (c:{player_equipment['copper pieces']}, s:{player_equipment['silver pieces']}, g: {player_equipment['gold pieces']}): {round(player_equipment['copper pieces'] * 0.1) + player_equipment['silver pieces'] * 10 + player_equipment['gold pieces'] * 1000}
+Coins (c:{player_equipment['copper pieces']}, s:{player_equipment['silver pieces']}, g: {player_equipment['gold pieces']}): {player_equipment['copper pieces'] + player_equipment['silver pieces'] * 100 + player_equipment['gold pieces'] * 1000}
 Level({level}): {level * 100}
 difficulty({w.difficulty}): {w.difficulty * 1000}
 

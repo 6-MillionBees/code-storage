@@ -99,6 +99,7 @@ def spells_menu():
 
         if current_player_spell_slots[spell_level] <= 0:
             print('You don\'t have enough spell slots to cast that')
+            continue
 
         if spell_level == -1:
             return False

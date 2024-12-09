@@ -12,7 +12,7 @@ karma = 1
 luck_bonus = 0
 
 dun_level = 1
-difficulty = 1 + dun_level / 5
+difficulty = 1 + (dun_level - 1) / 5
 
 luck = lambda: (karma - 1) * 8 + 10 + luck_bonus
 luck_mod = lambda: int((luck() - 10) / 2)
@@ -20,6 +20,7 @@ luck_mod = lambda: int((luck() - 10) / 2)
 WIDTH = 5
 HEIGHT = 5
 dun_level = 1
+player_is_alive = True
 
 from default_functions import *
 
@@ -370,8 +371,12 @@ def dungeon_effects(dungeon):
                         player_is_alive = dungeon_encounters(column)
                         if player_is_alive == False:
                             return
+                        from fighting_functions import player_exp
+                        print(player_exp, exp_needed)
+                        print(player_exp >= exp_needed)
                         if player_exp >= exp_needed:
                             level_up()
+                        column[3] = False
                     else:
                         print('You\'ve been here before.')
 
