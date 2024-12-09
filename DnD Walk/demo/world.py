@@ -196,6 +196,7 @@ def dungeon_encounters(column):
 def dungeon_trap(column):
     global current_player_health
 
+    damage = 0
     rolling('')
     wis_save = skill_save(player_mods['wis mod'], 10 + int(difficulty / 2))
 
@@ -259,7 +260,6 @@ def dungeon_trap(column):
             rolling('Dexterity Save')
             dex_save = skill_save(player_mods['dex mod'], 10 + int(difficulty / 2))
             if dex_save == True:
-                damage = d4()
                 print('You manage to flail your arms enough to keep balance')
                 print(f'You took no damage.')
             elif dex_save == False:
@@ -370,6 +370,8 @@ def dungeon_effects(dungeon):
                         if current_player_health <= 0:
                             player_is_alive = False
                             return
+                        if player_exp >= exp_needed:
+                            level_up()
                     else:
                         print('You\'ve been here before.')
 
@@ -387,6 +389,7 @@ def dungeon_effects(dungeon):
                         player_is_alive = False
                         return
                     column[3] = False
+                    print(current_player_health, player_health)
 
                 elif column[0] == 'exit':
                     column[3] = False

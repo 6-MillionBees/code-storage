@@ -45,6 +45,7 @@ Enter a number 1-6: '''))
 
         except ValueError:
             invalid()
+            continue
 
         else:
             print()
@@ -196,16 +197,18 @@ from spells import spell_damage_increase
 def level_up():
 
     global level
+    global player_exp
+    global exp_needed
+    global player_stats
     global player_health
     global current_player_health
     global spell_damage_increase
-    global player_stats
-    global exp_needed
 
     if player_exp < exp_needed:
         return
     
     level += 1
+    player_exp -= exp_needed
     exp_needed *= 1.5
     exp_needed = int(exp_needed)
 
@@ -259,9 +262,9 @@ def level_up():
         max_player_spell_slots[2] += 1
 
 
+
+
 from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
-
-
 
 def rest_items_menu():
     global current_player_health

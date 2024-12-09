@@ -46,7 +46,10 @@ def rolling(rolling_for = ''): # this is used for drama *jazz hands*
     x =0
     while x <= 3:
         xperiod = x * '.'
-        print(f'\rRolling {rolling_for}{xperiod}',end='')
+        if rolling_for == '':
+            print(f'\rRolling{xperiod}',end='')
+        else:
+            print(f'\rRolling {rolling_for}{xperiod}',end='')
         x += 1
         sleep(1)
     print()

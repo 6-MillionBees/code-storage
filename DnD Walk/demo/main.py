@@ -45,10 +45,6 @@ player_is_alive = True
 
 import world as w
 
-from npc_stats import slime # REMOVE AFTER TESTING
-
-w.fight(slime, slime)
-
 while player_is_alive:
 
     w.print_dungeon(dungeon)

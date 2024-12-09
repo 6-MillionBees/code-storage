@@ -100,54 +100,54 @@ weapon_print_damage = {
 
 
 weapon_damage = {
-    'empty':             1,
+    'empty':             lambda: 1,
 
-    'club':              (lambda: d4()),
-    'dagger':            (lambda: d4()),
-    'great club':        (lambda: d4()),
-    'light hammer':      (lambda: d4()),
-    'sickle':            (lambda: d4()),
-    'whip':              (lambda: d4()),
+    'club':              lambda: d4(),
+    'dagger':            lambda: d4(),
+    'great club':        lambda: d4(),
+    'light hammer':      lambda: d4(),
+    'sickle':            lambda: d4(),
+    'whip':              lambda: d4(),
 
-    'handaxe':           (lambda: d6()),
-    'javelin':           (lambda: d6()),
-    'mace':              (lambda: d6()),
-    'scimitar':          (lambda: d6()),
-    'shortsword':        (lambda: d6()),
-    'spear':             (lambda: d6()),
-    'greatsword':        (lambda: d6(2)),
-    'maul':              (lambda: d6(2)),
+    'handaxe':           lambda: d6(),
+    'javelin':           lambda: d6(),
+    'mace':              lambda: d6(),
+    'scimitar':          lambda: d6(),
+    'shortsword':        lambda: d6(),
+    'spear':             lambda: d6(),
+    'greatsword':        lambda: d6(2),
+    'maul':              lambda: d6(2),
 
-    'flail':             (lambda: d8()),
-    'battle axe':        (lambda: d8()),
-    'lance':             (lambda: d8()),
-    'longsword':         (lambda: d8()),
-    'morningstar':       (lambda: d8()),
-    'quarterstaff':      (lambda: d8()),
-    'trident':           (lambda: d8()),
-    'rapier':            (lambda: d8()),
-    'war pick':          (lambda: d8()),
-    'warhammer':         (lambda: d8()),
+    'flail':             lambda: d8(),
+    'battle axe':        lambda: d8(),
+    'lance':             lambda: d8(),
+    'longsword':         lambda: d8(),
+    'morningstar':       lambda: d8(),
+    'quarterstaff':      lambda: d8(),
+    'trident':           lambda: d8(),
+    'rapier':            lambda: d8(),
+    'war pick':          lambda: d8(),
+    'warhammer':         lambda: d8(),
 
-    'glaive':            (lambda: d10()),
-    'halberd':           (lambda: d10()),
-    'pike':              (lambda: d10()),
+    'glaive':            lambda: d10(),
+    'halberd':           lambda: d10(),
+    'pike':              lambda: d10(),
 
-    'greataxe':          (lambda: d12()),
+    'greataxe':          lambda: d12(),
 
 
     # unique weapons
 
-    'lilys staff':       (lambda: d4(5)),
-    'player sif dagger': (lambda: d4(5)),
-    'dangolf staff':     (lambda: d6(4)), 
-    'golden spirit':     (lambda: d10(2)),
-    'sif dagger':        (lambda: 999), 
+    'lilys staff':       lambda: d4(5),
+    'player sif dagger': lambda: d4(5),
+    'dangolf staff':     lambda: d6(4), 
+    'golden spirit':     lambda: d10(2),
+    'sif dagger':        lambda: 999, 
 
     # No Touchy
 
-    'gun':               (lambda: 999999),
-    'slime':             (lambda: d4())
+    'gun':               lambda: 999999,
+    'slime':             lambda: d4()
 }
 
 weapon_mod = {

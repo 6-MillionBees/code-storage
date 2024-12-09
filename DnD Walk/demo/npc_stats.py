@@ -112,9 +112,11 @@ godwin = {
 
 def item_pickup(items):
     global player_equipment
-    for item, numbers in items:
-        player_equipment[item] += numbers
-        print(f'You picked up {numbers} {item}')
+    num = 0
+    for drop in items[0]:
+        player_equipment[drop] += items[1][num]
+        print(f'You picked up {items[1][num]} {drop}')
+        num += 1
 
 
 def common_table(no_of_items, enemy):
@@ -134,7 +136,7 @@ def common_table(no_of_items, enemy):
             numbers.append(randint(1, 10))
         elif rand > 50 and rand < 60:
             drops.append('silver pieces')
-            numbers.append(randint(1, 5))
+            numbers.append(randint(1, 3))
         elif rand > 60 and rand < 75:
             drops.append('health potion')
             numbers.append(1)
@@ -145,4 +147,4 @@ def common_table(no_of_items, enemy):
             drops.append('gold pieces')
             numbers.append(1)
         num += 1
-    return zip(drops, numbers), # unique_items
+    return drops, numbers, # unique_items

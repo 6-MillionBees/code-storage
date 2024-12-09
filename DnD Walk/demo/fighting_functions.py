@@ -2,7 +2,7 @@ from colorama import Fore
 # from random import randint
 
 from player_stats import * # IMPORT
-from items import *
+from items import weapon_damage, weapon_mod
 
 
 def roll_against(agressor_mod, agressor, defender, defender_mod):
@@ -122,26 +122,17 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
         
         if player_turn == 1:
             while True:
-                if no_of_enemy == 1:
-                    print(f'You attack {enemy1["name"]}')
-                    choice = 1
-
-                elif no_of_enemy > 1:
-                    print(f'''\nChoose who to attack:
-        1. {enemy1["name"]}{enemy1["title"]}
-        2. {enemy2["name"]}{enemy2["title"]}''')
-
-                elif no_of_enemy > 2:
-                    print(f'    3. {enemy3["name"]}{enemy3["title"]}')
-
-                elif no_of_enemy > 3:
-                    print(f'    4. {enemy4["name"]}{enemy4["title"]}')
+                enemies = [enemy1, enemy2, enemy3, enemy4]
+                for num in range(1, no_of_enemy + 1):
+                    if enemies[num - 1] != '':
+                        print(f'{num}.) {enemies[num - 1]["name"]}')
+                choice = int_input('Which enemy?: ')
                 print()
 
 
 
                 if choice == 1:
-                    damage =  attack(roll_to_hit(d20(), enemy1['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy1['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy1["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -149,7 +140,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     return 'attack', damage, enemy1['name']
 
                 elif choice == 2:
-                    damage =  attack(roll_to_hit(d20(), enemy2['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy2['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy2["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -157,7 +148,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     return 'attack', damage, enemy2['name']
 
                 elif choice == 3:
-                    damage =  attack(roll_to_hit(d20(), enemy3['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy3['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy3["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -165,7 +156,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     return 'attack', damage, enemy3['name']
 
                 elif choice == 4:
-                    damage =  attack(roll_to_hit(d20(), enemy4['ac'], weapon_mod[player_equipment['equipped weapon']]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy4['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy4["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -212,9 +203,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     exp = 0
 
     rolling('for Initiative')
-    player_dict['initiative'] = d20() + player_mods['dex mod'] + initiative_bonus
-    initiative = [player_dict]
-    print(f'\nYou rolled a {player_dict["initiative"]} for initiative.')
+    initiative = []
 
     enemy2_is_alive = False
     enemy3_is_alive = False
@@ -223,63 +212,35 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     enemy2_blocking = 1
     enemy3_blocking = 1
     enemy4_blocking = 1
+    enemy2_health = 0
+    enemy3_health = 0
+    enemy4_health = 0
 
     no_of_enemy = 1
     enemy1_is_alive = True
-    enemy1['initiative'] = d20() + enemy1['dex mod']
     enemy1_health = enemy1['health']()
-
-    if enemy1['initiative'] <= player_dict['initiative']:
-        initiative.append(enemy1)
-    else:
-        initiative.insert(0, enemy1)
-    print(enemy1['initiative']) # REMOVE AFTER TESTING
+    initiative.insert(randint(0, len(initiative)), enemy1)
 
     if enemy2 != '':
         enemy2_is_alive = True
         enemy2_health = enemy2['health']()
         no_of_enemy += 1
-
-        initiative_var = 0
-        enemy2['initiative'] = d20() + enemy2['dex mod']
-        for turn in initiative:
-            if turn['initiative'] > enemy2['initiative']:
-                initiative_var += 1
-            else:
-                initiative.insert(initiative_var, enemy2)
-                break
-        print(enemy2['initiative']) # REMOVE AFTER TESTING
+        initiative.insert(randint(0, len(initiative)), enemy2)
 
 
     if enemy3 != '':
         enemy3_is_alive = True
         enemy3_health = enemy3['health']()
         no_of_enemy += 1
-
-        initiative_var = 0
-        enemy3['initiative'] = d20() + enemy3['dex mod']
-        for turn in initiative:
-            if turn['initiative'] > enemy3['initiative']:
-                initiative_var += 1
-            else:
-                initiative.insert(initiative_var, enemy3)
-                break
-        print(enemy3['initiative']) # REMOVE AFTER TESTING
+        initiative.insert(randint(0, len(initiative)), enemy3)
 
     if enemy4 != '':
         enemy4_is_alive = True
         enemy4_health = enemy4['health']()
         no_of_enemy += 1
+        initiative.insert(randint(0, len(initiative)), enemy4)
 
-        initiative_var = 0
-        enemy4['initiative'] = d20() + enemy4['dex mod']
-        for turn in initiative:
-            if turn['initiative'] > enemy4['initiative']:
-                initiative_var += 1
-            else:
-                initiative.insert(initiative_var, enemy4)
-                break
-        print(enemy4['initiative']) # REMOVE AFTER TESTING
+    initiative.insert(randint(0, len(initiative)), player_dict)
 
     print()
     print('Initiative Order:')
@@ -339,7 +300,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                             spell_damage = player[1][1]()
                             spell_damage = spell_damage * enemy1_blocking
                             enemy1_health -= spell_damage
-                            print(f'{enemy1["name"]} took {damage} damage.')
+                            print(f'{enemy1["name"]} took {spell_damage} damage.')
 
                         if target == 2 and enemy2_is_alive:
                             spell_damage = player[1][1]()
@@ -366,7 +327,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy1['exp']
                     print('+', enemy1['exp'], 'exp')
-                    item_pickup(common_table(2))
+                    item_pickup(common_table(2, enemy1))
                     cont()
 
                 if enemy2_health <= 0 and enemy2_is_alive:
@@ -375,7 +336,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy2['exp']
                     print('+', enemy2['exp'], 'exp')
-                    item_pickup(common_table(2))
+                    item_pickup(common_table(2, enemy2))
                     cont()
 
                 if enemy3_health <= 0 and enemy3_is_alive:
@@ -384,7 +345,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy3['exp']
                     print('+', enemy3['exp'], 'exp')
-                    item_pickup(common_table(2))
+                    item_pickup(common_table(2, enemy3))
                     cont()
 
                 if enemy4_health <= 0 and enemy4_is_alive:
@@ -393,7 +354,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
                     no_of_enemy -= 1
                     exp += enemy4['exp']
                     print('+', enemy4['exp'], 'exp')
-                    item_pickup(common_table(2))
+                    item_pickup(common_table(2, enemy4))
                     cont()
 
 
@@ -422,6 +383,7 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
         print(Fore.RED + 'You Died.' + Fore.RESET)
         player_is_alive = False
         return False
+
     elif no_of_enemy == 0:
         print(Fore.GREEN + 'You Won!' + Fore.RESET)
         print(f'You gained {exp} exp')
