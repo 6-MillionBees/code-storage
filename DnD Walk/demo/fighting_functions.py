@@ -85,11 +85,9 @@ def npc_turn(enemy, current_health, blocking):
         return 0, damage
 
     elif roll <= 6:
-        enemy_blocking = 0.5
-        damage = 0
         print(enemy['name'] + ' is blocking.')
         cont()
-        return enemy_blocking, 0
+        return 0.5, 0
 
 
 
@@ -359,22 +357,22 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
             elif turn == enemy1 and enemy1_is_alive:
                 enemy1_turn = npc_turn(enemy1, enemy1_health, blocking)
                 enemy1_blocking = enemy1_turn[0]
-                current_player_health -= enemy1_turn[1]
+                current_player_health -= enemy1_turn[1] * blocking
 
             elif turn == enemy2 and enemy2_is_alive:
                 enemy2_turn = npc_turn(enemy2, enemy2_health, blocking)
                 enemy2_blocking = enemy2_turn[0]
-                current_player_health -= enemy2_turn[1]
+                current_player_health -= enemy2_turn[1] * blocking
 
             elif turn == enemy3 and enemy3_is_alive:
                 enemy3_turn = npc_turn(enemy3, enemy3_health, blocking)
                 enemy3_blocking = enemy3_turn[0]
-                current_player_health -= enemy3_turn[1]
+                current_player_health -= enemy3_turn[1] * blocking
 
             elif turn == enemy4 and enemy4_is_alive:
                 enemy4_turn = npc_turn(enemy4, enemy4_health, blocking)
                 enemy4_blocking = enemy4_turn[0]
-                current_player_health -= enemy4_turn[1]
+                current_player_health -= enemy4_turn[1] * blocking
 
     if current_player_health <= 0:
         global player_is_alive

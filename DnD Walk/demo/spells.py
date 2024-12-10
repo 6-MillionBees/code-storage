@@ -232,7 +232,7 @@ def cast_burning_hands(enemies):
             print(f'{var}.) {enemy["name"]}')
 
         choice1 = int_input(f'Which enemy do you attack?: ')
-        if choice1 in range(1, var + 1):
+        if choice1 in range(1, len(enemies) + 1):
             choice0 = choice1 - 1
             choice2 = choice1 + 1
             break

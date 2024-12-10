@@ -40,12 +40,12 @@ from world import make_dungeon
 
 print(f'you are here > {Fore.GREEN}+{Fore.RESET}')
 print()
-dungeon = make_dungeon()
+dungeon = [[['exit', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True]], [['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True]], [['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['encounter', 'slime', False, True]], [['empty', None, False, True], ['encounter', 'goblin', False, True], ['encounter', 'mixed', False, True], ['empty', None, False, True], ['encounter', 'goblin', False, True]], [['trap', 'dart', False, True], ['empty', None, False, True], ['chest', None, False, True], ['empty', None, False, True], ['entrance', None, True, False]]]
 player_is_alive = True
 
 import world as w
 
-w.fight(w.slime, w.slime, w.slime, w.slime)
+
 
 while player_is_alive:
 
