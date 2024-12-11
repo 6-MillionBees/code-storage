@@ -191,7 +191,7 @@ from npc_stats import *
 # If it ain't broke don't fix it
 player_dict = {'initiative': 0, 'name': 'You'}
 
-def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
+def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     global player_health
     global current_player_health
     global player_exp
@@ -212,25 +212,36 @@ def fight(enemy1, enemy2 = '', enemy3 = '', enemy4 = ''):
     enemy3_health = 0
     enemy4_health = 0
 
+    
+
+
+    enemy1 = enemy1_og
+    enemy1['name'] = enemy1['name'] + '1'
     no_of_enemy = 1
     enemy1_is_alive = True
     enemy1_health = enemy1['health']()
     initiative.insert(randint(0, len(initiative)), enemy1)
 
-    if enemy2 != '':
+    if enemy2_og != '':
+        enemy2 = enemy2_og
+        enemy2['name'] = enemy2['name'] + '2'
         enemy2_is_alive = True
         enemy2_health = enemy2['health']()
         no_of_enemy += 1
         initiative.insert(randint(0, len(initiative)), enemy2)
 
 
-    if enemy3 != '':
+    if enemy3_og != '':
+        enemy3 = enemy3_og
+        enemy3['name'] = enemy3['name'] + '3'
         enemy3_is_alive = True
         enemy3_health = enemy3['health']()
         no_of_enemy += 1
         initiative.insert(randint(0, len(initiative)), enemy3)
 
-    if enemy4 != '':
+    if enemy4_og != '':
+        enemy4 = enemy4_og
+        enemy4['name'] = enemy4['name'] + '4'
         enemy4_is_alive = True
         enemy4_health = enemy4['health']()
         no_of_enemy += 1
