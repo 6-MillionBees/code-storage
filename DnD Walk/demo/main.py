@@ -36,11 +36,19 @@ cont()
 print('To start we\'re going to assign your stats (this is permenent)')
 
 from player_stats import *
+
+player_health = starting_hit_dice[character_class] + player_mods['end mod']
+for x in range(level):
+    player_health += hit_dice[character_class]()
+current_player_health = player_health
+
+print('Total Health: ', player_health)
+print('Current Health: ', current_player_health)
+
 from world import make_dungeon
 
+dungeon = make_dungeon()
 print(f'you are here > {Fore.GREEN}+{Fore.RESET}')
-print()
-dungeon = [[['exit', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True]], [['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True]], [['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['empty', None, False, True], ['encounter', 'slime', False, True]], [['empty', None, False, True], ['encounter', 'goblin', False, True], ['encounter', 'mixed', False, True], ['empty', None, False, True], ['encounter', 'goblin', False, True]], [['trap', 'dart', False, True], ['empty', None, False, True], ['chest', None, False, True], ['empty', None, False, True], ['entrance', None, True, False]]]
 player_is_alive = True
 
 import world as w

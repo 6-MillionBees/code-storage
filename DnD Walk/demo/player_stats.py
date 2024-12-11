@@ -172,14 +172,6 @@ level = 3
 player_exp = 0
 exp_needed = 100
 
-player_health = starting_hit_dice[character_class] + player_mods['end mod']
-for x in range(level):
-    player_health += hit_dice[character_class]()
-current_player_health = player_health
-
-print('Total Health: ', player_health)
-print('Current Health: ', current_player_health)
-
 
 def skill_save(save_mod, dc):
     save = d20() + save_mod
