@@ -1,110 +1,93 @@
 from random import randint
-from colorama import Fore
-difficulty = 1
+from default_functions import rolling
+from dice import *
 
-WIDTH = 5
-HEIGHT = 5
+player_dict = {'initiative': 0, 'name': 'You'}
 
-def make_dungeon():
-    dungeon = []
-    for row in range(HEIGHT):
-        dungeon.append([])
+goblin = {
+    'name': 'Goblin', 'title': '', 'caster': False,
+    'health': (lambda: int(d6(1) + 6)), 'weapon': 'dagger', 'ac': 5,
+    'exp': int(50), 'agression': 5,
+    'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1,
+    'score': 20
+}
 
-        for column in range(WIDTH):
-            type = randint(1, 25)
 
-            if type <= 4:
-                encounter_type_num = randint(1, 100)
-                encounter_type = 'goblin'
-                if encounter_type_num <= 20:
-                    encounter_type = 'goblin'
-                elif encounter_type_num > 20 and encounter_type_num <= 40:
-                    encounter_type = 'kobold'
-                elif encounter_type_num > 40 and encounter_type_num <= 50:
-                    encounter_type = 'slime'
-                elif encounter_type_num > 50 and encounter_type_num <= 70:
-                    encounter_type = 'mixed'
-                elif encounter_type_num > 70 and encounter_type_num <= 80:
-                    encounter_type = 'la creatura'
-                elif encounter_type_num > 80 and encounter_type_num <= 85:
-                    encounter_type = 'kyle'
-                elif encounter_type_num > 85 and encounter_type_num <= 90:
-                    encounter_type = 'gronk'
-                elif encounter_type_num > 90 and encounter_type_num <= 96 and 1 >= 3:
-                    encounter_type = 'dangolf'
-                elif encounter_type_num > 96 and encounter_type_num <= 99:
-                    encounter_type = 'siffrin traveler'
-                elif encounter_type_num == 100 and difficulty >= 5:
-                    encounter_type = 'siffrin lost'
-                else:
-                    encounter_type = 'slime'
+no_of_turns = 0
+exp = 0
 
-                dungeon[row].append(['encounter', encounter_type, False, True])
+initiative = []
 
-            elif 4 < type <= 6:
-                dungeon[row].append(['chest', None, False, True])
-
-            elif 6 < type <= 8:
-                trap_type_rand = randint(1, 10)
-                if trap_type_rand <= 5:
-                    trap_type = 'dart'
-                elif 5 < trap_type_rand <= 10:
-                    trap_type = 'spike'
-                dungeon[row].append(['trap', trap_type, False, True])
-
-            else:
-                dungeon[row].append(['empty', None, False, True])
-
-    def find_entrance(dungeon):
-        while True:
-            for row in dungeon:
-                for column in row:
-                    if column[0] == 'empty':
-                        entrance_rand = randint(1, 25)
-                        if entrance_rand == 1:
-                            column[0] = 'entrance'
-                            column[2] = True
-                            column[3] = False
-                            return dungeon
-
-    def find_exit(dungeon):
-        while True:
-            for row in dungeon:
-                for column in row:
-                    if column[0] == 'empty':
-                        entrance_rand = randint(1, 25)
-                        if entrance_rand == 1:
-                            column[0] = 'exit'
-                            return dungeon
-
-    dungeon = find_entrance(dungeon)
-    dungeon = find_exit(dungeon)
-
-    return dungeon
+enemy2_is_alive = False
+enemy3_is_alive = False
+enemy4_is_alive = False
+enemy1_blocking = 1
+enemy2_blocking = 1
+enemy3_blocking = 1
+enemy4_blocking = 1
+enemy2_health = 0
+enemy3_health = 0
+enemy4_health = 0
 
 
 
 
-def print_dungeon(dungeon):
-    print(f'Floor')
-    printing_dungeon = ''
-    for row in dungeon:
-        for column in row:
-            if column[2] == True:
-                printing_dungeon += f'{Fore.GREEN}+{Fore.RESET}'
-            elif column[0] == 'empty':
-                printing_dungeon += '·'
-            elif column[0] == 'exit':
-                printing_dungeon += 'E'
-            elif column[0] == 'encounter':
-                printing_dungeon += 'F'
-            elif column[0] == 'chest':
-                printing_dungeon += 'C'
-            elif column[0] == 'trap':
-                printing_dungeon += 'T'
-            elif column[0] == 'entrance':
-                printing_dungeon += 'e'
-        printing_dungeon += '\n'
-    print(printing_dungeon)
+enemy1 = goblin
+enemy1['name'] = enemy1['name'] + ' 1'
+print(enemy1)
+no_of_enemy = 1
+enemy1_is_alive = True
+enemy1_health = enemy1['health']()
+initiative.insert(randint(0, len(initiative)), enemy1)
 
-print(make_dungeon())
+print(goblin)
+
+if goblin != '':
+    enemy2 = goblin
+    enemy2['name'] = enemy2['name'] + ' 2'
+    print(enemy1)
+    print(enemy2)
+    enemy2_is_alive = True
+    enemy2_health = enemy2['health']()
+    no_of_enemy += 1
+    initiative.insert(randint(0, len(initiative)), enemy2)
+
+print(goblin)
+
+if goblin != '':
+    enemy3 = goblin
+    enemy3['name'] = enemy3['name'] + ' 3'
+    print(enemy1)
+    print(enemy2)
+    print(enemy3)
+    enemy3_is_alive = True
+    enemy3_health = enemy3['health']()
+    no_of_enemy += 1
+    initiative.insert(randint(0, len(initiative)), enemy3)
+
+print(goblin)
+
+if goblin != '':
+    enemy4 = goblin
+    enemy4['name'] = enemy4['name'] + ' 4'
+    print(enemy1)
+    print(enemy2)
+    print(enemy3)
+    print(enemy4)
+    enemy4_is_alive = True
+    enemy4_health = enemy4['health']()
+    no_of_enemy += 1
+    initiative.insert(randint(0, len(initiative)), enemy4)
+
+initiative.insert(randint(0, len(initiative)), player_dict)
+
+print()
+print('Initiative Order:')
+initiative_print_num = 0
+for turn in initiative:
+    if initiative_print_num == 0:
+        print(turn['name'], end = '')
+        initiative_print_num += 1
+    else:
+        print(f', {turn["name"]}', end = '')
+print()
