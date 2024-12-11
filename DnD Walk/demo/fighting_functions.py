@@ -216,7 +216,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
 
     enemy1 = enemy1_og
-    enemy1['name'] = enemy1['name'] + '1'
+    enemy1['name'] = enemy1['name'] + ' 1'
     no_of_enemy = 1
     enemy1_is_alive = True
     enemy1_health = enemy1['health']()
@@ -224,7 +224,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
     if enemy2_og != '':
         enemy2 = enemy2_og
-        enemy2['name'] = enemy2['name'] + '2'
+        enemy2['name'] = enemy2['name'] + ' 2'
         enemy2_is_alive = True
         enemy2_health = enemy2['health']()
         no_of_enemy += 1
@@ -233,7 +233,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
     if enemy3_og != '':
         enemy3 = enemy3_og
-        enemy3['name'] = enemy3['name'] + '3'
+        enemy3['name'] = enemy3['name'] + ' 3'
         enemy3_is_alive = True
         enemy3_health = enemy3['health']()
         no_of_enemy += 1
@@ -241,7 +241,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
     if enemy4_og != '':
         enemy4 = enemy4_og
-        enemy4['name'] = enemy4['name'] + '4'
+        enemy4['name'] = enemy4['name'] + ' 4'
         enemy4_is_alive = True
         enemy4_health = enemy4['health']()
         no_of_enemy += 1

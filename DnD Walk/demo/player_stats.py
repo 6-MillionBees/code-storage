@@ -299,7 +299,7 @@ Health Potions: {player_equipment['health potion']}
                 confirm = int_input('''    1.) Yes
     2.) No
 ''')
-                if confirm in range(1, 3):
+                if confirm == 1:
                     if current_player_health == player_health:
                         print('You already have full health.')
                         current_player_health = player_health
@@ -312,6 +312,8 @@ Health Potions: {player_equipment['health potion']}
                     print(f'You gained {health_potion} health.')
                     bar(current_player_health, player_health, 15)
                     player_equipment['health potion'] -= 1
+                    break
+                elif confirm == 2:
                     break
                 else:
                     invalid()
@@ -370,6 +372,7 @@ rested = False
 
 def rest(rested):
     global current_player_health
+    # from world import current_player_health, player_health
     global current_player_spell_slots
 
     if rested == True:
