@@ -212,10 +212,8 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     enemy3_health = 0
     enemy4_health = 0
 
-    
 
-
-    enemy1 = enemy1_og
+    enemy1 = dict(enemy1_og)
     enemy1['name'] = enemy1['name'] + ' 1'
     no_of_enemy = 1
     enemy1_is_alive = True
@@ -223,7 +221,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     initiative.insert(randint(0, len(initiative)), enemy1)
 
     if enemy2_og != '':
-        enemy2 = enemy2_og
+        enemy2 = dict(enemy2_og)
         enemy2['name'] = enemy2['name'] + ' 2'
         enemy2_is_alive = True
         enemy2_health = enemy2['health']()
@@ -232,7 +230,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
 
     if enemy3_og != '':
-        enemy3 = enemy3_og
+        enemy3 = dict(enemy3_og)
         enemy3['name'] = enemy3['name'] + ' 3'
         enemy3_is_alive = True
         enemy3_health = enemy3['health']()
@@ -240,7 +238,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
         initiative.insert(randint(0, len(initiative)), enemy3)
 
     if enemy4_og != '':
-        enemy4 = enemy4_og
+        enemy4 = dict(enemy4_og)
         enemy4['name'] = enemy4['name'] + ' 4'
         enemy4_is_alive = True
         enemy4_health = enemy4['health']()

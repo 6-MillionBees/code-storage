@@ -32,7 +32,7 @@ enemy4_health = 0
 
 
 
-enemy1 = goblin
+enemy1 = dict(goblin)
 enemy1['name'] = enemy1['name'] + ' 1'
 print(enemy1)
 no_of_enemy = 1
@@ -43,7 +43,7 @@ initiative.insert(randint(0, len(initiative)), enemy1)
 print(goblin)
 
 if goblin != '':
-    enemy2 = goblin
+    enemy2 = dict(goblin)
     enemy2['name'] = enemy2['name'] + ' 2'
     print(enemy1)
     print(enemy2)
@@ -55,7 +55,7 @@ if goblin != '':
 print(goblin)
 
 if goblin != '':
-    enemy3 = goblin
+    enemy3 = dict(goblin)
     enemy3['name'] = enemy3['name'] + ' 3'
     print(enemy1)
     print(enemy2)
@@ -68,7 +68,7 @@ if goblin != '':
 print(goblin)
 
 if goblin != '':
-    enemy4 = goblin
+    enemy4 = dict(goblin)
     enemy4['name'] = enemy4['name'] + ' 4'
     print(enemy1)
     print(enemy2)
