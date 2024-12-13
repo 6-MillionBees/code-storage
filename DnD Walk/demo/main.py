@@ -21,8 +21,6 @@ from default_functions import *
 # You might notice that 
 
 
-player_is_alive = True
-
 name = input(Fore.GREEN +'\nWhat is your name?\n' + Fore.RESET)
 name_title = name.title()
 
@@ -39,6 +37,7 @@ from player_stats import *
 
 print('Total Health: ', player_health)
 print('Current Health: ', current_player_health)
+cont()
 
 from world import make_dungeon
 
@@ -48,20 +47,22 @@ player_is_alive = True
 
 import world as w
 
-
-
 while player_is_alive:
-
     w.print_dungeon(dungeon)
     dungeon = w.movement_menu(dungeon)
     print()
     effects = w.dungeon_effects(dungeon)
     cont()
+    from player_stats import player_exp, exp_needed
+    if player_exp >= exp_needed:
+        level_up()
     if effects == True:
         dungeon = make_dungeon()
         rested = False
     from world import player_is_alive
 
+
+from items import player_equipment
 score = w.dun_level * 1000 + round(player_equipment['copper pieces'] * 0.1) + player_equipment['silver pieces'] * 10 + player_equipment['gold pieces'] * 1000
 
 print(f'''Score:

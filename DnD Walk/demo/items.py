@@ -361,3 +361,15 @@ def drop_weapon():
             else:
                 continue
             return
+
+
+def count_coints():
+    global player_equipment
+    from items import player_equipment
+    while player_equipment['copper pieces'] >= 100:
+        player_equipment['copper pieces'] - 100
+        player_equipment['silver pieces'] += 1
+    
+    while player_equipment['silver pieces'] >= 100:
+        player_equipment['silver pieces'] - 100
+        player_equipment['gold pieces'] += 1

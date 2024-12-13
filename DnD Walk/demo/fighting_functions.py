@@ -65,7 +65,6 @@ def attack(tohit, weapon):
 from spells import * # IMPORT
 
 def npc_turn(enemy, current_health, blocking):
-    global current_player_health
     print('It\'s ' + enemy['name'] + '\'s turn')
     cont()
 
@@ -88,9 +87,6 @@ def npc_turn(enemy, current_health, blocking):
         print(enemy['name'] + ' is blocking.')
         cont()
         return 0.5, 0
-
-
-
 
 
 
@@ -195,6 +191,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     global player_health
     global current_player_health
     global player_exp
+    from player_stats import player_exp, player_health, current_player_health
     no_of_turns = 0
     exp = 0
 
@@ -211,6 +208,9 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     enemy2_health = 0
     enemy3_health = 0
     enemy4_health = 0
+    enemy2 = ''
+    enemy3 = ''
+    enemy4 = ''
 
 
     enemy1 = dict(enemy1_og)
@@ -227,7 +227,6 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
         enemy2_health = enemy2['health']()
         no_of_enemy += 1
         initiative.insert(randint(0, len(initiative)), enemy2)
-
 
     if enemy3_og != '':
         enemy3 = dict(enemy3_og)

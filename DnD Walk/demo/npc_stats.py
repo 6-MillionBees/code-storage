@@ -51,7 +51,7 @@ la_creatura = {
 
 lily = {
     'name': 'Lily', 'title': '', 
-    'health': d6(3) + 10, 'weapon': 'staff', 'ac': 8, 'exp': 250, 'agression': 0,
+    'health': (lambda: d6(3) + 10), 'weapon': 'lilys staff', 'ac': 8, 'exp': 250, 'agression': 0,
     'str mod': 0, 'dex mod': 1, 'end mod': 1, 'int mod': 3, 'wis mod': 2, 'cha mod': 1,
     'casting mod': 3,
     'spells': 'firebolt'
@@ -59,49 +59,49 @@ lily = {
 
 kile = {
     'name': 'Kile', 'title': ', With An I', 
-    'health': d4(4) + 20, 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
+    'health': (lambda: d4(4) + 20), 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
     'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1,
     'casting mod': 0
 }
 
 kyle = {
     'name': 'Kyle', 'title': ', With A Y',
-    'health': d4(4) + 20, 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
+    'health': (lambda: d4(4) + 20), 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
     'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1,
     'casting mod': 0
 }
 
 gronk = {
     'name': 'Gronk', 'title': ', The Killer', 'caster': False,
-    'health': d6(4) + 20, 'weapon': 'maul', 'ac': 13, 'exp': 200, 'agression': 3,
+    'health': (lambda: d6(4) + 20), 'weapon': 'maul', 'ac': 13, 'exp': 200, 'agression': 3,
     'str mod': 4, 'dex mod': -1, 'end mod': 3, 'int mod': -2, 'wis mod': -1, 'cha mod': 0,
     'casting mod': 0
 }
 
 siffrin_traveler = {
     'name': 'Siffrin', 'title': ', The Traveler', 'caster': False,
-    'health': 50, 'weapon': 'dagger', 'ac': 13, 'exp': 500, 'agression': 6,
+    'health': (lambda: 50), 'weapon': 'dagger', 'ac': 13, 'exp': 500, 'agression': 6,
     'str mod': 0, 'dex mod': 5, 'end mod': 2, 'int mod': 1, 'wis mod': -1, 'cha mod': 2,
     'casting mod': 0
 }
 
 siffrin_lost = {
     'name': 'Siffrin', 'title': ', The Lost', 'caster': False,
-    'health': 999, 'weapon': 'sif dagger', 'ac': 15, 'exp': 9999, 'agression': 10,
+    'health': (lambda: 999), 'weapon': 'sif dagger', 'ac': 15, 'exp': 9999, 'agression': 10,
     'str mod': 0, 'dex mod': 6, 'end mod': 3, 'int mod': 0, 'wis mod': -2, 'cha mod': 1,
     'casting mod': 0
 }
 
 dangolf = {
     'name': 'Dangolf', 'title': ', The Gold',
-    'health': 150, 'weapon': 'dangolf staff', 'ac': 10, 'exp': 1000, 'agression': 2,
+    'health': (lambda: 150), 'weapon': 'dangolf staff', 'ac': 10, 'exp': 1000, 'agression': 2,
     'str mod': -2, 'dex mod': -2, 'end mod': 2, 'int mod': 5, 'wis mod': 10, 'cha mod': 2,
     'casting mod': 0
 }
 
 godwin = {
     'name': 'Godwin', 'title': ', The Golden',
-    'health': 30, 'weapon': 'golden spirit', 'ac': 12, 'exp': 2000, 'agression': -3,
+    'health': (lambda: 30), 'weapon': 'golden spirit', 'ac': 12, 'exp': 2000, 'agression': -3,
     'str mod': 5, 'dex mod': 2, 'end mod': 4, 'int mod': 1, 'wis mod': 2, 'cha mod': 10,
     'casting mod': 0
 }

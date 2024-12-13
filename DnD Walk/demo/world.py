@@ -109,10 +109,10 @@ def print_dungeon(dungeon):
     printing_dungeon = ''
     for row in dungeon:
         for column in row:
-            if column[3]:
-                printing_dungeon += '█'
-            elif column[2] == True:
+            if column[2] == True:
                 printing_dungeon += f'{Fore.GREEN}+{Fore.RESET}'
+            elif column[3]:
+                printing_dungeon += '█'
             elif column[0] == 'empty':
                 printing_dungeon += '·'
             elif column[0] == 'exit':
@@ -168,11 +168,17 @@ def dungeon_encounters(column):
         encounter = fight(la_creatura, slime)
 
     elif column[1] == 'kyle':
-        random_kyile = randint(1, 2)
-        if random_kyile == 1:
-            encounter = fight(kile)
-        elif random_kyile == 2:
+        print('You walk into a room, and you see a person standing there like a weirdo.')
+        print('He asks you "Is K?le spelled with an I or a Y?".')
+        answer = int_input('''    1.) "With an I!"
+    2.) "With a Y!"
+> ''')
+
+        print('He gets visibly angry with your answer and he charges at you with his sword drawn.')
+        if answer == 1:
             encounter = fight(kyle)
+        elif answer == 2:
+            encounter = fight(kile)
 
     elif column[1] == 'gronk':
         encounter = fight(gronk, lily)
@@ -195,16 +201,17 @@ def dungeon_encounters(column):
 
 
 def dungeon_trap(column):
-    global current_player_health
 
     damage = 0
-    rolling('')
-    wis_save = skill_save(player_mods['wis mod'], 10 + int(difficulty / 2))
 
     if column[3] == False:
         print('You\'ve been here before')
+        return 0
 
-    elif column == 'dart':
+    rolling('')
+    wis_save = skill_save(player_mods['wis mod'], 10 + int(difficulty / 2))
+
+    if column == 'dart':
         int_save = False
         if wis_save == True:
 
@@ -220,7 +227,7 @@ def dungeon_trap(column):
 
             if int_save == True:
                 print('You manage to defuse the trap, letting you move forward.')
-                return
+                return damage
 
         if wis_save == False or int_save == False:
             print('The dart trap inside of the room goes off!')
@@ -255,7 +262,7 @@ def dungeon_trap(column):
             if str_save == True:
                 print('You just barely manage to jump over the gap.')
                 cont()
-                return
+                return damage
         else:
             print('You fall into a spike trap!')
             rolling('Dexterity Save')
@@ -361,8 +368,9 @@ def dungeon_exit():
 
 def dungeon_effects(dungeon):
     global player_exp
-    global player_is_alive
     global current_player_health
+    global player_is_alive
+    from player_stats import player_exp, current_player_health, player_is_alive
 
     for row in dungeon:
         for column in row:
@@ -372,7 +380,7 @@ def dungeon_effects(dungeon):
                         player_is_alive = dungeon_encounters(column)
                         if player_is_alive == False:
                             return
-                        from fighting_functions import player_exp
+                        from player_stats import player_exp, exp_needed
                         print(player_exp, exp_needed)
                         print(player_exp >= exp_needed)
                         if player_exp >= exp_needed:
@@ -476,7 +484,6 @@ def player_move_down(dungeon):
 
 
 from player_stats import rest, rest_without_the_rest, rested
-# from main import dungeon
 
 def movement_menu(dungeon):
     global rested

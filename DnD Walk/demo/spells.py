@@ -37,13 +37,13 @@ print_spell_level = {
 current_player_spell_slots = { # WIP
     0: -1,
     1: 3,
-    2: 1,
+    2: 99, # REMOVE AFTER TESTING
 }
 
 max_player_spell_slots = { # WIP
     0: -1,
     1: 3,
-    2: 1,
+    2: 99, # REMOVE AFTER TESTING
 }
 
 spell_descriptions = {
@@ -57,7 +57,7 @@ unlucky enemy damaging it for {1 + spell_damage_increase}d10 fire damage on a
 failed dexterity save and half that on a success.''',
 
     'poison spray': f'''{Fore.GREEN}Poison Spray, cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
-details: You sent a puff of noxious gas towards two random
+details: You send a puff of noxious gas towards two random
 enemies, they take {1 + spell_damage_increase}d6 damage on a failed constitution
 save and half that on a success.''',
 
@@ -71,7 +71,7 @@ of flame hitting 3 adjacent enemies for {3 + spell_damage_increase}d6.''',
 
     'magic missile': f'''{Fore.GREEN}Magic Missile, level 1, multi-hit, {1 + int(spell_damage_increase / 2)}d4 + 1 {Fore.RESET}
 details: You fire three homing bolts of glowing blue
-magic dealing {1 + int(spell_damage_increase / 2)}d4 + 1 to three enemies of your choice.''',
+magic dealing {1 + int(spell_damage_increase / 2)}d4 + {spell_damage_increase} to three enemies of your choice.''',
 
     'fireball': f'''{Fore.GREEN}Fireball, level 2, AOE, {8 + int(spell_damage_increase / 2)}d6 {Fore.RESET}
 details : You throw a hurtling ball of fire that

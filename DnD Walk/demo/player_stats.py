@@ -6,6 +6,8 @@
 from default_functions import *
 from dice import *
 
+player_is_alive = True
+
 is_str_chosen = False
 is_dex_chosen = False
 is_end_chosen = False
@@ -376,7 +378,6 @@ rested = False
 
 def rest(rested):
     global current_player_health
-    # from world import current_player_health, player_health
     global current_player_spell_slots
 
     if rested == True:
