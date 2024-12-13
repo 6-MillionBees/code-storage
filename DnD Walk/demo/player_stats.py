@@ -258,10 +258,9 @@ def level_up():
 
 
 
-from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
 
 def rest_items_menu():
-    global current_player_health
+    from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
 
     print()
     print('What do you want to do?')
