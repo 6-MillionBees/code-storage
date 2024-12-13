@@ -370,7 +370,6 @@ def dungeon_effects(dungeon):
     global player_exp
     global current_player_health
     global player_is_alive
-    from player_stats import player_exp, current_player_health, player_is_alive
 
     for row in dungeon:
         for column in row:
@@ -380,7 +379,6 @@ def dungeon_effects(dungeon):
                         player_is_alive = dungeon_encounters(column)
                         if player_is_alive == False:
                             return
-                        from player_stats import player_exp, exp_needed
                         print(player_exp, exp_needed)
                         print(player_exp >= exp_needed)
                         if player_exp >= exp_needed:
