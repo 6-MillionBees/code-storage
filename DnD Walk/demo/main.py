@@ -62,15 +62,10 @@ while player_is_alive:
     print()
     effects = w.dungeon_effects(dungeon)
     cont()
-<<<<<<< HEAD
-    if player_exp >= exp_needed:
-        level_up()
-=======
 
     if player.player_exp >= player.exp_needed:
         player.level_up()
 
->>>>>>> 8ab430013675fe45c4e328a612a2c25dddc2486d
     if effects == True:
         dungeon = make_dungeon()
         rested = False
