@@ -379,7 +379,6 @@ def dungeon_effects(dungeon):
                         player_is_alive = dungeon_encounters(column)
                         if player_is_alive == False:
                             return
-                        from player_stats import player_exp, exp_needed
                         print(player_exp, exp_needed)
                         print(player_exp >= exp_needed)
                         if player_exp >= exp_needed:

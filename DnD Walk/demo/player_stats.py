@@ -259,10 +259,9 @@ def level_up():
 
 
 
-
+from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
 
 def rest_items_menu():
-    from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
 
     print()
     print('What do you want to do?')
@@ -278,17 +277,17 @@ def rest_items_menu():
         elif items_choice == 1:
             print(f'''
 weapons:
-Equipped: {weapon_name[player_equipment['equipped weapon']]} damage: {weapon_print_damage[player_equipment['equipped weapon']]}
-Stored 1: {weapon_name[player_equipment['stored weapon 1']]} damage: {weapon_print_damage[player_equipment['stored weapon 1']]}
-Stored 2: {weapon_name[player_equipment['stored weapon 2']]} damage: {weapon_print_damage[player_equipment['stored weapon 2']]}
-Stored 3: {weapon_name[player_equipment['stored weapon 3']]} damage: {weapon_print_damage[player_equipment['stored weapon 3']]}
-Stored 4: {weapon_name[player_equipment['stored weapon 4']]} damage: {weapon_print_damage[player_equipment['stored weapon 4']]}
-Stored 5: {weapon_name[player_equipment['stored weapon 5']]} damage: {weapon_print_damage[player_equipment['stored weapon 5']]}
+Equipped: {weapon_name[player_equipment['equipped weapon']]}    damage: {weapon_print_damage[player_equipment['equipped weapon']]}
+Stored 1: {weapon_name[player_equipment['stored weapon 1']]}    damage: {weapon_print_damage[player_equipment['stored weapon 1']]}
+Stored 2: {weapon_name[player_equipment['stored weapon 2']]}    damage: {weapon_print_damage[player_equipment['stored weapon 2']]}
+Stored 3: {weapon_name[player_equipment['stored weapon 3']]}    damage: {weapon_print_damage[player_equipment['stored weapon 3']]}
+Stored 4: {weapon_name[player_equipment['stored weapon 4']]}    damage: {weapon_print_damage[player_equipment['stored weapon 4']]}
+Stored 5: {weapon_name[player_equipment['stored weapon 5']]}    damage: {weapon_print_damage[player_equipment['stored weapon 5']]}
 
 items:
-Copper Pieces: {player_equipment['copper pieces']}
-Silver Pieces: {player_equipment['silver pieces']}
-Gold Pieces: {player_equipment['gold pieces']}
+Copper Pieces:  {player_equipment['copper pieces']}
+Silver Pieces:  {player_equipment['silver pieces']}
+Gold Pieces:    {player_equipment['gold pieces']}
 Health Potions: {player_equipment['health potion']}
 ''')
             cont()

@@ -81,7 +81,7 @@ def npc_turn(enemy, current_health, blocking):
         else:
             print(f'You took {damage} damage.')
             print()
-        return 0, damage
+        return 1, damage
 
     elif roll <= 6:
         print(enemy['name'] + ' is blocking.')
@@ -191,7 +191,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     global player_health
     global current_player_health
     global player_exp
-    from player_stats import player_exp, player_health, current_player_health
+    import main
     no_of_turns = 0
     exp = 0
 
@@ -214,7 +214,6 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
 
     enemy1 = dict(enemy1_og)
-    enemy1['name'] = enemy1['name'] + ' 1'
     no_of_enemy = 1
     enemy1_is_alive = True
     enemy1_health = enemy1['health']()
@@ -222,7 +221,10 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
     if enemy2_og != '':
         enemy2 = dict(enemy2_og)
-        enemy2['name'] = enemy2['name'] + ' 2'
+        num = 0
+        while enemy2 in initiative:
+            num += 1
+            enemy2['name'] = enemy2_og['name'] + ' ' + str(num)
         enemy2_is_alive = True
         enemy2_health = enemy2['health']()
         no_of_enemy += 1
@@ -230,7 +232,10 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
     if enemy3_og != '':
         enemy3 = dict(enemy3_og)
-        enemy3['name'] = enemy3['name'] + ' 3'
+        num = 0
+        while enemy2 in initiative:
+            num += 1
+            enemy3['name'] = enemy3_og['name'] + ' ' + str(num)
         enemy3_is_alive = True
         enemy3_health = enemy3['health']()
         no_of_enemy += 1
@@ -238,7 +243,10 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
     if enemy4_og != '':
         enemy4 = dict(enemy4_og)
-        enemy4['name'] = enemy4['name'] + ' 4'
+        num = 0
+        while enemy4 in initiative:
+            num += 1
+            enemy4['name'] = enemy4_og['name'] + ' ' + str(num)
         enemy4_is_alive = True
         enemy4_health = enemy4['health']()
         no_of_enemy += 1
@@ -286,8 +294,10 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                         enemy4_health -= player[1] * enemy4_blocking
 
                 elif player[0] == 'cast':
+                    blocking = 1
 
                     # I have it in a for loop so it can hit a single target multiple times
+                    # (magic missile)
                     for target in player[1].keys(): 
                         if target == 0:
                             damage = player[1][1]()
@@ -365,22 +375,34 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
             elif turn == enemy1 and enemy1_is_alive:
                 enemy1_turn = npc_turn(enemy1, enemy1_health, blocking)
                 enemy1_blocking = enemy1_turn[0]
-                current_player_health -= enemy1_turn[1] * blocking
+                damage = enemy1_turn[1] * blocking
+                current_player_health -= damage
+                if damage != 0:
+                    print(f'You took {damage} damage.')
 
             elif turn == enemy2 and enemy2_is_alive:
                 enemy2_turn = npc_turn(enemy2, enemy2_health, blocking)
                 enemy2_blocking = enemy2_turn[0]
-                current_player_health -= enemy2_turn[1] * blocking
+                damage = enemy2_turn[1] * blocking
+                current_player_health -= damage
+                if damage != 0:
+                    print(f'You took {damage} damage.')
 
             elif turn == enemy3 and enemy3_is_alive:
                 enemy3_turn = npc_turn(enemy3, enemy3_health, blocking)
                 enemy3_blocking = enemy3_turn[0]
-                current_player_health -= enemy3_turn[1] * blocking
+                damage = enemy3_turn[1] * blocking
+                current_player_health -= damage
+                if damage != 0:
+                    print(f'You took {damage} damage.')
 
             elif turn == enemy4 and enemy4_is_alive:
                 enemy4_turn = npc_turn(enemy4, enemy4_health, blocking)
                 enemy4_blocking = enemy4_turn[0]
-                current_player_health -= enemy4_turn[1] * blocking
+                damage = enemy4_turn[1] * blocking
+                current_player_health -= damage
+                if damage != 0:
+                    print(f'You took {damage} damage.')
 
     if current_player_health <= 0:
         global player_is_alive
