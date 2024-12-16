@@ -4,7 +4,7 @@
 
 from default_functions import *
 from dice import *
-from player_stats import *
+from main import user
 
 weapon_name = {
     'empty':             'Empty',
@@ -195,50 +195,42 @@ weapon_mod = {
     'slime':             'end mod'
 }
 
-player_equipment = {
-    'equipped weapon': 'empty', 'stored weapon 1': 'empty', 'stored weapon 2': 'empty', 'stored weapon 3': 'empty',
-    'stored weapon 4': 'empty', 'stored weapon 5': 'empty',
-    'equipped armor': '', 'stored armor': '',
-    'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'rope': 0, 'health potion': 0,
-    'common keys': 0
-}
-
 player_unique_items = []
 
 def unarmored():
-    player_ac = 10 + player_mods['dex mod']
+    player_ac = 10 + user.mods['dex mod']
     return player_ac
 
 def pickupweapon(weapon):
     print(f'you picked up a {weapon_name[weapon]}')
     while True:
         choice = int_input(f'''Which slot should it be put in?
-    1. {weapon_name[player_equipment['stored weapon 1']]} ({weapon_print_damage[player_equipment['stored weapon 1']]})
-    2. {weapon_name[player_equipment['stored weapon 2']]} ({weapon_print_damage[player_equipment['stored weapon 2']]})
-    3. {weapon_name[player_equipment['stored weapon 3']]} ({weapon_print_damage[player_equipment['stored weapon 3']]})
-    4. {weapon_name[player_equipment['stored weapon 4']]} ({weapon_print_damage[player_equipment['stored weapon 4']]})
-    5. {weapon_name[player_equipment['stored weapon 5']]} ({weapon_print_damage[player_equipment['stored weapon 5']]})
+    1. {weapon_name[user.equipment['stored weapon 1']]} ({weapon_print_damage[user.equipment['stored weapon 1']]})
+    2. {weapon_name[user.equipment['stored weapon 2']]} ({weapon_print_damage[user.equipment['stored weapon 2']]})
+    3. {weapon_name[user.equipment['stored weapon 3']]} ({weapon_print_damage[user.equipment['stored weapon 3']]})
+    4. {weapon_name[user.equipment['stored weapon 4']]} ({weapon_print_damage[user.equipment['stored weapon 4']]})
+    5. {weapon_name[user.equipment['stored weapon 5']]} ({weapon_print_damage[user.equipment['stored weapon 5']]})
     6. Throw away (cannot be undone)\n''')
         ynchoice = confirm()
         if ynchoice == True:
             if choice == 1:
-                player_equipment['stored weapon 1'] = weapon
+                user.equipment['stored weapon 1'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 2:
-                player_equipment['stored weapon 2'] = weapon
+                user.equipment['stored weapon 2'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 3:
-                player_equipment['stored weapon 3'] = weapon
+                user.equipment['stored weapon 3'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 4:
-                player_equipment['stored weapon 4'] = weapon
+                user.equipment['stored weapon 4'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 5:
-                player_equipment['stored weapon 5'] = weapon
+                user.equipment['stored weapon 5'] = weapon
                 print('You pick up the weapon')
                 break
             elif choice == 6:
@@ -254,45 +246,45 @@ def equip_weapon():
     while True:
         choice = int_input(f'''Which weapon do you want to equip?
 
-current: {weapon_name[player_equipment['equipped weapon']]} ({weapon_print_damage[player_equipment['equipped weapon']]})
+current: {weapon_name[user.equipment['equipped weapon']]} ({weapon_print_damage[user.equipment['equipped weapon']]})
 
-    1. {weapon_name[player_equipment['stored weapon 1']]} ({weapon_print_damage[player_equipment['stored weapon 1']]})
-    2. {weapon_name[player_equipment['stored weapon 2']]} ({weapon_print_damage[player_equipment['stored weapon 2']]})
-    3. {weapon_name[player_equipment['stored weapon 3']]} ({weapon_print_damage[player_equipment['stored weapon 3']]})
-    4. {weapon_name[player_equipment['stored weapon 4']]} ({weapon_print_damage[player_equipment['stored weapon 4']]})
-    5. {weapon_name[player_equipment['stored weapon 5']]} ({weapon_print_damage[player_equipment['stored weapon 5']]})
+    1. {weapon_name[user.equipment['stored weapon 1']]} ({weapon_print_damage[user.equipment['stored weapon 1']]})
+    2. {weapon_name[user.equipment['stored weapon 2']]} ({weapon_print_damage[user.equipment['stored weapon 2']]})
+    3. {weapon_name[user.equipment['stored weapon 3']]} ({weapon_print_damage[user.equipment['stored weapon 3']]})
+    4. {weapon_name[user.equipment['stored weapon 4']]} ({weapon_print_damage[user.equipment['stored weapon 4']]})
+    5. {weapon_name[user.equipment['stored weapon 5']]} ({weapon_print_damage[user.equipment['stored weapon 5']]})
     6. Throw away (cannot be undone)\n''')
         ynchoice = confirm()
         if ynchoice == True:
             if choice == 1:
-                var = player_equipment['equipped weapon']
-                player_equipment['equipped weapon'] = player_equipment['stored weapon 1']
-                player_equipment['stored weapon 1'] = var
-                print(f'You equip {player_equipment["equipped weapon"]}')
+                var = user.equipment['equipped weapon']
+                user.equipment['equipped weapon'] = user.equipment['stored weapon 1']
+                user.equipment['stored weapon 1'] = var
+                print(f'You equip {user.equipment["equipped weapon"]}')
                 break
             elif choice == 2:
-                var = player_equipment['equipped weapon']
-                player_equipment['equipped weapon'] = player_equipment['stored weapon 2']
-                player_equipment['stored weapon 2'] = var
-                print(f'You equip {player_equipment["equipped weapon"]}')
+                var = user.equipment['equipped weapon']
+                user.equipment['equipped weapon'] = user.equipment['stored weapon 2']
+                user.equipment['stored weapon 2'] = var
+                print(f'You equip {user.equipment["equipped weapon"]}')
                 break
             elif choice == 3:
-                var = player_equipment['equipped weapon']
-                player_equipment['equipped weapon'] = player_equipment['stored weapon 3']
-                player_equipment['stored weapon 3'] = var
-                print(f'You equip {player_equipment["equipped weapon"]}')
+                var = user.equipment['equipped weapon']
+                user.equipment['equipped weapon'] = user.equipment['stored weapon 3']
+                user.equipment['stored weapon 3'] = var
+                print(f'You equip {user.equipment["equipped weapon"]}')
                 break
             elif choice == 4:
-                var = player_equipment['equipped weapon']
-                player_equipment['equipped weapon'] = player_equipment['stored weapon 4']
-                player_equipment['stored weapon 4'] = var
-                print(f'You equip {player_equipment["equipped weapon"]}')
+                var = user.equipment['equipped weapon']
+                user.equipment['equipped weapon'] = user.equipment['stored weapon 4']
+                user.equipment['stored weapon 4'] = var
+                print(f'You equip {user.equipment["equipped weapon"]}')
                 break
             elif choice == 5:
-                var = player_equipment['equipped weapon']
-                player_equipment['equipped weapon'] = player_equipment['stored weapon 5']
-                player_equipment['stored weapon 5'] = var
-                print(f'You equip {player_equipment["equipped weapon"]}')
+                var = user.equipment['equipped weapon']
+                user.equipment['equipped weapon'] = user.equipment['stored weapon 5']
+                user.equipment['stored weapon 5'] = var
+                print(f'You equip {user.equipment["equipped weapon"]}')
                 break
             elif choice == 6:
                 print('You don\'t equip the weapon')
@@ -334,15 +326,13 @@ def pickupitem(item):
 
 
 def drop_weapon():
-    global player_unique_items
-    player_unique_items.sort()
     print('Which item?')
     print(f'''
-    1.) {weapon_name[player_equipment['stored weapon 1']]}
-    2.) {weapon_name[player_equipment['stored weapon 2']]}
-    3.) {weapon_name[player_equipment['stored weapon 3']]}
-    4.) {weapon_name[player_equipment['stored weapon 4']]}
-    5.) {weapon_name[player_equipment['stored weapon 5']]}''')
+    1.) {weapon_name[user.equipment['stored weapon 1']]}
+    2.) {weapon_name[user.equipment['stored weapon 2']]}
+    3.) {weapon_name[user.equipment['stored weapon 3']]}
+    4.) {weapon_name[user.equipment['stored weapon 4']]}
+    5.) {weapon_name[user.equipment['stored weapon 5']]}''')
 
     while True:
         try:
@@ -354,27 +344,25 @@ def drop_weapon():
             if dropped_item == -1:
                 return
             elif dropped_item == 1:
-                player_equipment['stored weapon 1']
+                user.equipment['stored weapon 1']
             elif dropped_item == 2:
-                player_equipment['stored weapon 2']
+                user.equipment['stored weapon 2']
             elif dropped_item == 3:
-                player_equipment['stored weapon 3']
+                user.equipment['stored weapon 3']
             elif dropped_item == 4:
-                player_equipment['stored weapon 4']
+                user.equipment['stored weapon 4']
             elif dropped_item == 5:
-                player_equipment['stored weapon 5']
+                user.equipment['stored weapon 5']
             else:
                 continue
             return
 
 
 def count_coints():
-    global player_equipment
-    from items import player_equipment
-    while player_equipment['copper pieces'] >= 100:
-        player_equipment['copper pieces'] - 100
-        player_equipment['silver pieces'] += 1
+    while user.equipment['copper pieces'] >= 100:
+        user.equipment['copper pieces'] - 100
+        user.equipment['silver pieces'] += 1
     
-    while player_equipment['silver pieces'] >= 100:
-        player_equipment['silver pieces'] - 100
-        player_equipment['gold pieces'] += 1
+    while user.equipment['silver pieces'] >= 100:
+        user.equipment['silver pieces'] - 100
+        user.equipment['gold pieces'] += 1

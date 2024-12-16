@@ -7,6 +7,53 @@ from default_functions import *
 from dice import *
 
 
+
+
+starting_hit_dice = {
+    'barbarian': 12,
+    'bard':      8,
+    'cleric':    8,
+    'fighter':   10,
+    'monk':      8,
+    'paladin':   10,
+    'rogue':     8,
+    'sorcerer':  6,
+    'warlock':   8,
+    'wizard':    6,
+}
+
+hit_dice = {
+    'barbarian': (lambda: d12()),
+    'bard':      (lambda: d8()),
+    'cleric':    (lambda: d8()),
+    'fighter':   (lambda: d10()),
+    'monk':      (lambda: d8()),
+    'paladin':   (lambda: d10()),
+    'rogue':     (lambda: d8()),
+    'sorcerer':  (lambda: d6()),
+    'warlock':   (lambda: d8()),
+    'wizard':    (lambda: d6()),
+}
+
+
+
+def skill_save(save_mod, dc):
+    save = d20() + save_mod
+    print(f'You rolled a {save}')
+    if save >= dc:
+        print('Success!')
+        return True
+    elif save < dc:
+        print('Failure.')
+        return False
+
+
+from spells import *
+
+
+rested = False
+
+
 class player:
 
     def __init__(self, level):
@@ -20,6 +67,8 @@ class player:
         player.character_class       = 'fighter'
         player.ac                    = 0
         player.mods                  = {}
+        player.max_spell_slots       = {0: -1, 1: 3, 2: 99} # REMOVE AFTER TESTING
+        player.current_spell_slots   = player.max_spell_slots
         player.equipment             = {
     'equipped weapon': 'empty', 'stored weapon 1': 'empty', 'stored weapon 2': 'empty', 'stored weapon 3': 'empty',
     'stored weapon 4': 'empty', 'stored weapon 5': 'empty',
@@ -27,12 +76,11 @@ class player:
     'copper pieces': 0, 'silver pieces': 0,  'gold pieces': 0, 'arrows': 0, 'rope': 0, 'health potion': 0,
     'common keys': 0}
 
-    def define_stats(self):
 
-        self.health = starting_hit_dice[self.character_class] + self.mods['end mod']
-        for x in range(self.level):
-            self.player_health += hit_dice[self.character_class]()
-        self.current_health = self.health
+
+
+
+    def define_stats(self):
 
         is_str_chosen = False
         is_dex_chosen = False
@@ -142,13 +190,22 @@ class player:
                     continue
             stats_choice_num += 1
         self.mods = {
-    'str mod': int((self.stats['str'] - 10) / 2),
-    'dex mod': int((self.stats['dex'] - 10) / 2),
-    'end mod': int((self.stats['end'] - 10) / 2),
-    'int mod': int((self.stats['int'] - 10) / 2),
-    'wis mod': int((self.stats['wis'] - 10) / 2),
-    'cha mod': int((self.stats['cha'] - 10) / 2),}
+            'str mod': int((self.stats['str'] - 10) / 2),
+            'dex mod': int((self.stats['dex'] - 10) / 2),
+            'end mod': int((self.stats['end'] - 10) / 2),
+            'int mod': int((self.stats['int'] - 10) / 2),
+            'wis mod': int((self.stats['wis'] - 10) / 2),
+            'cha mod': int((self.stats['cha'] - 10) / 2),}
         self.ac = 10 + self.mods['dex mod']
+
+        self.health = starting_hit_dice[self.character_class] + self.mods['end mod']
+        for x in range(self.level):
+            self.health += hit_dice[self.character_class]()
+        self.current_health = self.health
+
+
+
+
 
 
     def levelup(self):
@@ -202,15 +259,129 @@ class player:
                     continue
 
         if self.level % 3 == 0:
-            max_player_spell_slots[1] += 1
+            player.max_spell_slots[1] += 1
             print('You gained one level 1 spell slot.')
         if self.level % 4 == 0:
-            max_player_spell_slots[2] += 1
+            player.max_spell_slots[2] += 1
             print('You gained one level 2 spell slot.')
-    
-    def rest(self):
 
-        if self.rested == True:
+
+
+    def rest_items_menu(self):
+        from items import weapon_name, weapon_print_damage, drop_weapon, equip_weapon
+        print()
+        print('What do you want to do?')
+        while True:
+            print('''    1.) Veiw all items
+        2.) Drop Item
+        3.) Use Potion
+        4.) Equip Weapon
+        5.) Exit''')
+            items_choice = int_input()
+            if items_choice == 5:
+                return
+            elif items_choice == 1:
+                print(f'''
+weapons:
+Equipped: {weapon_name[self.equipment['equipped weapon']]}    damage: {weapon_print_damage[self.equipment['equipped weapon']]}
+Stored 1: {weapon_name[self.equipment['stored weapon 1']]}    damage: {weapon_print_damage[self.equipment['stored weapon 1']]}
+Stored 2: {weapon_name[self.equipment['stored weapon 2']]}    damage: {weapon_print_damage[self.equipment['stored weapon 2']]}
+Stored 3: {weapon_name[self.equipment['stored weapon 3']]}    damage: {weapon_print_damage[self.equipment['stored weapon 3']]}
+Stored 4: {weapon_name[self.equipment['stored weapon 4']]}    damage: {weapon_print_damage[self.equipment['stored weapon 4']]}
+Stored 5: {weapon_name[self.equipment['stored weapon 5']]}    damage: {weapon_print_damage[self.equipment['stored weapon 5']]}
+
+items:
+Copper Pieces:  {self.equipment['copper pieces']}
+Silver Pieces:  {self.equipment['silver pieces']}
+Gold Pieces:    {self.equipment['gold pieces']}
+Health Potions: {self.equipment['health potion']}
+''')
+                cont()
+                continue
+            elif items_choice == 2:
+                drop_weapon()
+                continue
+            elif items_choice == 3:
+                print('Use Health Potion? (2d4)')
+                if self.equipment['health potion'] == 0:
+                    print('You don\'t have any potions')
+                    continue
+                while True:
+                    confirm = int_input('''    1.) Yes
+        2.) No
+    ''')
+                    if confirm == 1:
+                        if current_player_health == self.health:
+                            print('You already have full health.')
+                            current_player_health = self.health
+                            break
+
+                        health_potion = d4(2)
+                        current_player_health += health_potion
+                        if current_player_health >= self.health:
+                            current_player_health = self.health
+                        print(f'You gained {health_potion} health.')
+                        bar(current_player_health, self.health, 15)
+                        self.equipment['health potion'] -= 1
+                        break
+                    elif confirm == 2:
+                        break
+                    else:
+                        invalid()
+                        continue
+                
+            elif items_choice == 4:
+                equip_weapon()
+            else:
+                invalid()
+                continue
+
+    def rest_spells_menu(self):
+
+        from spells import spell_descriptions # IMPORT
+
+        print('Current/Max Spell Slots:')
+        for spell_level in self.max_spell_slots.keys():
+            print(f'level {spell_level}: {self.current_spell_slots[spell_level]}/{self.max_spell_slots[spell_level]}')
+        while True:
+            num = 0
+            print('See spell descriptions (-1 to exit)')
+            for spell_level in max_player_spell_slots.keys():
+                num += 1
+                print(f'    {spell_level}.) {", ".join(player_spells[spell_level])}')
+
+            spell_level = int_input()
+
+            if spell_level == -1:
+                return
+            elif spell_level not in range(num + 1):
+                continue
+    
+            num1 = 0
+            for spell in player_spells[spell_level]:
+                num1 += 1
+                print(f'''    {num1}.) {spell_descriptions[spell]}\n''')
+            cont()
+
+    def stats_menu(self):
+        print('Stats:')
+        print(f'''
+Strength:       {self.stats["str"]}     modifier: {self.mods["str mod"]}
+Dexterity:      {self.stats["dex"]}     modifier: {self.mods["dex mod"]}
+Endurance:      {self.stats["end"]}     modifier: {self.mods["end mod"]}
+Inteligence:    {self.stats["int"]}     modifier: {self.mods["int mod"]}
+Wisdom:         {self.stats["wis"]}     modifier: {self.mods["wis mod"]}
+Charisma:       {self.stats["cha"]}     modifier: {self.mods["cha mod"]}
+
+Health {self.current_health}/{self.health}
+    {bar(self.current_health, self.health, 15)}''')
+        cont()
+
+    def rest(self, menu):
+
+        if menu:
+            pass
+        elif self.rested == True:
             print('Since you already rested on this floor you don\'t get any health back')
         else:
             print('You have been restored to full health')
@@ -231,12 +402,12 @@ class player:
             if rest_choice == 4:
                 return
             elif rest_choice == 1:
-                rest_items_menu(self)
+                self.rest_items_menu(self)
                 continue
             elif rest_choice == 2:
-                stats_menu(self)
+                self.stats_menu()
             elif rest_choice == 3:
-                rest_spells_menu(self)
+                self.rest_spells_menu(self)
 
 
 
@@ -246,183 +417,3 @@ class player:
 
 # So I don't actually have enough time to add multiple classes sooooooo
 # Work in progress
-
-starting_hit_dice = {
-    'barbarian': 12,
-    'bard':      8,
-    'cleric':    8,
-    'fighter':   10,
-    'monk':      8,
-    'paladin':   10,
-    'rogue':     8,
-    'sorcerer':  6,
-    'warlock':   8,
-    'wizard':    6,
-}
-
-hit_dice = {
-    'barbarian': (lambda: d12()),
-    'bard':      (lambda: d8()),
-    'cleric':    (lambda: d8()),
-    'fighter':   (lambda: d10()),
-    'monk':      (lambda: d8()),
-    'paladin':   (lambda: d10()),
-    'rogue':     (lambda: d8()),
-    'sorcerer':  (lambda: d6()),
-    'warlock':   (lambda: d8()),
-    'wizard':    (lambda: d6()),
-}
-
-
-
-def skill_save(save_mod, dc):
-    save = d20() + save_mod
-    print(f'You rolled a {save}')
-    if save >= dc:
-        print('Success!')
-        return True
-    elif save < dc:
-        print('Failure.')
-        return False
-
-
-from items import weapon_name, weapon_print_damage, player_equipment, drop_weapon, equip_weapon
-
-def rest_items_menu():
-
-    print()
-    print('What do you want to do?')
-    while True:
-        print('''    1.) Veiw all items
-    2.) Drop Item
-    3.) Use Potion
-    4.) Equip Weapon
-    5.) Exit''')
-        items_choice = int_input()
-        if items_choice == 5:
-            return
-        elif items_choice == 1:
-            print(f'''
-weapons:
-Equipped: {weapon_name[player_equipment['equipped weapon']]}    damage: {weapon_print_damage[player_equipment['equipped weapon']]}
-Stored 1: {weapon_name[player_equipment['stored weapon 1']]}    damage: {weapon_print_damage[player_equipment['stored weapon 1']]}
-Stored 2: {weapon_name[player_equipment['stored weapon 2']]}    damage: {weapon_print_damage[player_equipment['stored weapon 2']]}
-Stored 3: {weapon_name[player_equipment['stored weapon 3']]}    damage: {weapon_print_damage[player_equipment['stored weapon 3']]}
-Stored 4: {weapon_name[player_equipment['stored weapon 4']]}    damage: {weapon_print_damage[player_equipment['stored weapon 4']]}
-Stored 5: {weapon_name[player_equipment['stored weapon 5']]}    damage: {weapon_print_damage[player_equipment['stored weapon 5']]}
-
-items:
-Copper Pieces:  {player_equipment['copper pieces']}
-Silver Pieces:  {player_equipment['silver pieces']}
-Gold Pieces:    {player_equipment['gold pieces']}
-Health Potions: {player_equipment['health potion']}
-''')
-            cont()
-            continue
-        elif items_choice == 2:
-            drop_weapon()
-            continue
-        elif items_choice == 3:
-            print('Use Health Potion? (2d4)')
-            if player_equipment['health potion'] == 0:
-                print('You don\'t have any potions')
-                continue
-            while True:
-                confirm = int_input('''    1.) Yes
-    2.) No
-''')
-                if confirm == 1:
-                    if current_player_health == player_health:
-                        print('You already have full health.')
-                        current_player_health = player_health
-                        break
-
-                    health_potion = d4(2)
-                    current_player_health += health_potion
-                    if current_player_health >= player_health:
-                        current_player_health = player_health
-                    print(f'You gained {health_potion} health.')
-                    bar(current_player_health, player_health, 15)
-                    player_equipment['health potion'] -= 1
-                    break
-                elif confirm == 2:
-                    break
-                else:
-                    invalid()
-                    continue
-            
-        elif items_choice == 4:
-            equip_weapon()
-        else:
-            invalid()
-            continue
-
-
-def stats_menu():
-    print('Stats:')
-    print(f'''
-Strength:       {player_stats["str"]} modifier: {player_mods["str mod"]}
-Dexterity:      {player_stats["dex"]} modifier: {player_mods["dex mod"]}
-Endurance:      {player_stats["end"]} modifier: {player_mods["end mod"]}
-Inteligence:    {player_stats["int"]} modifier: {player_mods["int mod"]}
-Wisdom:         {player_stats["wis"]} modifier: {player_mods["wis mod"]}
-Charisma:       {player_stats["cha"]} modifier: {player_mods["cha mod"]}
-
-Health {current_player_health}/{player_health}
-{bar(current_player_health, player_health, 15)}''')
-    cont()
-
-
-from spells import *
-
-def rest_spells_menu():
-    print('Current/Max Spell Slots:')
-    for spell_level in max_player_spell_slots.keys():
-        print(f'level {spell_level}: {current_player_spell_slots[spell_level]}/{max_player_spell_slots[spell_level]}')
-    while True:
-        num = 0
-        print('See spell descriptions (-1 to exit)')
-        for spell_level in max_player_spell_slots.keys():
-            num += 1
-            print(f'    {spell_level}.) {", ".join(player_spells[spell_level])}')
-
-        spell_level = int_input()
-
-        if spell_level == -1:
-            return
-        elif spell_level not in range(num + 1):
-            continue
- 
-        num1 = 0
-        for spell in player_spells[spell_level]:
-            num1 += 1
-            print(f'''    {num1}.) {spell_descriptions[spell]}\n''')
-        cont()
-
-
-rested = False
-
-def rest(rested):
-
-def rest_without_the_rest():
-    global player_health
-    print()
-
-    while True:
-        print('Options')
-        print(f'''    1.) Items
-    2.) Stats
-    3.) Spells
-    4.) back''')
-        rest_choice = int_input()
-        if rest_choice == 4:
-            return
-        elif rest_choice == 1:
-            rest_items_menu()
-            continue
-        elif rest_choice == 2:
-            stats_menu()
-        elif rest_choice == 3:
-            rest_spells_menu()
-        elif rest_choice == 231645:
-            player_health = -1

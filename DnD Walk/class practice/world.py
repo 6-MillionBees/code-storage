@@ -3,7 +3,8 @@
 # World Variables
 
 from dice import *
-
+from main import user
+from player_stats import skill_save
 
 # distance_traveled = 0
 
@@ -209,7 +210,7 @@ def dungeon_trap(column):
         return 0
 
     rolling('')
-    wis_save = skill_save(player_mods['wis mod'], 10 + int(difficulty / 2))
+    wis_save = skill_save(user.mods['wis mod'], 10 + int(difficulty / 2))
 
     if column == 'dart':
         int_save = False
@@ -223,7 +224,7 @@ def dungeon_trap(column):
             cont()
 
             rolling('Intelegence Save')
-            int_save = skill_save(player_mods['int mod'], 10 + int(difficulty / 3))
+            int_save = skill_save(user.mods['int mod'], 10 + int(difficulty / 3))
 
             if int_save == True:
                 print('You manage to defuse the trap, letting you move forward.')
@@ -232,7 +233,7 @@ def dungeon_trap(column):
         if wis_save == False or int_save == False:
             print('The dart trap inside of the room goes off!')
             rolling('Dexterity Save')
-            dex_save = skill_save(player_mods['dex mod'], 10 + int(difficulty / 2))
+            dex_save = skill_save(user.mods['dex mod'], 10 + int(difficulty / 2))
             if dex_save == True:
                 damage = d4()
                 print('You managed to dodge the majority of the darts!')
@@ -257,7 +258,7 @@ def dungeon_trap(column):
             cont()
 
             rolling('Strength Save')
-            str_save = skill_save(player_mods['str mod'], 10 + int(difficulty / 2))
+            str_save = skill_save(user.mods['str mod'], 10 + int(difficulty / 2))
 
             if str_save == True:
                 print('You just barely manage to jump over the gap.')
@@ -266,7 +267,7 @@ def dungeon_trap(column):
         else:
             print('You fall into a spike trap!')
             rolling('Dexterity Save')
-            dex_save = skill_save(player_mods['dex mod'], 10 + int(difficulty / 2))
+            dex_save = skill_save(user.mods['dex mod'], 10 + int(difficulty / 2))
             if dex_save == True:
                 print('You manage to flail your arms enough to keep balance')
                 print(f'You took no damage.')
@@ -379,10 +380,10 @@ def dungeon_effects(dungeon):
                         player_is_alive = dungeon_encounters(column)
                         if player_is_alive == False:
                             return
-                        print(player_exp, exp_needed)
-                        print(player_exp >= exp_needed)
-                        if player_exp >= exp_needed:
-                            level_up()
+                        print(user.current_exp, user.needed_exp)
+                        print(user.current_exp >= user.needed_exp)
+                        if user.current_exp >= user.needed_exp:
+                            user.level_up()
                         column[3] = False
                     else:
                         print('You\'ve been here before.')
@@ -397,12 +398,12 @@ def dungeon_effects(dungeon):
 
                 elif column[0] == 'trap':
                     if column[3]:
-                        current_player_health -= dungeon_trap(column[1])
-                        if current_player_health <= 0:
+                        user.current_health -= dungeon_trap(column[1])
+                        if user.current_health <= 0:
                             player_is_alive = False
                             return
                         column[3] = False
-                    print(current_player_health, player_health)
+                    print(user.current_health, user.health)
 
                 elif column[0] == 'exit':
                     column[3] = False
@@ -495,12 +496,11 @@ def movement_menu(dungeon):
     6.) Rest''')
         direction = int_input()
         if direction == 6:
-            rest(rested)
-            rested = True
+            user.rest(False)
             return dungeon
         
         elif direction == 5:
-            rest_without_the_rest()
+            user.rest(True)
             return dungeon
 
         elif direction == 1:

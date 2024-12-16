@@ -53,7 +53,7 @@ player_is_alive = True
 
 import world as w
 
-w.player_equipment['equipped weapon'] = 'handaxe'
+user.equipment['equipped weapon'] = 'handaxe'
 
 w.fight(w.slime, w.slime, w.slime, w.slime)
 
