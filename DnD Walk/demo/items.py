@@ -265,28 +265,33 @@ current: {weapon_name[player_equipment['equipped weapon']]} ({weapon_print_damag
         ynchoice = confirm()
         if ynchoice == True:
             if choice == 1:
+                var = player_equipment['equipped weapon']
                 player_equipment['equipped weapon'] = player_equipment['stored weapon 1']
-                player_equipment['stored weapon 1'] = 'empty'
+                player_equipment['stored weapon 1'] = var
                 print(f'You equip {player_equipment["equipped weapon"]}')
                 break
             elif choice == 2:
+                var = player_equipment['equipped weapon']
                 player_equipment['equipped weapon'] = player_equipment['stored weapon 2']
-                player_equipment['stored weapon 2'] = 'empty'
+                player_equipment['stored weapon 2'] = var
                 print(f'You equip {player_equipment["equipped weapon"]}')
                 break
             elif choice == 3:
+                var = player_equipment['equipped weapon']
                 player_equipment['equipped weapon'] = player_equipment['stored weapon 3']
-                player_equipment['stored weapon 3'] = 'empty'
+                player_equipment['stored weapon 3'] = var
                 print(f'You equip {player_equipment["equipped weapon"]}')
                 break
             elif choice == 4:
+                var = player_equipment['equipped weapon']
                 player_equipment['equipped weapon'] = player_equipment['stored weapon 4']
-                player_equipment['stored weapon 4'] = 'empty'
+                player_equipment['stored weapon 4'] = var
                 print(f'You equip {player_equipment["equipped weapon"]}')
                 break
             elif choice == 5:
+                var = player_equipment['equipped weapon']
                 player_equipment['equipped weapon'] = player_equipment['stored weapon 5']
-                player_equipment['stored weapon 5'] = 'empty'
+                player_equipment['stored weapon 5'] = var
                 print(f'You equip {player_equipment["equipped weapon"]}')
                 break
             elif choice == 6:

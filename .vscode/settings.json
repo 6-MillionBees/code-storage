@@ -17,7 +17,7 @@
     },
 
     "editor.fontFamily": "Cascadia Code NF, Cascadia Code, monospace",
-    "editor.fontWeight": "300",
+    "editor.fontWeight": "400",
     "comments.visible": true,
     "terminal.integrated.defaultProfile.windows": "Exoskeleton",
     "terminal.integrated.fontFamily": "Cascadia Code NF",

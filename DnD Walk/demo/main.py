@@ -53,7 +53,6 @@ while player_is_alive:
     print()
     effects = w.dungeon_effects(dungeon)
     cont()
-    from player_stats import player_exp, exp_needed
     if player_exp >= exp_needed:
         level_up()
     if effects == True:

@@ -370,7 +370,6 @@ def dungeon_effects(dungeon):
     global player_exp
     global current_player_health
     global player_is_alive
-    from player_stats import player_exp, current_player_health, player_is_alive
 
     for row in dungeon:
         for column in row:
