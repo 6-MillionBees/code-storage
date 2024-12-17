@@ -6,81 +6,9 @@ from random import randint
 from dice import *
 from items import *
 from world import luck_mod, difficulty
+from main import user
 
 # Enemies
-class enemy_npc:
-
-    def __init__(self, name, health, weapon, mods, agro, exp, score):
-        enemy_npc.name     = name
-        enemy_npc.health   = health
-        enemy_npc.weapon   = weapon
-        enemy_npc.mods     = mods
-        enemy_npc.alive    = True
-        enemy_npc.agro     = agro
-        enemy_npc.exp      = exp
-        enemy_npc.score    = score
-        enemy_npc.blocking = 1
-
-    def __str__(self):
-        return self.name
-
-    def health_calc(self):
-        self.health = self.health()
-
-
-
-    def attack(self, tohit):
-        if tohit == 'crit':
-            print('\nCritical Hit!')
-            damage = weapon_damage[self.weapon]() + self.mods[weapon_mod[self.weapon]] * 2
-            cont()
-            return damage
-        elif tohit == True:
-            print('\nAttack hit.')
-            cont()
-            return weapon_damage[self.weapon]() + self.mods[weapon_mod[self.weapon]]
-        elif tohit == False:
-            print('\nAttack missed.')
-            cont()
-            return 0
-        else:
-            print('\nAttack missed.')
-            cont()
-            return 0
-
-    def turn(self, player):
-        print('It\'s ' + self.name + '\'s turn')
-        cont()
-
-        roll = d10() + self.agro
-
-        if roll > 6:
-            print(self.name + ' is attacking.\n')
-
-            damage = self.attack(roll_to_hit(d20(), player_ac, self.mods[weapon_mod[self.weapon]]))
-            damage = round(damage * player.blocking)
-
-            if damage > 50:
-                print(f'You took {Fore.RED}{damage}{Fore.RESET} damage.')
-            else:
-                print(f'You took {damage} damage.')
-                print()
-            return 1, damage
-
-        elif roll <= 6:
-            print(self.name + ' is blocking.')
-            cont()
-            return 0.5, 0
-
-
-goblin = enemy_npc(
-    'Goblin',
-    (lambda: int((d6(1) + 6) * difficulty)),
-    'dagger',
-    {'str mod': -1, 'dex mod': 2, 'end mod': 0, 'int mod': 0, 'wis mod': -1, 'cha mod': -1},
-    5,
-    int(50 * difficulty),
-    20)
 
 # Basic
 goblin = {
@@ -178,10 +106,10 @@ godwin = {
 # loot tables
 
 def item_pickup(items):
-    global player_equipment
+    global user
     num = 0
     for drop in items[0]:
-        player_equipment[drop] += items[1][num]
+        user.equipment[drop] += items[1][num]
         print(f'You picked up {items[1][num]} {drop}')
         num += 1
 

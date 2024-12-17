@@ -171,15 +171,21 @@ def dungeon_encounters(column):
     elif column[1] == 'kyle':
         print('You walk into a room, and you see a person standing there like a weirdo.')
         print('He asks you "Is K?le spelled with an I or a Y?".')
-        answer = int_input('''    1.) "With an I!"
-    2.) "With a Y!"
-> ''')
 
-        print('He gets visibly angry with your answer and he charges at you with his sword drawn.')
-        if answer == 1:
-            encounter = fight(kyle)
-        elif answer == 2:
-            encounter = fight(kile)
+        while True:
+            answer = int_input('''    1.) "With an I!"
+        2.) "With a Y!"
+    > ''')
+            if answer == 1:
+                print('He gets visibly angry with your answer and he charges at you with his sword drawn.')
+                encounter = fight(kyle)
+                break
+            elif answer == 2:
+                print('He gets visibly angry with your answer and he charges at you with his sword drawn.')
+                encounter = fight(kile)
+                break
+            else:
+                invalid()
 
     elif column[1] == 'gronk':
         encounter = fight(gronk, lily)
@@ -482,7 +488,7 @@ def player_move_down(dungeon):
                     return dungeon
 
 
-from player_stats import rest, rest_without_the_rest, rested
+from main import user
 
 def movement_menu(dungeon):
     global rested

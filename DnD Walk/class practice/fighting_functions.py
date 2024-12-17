@@ -45,11 +45,11 @@ def attack(tohit, weapon):
     if tohit == 'crit':
         print(Fore.RED + '\nCritical' + Fore.RESET +' Hit!')
         cont()
-        return weapon_damage[weapon]() + player_mods[weapon_mod[weapon]] * 2
+        return weapon_damage[weapon]() + user.mods[weapon_mod[weapon]] * 2
     elif tohit == True:
         print('\nYour attack hit.')
         cont()
-        return weapon_damage[weapon]() + player_mods[weapon_mod[weapon]]
+        return weapon_damage[weapon]() + user.mods[weapon_mod[weapon]]
     elif tohit == False:
         print('\nYou missed.')
         cont()
@@ -73,7 +73,7 @@ def npc_turn(enemy, current_health, blocking):
     if roll > 6:
         print(enemy['name'] + ' is attacking.\n')
 
-        damage = npc_attack(roll_to_hit(d20(), player_ac, enemy[weapon_mod[enemy['weapon']]]), enemy['weapon'], enemy)
+        damage = npc_attack(roll_to_hit(d20(), user.ac, enemy[weapon_mod[enemy['weapon']]]), enemy['weapon'], enemy)
         damage = round(damage * blocking)
 
         if damage > 50:
@@ -96,9 +96,9 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
         while True:
             print('Your turn.\n')
             print(f'''Player Stats
-    Level.............{level}
-    Weapon............{weapon_name[player_equipment["equipped weapon"]]} ({weapon_print_damage[player_equipment['equipped weapon']]})
-    Health {bar(current_player_health, player_health, 20)}''')
+    Level.............{user.level}
+    Weapon............{weapon_name[user.equipment["equipped weapon"]]} ({weapon_print_damage[user.equipment['equipped weapon']]})
+    Health {bar(current_player_health, user.health, 20)}''')
             try:
                 player_turn = int(input(f'''
     1. Attack 
@@ -124,7 +124,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 
 
                 if choice == 1:
-                    damage =  attack(roll_to_hit(d20(), enemy1['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy1['ac'], user.mods[weapon_mod[user.equipment['equipped weapon']]]), user.equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy1["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -132,7 +132,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     return 'attack', damage, enemy1['name']
 
                 elif choice == 2:
-                    damage =  attack(roll_to_hit(d20(), enemy2['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy2['ac'], user.mods[weapon_mod[user.equipment['equipped weapon']]]), user.equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy2["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -140,7 +140,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     return 'attack', damage, enemy2['name']
 
                 elif choice == 3:
-                    damage =  attack(roll_to_hit(d20(), enemy3['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy3['ac'], user.mods[weapon_mod[user.equipment['equipped weapon']]]), user.equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy3["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -148,7 +148,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     return 'attack', damage, enemy3['name']
 
                 elif choice == 4:
-                    damage =  attack(roll_to_hit(d20(), enemy4['ac'], player_mods[weapon_mod[player_equipment['equipped weapon']]]), player_equipment['equipped weapon'])
+                    damage =  attack(roll_to_hit(d20(), enemy4['ac'], user.mods[weapon_mod[user.equipment['equipped weapon']]]), user.equipment['equipped weapon'])
                     if damage > 50:
                         print(f'You attack {enemy4["name"]} for {Fore.RED}{damage}{Fore.RESET}')
                     else:
@@ -188,10 +188,7 @@ from npc_stats import *
 player_dict = {'initiative': 0, 'name': 'You'}
 
 def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
-    global player_health
-    global current_player_health
-    global player_exp
-    import main
+    global user
     no_of_turns = 0
     exp = 0
 
@@ -267,7 +264,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     cont()
 
     while no_of_enemy > 0 and current_player_health > 0:
-        if player_health <= 0:
+        if user.current_health <= 0:
             break
         blocking = 1
 
@@ -307,8 +304,8 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                             else:
                                 print(f'You took {damage} damage.')
 
-                            if current_player_health > player_health:
-                                current_player_health = player_health
+                            if current_player_health > user.health:
+                                current_player_health = user.health
 
                         if target == 1 and enemy1_is_alive:
                             spell_damage = player[1][target]
@@ -413,6 +410,6 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     elif no_of_enemy == 0:
         print(Fore.GREEN + 'You Won!' + Fore.RESET)
         print(f'You gained {exp} exp')
-        player_exp += exp
-        print(bar(player_exp, exp_needed, 15, 'exp'))
+        user.exp += exp
+        print(bar(user.exp, user.needed_exp, 15, 'exp'))
         return True
