@@ -3,7 +3,6 @@
 # World Variables
 
 from dice import *
-from main import user
 from player_stats import skill_save
 
 # distance_traveled = 0
@@ -103,10 +102,9 @@ def make_dungeon():
     return dungeon
 
 
-
-
 def print_dungeon(dungeon):
     print(f'Floor {dun_level}')
+    print(f'Difficulty: {difficulty}')
     printing_dungeon = ''
     for row in dungeon:
         for column in row:
@@ -161,7 +159,7 @@ def dungeon_encounters(column):
             encounter = fight(slime, slime, slime)
         elif no_of_enemies == 4:
             encounter = fight(slime, slime, slime, slime)
-    
+
     elif column[1] == 'mixed':
         encounter = fight(goblin, kobold, slime)
 
@@ -189,7 +187,7 @@ def dungeon_encounters(column):
 
     elif column[1] == 'gronk':
         encounter = fight(gronk, lily)
-    
+
     elif column[1] == 'dangolf':
         encounter = fight(dangolf)
 
@@ -198,7 +196,7 @@ def dungeon_encounters(column):
 
     elif column[1] == 'siffrin lost':
         encounter = fight(siffrin_lost)
-    
+
     else:
         encounter = fight(goblin, goblin)
 
@@ -206,8 +204,8 @@ def dungeon_encounters(column):
 
 
 
-
 def dungeon_trap(column):
+    from main import user
 
     damage = 0
 
@@ -346,9 +344,9 @@ def dungeon_chest():
     try:
         if item[0] == 'basic':
             print(f'You obtained {item[2]} {item[1]}')
-            player_equipment[item[1]] += item[2]
+            user.equipment[item[1]] += item[2]
         elif item[0] == 'weapon':
-            pickupweapon(item[1])
+            user.pickupweapon(item[1])
     except UnboundLocalError:
         return
 
@@ -374,9 +372,8 @@ def dungeon_exit():
             invalid()
 
 def dungeon_effects(dungeon):
-    global player_exp
-    global current_player_health
-    global player_is_alive
+    from main import user
+
 
     for row in dungeon:
         for column in row:
@@ -487,11 +484,9 @@ def player_move_down(dungeon):
                     print('You move down.')
                     return dungeon
 
-
-from main import user
-
 def movement_menu(dungeon):
-    global rested
+    from main import user
+
     while True:
         print('Please pick a direction:')
         print('''    1.) Up
@@ -504,7 +499,7 @@ def movement_menu(dungeon):
         if direction == 6:
             user.rest(False)
             return dungeon
-        
+
         elif direction == 5:
             user.rest(True)
             return dungeon

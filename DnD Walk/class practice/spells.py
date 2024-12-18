@@ -8,18 +8,6 @@ from colorama import Fore
 
 spell_damage_increase = 0
 
-player_spells = { # WIP
-    0: ['acid splash', 'fire bolt',  'poison spray'],
-    1: ['burning hands', 'healing word', 'magic missile'],
-    2: ['fireball'],
-    3: [],
-    4: [],
-    5: [],
-    6: [],
-    7: [],
-    8: [],
-    9: [],
-}
 
 print_spell_level = {
     0: 'cantrips',
@@ -66,7 +54,7 @@ details: You speak a word commading the arcane to
 heal the desired wound restoring {2 + int(spell_damage_increase / 2)}d4 health.''',
 
     'burning hands': f'''{Fore.GREEN}Burning Hands, level 1, AOE, {3 + spell_damage_increase}d6 {Fore.RESET}
-details: You spread your fingers sending out a wave 
+details: You spread your fingers sending out a wave
 of flame hitting 3 adjacent enemies for {3 + spell_damage_increase}d6.''',
 
     'magic missile': f'''{Fore.GREEN}Magic Missile, level 1, multi-hit, {1 + int(spell_damage_increase / 2)}d4 + 1 {Fore.RESET}
@@ -88,10 +76,10 @@ def spells_menu():
         print('Spells:')
 
         num = 0
-        for spell_level in player_spells.keys():
-            if player_spells[spell_level] == []:
+        for spell_level in user.spells.keys():
+            if user.spells[spell_level] == []:
                 continue
-            print(f'    {num}.) {print_spell_level[num]}: {", ".join(player_spells[spell_level])} (spell slots: {current_player_spell_slots[spell_level]})')
+            print(f'    {num}.) {print_spell_level[num]}: {", ".join(user.spells[spell_level])} (spell slots: {current_player_spell_slots[spell_level]})')
             num += 1
 
         spell_level = int_input('Choose a spell level (-1 to go back): ')
@@ -112,25 +100,25 @@ def spells_menu():
             while True:
 
                 num = 0
-                for spell in player_spells[spell_level]:
+                for spell in user.spells[spell_level]:
                     num += 1
                     print(f'    {num}.) {spell}')
                 spell_choice = input('type description for spell descriptions: ')
                 if spell_choice == 'description':
                     num1 = 0
-                    for spell in player_spells[spell_level]:
+                    for spell in user.spells[spell_level]:
                         num1 += 1
                         print(f'''    {num1}.) {spell_descriptions[spell]}''')
                     cont()
                     continue
-                
+
                 try:
                     spell_choice = int(spell_choice)
                 except ValueError:
                     invalid()
                     continue
-                
-                if spell_choice in range(1, len(player_spells[spell_level]) + 1):
+
+                if spell_choice in range(1, len(user.spells[spell_level]) + 1):
                     break
                 else:
                     invalid()
@@ -140,7 +128,7 @@ def spells_menu():
                 continue
             elif spell_choice in range(1, num + 1):
                 current_player_spell_slots[spell_level] -= 1
-                return player_spells[spell_level][spell_choice - 1]
+                return user.spells[spell_level][spell_choice - 1]
             else:
                 invalid()
                 continue
@@ -149,7 +137,6 @@ def spells_menu():
             invalid()
             continue
 
-from player_stats import skill_save
 
 def cast(spell, enemies): # WIP
     if spell == 'acid splash':
@@ -160,7 +147,7 @@ def cast(spell, enemies): # WIP
 
     elif spell == 'fire bolt':
         return cast_fire_bolt(enemies)
-    
+
     elif spell == 'healing word':
         current_player_spell_slots[1] - 1
         return cast_healing_word(enemies)
@@ -168,7 +155,7 @@ def cast(spell, enemies): # WIP
     elif spell == 'magic missile':
         current_player_spell_slots[1] - 1
         return cast_magic_missile(enemies)
-    
+
     elif spell == 'burning hands':
         current_player_spell_slots[1] - 1
         return cast_burning_hands(enemies)
@@ -178,6 +165,8 @@ def cast(spell, enemies): # WIP
         return cast_fireball(enemies)
 
 
+from player_stats import skill_save
+
 def cast_acid_splash(enemies):
     print('You cast Acid Splash')
     num = 0
@@ -185,7 +174,7 @@ def cast_acid_splash(enemies):
         for enemy in enemies:
             num +=1
             print(f'{num}.) {enemy["name"]}')
-        
+
         choice = int_input('Which enemy do you attack?: ')
         if choice in range(1, len(enemies) + 1):
             break
@@ -239,7 +228,7 @@ def cast_burning_hands(enemies):
         else:
             invalid()
             continue
-    
+
     dictionary = {choice1: d6(3 + spell_damage_increase)}
     if choice0 >= 1:
         dictionary[choice0] = d6(3 + spell_damage_increase)
@@ -280,7 +269,7 @@ def cast_fire_bolt(enemies):
         for enemy in enemies:
             num +=1
             print(f'{num}.) {enemy["name"]}')
-        
+
         choice = int_input('Which enemy do you attack?: ')
         if choice in range(1, len(enemies) + 1):
             break
@@ -303,7 +292,7 @@ def cast_healing_word(enemies):
         for enemy in enemies:
             num +=1
             print(f'{num}.) {enemy["name"]}')
-        
+
         choice = int_input('Which enemy do you attack?: ')
         if choice in range(len(enemies) + 1):
             break

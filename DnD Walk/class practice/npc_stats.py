@@ -6,7 +6,6 @@ from random import randint
 from dice import *
 from items import *
 from world import luck_mod, difficulty
-from main import user
 
 # Enemies
 
@@ -47,7 +46,7 @@ la_creatura = {
 # Named
 
 lily = {
-    'name': 'Lily', 'title': '', 
+    'name': 'Lily', 'title': '',
     'health': (lambda: d6(3) + 10), 'weapon': 'lilys staff', 'ac': 8, 'exp': 250, 'agression': 0,
     'str mod': 0, 'dex mod': 1, 'end mod': 1, 'int mod': 3, 'wis mod': 2, 'cha mod': 1,
     'casting mod': 3,
@@ -55,7 +54,7 @@ lily = {
 }
 
 kile = {
-    'name': 'Kile', 'title': ', With An I', 
+    'name': 'Kile', 'title': ', With An I',
     'health': (lambda: d4(4) + 20), 'weapon': 'longsword', 'ac': 12, 'exp': 225, 'agression': 2,
     'str mod': 2, 'dex mod': 1, 'end mod': 2, 'int mod': 0, 'wis mod': 0, 'cha mod': 1,
     'casting mod': 0
@@ -104,9 +103,9 @@ godwin = {
 }
 
 # loot tables
+from main import user
 
 def item_pickup(items):
-    global user
     num = 0
     for drop in items[0]:
         user.equipment[drop] += items[1][num]
@@ -119,7 +118,7 @@ def common_table(no_of_items, enemy):
     numbers = []
     num = 0
     if enemy == dangolf:
-        pickupweapon('dangolf staff')
+        user.pickupweapon('dangolf staff')
 
     while num < no_of_items:
         rand = randint(1, 100) + luck_mod()

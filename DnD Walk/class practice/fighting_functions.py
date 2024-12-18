@@ -1,8 +1,9 @@
 from colorama import Fore
 # from random import randint
 
-from player_stats import * # IMPORT
-from items import weapon_damage, weapon_mod
+
+from npc_stats import *
+
 
 
 def roll_against(agressor_mod, agressor, defender, defender_mod):
@@ -98,10 +99,10 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
             print(f'''Player Stats
     Level.............{user.level}
     Weapon............{weapon_name[user.equipment["equipped weapon"]]} ({weapon_print_damage[user.equipment['equipped weapon']]})
-    Health {bar(current_player_health, user.health, 20)}''')
+    Health {bar(user.current_health, user.health, 20)}''')
             try:
                 player_turn = int(input(f'''
-    1. Attack 
+    1. Attack
     2. Cast
     3. Block\n'''))
             except ValueError:
@@ -111,7 +112,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
                     break
                 else:
                     invalid()
-        
+
         if player_turn == 1:
             while True:
                 enemies = [enemy1, enemy2, enemy3, enemy4]
@@ -181,14 +182,10 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 
 
 
-
-from npc_stats import *
-
 # If it ain't broke don't fix it
 player_dict = {'initiative': 0, 'name': 'You'}
 
 def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
-    global user
     no_of_turns = 0
     exp = 0
 
@@ -295,7 +292,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
                     # I have it in a for loop so it can hit a single target multiple times
                     # (magic missile)
-                    for target in player[1].keys(): 
+                    for target in player[1].keys():
                         if target == 0:
                             damage = player[1][1]()
                             current_player_health -= damage

@@ -2,8 +2,6 @@
 # 11/26/24
 # DnD walk demo (for class)
 
-from time import sleep
-
 from dice import *
 from default_functions import *
 
@@ -17,9 +15,11 @@ from default_functions import *
 # Everything to do with spells
 # Map navigation & generation
 # The entire gameplay loop
+# The Class "player"
+# A lot
 
 # You might notice that there are multiple files
-# This decision caused me so many problems and it was not worth it
+# This was a decision I made and I regret it at all times
 # It might've been a little worth it solely for the learning experience
 # Programming :D
 
@@ -45,10 +45,16 @@ print('Total Health: ', user.health)
 print('Current Health: ', user.current_health)
 cont()
 
+
+
 from world import make_dungeon
+
+
 
 dungeon = make_dungeon()
 print(f'you are here > {Fore.GREEN}+{Fore.RESET}')
+
+
 
 import world as w
 
@@ -71,9 +77,7 @@ while user.isalive:
         dungeon = make_dungeon()
         rested = False
 
-    from world import player_is_alive
-
-
+user.count_coints()
 
 score = w.dun_level * 1000 + round(user.equipment['copper pieces'] * 0.1) + user.equipment['silver pieces'] * 10 + user.equipment['gold pieces'] * 1000
 
