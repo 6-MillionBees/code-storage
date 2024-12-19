@@ -127,43 +127,45 @@ def print_dungeon(dungeon):
     print(printing_dungeon)
 
 
-from npc_stats import *
-from fighting_functions import fight
+
 
 
 def dungeon_encounters(column):
+    import npc_stats as npc
+    from fighting_functions import fight
+
     if column[1] == 'goblin':
         no_of_enemies = randint(2, 4)
         if no_of_enemies == 2:
-            encounter = fight(goblin, goblin)
+            encounter = fight(user, npc.goblin, npc.goblin)
         elif no_of_enemies == 3:
-            encounter = fight(goblin, goblin, goblin)
+            encounter = fight(user, npc.goblin, npc.goblin, npc.goblin)
         elif no_of_enemies == 4:
-            encounter = fight(goblin, goblin, goblin, goblin)
+            encounter = fight(user, npc.goblin, npc.goblin, npc.goblin, npc.goblin)
 
     elif column[1] == 'kobold':
         no_of_enemies = randint(3, 4)
         if no_of_enemies == 3:
-            encounter = fight(kobold, kobold, kobold)
+            encounter = fight(user, npc.kobold, npc.kobold, npc.kobold)
         elif no_of_enemies == 4:
-            encounter = fight(kobold, kobold, kobold, kobold)
+            encounter = fight(user, npc.kobold, npc.kobold, npc.kobold, npc.kobold)
 
     elif column[1] == 'slime':
         no_of_enemies = randint(1, 4)
         if no_of_enemies == 1:
-            encounter = fight(slime)
+            encounter = fight(user, npc.slime)
         elif no_of_enemies == 2:
-            encounter = fight(slime, slime)
+            encounter = fight(user, npc.slime, npc.slime)
         elif no_of_enemies == 3:
-            encounter = fight(slime, slime, slime)
+            encounter = fight(user, npc.slime, npc.slime, npc.slime)
         elif no_of_enemies == 4:
-            encounter = fight(slime, slime, slime, slime)
+            encounter = fight(user, npc.slime, npc.slime, npc.slime, npc.slime)
 
     elif column[1] == 'mixed':
-        encounter = fight(goblin, kobold, slime)
+        encounter = fight(user, npc.goblin, npc.kobold, npc.slime)
 
     elif column[1] == 'la cretura':
-        encounter = fight(la_creatura, slime)
+        encounter = fight(user, npc.la_creatura, npc.slime)
 
     elif column[1] == 'kyle':
         print('You walk into a room, and you see a person standing there like a weirdo.')
@@ -175,29 +177,29 @@ def dungeon_encounters(column):
     > ''')
             if answer == 1:
                 print('He gets visibly angry with your answer and he charges at you with his sword drawn.')
-                encounter = fight(kyle)
+                encounter = fight(user, npc.kyle)
                 break
             elif answer == 2:
                 print('He gets visibly angry with your answer and he charges at you with his sword drawn.')
-                encounter = fight(kile)
+                encounter = fight(user, npc.kile)
                 break
             else:
                 invalid()
 
     elif column[1] == 'gronk':
-        encounter = fight(gronk, lily)
+        encounter = fight(user, npc.gronk, npc.lily)
 
     elif column[1] == 'dangolf':
-        encounter = fight(dangolf)
+        encounter = fight(user, npc.dangolf)
 
     elif column[1] == 'siffrin traveler':
-        encounter = fight(siffrin_traveler)
+        encounter = fight(user, npc.siffrin_traveler)
 
     elif column[1] == 'siffrin lost':
-        encounter = fight(siffrin_lost)
+        encounter = fight(user, npc.siffrin_lost)
 
     else:
-        encounter = fight(goblin, goblin)
+        encounter = fight(user, npc.goblin, npc.goblin)
 
     return encounter
 
