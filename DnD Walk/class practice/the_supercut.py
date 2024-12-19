@@ -111,7 +111,7 @@ def rolling(rolling_for = ''): # this is used for drama *jazz hands*
         else:
             print(f'\rRolling {rolling_for}{xperiod}',end='')
         x += 1
-        sleep(1)
+        sleep(0.75)
     print()
 
 def roll_to_hit(roll, dc, mod): # use this in combat to check if it hit
@@ -1786,7 +1786,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
 
 
-def make_dungeon():
+def make_dungeon(difficulty):
     dungeon = []
     for row in range(WIDTH):
         dungeon.append([])
@@ -2320,7 +2320,7 @@ cont()
 
 
 
-dungeon = make_dungeon()
+dungeon = make_dungeon(difficulty)
 print(f'you are here > {Fore.GREEN}+{Fore.RESET}')
 
 

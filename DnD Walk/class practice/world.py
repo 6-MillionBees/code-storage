@@ -20,16 +20,15 @@ luck_mod = lambda: int((luck() - 10) / 2)
 WIDTH = 5
 HEIGHT = 5
 dun_level = 1
-player_is_alive = True
 
 from default_functions import *
 
-def make_dungeon():
+def make_dungeon(width, height):
     dungeon = []
-    for row in range(WIDTH):
+    for row in range(width):
         dungeon.append([])
 
-        for column in range(HEIGHT):
+        for column in range(height):
             type = randint(1, 25)
 
             if type <= 4:
