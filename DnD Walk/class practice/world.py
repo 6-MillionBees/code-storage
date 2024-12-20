@@ -248,6 +248,8 @@ def dungeon_trap(column):
                 damage = d4(3)
                 print('You don\'t manage to react in time.')
                 print(f'You took {damage} damage.')
+                if damage >= user.current_health:
+                    return damage
                 cont()
         return damage
 
@@ -276,6 +278,8 @@ def dungeon_trap(column):
             if dex_save == True:
                 print('You manage to flail your arms enough to keep balance')
                 print(f'You took no damage.')
+                exp = round(40 * difficulty)
+                print(f'You gained {exp} exp from the whole ordeal.')
             elif dex_save == False:
                 damage = d4(3)
                 print('You fell right into the traps thorny embrace.')
@@ -381,46 +385,51 @@ def dungeon_effects(dungeon):
             if column[2] == True:
                 if column[0] == 'encounter':
                     if column[3]:
-                        player_is_alive = dungeon_encounters(column)
-                        if player_is_alive == False:
-                            return
-                        print(user.current_exp, user.needed_exp)
-                        print(user.current_exp >= user.needed_exp)
-                        if user.current_exp >= user.needed_exp:
-                            user.level_up()
+                        encounter = dungeon_encounters(column)
+                        if encounter[0] == False:
+                            return 'encounter', False
+                        if encounter[0] == True:
+                            return 'encounter', encounter[1], encounter[2]
                         column[3] = False
                     else:
                         print('You\'ve been here before.')
 
                 elif column[0] == 'chest':
                     if column[3]:
-                        dungeon_chest()
+                        items = dungeon_chest()
                         column[3] = False
-                        return
+                        return 'chest',
                     else:
                         print('You\'ve been here before.')
 
                 elif column[0] == 'trap':
                     if column[3]:
-                        user.current_health -= dungeon_trap(column[1])
+                        damage = dungeon_trap(column[1])
+
                         if user.current_health <= 0:
-                            player_is_alive = False
-                            return
+                            return 'trap', damage
                         column[3] = False
                     print(user.current_health, user.health)
 
                 elif column[0] == 'exit':
                     column[3] = False
                     exit_choice = dungeon_exit()
+
                     if exit_choice == True:
-                        return True
+                        return 'exit', True
+
+                    if exit_choice == False:
+                        print('You continue')
+                        return 'exit', False
 
                 elif column[0] == 'empty':
                     print('The room is empty.')
                     column[3] = False
+                    return
 
                 elif column[0] == 'entrance':
                     print('You are at the entrance')
+                    return
 
 
 

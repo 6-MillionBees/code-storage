@@ -71,12 +71,32 @@ while user.isalive:
     effects = w.dungeon_effects(dungeon)
     cont()
 
+    if effects[0] == None:
+        pass
+    elif effects[0] == 'trap':
+        user.current_health -= effects[1]
+
+    elif effects[0] == 'encounter':
+        if effects[1] == False:
+            print('Game over :(')
+            break
+        else:
+            user.current_exp += effects[1]
+            user.current_health = effects[2]
+
+    elif effects[0] == 'exit':
+        if effects[1]:
+            dungeon = make_dungeon()
+            rested = False
+
+
+
+    print(user.current_exp, user.needed_exp)
+    print(user.current_exp >= user.needed_exp)
+
     if user.current_exp >= user.needed_exp:
         user.level_up()
 
-    if effects == True:
-        dungeon = make_dungeon()
-        rested = False
 
 user.count_coints()
 
