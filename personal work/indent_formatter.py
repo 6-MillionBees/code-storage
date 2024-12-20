@@ -30,6 +30,8 @@ while True:
   else:
     break
 
+
+
 period_index = file_start_name.index('.')
 file_end = open(file_start_name[0: period_index] + '_formatted' + file_start_name[period_index: ], 'w')
 
