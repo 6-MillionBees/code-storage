@@ -2,7 +2,8 @@ from colorama import Fore
 # from random import randint
 
 
-from npc_stats import *
+from items import *
+from main import user
 
 
 
@@ -62,9 +63,6 @@ def attack(tohit, weapon):
 
 
 
-
-from spells import * # IMPORT
-
 def npc_turn(enemy, current_health, blocking):
     print('It\'s ' + enemy['name'] + '\'s turn')
     cont()
@@ -93,6 +91,7 @@ def npc_turn(enemy, current_health, blocking):
 
 
 def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
+    from spells import cast, spells_menu
     while True:
         while True:
             print('Your turn.\n')
@@ -185,7 +184,7 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 # If it ain't broke don't fix it
 player_dict = {'initiative': 0, 'name': 'You'}
 
-def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
+def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     no_of_turns = 0
     exp = 0
 
@@ -206,7 +205,8 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     enemy3 = ''
     enemy4 = ''
 
-
+    user_current_health = player.current_health
+    user_health = player.health
     enemy1 = dict(enemy1_og)
     no_of_enemy = 1
     enemy1_is_alive = True
@@ -261,7 +261,7 @@ def fight(enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     cont()
 
     while no_of_enemy > 0 and current_player_health > 0:
-        if user.current_health <= 0:
+        if user_health <= 0:
             break
         blocking = 1
 

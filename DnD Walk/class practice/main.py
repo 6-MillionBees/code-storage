@@ -41,6 +41,7 @@ from player_stats import player
 user = player(3)
 user.define_stats()
 
+user.mods['cha']
 print('Total Health: ', user.health)
 print('Current Health: ', user.current_health)
 cont()

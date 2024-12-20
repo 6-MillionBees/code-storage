@@ -57,7 +57,7 @@ class player:
         player.isalive             = True
         player.level               = level
         player.rested              = False
-        player.stats               = {'str': 0, 'dex': 0, 'end': 0, 'int': 0, 'wis': 0, 'cha': 0}
+        player.stats               = {'str': 0, 'dex': 0, 'end': 0, 'int': 0, 'wis': 0, 'luck': 0}
         player.sdamage_increase    = 0
         player.needed_exp          = 100
         player.current_exp         = 0
@@ -66,7 +66,6 @@ class player:
         player.mods                = {}
         player.max_spell_slots     = {0: -1, 1: 3, 2: 99} # REMOVE AFTER TESTING
         player.current_spell_slots = player.max_spell_slots
-
         player.equipment           = {
     'equipped weapon': 'empty', 'stored weapon 1': 'empty', 'stored weapon 2': 'empty',
     'stored weapon 3': 'empty', 'stored weapon 4': 'empty', 'stored weapon 5': 'empty',
@@ -118,7 +117,7 @@ class player:
             3. Endurance    {self.stats["end"]}
             4. Inteligence  {self.stats["int"]}
             5. Wisdom       {self.stats["wis"]}
-            6. Charisma     {self.stats["cha"]}
+            6. Luck         {self.stats["luck"]}
         Enter a number 1-6: '''))
 
                 except ValueError:
@@ -193,7 +192,7 @@ class player:
                 elif choice == 6 and is_cha_chosen == False:
                     self.stats['cha'] = stat_roll_main
                     is_cha_chosen = True
-                    print(f'Your charisma is now {self.stats["cha"]}')
+                    print(f'Your charisma is now {self.stats["luck"]}')
                     cont()
                     break
 
@@ -207,7 +206,7 @@ class player:
             'end mod': int((self.stats['end'] - 10) / 2),
             'int mod': int((self.stats['int'] - 10) / 2),
             'wis mod': int((self.stats['wis'] - 10) / 2),
-            'cha mod': int((self.stats['cha'] - 10) / 2),}
+            'luck mod': int((self.stats['luck'] - 10) / 2),}
         self.ac = 10 + self.mods['dex mod']
 
         self.health = starting_hit_dice[self.character_class] + self.mods['end mod']
