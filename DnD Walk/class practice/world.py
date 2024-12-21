@@ -6,7 +6,6 @@ from dice import *
 from player_stats import skill_save
 
 # distance_traveled = 0
-
 karma = 1
 
 luck_bonus = 0
@@ -23,12 +22,12 @@ dun_level = 1
 
 from default_functions import *
 
-def make_dungeon(width, height):
+def make_dungeon():
     dungeon = []
-    for row in range(width):
+    for row in range(WIDTH):
         dungeon.append([])
 
-        for column in range(height):
+        for column in range(HEIGHT):
             type = randint(1, 25)
 
             if type <= 4:
@@ -130,7 +129,7 @@ def print_dungeon(dungeon):
 
 
 
-def dungeon_encounters(column):
+def dungeon_encounters(column, user):
     import npc_stats as npc
     from fighting_functions import fight
 
@@ -333,7 +332,7 @@ def dungeon_chest():
 
     elif rarity == 100:
         item_rand = randint(1, 6)
-        print('JACKPOT!!!!')
+        print(Fore.YELLOW + 'JACKPOT!!!!' + Fore.RESET)
         print('You found a Legendary chest.')
         cont()
         rolling('for goodies')
@@ -346,14 +345,7 @@ def dungeon_chest():
         elif item_rand == 6:
             item = ['weapon', 'gun']
 
-    try:
-        if item[0] == 'basic':
-            print(f'You obtained {item[2]} {item[1]}')
-            user.equipment[item[1]] += item[2]
-        elif item[0] == 'weapon':
-            user.pickupweapon(item[1])
-    except UnboundLocalError:
-        return
+    return item
 
 
 
@@ -376,8 +368,7 @@ def dungeon_exit():
         else:
             invalid()
 
-def dungeon_effects(dungeon):
-    from main import user
+def dungeon_effects(dungeon, user):
 
 
     for row in dungeon:
@@ -385,7 +376,7 @@ def dungeon_effects(dungeon):
             if column[2] == True:
                 if column[0] == 'encounter':
                     if column[3]:
-                        encounter = dungeon_encounters(column)
+                        encounter = dungeon_encounters(column, user)
                         if encounter[0] == False:
                             return 'encounter', False
                         if encounter[0] == True:
@@ -398,20 +389,24 @@ def dungeon_effects(dungeon):
                     if column[3]:
                         items = dungeon_chest()
                         column[3] = False
-                        return 'chest',
+
+                        return 'chest', items
                     else:
                         print('You\'ve been here before.')
 
                 elif column[0] == 'trap':
                     if column[3]:
                         damage = dungeon_trap(column[1])
-
-                        if user.current_health <= 0:
-                            return 'trap', damage
                         column[3] = False
-                    print(user.current_health, user.health)
+
+                        return 'trap', damage
+                    else:
+                        print('You\'ve been here before.')
+
 
                 elif column[0] == 'exit':
+                    if column[3] == False:
+                        print('You\'ve been here before.')
                     column[3] = False
                     exit_choice = dungeon_exit()
 

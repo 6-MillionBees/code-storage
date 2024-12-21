@@ -196,8 +196,6 @@ weapon_mod = {
 }
 
 
-from main import user
-
 def item_pickup(items):
     num = 0
     for drop in items[0]:
