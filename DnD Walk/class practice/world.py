@@ -502,24 +502,22 @@ def movement_menu(dungeon):
     6.) Rest''')
         direction = int_input()
         if direction == 6:
-            user.rest(False)
-            return dungeon
+            return False, False
 
         elif direction == 5:
-            user.rest(True)
-            return dungeon
+            return False, True
 
         elif direction == 1:
-            return player_move_up(dungeon)
+            return True, player_move_up(dungeon)
 
         elif direction == 2:
-            return player_move_down(dungeon)
+            return True, player_move_down(dungeon)
 
         elif direction == 3:
-            return player_move_left(dungeon)
+            return True, player_move_left(dungeon)
 
         elif direction == 4:
-            return player_move_right(dungeon)
+            return True, player_move_right(dungeon)
 
         else:
             invalid()

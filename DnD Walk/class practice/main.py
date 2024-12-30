@@ -20,18 +20,25 @@
 # It might've been a little worth it solely for the learning experience
 # Programming :D
 
-def show_scores():
-    try:
-        scores = open('scores.txt', 'r')
-    except:
-        return
+if __name__ == "__main__":
+    from colorama import Fore
+    import default_functions as d
 
-    scores_list = [int(i) for i in scores.readlines()]
-    scores_list.sort(reverse= False)
+    def show_scores():
+        try:
+            scores = open('scores.txt', 'r')
+        except:
+            return
+
+        scores_list = [int(i) for i in scores.readlines()]
+        scores_list.sort(reverse= False)
+        for score in scores_list:
+            print(score)
+
+        d.cont()
 
 
-def main():
-
+    show_scores()
 
     name = input(Fore.GREEN +'\nWhat is your name?\n' + Fore.RESET)
     name_title = name.title()
@@ -41,7 +48,7 @@ def main():
     print('I\'d say it\'s pretty good (I am very biased)' + Fore.RESET)
     print()
 
-    cont()
+    d.cont()
 
     print('To start we\'re going to assign your stats (this is permenent)')
 
@@ -53,7 +60,7 @@ def main():
 
     print('Total Health: ', user.health)
     print('Current Health: ', user.current_health)
-    cont()
+    d.cont()
 
 
 
@@ -67,10 +74,15 @@ def main():
     while user.isalive():
 
         w.print_dungeon(dungeon)
-        dungeon =w.movement_menu(dungeon)
+        movement = w.movement_menu(dungeon)
+        if movement[0] == True:
+            dungeon = movement[1]
+        elif movement[0] == False:
+            user.rest(movement[1])
+
         print()
-        effects =w.dungeon_effects(dungeon, user)
-        cont()
+        effects = w.dungeon_effects(dungeon, user)
+        d.cont()
 
         if effects[0] == None:
             pass
@@ -111,25 +123,13 @@ def main():
 
     print(f'''Score:
     Dungeon Floors ({w.dun_level}): {w.dun_level * 1000}
-    Coins (c:{user.equipment['copper pieces']}, s:{user.equipment['silver pieces']}, g: {user.equipment['gold pieces']}): {user.equipment['copper pieces'] + user.equipment['silver pieces'] * 100 + user.equipment['gold pieces'] * 1000}
-    Level({player.level}): {player.level * 100}
+    Coins (c:{user.equipment['copper pieces']}, s:{user.equipment['silver pieces']}, g: {user.equipment['gold pieces']}): {user.equipment['copper pieces'] + user.equipment['silver pieces'] * 100 + user.equipment['gold pieces'] * 1000}ftgyhujikolp
+
     difficulty({w.difficulty}): {w.difficulty * 1000}
 
     Total: {score}''')
 
-
     print()
 
-    return score
-
-
-
-
-
-if __name__ == "__main__":
-    from dice import *
-    from default_functions import *
-
-    score = main()
     save_score = open('dnd_score.txt', 'a')
     save_score.write(str(score) + '\n')

@@ -57,7 +57,7 @@ class player:
         player.level               = level
         player.rested              = False
         player.stats               = {'str': 0, 'dex': 0, 'end': 0, 'int': 0, 'wis': 0, 'luck': 0}
-        player.sdamage_increase    = 0
+        player.damage_increase     = 0
         player.needed_exp          = 100
         player.current_exp         = 0
         player.character_class     = 'fighter'
@@ -126,13 +126,13 @@ class player:
                     print(f'You rolled a {Fore.GREEN}{stat_roll_main}{Fore.RESET}!')
 
                     choice = int(input(f'''{Fore.GREEN}Which stat?{Fore.RESET}
-            1. Strength     {self.stats["str"]}
-            2. Dexterity    {self.stats["dex"]}
-            3. Endurance    {self.stats["end"]}
-            4. Inteligence  {self.stats["int"]}
-            5. Wisdom       {self.stats["wis"]}
-            6. Luck         {self.stats["luck"]}
-        Enter a number 1-6: '''))
+    1. Strength     {self.stats["str"]}
+    2. Dexterity    {self.stats["dex"]}
+    3. Endurance    {self.stats["end"]}
+    4. Inteligence  {self.stats["int"]}
+    5. Wisdom       {self.stats["wis"]}
+    6. Luck         {self.stats["luck"]}
+Enter a number 1-6: '''))
 
                 except ValueError:
                     invalid()
@@ -558,8 +558,8 @@ Health {self.current_health}/{self.health}
     def rest(self, menu):
 
         if menu: # This checks if you are rested or if you're just using the menu
-                 # If you are using the menu it ignores the rest of the statement
-            pass
+            pass # If you are using the menu it ignores the rest of the statement
+
         elif self.rested == True:
             print('Since you already rested on this floor you don\'t get any health back')
         else:
