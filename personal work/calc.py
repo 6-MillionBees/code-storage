@@ -18,6 +18,3 @@ def h(x):
   return answer
 
 print(3 * h(2) - f(-9))
-
-
-

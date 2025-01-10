@@ -10,6 +10,7 @@ pygame.init()
 version = "0.1.0"
 screen = pygame.display.set_mode([500, 500])
 pygame.display.set_caption('Coup ', version)
+clock = pygame.time.Clock()
 
 running = True
 rect = Rect(200, 200, 50, 50)
@@ -42,19 +43,15 @@ while running:
             if text1[1].collidepoint(event.pos):
                 number += 1
 
-<<<<<<< HEAD
+    text1 = render_text(str(number), 250, 250, 20)
+
     screen.fill(white)
-    text1 = render_text(str(number), 250, 250, 50)
-=======
-    text1 = render_text(str(number), 250, 250)
-    
-    window.fill(white)
     # pygame.draw.rect(window, white, rect)
->>>>>>> 880a948a19f6c5b851fb8062b68d0c52dd844754
     outline(text1[1])
     screen.blit(text1[0], text1[1])
 
 
     pygame.display.flip()
+    clock.tick(60)
 
 pygame.quit()
