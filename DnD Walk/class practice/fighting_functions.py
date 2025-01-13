@@ -401,7 +401,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
         global player_is_alive
         print(Fore.RED + 'You Died.' + Fore.RESET)
         player_is_alive = False
-        return False
+        return False, 0, current_player_health
 
     elif no_of_enemy == 0:
         print(Fore.GREEN + 'You Won!' + Fore.RESET)

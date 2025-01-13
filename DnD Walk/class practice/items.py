@@ -196,7 +196,15 @@ weapon_mod = {
 }
 
 
-def common_table(no_of_items, enemy, player):
+def item_pickup(items):
+    num = 0
+    for drop in items[0]:
+        user.equipment[drop] += items[1][num]
+        print(f'You picked up {items[1][num]} {drop}')
+        num += 1
+
+
+def common_table(no_of_items, enemy):
     drops = []
     numbers = []
     num = 0

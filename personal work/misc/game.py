@@ -33,12 +33,18 @@ score = 0
 white = (255, 255, 255)
 
 font = pygame.font.Font('CascadiaCodeNF.ttf', 15)
-text1_rect1 = font.render('click', True, white, None)
-text2_rect1 = font.render('me!', True, white, None)
-text1_rect2 = font.render('click', True, white, None)
-text2_rect2 = font.render('me!', True, white, None)
-text1_rect3 = font.render('click', True, white, None)
-text2_rect3 = font.render('me!', True, white, None)
+text1_click = font.render('click', True, white, None)
+text2_click = font.render('me!', True, white, None)
+text1_dont = font.render('don\'t', True, white, None)
+text2_dont = font.render('click me!', True, white, None)
+
+
+text1_rect1 = text1_click
+text2_rect1 = text2_click
+text1_rect2 = text1_click
+text2_rect2 = text2_click
+text1_rect3 = text1_click
+text2_rect3 = text2_click
 
 text_triple_combo = font.render('Triple Combo', True, white, None)
 text_basic_triple = font.render('Basic Triple', True, white, None)
@@ -54,10 +60,42 @@ while running:
             rect1 = Rect(randint(0, X - width), randint(0, Y - height), width, height)
             rect2 = Rect(randint(0, X - width), randint(0, Y - height), width, height)
             rect3 = Rect(randint(0, X - width), randint(0, Y - height), width, height)
+            rect1_chance = randint(1, 10)
+            rect2_chance = randint(1, 10)
+            rect3_chance = randint(1, 10)
 
-            rect1_hit = False
-            rect2_hit = False
-            rect3_hit = False
+            if rect1_chance == rect2_chance == rect3_chance == 1:
+                rect3_chance = 2
+
+            print(rect1_chance, rect2_chance, rect3_chance)
+            if rect1_chance == 1:
+                text1_rect1 = text1_dont
+                text2_rect1 = text2_dont
+                text1_rect1_pos = (rect1[0] + 3, rect1[1] + 9)
+                text2_rect1_pos = (rect1[0] + 14, rect1[1] + 23)
+                rect1_hit = True
+            else:
+                text1_rect1 = text1_click
+                text2_rect1 = text2_click
+                rect1_hit = False
+
+            if rect2_chance == 1:
+                text1_rect2 = text1_dont
+                text2_rect2 = text2_dont
+                rect2_hit = True
+            else:
+                text1_rect2 = text1_click
+                text2_rect2 = text2_click
+                rect2_hit = False
+
+            if rect3_chance == 1:
+                text1_rect3 = text1_dont
+                text2_rect3 = text2_dont
+                rect3_hit = True
+            else:
+                text1_rect3 = text1_click
+                text2_rect3 = text2_click
+                rect3_hit = False
 
         for event in pygame.event.get():
 
@@ -84,8 +122,8 @@ while running:
         screen.fill((127,127,127))
 
         pygame.draw.rect(screen, red, rect1)
-        screen.blit(text1_rect1, (rect1[0] + 3, rect1[1] + 9))
-        screen.blit(text2_rect1, (rect1[0] + 14, rect1[1] + 23))
+        screen.blit(text1_rect1, )
+        screen.blit(text2_rect1, )
 
         pygame.draw.rect(screen, red, rect2)
         screen.blit(text1_rect2, (rect2[0] + 3, rect2[1] + 9))
@@ -106,7 +144,7 @@ while running:
             if event.type == QUIT:
                 print(score)
                 running = False
-                
+
 
             elif event.type == MOUSEBUTTONDOWN:
                 if rect1.collidepoint(event.pos):

@@ -54,11 +54,10 @@ rested = False
 class player:
 
     def __init__(self, level):
-        player.isalive             = True
         player.level               = level
         player.rested              = False
         player.stats               = {'str': 0, 'dex': 0, 'end': 0, 'int': 0, 'wis': 0, 'luck': 0}
-        player.sdamage_increase    = 0
+        player.damage_increase     = 0
         player.needed_exp          = 100
         player.current_exp         = 0
         player.character_class     = 'fighter'
@@ -88,7 +87,22 @@ class player:
 }
 
 
+    def define_mods(self):
+        self.mods = {
+            'str mod': int((self.stats['str'] - 10) / 2),
+            'dex mod': int((self.stats['dex'] - 10) / 2),
+            'end mod': int((self.stats['end'] - 10) / 2),
+            'int mod': int((self.stats['int'] - 10) / 2),
+            'wis mod': int((self.stats['wis'] - 10) / 2),
+            'luck mod': int((self.stats['luck'] - 10) / 2),}
+        self.ac = 10 + self.mods['dex mod']
 
+
+    def isalive(self):
+        if self.current_health <= 0:
+            return False
+        else:
+            return True
 
 
     def define_stats(self):
@@ -112,13 +126,13 @@ class player:
                     print(f'You rolled a {Fore.GREEN}{stat_roll_main}{Fore.RESET}!')
 
                     choice = int(input(f'''{Fore.GREEN}Which stat?{Fore.RESET}
-            1. Strength     {self.stats["str"]}
-            2. Dexterity    {self.stats["dex"]}
-            3. Endurance    {self.stats["end"]}
-            4. Inteligence  {self.stats["int"]}
-            5. Wisdom       {self.stats["wis"]}
-            6. Luck         {self.stats["luck"]}
-        Enter a number 1-6: '''))
+    1. Strength     {self.stats["str"]}
+    2. Dexterity    {self.stats["dex"]}
+    3. Endurance    {self.stats["end"]}
+    4. Inteligence  {self.stats["int"]}
+    5. Wisdom       {self.stats["wis"]}
+    6. Luck         {self.stats["luck"]}
+Enter a number 1-6: '''))
 
                 except ValueError:
                     invalid()
@@ -190,9 +204,9 @@ class player:
                     cont()
                     continue
                 elif choice == 6 and is_cha_chosen == False:
-                    self.stats['cha'] = stat_roll_main
+                    self.stats['luck'] = stat_roll_main
                     is_cha_chosen = True
-                    print(f'Your charisma is now {self.stats["luck"]}')
+                    print(f'Your luck is now {self.stats["luck"]}')
                     cont()
                     break
 
@@ -200,14 +214,8 @@ class player:
                     print('Please pick a number between 1 and 6.')
                     continue
             stats_choice_num += 1
-        self.mods = {
-            'str mod': int((self.stats['str'] - 10) / 2),
-            'dex mod': int((self.stats['dex'] - 10) / 2),
-            'end mod': int((self.stats['end'] - 10) / 2),
-            'int mod': int((self.stats['int'] - 10) / 2),
-            'wis mod': int((self.stats['wis'] - 10) / 2),
-            'luck mod': int((self.stats['luck'] - 10) / 2),}
-        self.ac = 10 + self.mods['dex mod']
+
+        self.define_mods()
 
         self.health = starting_hit_dice[self.character_class] + self.mods['end mod']
         for x in range(self.level):
@@ -263,7 +271,7 @@ class player:
                     self.stats['wis'] += 1
                     break
                 elif stat_pick == 6:
-                    self.stats['cha'] += 1
+                    self.stats['luck'] += 1
                     break
                 else:
                     invalid()
@@ -550,8 +558,8 @@ Health {self.current_health}/{self.health}
     def rest(self, menu):
 
         if menu: # This checks if you are rested or if you're just using the menu
-                 # If you are using the menu it ignores the rest of the statement
-            pass
+            pass # If you are using the menu it ignores the rest of the statement
+
         elif self.rested == True:
             print('Since you already rested on this floor you don\'t get any health back')
         else:

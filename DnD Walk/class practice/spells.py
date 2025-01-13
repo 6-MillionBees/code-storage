@@ -5,8 +5,7 @@
 from default_functions import *# IMPORT
 from dice import *
 from colorama import Fore
-
-spell_damage_increase = 0
+from main import user
 
 
 print_spell_level = {
@@ -35,35 +34,35 @@ max_player_spell_slots = { # WIP
 }
 
 spell_descriptions = {
-    'acid splash': f'''{Fore.GREEN}Acid Splash, cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
+    'acid splash': f'''{Fore.GREEN}Acid Splash, cantrip, single, {1 + user.damage_increase}d6{Fore.RESET}
 details: You swing a bubble of acid towards an enemy
-dealing {1 + spell_damage_increase}d6 damage''',
+dealing {1 + user.damage_increase}d6 damage''',
 
-    'fire bolt': f'''{Fore.GREEN}Fire Bolt, cantrip, single, {1 + spell_damage_increase}d10{Fore.RESET}
+    'fire bolt': f'''{Fore.GREEN}Fire Bolt, cantrip, single, {1 + user.damage_increase}d10{Fore.RESET}
 details: You throw a small ball of fire towards one
-unlucky enemy damaging it for {1 + spell_damage_increase}d10 fire damage on a
+unlucky enemy damaging it for {1 + user.damage_increase}d10 fire damage on a
 failed dexterity save and half that on a success.''',
 
-    'poison spray': f'''{Fore.GREEN}Poison Spray, cantrip, single, {1 + spell_damage_increase}d6{Fore.RESET}
+    'poison spray': f'''{Fore.GREEN}Poison Spray, cantrip, single, {1 + user.damage_increase}d6{Fore.RESET}
 details: You send a puff of noxious gas towards two random
-enemies, they take {1 + spell_damage_increase}d6 damage on a failed constitution
+enemies, they take {1 + user.damage_increase}d6 damage on a failed constitution
 save and half that on a success.''',
 
-    'healing word': f'''{Fore.GREEN}Healing Word, level 1, healing, {2 + int(spell_damage_increase / 2)}d4{Fore.RESET}
+    'healing word': f'''{Fore.GREEN}Healing Word, level 1, healing, {2 + int(user.damage_increase / 2)}d4{Fore.RESET}
 details: You speak a word commading the arcane to
-heal the desired wound restoring {2 + int(spell_damage_increase / 2)}d4 health.''',
+heal the desired wound restoring {2 + int(user.damage_increase / 2)}d4 health.''',
 
-    'burning hands': f'''{Fore.GREEN}Burning Hands, level 1, AOE, {3 + spell_damage_increase}d6 {Fore.RESET}
+    'burning hands': f'''{Fore.GREEN}Burning Hands, level 1, AOE, {3 + user.damage_increase}d6 {Fore.RESET}
 details: You spread your fingers sending out a wave
-of flame hitting 3 adjacent enemies for {3 + spell_damage_increase}d6.''',
+of flame hitting 3 adjacent enemies for {3 + user.damage_increase}d6.''',
 
-    'magic missile': f'''{Fore.GREEN}Magic Missile, level 1, multi-hit, {1 + int(spell_damage_increase / 2)}d4 + 1 {Fore.RESET}
+    'magic missile': f'''{Fore.GREEN}Magic Missile, level 1, multi-hit, {1 + int(user.damage_increase / 2)}d4 + 1 {Fore.RESET}
 details: You fire three homing bolts of glowing blue
-magic dealing {1 + int(spell_damage_increase / 2)}d4 + {spell_damage_increase} to three enemies of your choice.''',
+magic dealing {1 + int(user.damage_increase / 2)}d4 + {user.damage_increase} to three enemies of your choice.''',
 
-    'fireball': f'''{Fore.GREEN}Fireball, level 2, AOE, {8 + int(spell_damage_increase / 2)}d6 {Fore.RESET}
+    'fireball': f'''{Fore.GREEN}Fireball, level 2, AOE, {8 + int(user.damage_increase / 2)}d6 {Fore.RESET}
 details : You throw a hurtling ball of fire that
-explodes on contact dealing {8 + int(spell_damage_increase / 2)}d6 to all enemies.'''
+explodes on contact dealing {8 + int(user.damage_increase / 2)}d6 to all enemies.'''
 }
 
 
@@ -181,7 +180,7 @@ def cast_acid_splash(enemies):
         else:
             invalid()
             continue
-    dictionary = {choice: d6(1 + spell_damage_increase)}
+    dictionary = {choice: d6(1 + user.damage_increase)}
     return dictionary
 
 def cast_magic_missile(enemies):
@@ -208,7 +207,7 @@ def cast_magic_missile(enemies):
     for target in choice:
         dictionary[target] = 0
     for target in choice:
-        damage = lambda: d4(1 + int(spell_damage_increase / 2) + 1)
+        damage = lambda: d4(1 + int(user.damage_increase / 2) + 1)
         dictionary[target] += damage()
     return dictionary
 
@@ -229,11 +228,11 @@ def cast_burning_hands(enemies):
             invalid()
             continue
 
-    dictionary = {choice1: d6(3 + spell_damage_increase)}
+    dictionary = {choice1: d6(3 + user.damage_increase)}
     if choice0 >= 1:
-        dictionary[choice0] = d6(3 + spell_damage_increase)
+        dictionary[choice0] = d6(3 + user.damage_increase)
     if choice2 <= len(enemies):
-        dictionary[choice2] = d6(3 + spell_damage_increase)
+        dictionary[choice2] = d6(3 + user.damage_increase)
     return dictionary
 
 def cast_poison_spray(enemies):
@@ -241,11 +240,11 @@ def cast_poison_spray(enemies):
     choice1 = randint(1, len(enemies))
 
     rolling('Enemy Dex Save')
-    enemy_save = skill_save(enemies[choice1 - 1]['dex mod'], 10 + (spell_damage_increase - 1))
+    enemy_save = skill_save(enemies[choice1 - 1]['dex mod'], 10 + (user.damage_increase - 1))
     if enemy_save == True:
-        dictionary = {choice1: d10(1 + spell_damage_increase) / 2}
+        dictionary = {choice1: d10(1 + user.damage_increase) / 2}
     elif enemy_save == False:
-        dictionary = {choice1: d10(1 + spell_damage_increase)}
+        dictionary = {choice1: d10(1 + user.damage_increase)}
 
     if len(enemies) == 1:
         return dictionary
@@ -254,11 +253,11 @@ def cast_poison_spray(enemies):
     while choice1 == choice2:
         choice2 = randint(1, len(enemies))
 
-    enemy_save = skill_save(enemies[choice2 - 1]['dex mod'], 10 + (spell_damage_increase - 1))
+    enemy_save = skill_save(enemies[choice2 - 1]['dex mod'], 10 + (user.damage_increase - 1))
     if enemy_save == True:
-        dictionary += {choice2: d10(1 + spell_damage_increase) / 2}
+        dictionary += {choice2: d10(1 + user.damage_increase) / 2}
     elif enemy_save == False:
-        dictionary += {choice2: d10(1 + spell_damage_increase)}
+        dictionary += {choice2: d10(1 + user.damage_increase)}
 
     return dictionary
 
@@ -277,11 +276,11 @@ def cast_fire_bolt(enemies):
             invalid()
             continue
     rolling('Enemy Dex Save')
-    enemy_save = skill_save(enemies[choice - 1]['dex mod'], 10 + (spell_damage_increase - 1))
+    enemy_save = skill_save(enemies[choice - 1]['dex mod'], 10 + (user.damage_increase - 1))
     if enemy_save == True:
-        dictionary = {choice: d10(1 + spell_damage_increase) / 2}
+        dictionary = {choice: d10(1 + user.damage_increase) / 2}
     elif enemy_save == False:
-        dictionary = {choice: d10(1 + spell_damage_increase)}
+        dictionary = {choice: d10(1 + user.damage_increase)}
     return dictionary
 
 def cast_healing_word(enemies):
@@ -299,7 +298,7 @@ def cast_healing_word(enemies):
         else:
             invalid()
             continue
-    dictionary = {choice: d4(2 + int(spell_damage_increase / 2)) * -1}
+    dictionary = {choice: d4(2 + int(user.damage_increase / 2)) * -1}
     return dictionary
 
 
