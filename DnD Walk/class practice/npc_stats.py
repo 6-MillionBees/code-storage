@@ -5,7 +5,7 @@
 from random import randint
 from dice import *
 from items import *
-from world import luck_mod, difficulty
+from world import difficulty
 
 # Enemies
 

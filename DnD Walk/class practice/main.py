@@ -74,9 +74,11 @@ while user.isalive:
     if user.current_exp >= user.needed_exp:
         user.level_up()
 
-    if effects == True:
+    if effects == 'exit':
         dungeon = make_dungeon()
         rested = False
+    elif effects == 'fight':
+        user.current_health =
 
 user.count_coints()
 
@@ -85,7 +87,8 @@ score = w.dun_level * 1000 + round(user.equipment['copper pieces'] * 0.1) + user
 print(f'''Score:
 Dungeon Floors ({w.dun_level}): {w.dun_level * 1000}
 Coins (c:{user.equipment['copper pieces']}, s:{user.equipment['silver pieces']}, g: {user.equipment['gold pieces']}): {user.equipment['copper pieces'] + user.equipment['silver pieces'] * 100 + user.equipment['gold pieces'] * 1000}
-Level({player.level}): {player.level * 100}
+Combat: {''}
+Level({user.level}): {user.level * 100}
 difficulty({w.difficulty}): {w.difficulty * 1000}
 
 Total: {score}''')

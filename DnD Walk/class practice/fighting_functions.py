@@ -1,15 +1,11 @@
-from colorama import Fore
 # from random import randint
-
-
 from items import *
-from main import user
 
 
 
 def roll_against(agressor_mod, agressor, defender, defender_mod):
-    agressor_roll = d20() + agressor[agressor_mod]
-    defender_roll = d20() + defender[defender_mod]
+    agressor_roll = d20() + agressor_mod
+    defender_roll = d20() + defender_mod
     if agressor_roll > defender_roll:
         return True
     elif agressor_roll < defender_roll:
@@ -181,12 +177,13 @@ def player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4):
 
 
 
-# If it ain't broke don't fix it
-player_dict = {'initiative': 0, 'name': 'You'}
+
 
 def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
+    player_dict = {'initiative': 0, 'name': 'You'} # If it ain't broke don't fix it
     no_of_turns = 0
     exp = 0
+    score = 0
 
     rolling('for Initiative')
     initiative = []
@@ -207,6 +204,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
 
     user_current_health = player.current_health
     user_health = player.health
+
     enemy1 = dict(enemy1_og)
     no_of_enemy = 1
     enemy1_is_alive = True
@@ -260,18 +258,15 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     print()
     cont()
 
-    while no_of_enemy > 0 and current_player_health > 0:
-        if user_health <= 0:
-            break
-        blocking = 1
+    while no_of_enemy > 0 and user_current_health > 0:
 
         for turn in initiative:
             no_of_turns += 1
-            if current_player_health <= 0:
+            if user_current_health <= 0:
                 break
 
             if turn == player_dict:
-
+                blocking = 1
                 player = player_turn(no_of_enemy, enemy1, enemy2, enemy3, enemy4)
 
                 if player[0] == 'block':
@@ -295,14 +290,14 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                     for target in player[1].keys():
                         if target == 0:
                             damage = player[1][1]()
-                            current_player_health -= damage
+                            user_current_health -= damage
                             if damage < 0:
                                 print(f'You restored {Fore.GREEN}{damage}{Fore.RESET} health.')
                             else:
                                 print(f'You took {damage} damage.')
 
-                            if current_player_health > user.health:
-                                current_player_health = user.health
+                            if user_current_health > user_health:
+                                user_current_health = user_current_health
 
                         if target == 1 and enemy1_is_alive:
                             spell_damage = player[1][target]
@@ -334,6 +329,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                     enemy1_is_alive = False
                     no_of_enemy -= 1
                     exp += enemy1['exp']
+                    score += enemy1['score']
                     print('+', enemy1['exp'], 'exp')
                     item_pickup(common_table(2, enemy1))
                     cont()
@@ -343,6 +339,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                     enemy2_is_alive = False
                     no_of_enemy -= 1
                     exp += enemy2['exp']
+                    score += enemy2['score']
                     print('+', enemy2['exp'], 'exp')
                     item_pickup(common_table(2, enemy2))
                     cont()
@@ -352,6 +349,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                     enemy3_is_alive = False
                     no_of_enemy -= 1
                     exp += enemy3['exp']
+                    score += enemy3['score']
                     print('+', enemy3['exp'], 'exp')
                     item_pickup(common_table(2, enemy3))
                     cont()
@@ -361,6 +359,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                     enemy4_is_alive = False
                     no_of_enemy -= 1
                     exp += enemy4['exp']
+                    score += enemy4['score']
                     print('+', enemy4['exp'], 'exp')
                     item_pickup(common_table(2, enemy4))
                     cont()
@@ -370,7 +369,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                 enemy1_turn = npc_turn(enemy1, enemy1_health, blocking)
                 enemy1_blocking = enemy1_turn[0]
                 damage = enemy1_turn[1] * blocking
-                current_player_health -= damage
+                user_current_health -= damage
                 if damage != 0:
                     print(f'You took {damage} damage.')
 
@@ -378,7 +377,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                 enemy2_turn = npc_turn(enemy2, enemy2_health, blocking)
                 enemy2_blocking = enemy2_turn[0]
                 damage = enemy2_turn[1] * blocking
-                current_player_health -= damage
+                user_current_health -= damage
                 if damage != 0:
                     print(f'You took {damage} damage.')
 
@@ -386,7 +385,7 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                 enemy3_turn = npc_turn(enemy3, enemy3_health, blocking)
                 enemy3_blocking = enemy3_turn[0]
                 damage = enemy3_turn[1] * blocking
-                current_player_health -= damage
+                user_current_health -= damage
                 if damage != 0:
                     print(f'You took {damage} damage.')
 
@@ -394,11 +393,11 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
                 enemy4_turn = npc_turn(enemy4, enemy4_health, blocking)
                 enemy4_blocking = enemy4_turn[0]
                 damage = enemy4_turn[1] * blocking
-                current_player_health -= damage
+                user_current_health -= damage
                 if damage != 0:
                     print(f'You took {damage} damage.')
 
-    if current_player_health <= 0:
+    if user_current_health <= 0:
         global player_is_alive
         print(Fore.RED + 'You Died.' + Fore.RESET)
         player_is_alive = False
@@ -407,6 +406,8 @@ def fight(player, enemy1_og, enemy2_og = '', enemy3_og = '', enemy4_og = ''):
     elif no_of_enemy == 0:
         print(Fore.GREEN + 'You Won!' + Fore.RESET)
         print(f'You gained {exp} exp')
-        user.exp += exp
         print(bar(user.exp, user.needed_exp, 15, 'exp'))
+        return True, exp, user_current_health
+
+    else:
         return True

@@ -196,26 +196,16 @@ weapon_mod = {
 }
 
 
-from main import user
-
-def item_pickup(items):
-    num = 0
-    for drop in items[0]:
-        user.equipment[drop] += items[1][num]
-        print(f'You picked up {items[1][num]} {drop}')
-        num += 1
-
-
-def common_table(no_of_items, enemy):
+def common_table(no_of_items, enemy, player):
     drops = []
     numbers = []
     num = 0
     from npc_stats import dangolf
     if enemy == dangolf:
-        user.pickupweapon('dangolf staff')
+        player.pickupweapon('dangolf staff')
 
     while num < no_of_items:
-        rand = randint(1, 100) + user.mods['luck mod']
+        rand = randint(1, 100) + player.mods['luck mod']
         if rand < 30:
             drops.append('copper pieces')
             numbers.append(randint(30, 90))
