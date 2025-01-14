@@ -210,10 +210,10 @@ def common_table(no_of_items, enemy):
     num = 0
     from npc_stats import dangolf
     if enemy == dangolf:
-        user.pickupweapon('dangolf staff')
+        player.pickupweapon('dangolf staff')
 
     while num < no_of_items:
-        rand = randint(1, 100) + user.mods['luck mod']
+        rand = randint(1, 100) + player.mods['luck mod']
         if rand < 30:
             drops.append('copper pieces')
             numbers.append(randint(30, 90))

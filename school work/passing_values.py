@@ -11,7 +11,7 @@ def add_squares(num1, num2):
   print(f"The sum of {num1} and {num2} is {result}")
   return result
 
-def get_int(words):
+def get_int(words): # This is very similar to the c function with the same name.
   while True:
     try:
       result = int(input(words))

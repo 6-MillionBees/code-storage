@@ -50,7 +50,11 @@ if __name__ == "__main__":
 
     d.cont()
 
-    print('To start we\'re going to assign your stats (this is permenent)')
+    if effects == 'exit':
+        dungeon = make_dungeon()
+        rested = False
+    elif effects == 'fight':
+        user.current_health =
 
     from player_stats import player
 
@@ -58,9 +62,14 @@ if __name__ == "__main__":
     user.equipment['equipped weapon'] = 'handaxe'
     user.define_stats()
 
-    print('Total Health: ', user.health)
-    print('Current Health: ', user.current_health)
-    d.cont()
+print(f'''Score:
+Dungeon Floors ({w.dun_level}): {w.dun_level * 1000}
+Coins (c:{user.equipment['copper pieces']}, s:{user.equipment['silver pieces']}, g: {user.equipment['gold pieces']}): {user.equipment['copper pieces'] + user.equipment['silver pieces'] * 100 + user.equipment['gold pieces'] * 1000}
+Combat: {''}
+Level({user.level}): {user.level * 100}
+difficulty({w.difficulty}): {w.difficulty * 1000}
+
+Total: {score}''')
 
 
 
