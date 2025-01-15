@@ -12,7 +12,7 @@ print(calc_sum(4, 9, 16, 5, 19))
 def format_message(*args:str):
   return " ".join(args)
 
-print(format_message("Words", "Words", "Words", "Split a whole into thirds", "thirds thirds"))
+print(format_message("Words Words Words", "Split a whole into thirds", "thirds thirds"))
 
 
 def average_of_numbers(*args:int):
