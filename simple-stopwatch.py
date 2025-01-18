@@ -24,7 +24,7 @@ while True:
         time_formatted = time.strftime('%H:%M:%S', time_local)
 
         if time_local == time_local_1: # A problem that I ran into is that I couldn't have the input detection run while only printing the time every second.
-            continue 
+            continue
 # I solved this by letting the loop run forever but only printing once the local time changed, as a side effect the timer can start between seconds making it slightly inaccurate.
 
         time_m = time_s / 60 # there is 100% a better way to do this but I love it so much
