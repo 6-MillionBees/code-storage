@@ -11,9 +11,9 @@ friends = {
 for key in friends:
   print(key + ":", friends[key])
 
-id_num = friends.get("placeholder", 9999)
+id_num = friends.get("placeholder", -1)
 
 print(f"\nStuden Id for Placeholder: {id_num}")
 
-if id_num == 9999:
+if id_num == -1:
   print("Requested key not found!")
