@@ -27,7 +27,8 @@ class Player:
 
   def movedown(self):
     self.current_block.cords = [(cordnate[0], cordnate[1] + 1) for cordnate in self.current_block.cords]
-    self.rects = [pg.Rect((self.grid.pos[0] + cordnate[0], self.grid.pos[1] + cordnate[1]), self.grid.sq_size) for cordnate in self.current_block.cords]
+    self.rects = [pg.Rect((self.grid.pos[0] + cordnate[0] * self.grid.sq_size[0] + 1, self.grid.pos[1] + cordnate[1] * self.grid.sq_size[0] + 1), self.grid.sq_size) for cordnate in self.current_block.cords]
 
-  def display(self):
-    pass
+  def display(self, surface):
+    for rect in self.rects:
+      pg.draw.rect(surface, self.colorscheme[self.current_block.type], rect)

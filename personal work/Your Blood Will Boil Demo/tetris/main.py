@@ -11,7 +11,10 @@ pg.init()
 clock = pg.time.Clock()
 screen = pg.display.set_mode((600, 600))
 
-MOVEDOWN = pg.event.Event(90)
+MOVEDOWN = pg.event.custom_type()
+
+title_font = pg.font.Font()
+nums_font = pg.font.Font("ragnagard.ttf", 50)
 
 GREY = (120, 120, 120)
 BLACK = (0, 0, 0)
@@ -47,8 +50,11 @@ def game_loop():
         quit()
       if event.type == MOVEDOWN:
         player.movedown()
+
     screen.fill(GREY)
     grid.display(screen)
+    player.display(screen)
+
     pg.display.flip()
 
 
@@ -63,9 +69,8 @@ def start_menu():
       if event.type == pg.MOUSEBUTTONDOWN:
         game_loop()
 
-
-
     screen.fill(GREY)
+    screen.blit(font.render("Tetris", False, DEEP_BLUE), (100, 100))
     pg.display.flip()
 
     clock.tick(60)
