@@ -11,15 +11,11 @@ class Grid:
 
     self.size = (self.columns * self.sq_size[0], self.rows * self.sq_size[1])
 
-    self.vertlines = []
-    for x in range(self.columns):
-      self.vertlines.append(pg.Rect(self.pos[0] + self.sq_size[0] * x, self.pos[1], 2, self.size[1] + 1))
-    self.vertlines.append(pg.Rect(self.pos[0] + self.sq_size[0] * self.columns + 1, self.pos[1], 2, self.size[1] + 1))
+    self.vertlines = [pg.Rect(pos[0] + square_size[0] * x, pos[1], 2, self.size[1] + 1) for x in range(columns)]
+    self.vertlines.append(pg.Rect(pos[0] + square_size[0] * columns + 1, pos[1], 2, self.size[1] + 1))
 
-    self.horilines = []
-    for x in range(self.rows):
-      self.horilines.append(pg.Rect(self.pos[0], self.pos[1] + self.sq_size[1] * x, self.size[0] + 1, 2))
-    self.horilines.append(pg.Rect(self.pos[0], self.pos[1] + self.sq_size[1] * self.rows + 1, self.size[0] + 1, 2))
+    self.horilines = [pg.Rect(pos[0], pos[1] + square_size[1] * x, self.size[0] + 1, 2) for x in range(rows)]
+    self.horilines.append(pg.Rect(pos[0], pos[1] + square_size[1] * rows + 1, self.size[0] + 1, 2))
 
 
   def display(self, surface):
