@@ -1,5 +1,5 @@
-import pygame
+my_list = [1, 4, 5, 1, 3, 2, 10]
 
-pygame.init()
+my_list.sort(reverse=True)
 
-print(pygame.font.get_default_font())
+print(my_list)
