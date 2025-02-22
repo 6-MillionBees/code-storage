@@ -82,6 +82,11 @@ if question.lower() in ['y', 'yes']:
         time.sleep(1)
     print()
     print(fortunes[fortune_rand])
+    if fortune_rand == 0:
+        print(".", end='')
+
+        time.sleep(1)
+        print(" now go home")
     if fortune_rand == 6:
         time.sleep(1)
         sys.exit('Dispite having no legs the robot manages to leave')

@@ -2,18 +2,39 @@
 # 1/8/25
 # calculator
 
-def a(*nums):
-  for x in nums:
-    print(x)
-    if x <= -6:
-      answer = abs(x -8)
-      print("|x-8| =", answer)
-    if -6 < x <= 1:
-      answer = 2*x - x**2
-      print("2*x - x**2 =", answer)
-    if x > 1:
-      answer = -4*x + 7
-      print("-4*x + 7 =", answer)
-    print()
+# def f(*args):
+#   for x in args:
+#     if x < -2:
+#       print(x**2 - 1)
+#     elif x >= -2:
+#       print(5 * x + 3)
 
-a(8, 1, -7, -3, -0.5, (9/4))
+
+# f(-5, -2, 7)
+
+
+# def g(*args):
+#   for x in args:
+#     if x <= 4:
+#       print(0.5*x + 3)
+#     if -4 < x < 1:
+#       print(-x-1)
+#     if x >= 1:
+#       print(2*(x**3) + 9)
+#     print()
+
+# g(2, -1, -6)
+
+
+def g(x):
+  if x <= -5:
+    print((x, -1))
+  if -5 < x < 1:
+    print((x, -x - 3))
+  if x >= 1:
+    print((x, 6))
+  print()
+
+
+for x in range(-10, 10):
+  g(x)

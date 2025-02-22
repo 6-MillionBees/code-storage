@@ -4,8 +4,6 @@
 
 
 def indent_formatter(file_start, file_start_name):
-
-
   file_end = open(file_start_name[0: file_start_name.index('.')] + '_indent_formatted' + file_start_name[file_start_name.index('.'): ], 'w')
 
   while True: # This while loop continues until it gets a valid input (an integer)
