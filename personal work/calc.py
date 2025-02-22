@@ -2,19 +2,18 @@
 # 1/8/25
 # calculator
 
-def f(x):
-  answer = 8 - 3*(x)
-  print(f"8 - 3*({x}) = ", answer)
-  return answer
+def a(*nums):
+  for x in nums:
+    print(x)
+    if x <= -6:
+      answer = abs(x -8)
+      print("|x-8| =", answer)
+    if -6 < x <= 1:
+      answer = 2*x - x**2
+      print("2*x - x**2 =", answer)
+    if x > 1:
+      answer = -4*x + 7
+      print("-4*x + 7 =", answer)
+    print()
 
-def g(x):
-  answer = (x)**2 + 2*(x)
-  print(f"(x)**2 + 2*({x}) = ", answer)
-  return answer
-
-def h(x):
-  answer = -5/2*(x) - 1
-  print(f"-5/2*({x}) - 1 = ", answer)
-  return answer
-
-print(3 * h(2) - f(-9))
+a(8, 1, -7, -3, -0.5, (9/4))
